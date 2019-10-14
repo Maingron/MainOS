@@ -1,0 +1,104 @@
+:root {
+  font: sans-serif;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+* {
+  transition: 0s;
+  margin: 0;
+  font-family: var(--font);
+
+}
+
+#thediv {
+  overflow: hidden;
+  position: absolute;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+#headbar {
+  height: auto;
+  padding: 0;
+  width: 100%;
+  height: auto;
+  display: flex;
+  position: relative;
+  top: 0;
+  left: 0;
+  flex-wrap: wrap;
+  overflow: visible;
+  border-bottom: 1px solid #cdcdcd;
+}
+
+#headbar p {
+  position: relative;
+  height: 100%;
+  padding-left: 5px;
+  padding-right: 5px;
+  display: inline;
+  margin: 0;
+}
+
+#headbar p:hover {
+  background-color: #bcbcef;
+}
+
+#areadiv {
+  display: inline;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  flex-grow: 6;
+  padding: 0;
+  margin: 0;
+}
+
+textarea {
+  padding-left: 5px;
+  margin: 0;
+  bottom: 0;
+  right: 0;
+  overflow: scroll;
+  position: absolute;
+  color: #000;
+  display: inline-block;
+  width: calc(100% - 5px);
+  height: 100%;
+  resize: none;
+  border: none;
+}
+
+@media screen and (max-width:300px) {
+  #headbar {
+    font-size: .7em;
+  }
+}
+
+@media screen and (max-width:200px) {
+  #headbar {
+    font-size: .5em;
+  }
+}
+
+@media screen and (max-width:165px) {
+  #headbar {
+    font-size: .3em;
+  }
+}
+
+@media screen and (max-width:125px) {
+  #headbar {
+    font-size: .2em;
+  }
+}

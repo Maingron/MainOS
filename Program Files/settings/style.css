@@ -1,0 +1,107 @@
+:root {
+  --themecolor: #222;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  font-family: var(--font);
+}
+
+h1 {
+  font-size: 40px;
+}
+
+.settingtab {
+  display: none;
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 90%;
+  width: 100%;
+  margin: 0;
+}
+
+#header {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  position: sticky;
+  z-index: 200;
+  top: 0;
+  left: 0;
+  display: none;
+  height: 40px;
+  width: 100%;
+  background-color: var(--themecolor);
+}
+
+#header button {
+  background-color: #fff;
+  border: 0;
+  width: 40px;
+  height: 40px;
+}
+
+.home {
+  background-color: #fff;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-basis: auto;
+  height: auto;
+  width: 100%;
+  text-align: center;
+  flex-grow: auto;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 50px 20px;
+}
+
+.home button {
+  position: relative;
+  width: calc(33% - 20px);
+  box-sizing: border-box;
+  min-width: 160px;
+  flex-grow: 5;
+  margin: 10px;
+  padding: 0;
+  background-color: transparent;
+  border: 2px solid #000;
+  height: 200px;
+  display: inline-block;
+  font-size: 30px;
+  word-wrap: break-word;
+}
+
+.settingtab {
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.setting {
+  padding: 10px 0;
+  border-bottom: 1px solid #666;
+}
+
+.setting .bool_range {
+  -webkit-appearance: none;
+  background-color: var(--themecolor);
+  height: 25px;
+  width: 80px;
+  border-radius: 20px;
+  border: 1px solid #fff;
+  padding: 0 5px;
+  cursor: ew-resize;
+}
+
+.setting .bool_range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background-color: #fff;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+}

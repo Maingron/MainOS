@@ -1,0 +1,88 @@
+:root {
+  font:sans-serif;
+}
+
+
+body {
+  background-color:black;
+  display:flex;
+  height:100vh;
+  width:100vw;
+  margin:0;
+  padding:0;
+}
+
+* {
+  color:white;
+  font-family:var(--font);
+  overflow:hidden;
+}
+
+.content {
+  background-color:black;
+  height:100%;
+  width:100%;
+  border:0;
+}
+
+.cookie {
+  position:relative;
+  top:50%;
+  left:50%;
+  height:55%;
+  width:30%;
+  transform:translate(-50%,-50%);
+  padding:0;
+  margin:0;
+}
+
+.cookie img {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  height:60%;
+  width:auto;
+  object-fit:contain;
+  border-radius:50%;
+}
+
+.cookie img:active {
+  box-shadow:0px 0px 10px 5px rgba(255,255,255,1),
+              0px 0px 20px 5px rgba(255,255,0,1),
+              0px 0px 30px 5px rgba(255,0,0,1);
+}
+
+.cookiecount {
+  position:absolute;
+  top:0;
+  left:0;
+  display:block;
+  text-align:center;
+  font-size:80px;
+  font-weight:bolder;
+  width:100%;
+}
+
+.version {
+  opacity:1;
+  transition:.4s;
+  position:absolute;
+  bottom:0;
+  right:0;
+}
+
+.store {
+  position:absolute;
+  left:0;
+  bottom:0;
+  height:auto;
+  max-height:500px;
+  width:100%;
+}
+
+.store a {
+  display:inline-block;
+  margin:20px;
+  text-align:center;
+}

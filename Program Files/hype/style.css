@@ -1,0 +1,105 @@
+:root {
+  --font:Sans-serif;
+}
+
+body {
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+* {
+  color: #000000;
+  font-family:var(--font);
+  font-size:14px;
+}
+
+.content {
+  position: absolute;
+  background-color: #ffffff;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display:flex;
+  flex-direction: row;
+}
+
+.left {
+  width:30%;
+  height:100%;
+  border-right:2px solid gray;
+}
+
+.right {
+  width:70%;
+  height:100%;
+  background-color:#ffffff;
+  padding:0;
+  margin:0;
+}
+
+.me {
+  width:100%;
+  min-height:52px;
+  border-bottom:2px solid gray;
+  display:flex;
+  flex-direction: row;
+  align-items:center;
+}
+
+.me * {
+  display:inline-block;
+  position:relative;
+  margin:5px;
+  top:0;
+}
+
+.me br {
+  display:block;
+  margin:3px;
+}
+
+#profileimage {
+  float:left;
+  left:0;
+  height:32px;
+  width:32px;
+  background:url("img/spritesheet1.png") 0 0;
+  border-radius:50%;
+}
+
+
+.videocall {
+  margin:0;
+  padding:0;
+  height:100%;
+  width:100%;
+  overflow:hidden;
+}
+
+
+#cam {
+  position:relative;
+  top:0;
+  left:0;
+  margin:0;
+  padding:0;
+  height:100%;
+  width:100%;
+  object-fit:cover;
+}
+
+#videocallbutton {
+  position:absolute;
+  border-radius:50%;
+  border:2px solid white;
+  background-color:blue;
+  height:48px;
+  width:48px;
+  bottom:0;
+  right:30%;
+  color:white;
+}

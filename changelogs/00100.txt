@@ -1,0 +1,58 @@
+### Core / Various
+    - Fixed Filepaths in Notifications
+    - Added Notification Log
+    - You can now open .log Files with Notepad when using Explorer
+    - Added year, month, day, date, time and full to settings.time
+    - Added setting for language
+    - Added setting for German TV stations (Available only, when language is set to German)
+    - Added ZDF and KiKA as German TV stations
+    - Added current language to Taskbar
+    - Added button to the MainOS website
+    - Switched from style.min.css to style.css
+    - Switched from script.min.js and script_async.min.js to script.js and script_async.js
+    - Switched from vars.min.js and iofs.min.js to vars.js and iofs.js
+    - Switched from createiofs.min.js to createiofs.js
+    - Removed some temporary stuff to fix specific versions from iofs.js
+    - Removed 'Use strict' from some js files
+
+### Explorer:
+    - Switched from explorerstyle.min.css to explorerstyle.css
+    - Switched from innerexplorer.min.js to innerexplorer.js
+
+### CMD:
+    - Switched from scripts.min.js to scripts.js
+    - Added title 'CMD'
+
+### Colors:
+    - Some code cleanup
+    - Removed test achivement
+    - Switched from imgstyle.min.css to imgstyle.css
+    - Added title 'colors'
+
+### Hype chat:
+    - Switched from style.min.css and script.min.js to style.css and script.js
+    - Changed title to 'Hype chat'
+    - Removed HTML lang and dir
+
+### Notepad:
+    - Switched from notepad.min.css and notepad.min.js to notepad.css and notepad.js
+    - Some code cleanup
+
+### Notifications:
+    - Changed empty title to 'Notifications'
+    - Changed from style.min.css to style.css
+    - Removed HTML dir 
+
+### Paint (Not Paint 32x32):
+    - Switched from paint.min.css and script.min.js to paint.css and script.js
+    - Some code cleanup
+    - Added title 'Paint'
+    
+### Settings beta:
+    - Switched from style.min.css to style.css
+    - Some code cleanup
+
+### Simple Cookieclicker:
+    - Added title 'Simple Cookieclicker'
+    - Switched from scripts.min.js to scripts.js
+    - Some code cleanup

@@ -1,0 +1,43 @@
+<h1>Documentation for Developers</h1>
+<h2>How to add a program and what properties to use</h2>
+<p>Under <b>C:/mainos</b> you can find a file called <b>customprograms.txt.</b> This is basically your custom repository.
+You can add a program here. Your custom repository has to be a valid JSON, else your entire custom repository won't be loaded.</p>
+
+<p>A program can have the following properties:<br>
+<b class="ppr">id</b> - The ID of your program (string)
+title - The window title of your program (string)
+icon - The path of the icon for your program (string)
+src - The path, your program is stored at (string)
+sandbox - If your program should run in a sandbox. Possible values are 0,1,2 where 0 is not sandboxed at all and 2 is very sandboxed (<b>0</b>,1,2)
+spawnicon - whether an icon should appear on the desktop or not (0,<b>1</b>)
+autostart - whether a program should start automatically (<b>0</b>,1)
+noborder - wheter a program should have a border (0,<b>1</b>)
+
+
+
+Example:
+
+{
+  "minecraft": {
+    "id": "minecraft",
+    "title": "Minecraft Classic",
+    "icon": "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/android-icon-192x192.png",
+    "src": "https://classic.minecraft.net/",
+    "sandbox":1
+  }
+}
+</p>
+
+<style>
+  body {
+    background-color:#000;
+  }
+* {
+  font-family:"Tahoma","Arial","Calibri",sans-serif;
+  color:#fff;
+}
+.ppr {
+background-color:rgba(255,255,255,.3);
+font-weight:inherit;
+}
+</style>

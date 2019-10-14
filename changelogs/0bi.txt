@@ -1,0 +1,3 @@
+This version adds the following features:
+- Increased version Number to Version 0BI (35)
+- Added Caching Manifest. MainOS can now be used offline to a certain degree

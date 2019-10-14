@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="style.css"></link>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+  <title>MainOS</title>
+  <script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js"></script>
+  <script src="mainos/vars.js"></script>
+  <script src="mainos/iofs.js"></script>
+  <link rel="shortcut icon" href="img/logo.svg" />
+
+
+
+</head>
+<body>
+  <style id='orangemodestyle'>.noorangemode {display:none}</style>
+
+  <div class="content">
+    <div id="background" class="bgck">
+      <img src="img/logo.svg" alt="" />
+      <img src="img/transparent.png" id="eggpng" />
+      <button class="speak asktts" onclick="savefile('C:/mainos/system32/settings/tts.txt',1); location.reload();">If you are using a Screen reader, please click here to enhance tts functionality</button>
+      <p class="aboutthisversion tts_mk1 noorangemode"><b class="speak">Welcome to </b><a>MainOS Version <script>document.write(mainos.version);</script></a></p>
+    </div>
+
+    <div class="overlay"></div>
+
+    <div id="icons" class="icons">
+      <button id="icon1" onclick="enterFullscreen(document.body);"><img src="img/fullscreen.svg"><p>Fullscreen</p></button>
+    </div>
+
+    <div class="programs"></div>
+
+	<div id="taskbar">
+    <button onclick="run('explorer_start');" id="start"><p>Start</p></button>
+		<div id="taskbarright">
+      <!--<a onclick="document.getElementById('notifications').lastChild.contentWindow.expand()"><img src="img/message.svg" alt="notifications"/></a>-->
+      <a class="taskbarlanguage"></a>
+			<a class="taskbartime" id="taskbartime"></a>
+		</div>
+	</div>
+
+	<iframe src="" class="preloadframe"></iframe>
+
+
+<div class="support_mainos noorangemode">
+  <p>
+    <a href="https://maingron.com/about_mainos" target="_blank">MainOS project website -&gt;</a>
+  </p>
+</div>
+
+  </div>
+
+  <script src="script.js"></script>
+  <script src="script_async.js" async></script>
+
+  <script async>
+  document.getElementsByClassName("preloadframe")[0].src = "preload.html";
+  </script>
+
+
+</body>
+
+</html>

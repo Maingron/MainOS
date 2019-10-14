@@ -1,0 +1,2 @@
+- Added wallpapers.txt to C:/Documents and Settings
+- MainOS now uses Git(hub)

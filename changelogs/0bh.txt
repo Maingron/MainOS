@@ -1,0 +1,19 @@
+This version adds the following features:
+- Increased version Number to Version 0BH
+- Added notification center but it is disabled by default. Open it by running 'run notifications'
+- Made variable 'mainos.*' a constant
+- Added deletefile() to IOfs
+- Removed progadd() from IOfs
+- Added file properties. Files can / must have now properties. Current properties: Date of last save (d=xxxx)
+- Corrected multiple errors that appeared because of the new file properties
+- Added property "autostart" to programs, default value: 0
+- Added function vari(which) - it can tell you a users name or the path for settings. As a developer, try "window.alert(parent.vari('path.user.settings'))";
+- Added function isfile(path)
+- Added function isnofile(path), which reverses the return of isfile(path)
+- Changed behavior of IOfs creation - MainOS doesn't need to be resetted anymore when updating
+- Added file property for filetype (e.g.: t=txt)
+- Added 'First Version Number' and 'Expected Version Number'. Versions are now measured in numbers
+- Added function ifjsonparse() - it parses a json string if possible, else '{}' will be returned
+- Added repository, activate it by typing in CMD 'setting repository 1' - For security reasons, yet it's disabled by default. Don't forget to restart :)
+- Fixed stuff in iofs.js
+- Added property "sandbox" to programs, default value: 0

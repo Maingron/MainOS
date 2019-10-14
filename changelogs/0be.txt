@@ -1,0 +1,13 @@
+This version adds the following features:
+- Increased version Number to Version 0BE
+- CMD History (temp file) now gets reset after every command
+- Improved CMD security
+- Added help command to cmd
+- Added close command to cmd
+- Added 0 & 1 to toggledev command in cmd
+- Removed green_hills.jpg - not more to say
+- Changed default background image to 'C:/Documents and Settings/All Users/My Documents/Images/fluent.jpg' - check out the creator at https://twitter.com/MichaelGillett :)
+- Changed background color of MainOS (remember: backgroundImage > backgroundColor)
+- Added MainOS Icon to every wallpaper
+- Added SVG favicon to MainOS
+- Removed automatic capitalization of the 1st letter on mobile devices in cmd

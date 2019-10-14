@@ -1,0 +1,13 @@
+This version adds the following features:
+- Increased version Number to Version 0BD
+- Added developer setting (IAmADeveloper.txt) to settings folder and set default value to "no"; If you are a developer, set it to "yes"
+- Added program.cmd and set it to devonly
+- Added spawnicon property to program.*, if set to 0, program won't spawn an icon
+- Added devonly property to program.*, if set to 1, program won't spawn if mainos.settings.developer is not set to 1
+- Changed program spawning technique; Programs now will spawn according to their entry in the program list
+- Added div for programs in which programs will spawn
+- Removed devonly property from cmd
+- Added commands to cmd: echo, cls, clear, run, exit, js::native - Documentation and/or help command will be added soon
+- Added commands to cmd: toggledev
+- Added rain to cmd?! - How to trigger it though? 🤔
+- Removed a bug where windows would close when resized

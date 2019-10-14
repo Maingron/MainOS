@@ -1,0 +1,10 @@
+- Removed obsolete function close()
+- Added function gooff(), which is supposed to shutdown MainOS, in most browsers this won't work though
+- Added Polyfill from polyfill.io to core (Loading from the Internet)
+- Made mainos a variable again
+- Started moving mainos vars to C:/mainos/system32/vars.dat
+- Changed path to repository
+- Removed C:/mainos/system32/settings/repositorypath.txt
+- Changed default Theme color to #222 (Gray). New installations will start with this Theme color.
+- Fixed a bug in Paint where you were able to drag pixels in Firefox
+- Made minor changes to style.css
