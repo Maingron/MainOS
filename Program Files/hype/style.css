@@ -1,24 +1,9 @@
-:root {
-  --font:Sans-serif;
-}
-
-body {
-  background-color: #ffffff;
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  width: 100vw;
-}
-
 * {
-  color: #000000;
-  font-family:var(--font);
   font-size:14px;
 }
 
 .content {
   position: absolute;
-  background-color: #ffffff;
   height: 100%;
   width: 100%;
   margin: 0;
@@ -36,7 +21,6 @@ body {
 .right {
   width:70%;
   height:100%;
-  background-color:#ffffff;
   padding:0;
   margin:0;
 }

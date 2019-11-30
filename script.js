@@ -31,13 +31,10 @@ try {
       });
       mainos = r;
     }, {});
-
 }
 
 
 function jsoncombine(which1, which2) {
-
-
   try {
     which1 = Object.assign(which1, which2);
   } catch (e) {
@@ -49,15 +46,12 @@ function jsoncombine(which1, which2) {
         });
         which1 = r;
       }, {});
-
   }
   return which1;
-
 }
 
 
 function loadsettings() {
-
   setting.username = loadfile("C:/mainos/system32/settings/username.txt");
   setting.userpath = "C:/users/" + setting.username + "/";
   setting.userdata = setting.userpath + "Program Data/";
@@ -71,6 +65,9 @@ function loadsettings() {
   setting.developer = loadsetting("developer");
   setting.themecolor = loadsetting("themecolor");
   setting.darkmode = loadsetting("darkmode");
+  setting.notsodarkmode = loadsetting("notsodarkmode");
+  setting.hovercolor = loadsetting("hovercolor");
+  setting.hovercolornontransparent = loadsetting("hovercolornontransparent");
   setting.tts = loadsetting("tts");
   setting.font = loadsetting("font");
   setting.repository = loadsetting("repository");
@@ -84,6 +81,10 @@ function loadsettings() {
 
   document.documentElement.style.setProperty("--themecolor", setting.themecolor);
   document.documentElement.style.setProperty("--font", setting.font);
+
+  document.documentElement.style.setProperty("--hovercolor",setting.hovercolor);
+  document.documentElement.style.setProperty("--hovercolornontransparent",setting.hovercolornontransparent);
+
 
 
   if (setting.developer == 1) {

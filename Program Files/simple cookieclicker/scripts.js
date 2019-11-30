@@ -106,5 +106,3 @@ function buy(which) {
   parent.savefile("C:/Program Files/Simple Cookieclicker/machines.txt", JSON.stringify(machines), 1);
 }
 
-
-document.documentElement.style.setProperty("--font", window.parent.setting.font);

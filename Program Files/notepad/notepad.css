@@ -1,18 +1,10 @@
-:root {
-  font: sans-serif;
-}
-
 body {
-  margin: 0;
   overflow: hidden;
-  background-color: #fff;
 }
 
 * {
   transition: 0s;
   margin: 0;
-  font-family: var(--font);
-
 }
 
 #thediv {
@@ -37,7 +29,6 @@ body {
   left: 0;
   flex-wrap: wrap;
   overflow: visible;
-  border-bottom: 1px solid #cdcdcd;
 }
 
 #headbar p {
@@ -50,7 +41,7 @@ body {
 }
 
 #headbar p:hover {
-  background-color: #bcbcef;
+  background-color: var(--hovercolor);
 }
 
 #areadiv {
@@ -70,35 +61,21 @@ textarea {
   bottom: 0;
   right: 0;
   overflow: scroll;
-  position: absolute;
+  overflow-x:hidden;
+  position: relative;
   color: #000;
   display: inline-block;
-  width: calc(100% - 5px);
+  width: 100%;
   height: 100%;
   resize: none;
+  box-sizing:border-box;
   border: none;
 }
 
-@media screen and (max-width:300px) {
-  #headbar {
-    font-size: .7em;
-  }
-}
-
-@media screen and (max-width:200px) {
-  #headbar {
-    font-size: .5em;
-  }
-}
-
-@media screen and (max-width:165px) {
-  #headbar {
-    font-size: .3em;
-  }
-}
-
-@media screen and (max-width:125px) {
-  #headbar {
-    font-size: .2em;
+@media (prefers-color-scheme: dark) {
+  body textarea {
+    background-color:var(--black);
+    color:#fff;
+    border:none;
   }
 }

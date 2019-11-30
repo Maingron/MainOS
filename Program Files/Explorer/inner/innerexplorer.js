@@ -1,5 +1,3 @@
-"use strict";
-
 function explorerdo(nowpath) {
   var currentpath;
   var parentpath;
@@ -32,14 +30,14 @@ function explorerdo(nowpath) {
   while (fscontentsnr < fscontents.length) {
     var mycurrentfile = fscontents[fscontentsnr];
     if (newparentpath == " /" && mycurrentfile.length == 3 && mycurrentfile.indexOf(":/") == 1) {
-      contentfiles.innerHTML = contentfiles.innerHTML + "<button href='?#' onclick='explorerdo(\"" + fscontents[fscontentsnr] + "/\")'><img src='../../../img/windows.png'></img><p>" + fscontents[fscontentsnr] + "</p></button>";
+      contentfiles.innerHTML = contentfiles.innerHTML + "<button onclick='explorerdo(\"" + fscontents[fscontentsnr] + "/\")'><img src='../../../img/windows_folder.svg'><p>" + fscontents[fscontentsnr] + "</p></button>";
     } else {
       //window.alert(mycurrentfile + ";" + mycurrentfile.indexOf(currentpath));
       if ((mycurrentfile.match(/\//g) || []).length == (newparentpath.match(/\//g) || []).length && mycurrentfile.length > 3 && mycurrentfile.indexOf(newparentpath) > -1) {
         if (mycurrentfile.indexOf(".") == mycurrentfile.length - 4) {
-          contentfiles.innerHTML = contentfiles.innerHTML + "<button href='?#' class='aonefile' onclick='//explorerdo(\"" + fscontents[fscontentsnr] + "\")'><img id='animg' src='../../../img/unknown_file.png'></img><p>" + mycurrentfile.split(newparentpath)[1] + "</p></button>";
+          contentfiles.innerHTML = contentfiles.innerHTML + "<button class='aonefile' onclick='//explorerdo(\"" + fscontents[fscontentsnr] + "\")'><img id='animg' src='../../../img/unknown_file.svg'><p>" + mycurrentfile.split(newparentpath)[1] + "</p></button>";
         } else {
-          contentfiles.innerHTML = contentfiles.innerHTML + "<button href='?#' class='aonefile' onclick='explorerdo(\"" + fscontents[fscontentsnr] + "\")'><img id='animg' src='../../../img/folder.png'></img><p>" + mycurrentfile.split(newparentpath)[1] + "</p></button>";
+          contentfiles.innerHTML = contentfiles.innerHTML + "<button class='aonefile' onclick='explorerdo(\"" + fscontents[fscontentsnr] + "\")'><img id='animg' src='../../../img/folder.svg'><p>" + mycurrentfile.split(newparentpath)[1] + "</p></button>";
         }
       }
     }
@@ -79,5 +77,3 @@ function explorerdo(nowpath) {
 }
 
 explorerdo(" ");
-
-document.documentElement.style.setProperty("--font", parent.setting.font)

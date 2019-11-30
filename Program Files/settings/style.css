@@ -1,20 +1,6 @@
-:root {
-  --themecolor: #222;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-}
-
-* {
-  font-family: var(--font);
-}
-
 h1 {
   font-size: 40px;
 }
-
 .settingtab {
   display: none;
   position: relative;
@@ -36,18 +22,17 @@ h1 {
   display: none;
   height: 40px;
   width: 100%;
-  background-color: var(--themecolor);
+  background: var(--themecolor);
 }
 
 #header button {
-  background-color: #fff;
+  background: #fff;
   border: 0;
   width: 40px;
   height: 40px;
 }
 
 .home {
-  background-color: #fff;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -69,7 +54,7 @@ h1 {
   flex-grow: 5;
   margin: 10px;
   padding: 0;
-  background-color: transparent;
+  background: transparent;
   border: 2px solid #000;
   height: 200px;
   display: inline-block;
@@ -89,7 +74,7 @@ h1 {
 
 .setting .bool_range {
   -webkit-appearance: none;
-  background-color: var(--themecolor);
+  background: var(--themecolor);
   height: 25px;
   width: 80px;
   border-radius: 20px;
@@ -100,8 +85,26 @@ h1 {
 
 .setting .bool_range::-webkit-slider-thumb {
   -webkit-appearance: none;
-  background-color: #fff;
+  background: #fff;
   border-radius: 50%;
   height: 20px;
   width: 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+
+  #header button {
+    background: #000;
+  }
+
+  .home button {
+    border-color:#fff;
+  }
+
+  .setting .bool_range::-webkit-slider-thumb {
+    background: #000;
+  }
+  
+
+  
 }

@@ -1,0 +1,96 @@
+:root {
+    --themecolor: #222;
+    --font: sans-serif;
+    --black: #000;
+    --black2: #151515;
+    --black3: #444;
+    --black4: #555;
+    --black5: #666;
+    --hovercolor: #ffaa0077;
+    --hovercolornontransparent: #ffaa00;
+    --beige: #ddb;
+    --beige2: #cca;
+    --beige3: #bb7;
+    --beige4: #fdfdfa;
+    --altbarheight:22px;
+    --altbarcolor: var(--themecolor);
+}
+
+
+body {
+    background: var(--beige4);
+    color: #000;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font);
+
+}
+
+* {
+    color: #000;
+    font-family: var(--font);
+    outline: 0;
+}
+
+*:focus, *:active {
+    outline:none !important;
+}
+
+input,
+select,
+button,
+textarea {
+    background: var(--beige4);
+    color: #000;
+}
+
+.altbar {
+    height:var(--altbarheight);
+    width:100%;
+    border-bottom:1px solid #555;
+    background:var(--beige);
+    position:sticky;
+    display:block;
+    top:0;
+    box-sizing:border-box; 
+}
+
+.toolbar {
+    border-bottom:1px solid #555;
+    background:var(--beige2);
+}
+
+.toolbar2 {
+    border-bottom:1px solid #555;
+    background:var(--beige3);
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: var(--black);
+        color: #fff;
+    }
+
+    .altbar {
+        border-top:1px solid transparent;
+        background:var(--altbarcolor);
+        border-bottom:none;
+        transition:.1s;
+    }
+    .altbar:hover {
+        border-top-color:var(--black2);
+    }
+
+    * {
+        color: #fff;
+    }
+
+    input,
+    select,
+    button,
+    textarea {
+        color: #fff;
+        background: var(--black2);
+        border: 1px solid #444;
+    }
+}

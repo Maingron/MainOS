@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="notepad.css">
+	<link rel="stylesheet" href="notepad.css">
 	<title>Notepad</title>
-	</link>
+	<script src="../../helper.js"></script>
 </head>
-
 <body>
 	<div id="thediv">
-		<div id="headbar">
-			<p><a id="savebutton" onclick="savefile();">Save as </a> <input type="text" id="filename1" placeholder="Filename"></input></p>
+		<div id="headbar" class="altbar">
+			<p><a id="savebutton" onclick="savefile()">Save as </a> <input type="text" id="filename1" placeholder="Filename"></input></p>
 			<p><a onclick="window.parent.run('explorer')">Open File</a></p>
 			<p style="opacity:.4">View</p>
 			<p style="opacity:.4">Help</p>

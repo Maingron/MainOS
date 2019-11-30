@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="../../helper.js"></script>
   <title>Settings - Beta</title>
 </head>
 
@@ -44,7 +45,7 @@
         <div class="setting">
           <h3>Background Image</h3>
           <input class="settinginput" onchange="setting_send(this, 'backgroundimage')" title="backgroundimage"
-            type="url"></input>
+            type="text"></input>
         </div>
 
         <div class="setting">
@@ -52,6 +53,28 @@
           <input class="settinginput bool_range" onchange="setting_send(this, 'darkmode');" title="darkmode"
             type="range" max="1" min="0"></input>
         </div>
+
+        <div class="setting">
+          <h3>Darkmode (v2)</h3>
+          <select disabled>
+            <option>Automatic</option>
+          </select>
+        </div>
+
+        <div class="setting">
+          <h3>More Settings for the Darkmode (v2)</h3>
+          <p>The not so dark-mode</p>
+          <input class="settinginput bool_range" onchange="setting_send(this, 'notsodarkmode');" title="notsodarkmode" type="range" max="1" min="0"></input>
+        </div>
+
+        <div class="setting">
+            <h3>Hover Color</h3>
+            <input class="settinginput" onchange="setting_send(this, 'hovercolor')" title="hovercolor" type="text"></input>
+          </div>
+          <div class="setting">
+              <h3>Hover Color (Non Transparent variant)</h3>
+              <input class="settinginput" onchange="setting_send(this, 'hovercolornontransparent')" title="hovercolornontransparent" type="text"></input>
+            </div>
 
         <div class="setting">
           <h3>Preferred Language</h3>

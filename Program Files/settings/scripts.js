@@ -34,8 +34,3 @@ var all_settings = document.getElementsByClassName("settinginput");
 for (i = 0; i < all_settings.length; i++) {
   all_settings[i].value = parent.loadfile(parent.setting.settingpath + all_settings[i].title + ".txt");
 }
-
-
-
-document.documentElement.style.setProperty("--themecolor", window.parent.setting.themecolor);
-document.documentElement.style.setProperty("--font", window.parent.setting.font);

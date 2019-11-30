@@ -2,7 +2,6 @@ var objects = {};
 var cls = 0;
 objects.content = document.getElementsByClassName("content")[0];
 
-
 objects.content.innerHTML = "<p class=\"cmdoutput\"></p><form autocapitalize='off' onsubmit=\"cmdsubmit();\"><input class='cmdinput'></input></form>";
 
 objects.cmdinput = document.getElementsByClassName("cmdinput")[0];
@@ -27,12 +26,12 @@ function cmdsubmit() {
       window.parent.savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + escapeHtml(objects.cmdinput.value), 1, "t=txt");
       cls = 0;
     } else {
-      window.parent.savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + escapeHtml(objects.cmdinput.value) + "<br />", 1, "t=txt");
+      window.parent.savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + escapeHtml(objects.cmdinput.value) + "<br>", 1, "t=txt");
 
     }
 
   } else {
-    window.parent.savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + escapeHtml(objects.cmdinput.value) + "<br />" + response + "<br />", 1, "t=txt");
+    window.parent.savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + escapeHtml(objects.cmdinput.value) + "<br>" + response + "<br>", 1, "t=txt");
 
   }
 
@@ -41,7 +40,7 @@ function cmdsubmit() {
 
 function runcmd(which) {
   if (parent.setting.tts == 1) {
-    objects.cmdoutput.innerHTML = "Last command: <br />";
+    objects.cmdoutput.innerHTML = "Last command: <br>";
   }
 
   if (which.indexOf("md:") != 1) {
@@ -67,7 +66,7 @@ function runcmd(which) {
     var result = "";
     for (j = 0; parent.pid.length > j; j++) {
       if (parent.pid[j] && parent.pid[j].length > 0) {
-        result = result + "<br />" + j + "=" + parent.pid[j];
+        result = result + "<br>" + j + "=" + parent.pid[j];
       }
     }
     return result;
@@ -107,12 +106,11 @@ function runcmd(which) {
 
 
   if (which.indexOf("help") == 4) {
-    return "<b class='helpb' style='font-weight:inherit'><b>cls</b> clears console<br/><b>echo <a>[Message]</a></b> well, it's echo...<br/><b>run <b>[name of program]</b></b> opens a program<br/><b>close <b>[pid of program]</b></b> closes a program<br/><b>pids </b> lists currently running programs<br/><b>exit</b> closes the terminal<br/><b>setting <b> [Name of setting] [value]</b></b> changes a setting<br /><b>restart</b> restarts MainOS<br /><b>toggledev <a>[boolean]</a></b> activates or deactivates the developer mode</b><p style='display:block;line-height:18px;'>&nbsp;</p><b class='helpb'>devmode commands:<br/><b>js <b>js</b></b> executes js<br />";
+    return "<b class='helpb' style='font-weight:inherit'><b>cls</b> clears console<br><b>echo <a>[Message]</a></b> well, it's echo...<br><b>run <b>[name of program]</b></b> opens a program<br><b>close <b>[pid of program]</b></b> closes a program<br><b>pids </b> lists currently running programs<br><b>exit</b> closes the terminal<br><b>setting <b> [Name of setting] [value]</b></b> changes a setting<br><b>restart</b> restarts MainOS<br><b>toggledev <a>[boolean]</a></b> activates or deactivates the developer mode</b><p style='display:block;line-height:18px'>&nbsp;</p><b class='helpb'>devmode commands:<br><b>js <b>js</b></b> executes js<br>";
   }
 
   if (which.indexOf("toggledev") == 4) {
     cls = 1;
-
     if (which.indexOf("toggledev 0") == 4 || which.indexOf("toggledev false") == 4) {
 
       window.parent.savefile("C:/mainos/system32/settings/developer.txt", 0, 1, "t=txt");
@@ -122,12 +120,10 @@ function runcmd(which) {
 
     }
     if (which.indexOf("toggledev 1") == 4 || which.indexOf("toggledev true") == 4) {
-
       window.parent.savefile("C:/mainos/system32/settings/developer.txt", 1, 1, "t=txt");
       window.parent.location.reload();
       runcmd("cmd:exit");
       return ("");
-
     }
 
     if (window.parent.setting.developer == 0) {
@@ -141,7 +137,7 @@ function runcmd(which) {
   }
 
   if (which.indexOf("toggledownfall") == 4) {
-    return "<b style='color:#ff5555; font-weight:inherit;'>Command not found. Try /mc:help to get help.</b>";
+    return "<b style='color:#f55; font-weight:inherit'>Command not found. Try /mc:help to get help.</b>";
   }
 
 
@@ -166,9 +162,7 @@ function runcmd(which) {
       return "You have to activate the developer mode to enable js commands. Be careful though!";
     }
   }
-
   return "Command not defined";
-
 }
 
 

@@ -1,8 +1,4 @@
-:root {
-  font: sans-serif; }
-
 body {
-  background-color: black;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -17,7 +13,6 @@ body {
   overflow: hidden; }
 
 .content {
-  background-color: black;
   height: 100%;
   width: 100%;
   border: 0; }
@@ -48,8 +43,8 @@ body {
   border-radius: 50%; }
 
 .cookie img:active {
-  -webkit-box-shadow: 0px 0px 10px 5px white, 0px 0px 20px 5px yellow, 0px 0px 30px 5px red;
-  box-shadow: 0px 0px 10px 5px white, 0px 0px 20px 5px yellow, 0px 0px 30px 5px red; }
+  -webkit-box-shadow: 0px 0px 10px 5px var(--hovercolornontransparent), 0px 0px 20px 5px var(--hovercolor), 0px 0px 30px 5px var(--hovercolor);
+  box-shadow: 0px 0px 10px 5px var(--hovercolornontransparent), 0px 0px 20px 5px var(--hovercolor), 0px 0px 30px 5px var(--hovercolor); }
 
 .cookiecount {
   position: absolute;
