@@ -11,6 +11,9 @@ body, input {
   width: 100%;
   min-height: 100vh; }
 
+head, head * {
+  display: none; }
+
 * {
   margin: 0;
   padding: 0;
