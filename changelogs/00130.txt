@@ -5,7 +5,8 @@
     - Removed mainos/createiofs_async.js
     - Removed mainos/iofs.min.js
     - Made body background color transparent in helper.css, instead the program frames now have the background color
-
+    - Removed TTS optimized mode entirely; Will reimplement later
+    
 ### Colors
     - Changes to inline styles
     - Added helper.js and helper.css

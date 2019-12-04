@@ -39,9 +39,6 @@ function cmdsubmit() {
 }
 
 function runcmd(which) {
-  if (parent.setting.tts == 1) {
-    objects.cmdoutput.innerHTML = "Last command: <br>";
-  }
 
   if (which.indexOf("md:") != 1) {
     return "error";

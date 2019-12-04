@@ -657,16 +657,6 @@ if (setting.default_fullscreen == 1) {
 }
 
 
-if (setting.tts == 1) {
-  objects.tts_script = document.createElement("script");
-  objects.tts_script.src = "mainos/tts.js";
-  document.body.appendChild(objects.tts_script);
-
-} else {
-  function make_tts() {};
-}
-
-
 
 document.getElementById("background").style.backgroundImage = "url(" + setting.backgroundimage + ")";
 
