@@ -6,6 +6,8 @@
     - Removed mainos/iofs.min.js
     - Made body background color transparent in helper.css, instead the program frames now have the background color
     - Removed TTS optimized mode entirely; Will reimplement later
+    - Added context menu functions to helper.js
+    - Set functions window.alert() and alert() to parent.notification() in helper.js
 
 ### Colors
     - Changes to inline styles
@@ -20,3 +22,6 @@
 
 ### CMD 
     - Changed CSS to hide accidentally displayed stuff
+
+### Explorer
+    - Added context menu

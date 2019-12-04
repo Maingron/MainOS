@@ -36,6 +36,11 @@
 
   });
 
+  window.alert = alert = parent.notification;
+
+
+
+
   function spawnContextMenu(content) {
     if(document.getElementsByClassName("contextMenu")[0]) {
       document.getElementsByClassName("contextMenu")[0].outerHTML = "";
@@ -45,9 +50,6 @@
     newelement.style.left = data.system.mouse.x + "px";
     newelement.style.top = data.system.mouse.y + "px";
     document.body.append(newelement);
-
-
-
 
     for(var i = 0; content.length > i; i++) {
       newelement = document.getElementsByClassName("contextMenu")[0];
