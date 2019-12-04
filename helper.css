@@ -84,8 +84,6 @@ textarea {
 
 .contextMenu a {
     display:block;
-    /* border-bottom:1px solid var(--themecolor); */
-    color:#000;
     padding:3px 10px;
     text-decoration:none;
     cursor:pointer;
@@ -130,6 +128,17 @@ textarea {
         border: 1px solid #444;
     }
 
+    .contextMenu {
+        background:var(--black2);
+    }
+    
+    .contextMenu a {
+        color:#fff;
+    }
+    .contextMenu a:last-of-type {
+        border-bottom:none;
+    }
+    
     ::-webkit-scrollbar {
         background:var(--black);
         width:initial;
