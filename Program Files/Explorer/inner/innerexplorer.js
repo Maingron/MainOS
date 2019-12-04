@@ -77,3 +77,7 @@ function explorerdo(nowpath) {
 }
 
 explorerdo(" ");
+
+function contextMenu(event) {
+  spawnContextMenu([["Properties","","disabled"]])
+}
