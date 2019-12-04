@@ -1,31 +1,22 @@
 * {
-    transition: 2s;
-    transition-timing-function: ease-out
-}
-
-body {
-    margin: 0;
-    background: #000
+    transition: 2s ease-out;
 }
 
 #imgs {
     display: flex;
-    flex-wrap: wrap
+    flex-wrap: wrap;
 }
 
 #imgs div {
     display: inline;
     position: relative;
-    top: 0;
     width: calc(33.33% - 4px);
     margin: 2px;
     padding: 0;
     height: 33vw;
     max-height: 80vh;
     float: left;
-    border-style: none;
-    border-width: 0;
-    border-radius: 0;
+    border: none;
     object-fit: cover;
     filter: grayscale(.2)
 }

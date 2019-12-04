@@ -1,5 +1,5 @@
-document.write("<link rel='stylesheet' type='text/css' href='../../helper.css'>");
-document.write("<link rel='stylesheet' type='text/css' href='../../../helper.css'>");
+// document.write("<link rel='stylesheet' type='text/css' href='../../helper.css'>");
+// document.write("<link rel='stylesheet' type='text/css' href='../../../helper.css'>");
 
   
 	document.documentElement.style.setProperty("--themecolor",window.parent.setting.themecolor);

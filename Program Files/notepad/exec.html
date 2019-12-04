@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="notepad.css">
 	<title>Notepad</title>
+	<link rel="stylesheet" href="../../helper.css">
 	<script src="../../helper.js"></script>
 </head>
 <body>
@@ -11,8 +12,6 @@
 		<div id="headbar" class="altbar">
 			<p><a id="savebutton" onclick="savefile()">Save as </a> <input type="text" id="filename1" placeholder="Filename"></input></p>
 			<p><a onclick="window.parent.run('explorer')">Open File</a></p>
-			<p style="opacity:.4">View</p>
-			<p style="opacity:.4">Help</p>
 		</div>
 		<div id="areadiv">
 			<textarea id="textcontent"></textarea>

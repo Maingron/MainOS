@@ -612,3 +612,11 @@ iframe {
     width: 100%;
   }
 }
+
+@media (prefers-color-scheme:dark) {
+  .program {
+    iframe {
+      background-color: var(--black);
+    }  
+  }
+}

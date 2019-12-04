@@ -57,7 +57,7 @@ function explorerdo(nowpath) {
       mylistedfile_img.src = "../../../Program%20Files/notepad/icon.png";
     }
     if (mylistedfile_inner.indexOf(".dat") == mylistedfile_inner.length - 4) {
-      mylistedfile_img.src = "../../../img/unknown_file.png";
+      mylistedfile_img.src = "../../../img/unknown_file.svg";
     }
     if (mylistedfile_inner.indexOf(".xec") == mylistedfile_inner.length - 4) {
       mylistedfiles[mylistedfilesnr].setAttribute("onClick", "window.parent.run('" + mylistedfile_inner.split('.xec')[0] + "')");
@@ -66,7 +66,7 @@ function explorerdo(nowpath) {
 
     if (mylistedfile_inner.indexOf(".del") == mylistedfile_inner.length - 4) {
       mylistedfiles[mylistedfilesnr].setAttribute("onClick", "window.parent.formatfs('yes')");
-      mylistedfile_img.src = "../../../img/unknown_file.png";
+      mylistedfile_img.src = "../../../img/unknown_file.svg";
     }
 
 

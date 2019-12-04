@@ -1,8 +1,35 @@
+var mainos = {};
+mainos.versionnr = 124;
+mainos.versionnrstring = "00" + mainos.versionnr;
+mainos.version = mainos.versionnr;
+mainos.versionlt = "0CC";
+mainos.settings = {};
+
+var ismainos = 1;
+var appdata = "C:/Documents and Settings/appdata";
+var setting = {};
+
+/*
+0BN - 00090
+0BO - 00100
+00110+ = 0CC
+*/
+
+
+
+
+
 function listfs(path) {
-  var mylist = "";
-  for (i=0; i<Object.keys(localStorage).length; i++) {
-    mylist = mylist + Object.keys(localStorage)[i] + ",";
-    mylist = mylist.split(",");
+  if (!path) {
+    path = "";
+  }
+  var mylist = [];
+  for (i = 0; i < Object.keys(localStorage).length; i++) {
+    mylist.push(Object.keys(localStorage)[i]);
+    if (Object.keys(localStorage)[i].indexOf(path) != -1) {
+    } else {
+      mylist.pop();
+    }
   }
   return mylist;
 }
@@ -44,8 +71,7 @@ function savefile(path, content, override, attr) {
   if (override == "undefined" || override == "null") {
     override = 0;
   }
-  if (!override && isfile(path)) {
-  } else {
+  if (!override && isfile(path)) {} else {
     localStorage.setItem(path, attr + "***" + content);
   }
 }

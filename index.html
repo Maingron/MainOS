@@ -4,13 +4,9 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
+    <script src="mainos/iofs.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
     <title>MainOS</title>
-    <script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js"></script>
-    <script src="mainos/vars.js"></script>
-    <script src="mainos/iofs.js"></script>
-    <script src="helper.js"></script>
-
     <link rel="shortcut icon" href="img/logo.svg">
 </head>
 
@@ -26,11 +22,10 @@
             <img src="img/logo.svg" alt="">
             <img src="img/transparent.png" id="eggpng">
             <button class="speak asktts"
-                onclick="savefile('C:/mainos/system32/settings/tts.txt',1); location.reload()">If you are using a Screen
-                reader, please click here to enhance tts functionality</button>
-            <p class="aboutthisversion tts_mk1 noorangemode"><b class="speak">Welcome to </b><a>MainOS Version <script>
-                        document.write(mainos.version)
-                    </script></a></p>
+                onclick="savefile('C:/mainos/system32/settings/tts.txt',1); location.reload()">If you are using a Screen reader, please click here to enhance tts functionality</button>
+
+            <p class="aboutthisversion tts_mk1 noorangemode"><b class="speak">Welcome to </b>
+            <a>MainOS Version <script>document.write(mainos.version)</script></a></p>
         </div>
 
         <div class="overlay"></div>
@@ -53,8 +48,7 @@
             </div>
         </div>
 
-        <iframe src="" class="preloadframe"></iframe>
-
+        <iframe src="" class="preloadframe" async></iframe>
 
         <div class="support_mainos noorangemode">
             <p>
@@ -63,11 +57,12 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
-    <script src="script_async.js" async></script>
+    <script src="scripts.js"></script>
     <script async>
         document.getElementsByClassName("preloadframe")[0].src = "preload.html"
     </script>
+    <script src="helper.js"></script>
+
 </body>
 
 </html>

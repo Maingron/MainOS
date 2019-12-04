@@ -18,7 +18,8 @@
 
 
 body {
-    background: var(--beige4);
+    /* background: var(--beige4); */
+    background: transparent;
     color: #000;
     margin: 0;
     padding: 0;
@@ -65,9 +66,14 @@ textarea {
     background:var(--beige3);
 }
 
+
+  
+
+
 @media (prefers-color-scheme: dark) {
     body {
-        background: var(--black);
+        /* background: var(--black); */
+        background: transparent;
         color: #fff;
     }
 
@@ -93,4 +99,17 @@ textarea {
         background: var(--black2);
         border: 1px solid #444;
     }
+
+    ::-webkit-scrollbar {
+        background:var(--black);
+        width:initial;
+    }
+    ::-webkit-scrollbar-thumb {
+        background:var(--black3);
+        border:1px solid var(--themecolor)
+    }
+    ::-webkit-scrollbar-corner {
+        background:var(--black);
+    }
+
 }

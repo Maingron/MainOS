@@ -1,0 +1,18 @@
+### Core / Various
+    - Removed Polyfill
+    - Combined mainos/vars.js and mainos/iofs.js into mainos/iofs.js
+    - Combined script.js and script_async.js into scripts.js
+    - Removed mainos/createiofs_async.js
+    - Removed mainos/iofs.min.js
+    - Made body background color transparent in helper.css, instead the program frames now have the background color
+
+### Colors
+    - Changes to inline styles
+    - Added helper.js and helper.css
+    - Changes to CSS
+
+### Hype Chat
+    - Changes to CSS
+
+### Notepad
+    - Removed non-functional stuff from Altbar
