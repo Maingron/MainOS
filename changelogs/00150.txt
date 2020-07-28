@@ -1,0 +1,3 @@
+### Core / Various
+    - Remove NES Program
+    - Fix scaling of elements on Desktop
