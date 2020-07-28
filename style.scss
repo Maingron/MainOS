@@ -398,8 +398,8 @@ iframe {
     overflow: hidden;
     width: 70px;
     height: 100px;
-    display: inline-block;
-    justify-content: center;
+    display: flex;
+    justify-content: start;
     background-color: transparent;
     flex-flow:column;
     border: 0;
