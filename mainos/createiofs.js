@@ -228,15 +228,7 @@ program.germantv_kika = {
  "src": "https://www.kika.de/kika-live/index.html",
  "spawnicon": 1,
  "germantv": 1
-},
-
-program.nes = {
-    "id": "nes",
-    "title": "NES",
-    "icon": "",
-    "src": "Program%20Files/NES/exec.html",
-    "spawnicon": 1
-   }
+}
 
 
 
