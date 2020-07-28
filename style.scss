@@ -616,12 +616,33 @@ iframe {
     width: 100%;
   }
 
+  .support_mainos {
+    bottom: 17.5px;
+    right: 42vw;
+    display: inline;
+    position: absolute;
+    background: var(--themecolor);
+    transition: .2s;
+    font-size:10px;
+  }
+
+  .aboutthisversion {
+    font-size:.7em;
+    margin:0;
+  }
+
+  #background img {
+    width:25px;
+    height:25px;
+    bottom:25px;
+    left:10px;
+  }
 }
 
 @media (prefers-color-scheme:dark) {
   .program {
     iframe {
       background-color: var(--black);
-    }  
+    }
   }
 }
