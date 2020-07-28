@@ -398,14 +398,16 @@ iframe {
     overflow: hidden;
     width: 70px;
     height: 100px;
-    display: inline-flex;
+    display: inline-block;
     justify-content: center;
     background-color: transparent;
+    flex-flow:column;
     border: 0;
     padding: 0;
     p {
-
       color:#fff;
+      margin-bottom:0;
+      margin-top:3px;
     }
 
 
@@ -416,26 +418,28 @@ iframe {
   }
 
   img {
-    position: absolute;
-    left: 2px;
-    top: 2px;
+    position: relative;
+    left: 0;
+    top: 0;
     margin: 0;
-    display: inline-block;
+    padding:4px;
+    box-sizing: border-box;
+    display: block;
     height: auto;
-    max-height: 60px;
-    width: calc(100% - 4px);
+    width: inherit;
     object-fit: contain;
+    min-height:70%;
   }
 
   p {
-    left: 2px;
-    top: 60px;
+    left: 0;
+    top: 70px;
     text-align: center;
     font-size: 0.85em;
     word-wrap: break-word;
     position: absolute;
-    display: inline-block;
-    width: calc(100% - 4px);
+    display: block;
+    width: 100%;
   }
 }
 
@@ -505,95 +509,83 @@ iframe {
   }
 }
 
-@media screen and (max-width:350px) {
+@media (max-height:500px), (max-width:350px) {
   #icons {
-    padding: 5px;
-    position: absolute;
-    display: flex;
-    overflow: visible;
-    top: 0;
-    left: 0;
-    width: 90%;
-    justify-content: flex-start;
-    flex-direction: column;
-    flex-wrap: wrap;
-
     button {
-      position: relative;
       margin: 2px;
-      overflow: hidden;
-      width: 30px;
-      height: 30px;
-      display: inline-block;
+      width: 50px;
+      height: 75px;
     }
-
+  
     img {
-      height: 30px;
-      width: 30px;
+      padding:2px;
     }
-
+  
     p {
-      display: none;
+      left: 0;
+      top: 47px;
+      text-align: center;
+      font-size: 0.8em;
+      word-wrap: break-word;
+      position: absolute;
+      display: block;
+      width: 100%;
     }
   }
 
-  .program {
-    position: absolute;
-    display: none;
-    min-width: 100px;
-    min-height: 40px;
-    background-color: transparent;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-
-    iframe {
-      transform: scale(.5, .5) translate(-50%, -50%);
-      height: calc(200% - 30px);
-      width: calc(200%);
-      top: 15px;
-    }
+  #taskbar {
+    height:25px;
   }
+  .maximized {
+    height: calc(100% - 25px);
+  }
+
+ .program {
+  min-width: 100px;
+  min-height: 40px;
+  iframe {
+    transform: scale(.75, .75) translate(-25%, -25%);
+    height: calc(150% - 35px);
+    width: calc(150%);
+    top: 50px;
+  }
+
+  .headbar {
+    height: 20px;
+  
+    .max,
+    .close {
+      height: 15px;
+      width: 15px;
+    }
+  
+    .close {
+      right: 2px;
+    }
+  
+    .max {
+      right: 15px;
+    }
+  
+
+ }
+ 
+}
+
+
+
+
+}
+
+@media screen and (max-width:350px) {
+
+
 
   .explorer_start iframe {
     height: calc(200% + 36px);
     background-color: transparent;
   }
 
-  #taskbar {
-    transform: scale(.5, .5) translate(-50%, 50%);
-    width: calc(200%);
-  }
-
-  .headbar {
-    position: relative;
-    top: 0px;
-    background-color: var(--themecolor);
-    height: 15px;
-    width: 100%;
-    padding-right: 1px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border: none;
-
-    .max,
-    .close {
-      height: 12px;
-      width: 12px;
-      top: 0;
-      border: 1px solid #fff;
-      margin: 2px 1px;
-      border-radius: 3px;
-      position: absolute;
-    }
-
-    .close {
-      right: 2px;
-    }
-
-    .max {
-      right: 15px;
-    }
-  }
 
   .progtitle {
     top: -6px;
@@ -607,10 +599,6 @@ iframe {
     margin: 1px;
   }
 
-  .maximized {
-    height: calc(100% - 17.5px);
-    width: 100%;
-  }
 }
 
 @media (prefers-color-scheme:dark) {
