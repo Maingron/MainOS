@@ -40,6 +40,17 @@ function loadfile(path) {
     if (localStorage.getItem(path).length < 2 || localStorage.getItem(path).indexOf("***") < 5) {
       savefile(path, localStorage.getItem(path));
     }
+
+    if(localStorage.getItem(path).indexOf("loadfile(") > -1) {
+      if(localStorage.getItem(path).indexOf("loadfile('") > -1) {
+        return(loadfile(localStorage.getItem(path).split("loadfile('")[1].split("')")[0].toString()));
+      } else if(localStorage.getItem(path).indexOf("loadfile(\"")> -1) {
+        return(loadfile(localStorage.getItem(path).split("loadfile(\"")[1].split("\")")[0].toString()));
+      }
+    }
+
+
+
     return localStorage.getItem((path)).split("***")[1];
   } else {
     return localStorage.getItem(path);
