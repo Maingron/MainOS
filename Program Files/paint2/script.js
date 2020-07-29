@@ -196,3 +196,14 @@ var fileformat = "png";
 function setfileformat(which) {
     fileformat = which;
 }
+
+function contextMenu(event) {
+    spawnContextMenu([["Pen","tooltype='pen'"],["Rectangle","tooltype='rectangle'"],["<hr>"],
+    ["Undo","undo()"],["Redo","redo()","disabled"],["<hr>"],
+    ["Time between Frames: 20ms","setRenderInterval(20)"],
+    ["Time between Frames: 50ms","setRenderInterval(50)"],
+    ["Time between Frames: 100ms","setRenderInterval(100)"],
+    ["Time between Frames: 200ms","setRenderInterval(200)"]
+
+]);
+}
