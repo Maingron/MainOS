@@ -54,7 +54,7 @@ function explorerdo(nowpath) {
 
     if (mylistedfile_inner.indexOf(".txt") == mylistedfile_inner.length - 4 || mylistedfile_inner.indexOf(".log") == mylistedfile_inner.length - 4) {
       mylistedfiles[mylistedfilesnr].setAttribute("onClick", "javascript: window.parent.run('notepad', '" + newparentpath + mylistedfile_inner + "');");
-      mylistedfile_img.src = "../../../Program%20Files/notepad/icon.png";
+      mylistedfile_img.src = parent.loadfile("C:/Program Files/notepad/icon.png");
     }
 
     if (mylistedfile_inner.indexOf(".png") == mylistedfile_inner.length - 4 || mylistedfile_inner.indexOf(".jpg") == mylistedfile_inner.length - 4) {
