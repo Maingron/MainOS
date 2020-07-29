@@ -187,7 +187,7 @@ body {
 	background-color: transparent;
 	border: 0;
 	position: relative;
-	margin: 0px;
+	margin: 4px;
 	overflow: hidden;
 	width: 64px;
 	height: 100px;
@@ -204,6 +204,8 @@ body {
 	display: inline-block;
 	height: 64px;
 	pointer-events: none;
+	max-width:100%;
+	object-fit: contain;
 }
 
 #content_files p {
