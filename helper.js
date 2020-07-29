@@ -53,8 +53,9 @@ var ismainos;
 	      var newcontextelement = document.createElement("hr");
 	    } else {
 	      var newcontextelement = document.createElement("a");
-	      newcontextelement.innerHTML = content[i][0];
-	      newcontextelement.href = "javascript:" + content[i][1];
+		  newcontextelement.innerHTML = content[i][0];
+		  newcontextelement.href = "#";
+	      newcontextelement.setAttribute("onclick",content[i][1]);
 	      if (content[i][2] && content[i][2] == "disabled") {
 	        newcontextelement.removeAttribute("href")
 	      }
