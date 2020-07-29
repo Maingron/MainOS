@@ -1,0 +1,87 @@
+body {
+    height:100vh;
+    background-color:var(--beige2) !important;
+    overflow:hidden;
+}
+
+canvas {
+    cursor:crosshair;
+    border:1px solid #000;
+    transform:scale(1);
+    position:relative;
+    margin:0;
+    padding:0;
+    image-rendering: pixelated;
+
+}
+
+label, input {
+    display:inline-block;
+}
+
+#imagep {
+    position: relative;
+    display: flex;
+    top: 0;
+    left: 0;
+    height: calc(100% - var(--altbarheight) - 10vh);
+    max-height:calc(100% - var(--altbarheight) + 60px);
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    overflow:hidden;
+    box-sizing: border-box;
+}
+
+#canvascopy {
+    position:absolute;
+    top:0;
+    left:0;
+    height:100%;
+    width:100%;
+    filter:blur(16px);
+    opacity:.6;
+    z-index:-1
+}
+
+.bottomcontrols {
+    display:flex;
+    position:relative;
+    background:var(--beige3);
+    height:10vh;
+    min-height:60px;
+    border-top:1px solid #000;
+}
+
+.flex {
+    display:flex;
+}
+.row {
+    flex-direction: row;
+}
+.col {
+    flex-direction: column;
+}
+
+#zoom {
+    width:20vw;
+    position:absolute;
+    right:0;
+    bottom:11vh;
+}
+
+@media (prefers-color-scheme:dark) {
+    body {
+        background:var(--black) !important;
+    }
+
+    #imagep canvas {
+        border:2px solid var(--themecolor);
+    }
+
+    .bottomcontrols {
+        border-top:1px solid var(--themecolor);
+        background:var(--themecolor);
+    }
+
+}

@@ -213,6 +213,15 @@ program.settings = {
  "spawnicon": 1
 }
 
+program.paint2 = {
+ "id": "paint2",
+ "title": "Paint 2 - Paint HD",
+ "icon": "Program%20Files/paint2/icon.png",
+ "src": "Program%20Files/paint2/exec.html",
+ "autostart": 0,
+ "spawnicon": 1
+}
+
 program.germantv_zdf = {
  "id": "germantv_zdf",
  "title": "ZDF",
