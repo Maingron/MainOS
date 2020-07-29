@@ -85,6 +85,11 @@ savefile(chgd + "/Version 00110.txt", "### Core / Various\n````- Replaced some P
 savefile(chgd + "/Version 00120.txt", "### Core / Various\n````- Added (path) to listfs() - It can now output the contents of a path directly\n````- Removed automatic embedding of helper.css through helper.js - Developers are now supposed to embed both\n````- Fixed some SVGs\n````- Updated preload.html\n````- Updated some outdated links\n````- Added dark scrollbar to Darkmode\n\n### CMD\n````- Removed toggledevmode command\n\n### Soft Excel\n````- Added helper.css\n\n### Explorer\n````- Added helper.css\n````- Changed from unknown_file.png to unknown_file.svg\n\n### Startmenu\n````- Added helper.css\n\n### Hype Chat\n````- Added helper.css\n````- Added Altbar\n````- Changes to CSS\n\n### Notepad\n````- Added helper.css\n\n### Paint\n````- Added helper.css\n\n### Paint32x32\n````- Added helper.css\n\n### Settings\n````- Added helper.css\n\n### Simple Cookieclicker\n````- Added helper.css", 0, "t=txt");
 savefile(chgd + "/Version 00140.txt", "### Core / Various\n````- Fix version numbers and rollback some things. Might contain stuff from v00124 and v00125", 0, "t=txt");
 savefile(chgd + "/Version 00150.txt", "### Core / Various\n````- Remove NES Program\n````- Fix scaling of elements on Desktop", 0, "t=txt");
+savefile(chgd + "/Version 00160.txt", "### Core / Various\n````- Fix context Menu\n````- Move some images to iofs\n````- Add functionality to open images\n````- Add loadfile(loadfile(PATH)) functionality\n### Paint2\n````- Add Paint2", 0, "t=txt");
+
+
+
+
 
 
 

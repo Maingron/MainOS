@@ -1,5 +1,5 @@
 var mainos = {};
-mainos.versionnr = 155;
+mainos.versionnr = 160;
 mainos.versionnrstring = "00" + mainos.versionnr;
 mainos.version = mainos.versionnr;
 mainos.versionlt = "0CC";
