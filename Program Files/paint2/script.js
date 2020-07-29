@@ -147,11 +147,13 @@ function render() {
 
 
 
-    document.getElementById("canvascopy").src = canvas.toDataURL('image/png');
     // parent.savefile(parent.setting.settingpath + "backgroundimage.txt", canvas.toDataURL('image/png'), 1, "t=txt");
 
 }
 
+window.setInterval(function() {
+    document.getElementById("canvascopy").src = canvas.toDataURL('image/png');
+},300)
 
 
 

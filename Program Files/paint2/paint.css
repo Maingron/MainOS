@@ -15,6 +15,14 @@ canvas {
 
 }
 
+.altbar a:hover {
+    background-color: var(--hovercolor);
+}
+
+.altbar a:active {
+    background-color: lime;
+}
+
 label, input {
     display:inline-block;
 }
