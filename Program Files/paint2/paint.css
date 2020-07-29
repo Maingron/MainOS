@@ -37,11 +37,18 @@ label, input {
     position:absolute;
     top:0;
     left:0;
-    height:100%;
-    width:100%;
     filter:blur(16px);
     opacity:.6;
-    z-index:-1
+    z-index:-1;
+    height:100%;
+    width:100%;
+}
+
+#loadcanvas {
+    position:absolute;
+    opacity:0;
+    display:inline;
+    visibility: hidden;
 }
 
 .bottomcontrols {

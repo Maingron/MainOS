@@ -9,9 +9,17 @@
 	</head>
     <body>
 
-        <img id="canvascopy" crossorigin="anonymous">
+		<img id="canvascopy" crossorigin="anonymous">
+        <img id="loadcanvas">
+
 
 	<div class="altbar">
+		<a id="savebutton" onclick="savefile()">Save as </a> <input type="text" id="filename1" placeholder="Filename"></input>
+		<select onchange="setfileformat(this.value)" id="fileformat">
+			<option onselect="setfileformat('png')">PNG</option>
+			<option onselect="setfileformat('jpg')">JPG</option>
+		</select>
+
 		<button onclick="undo()">Undo</button>
 		<!-- <button onclick="redo()" disabled>Redo</button> -->
 
@@ -23,7 +31,7 @@
 	<div id="imagep">
 		<canvas id="canvas"></canvas>
 	</div>
-	
+
 	<input type="range" id="zoom" min=10 max=3200 value=100 step=10 onmousemove="canvas.style.transform = 'scale('+(this.value / 100)+')'" onchange="canvas.style.transform = 'scale('+(this.value / 100)+')'">
 
         <div class="bottomcontrols">

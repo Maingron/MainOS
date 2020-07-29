@@ -56,6 +56,12 @@ function explorerdo(nowpath) {
       mylistedfiles[mylistedfilesnr].setAttribute("onClick", "javascript: window.parent.run('notepad', '" + newparentpath + mylistedfile_inner + "');");
       mylistedfile_img.src = "../../../Program%20Files/notepad/icon.png";
     }
+
+    if (mylistedfile_inner.indexOf(".png") == mylistedfile_inner.length - 4 || mylistedfile_inner.indexOf(".jpg") == mylistedfile_inner.length - 4) {
+      mylistedfiles[mylistedfilesnr].setAttribute("onClick", "javascript: window.parent.run('paint2', '" + newparentpath + mylistedfile_inner + "');");
+      mylistedfile_img.src = parent.loadfile(newparentpath + mylistedfile_inner);
+    }
+
     if (mylistedfile_inner.indexOf(".dat") == mylistedfile_inner.length - 4) {
       mylistedfile_img.src = "../../../img/unknown_file.svg";
     }
