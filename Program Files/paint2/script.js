@@ -72,8 +72,8 @@ canvas.onmouseup = function() {
     canvas.mousedown = 0;
 }
 
-var spritesheet = new Image();
-spritesheet.src="sprites.webp";
+// var spritesheet = new Image();
+// spritesheet.src="sprites.webp";
 
 
 function render() {
