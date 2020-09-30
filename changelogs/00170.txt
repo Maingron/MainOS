@@ -1,0 +1,6 @@
+### Simple Cookieclicker
+    - Update to Version 0.4
+    - Fix HTML structure
+    - Prevent cookie from being dragged around
+    - Add more machines
+    - Fix path of cookie image
