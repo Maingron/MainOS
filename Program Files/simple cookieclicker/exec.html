@@ -1,32 +1,35 @@
 <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../helper.css">
+    <script src="../../helper.js"></script>
+    <title>Simple Cookieclicker</title>
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="../../helper.css">
-  <script src="../../helper.js"></script>
-  <title>Simple Cookieclicker</title>
-</head>
-
-<body>
-  <div class="content">
-    <a class="cookiecount">0</a>
-    <div class="cookie">
-      <img src="icon.png" onclick="clicked();" />
+  <body>
+    <div class="content">
+      <a class="cookiecount">0</a>
+      <div class="cookie">
+        <img id="cookie" onclick="clicked()" ondragstart="return false">
+      </div>
+      <div class="store">
+        <a href="#" onclick="buy('machine1')">Automatic Clicker<br>25 / 1</a>
+        <a href="#" onclick="buy('machine2')">Grandma<br>120 / 5</a>
+        <a href="#" onclick="buy('machine3')">Robot<br>450 / 12</a>
+        <a href="#" onclick="buy('machine4')">Small Robot Army<br>1200 / 25</a>
+        <a href="#" onclick="buy('machine5')">Big Robot Army<br>4000 / 50</a>
+        <a href="#" onclick="buy('machine6')">Cookie Wizard (Tier 1) <br>10k / 100</a>
+        <a href="#" onclick="buy('machine7')">Cookie Wizard (Tier 2) <br>100k / 1000</a>
+        <a href="#" onclick="buy('machine8')">Cookie Wizard (Tier 3) <br>1000k / 10k</a>
+      </div>
+      <a class="version">0.4</a>
     </div>
-    <div class="store">
-      <a href="#" onclick="buy('machine1')">Automatic Clicker<br />25 / 1</a>
-      <a href="#" onclick="buy('machine2')">Grandma<br />120 / 5</a>
-      <a href="#" onclick="buy('machine3')">Robot<br />450 / 12</a>
-      <a href="#" onclick="buy('machine4')">Small Robot Army<br />1200 / 25</a>
 
-    </div>
-    <a class="version">Version 0.3</a>
-  </div>
-
-  <script src="scripts.js"></script>
-</body>
-
+    <script src="scripts.js"></script>
+    <script>
+      document.getElementById("cookie").src = parent.loadfile("C:/Program Files/Simple Cookieclicker/icon.png");
+    </script>
+  </body>
 </html>
-
-<!-- Obsolete program! -->
