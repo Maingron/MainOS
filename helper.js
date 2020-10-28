@@ -127,4 +127,29 @@ var ismainos;
 	    key["space"] = false;
     }
 
-	})
+	});
+
+
+
+data.programmeta = {};
+
+for(var i = 0; i < document.getElementsByTagName("meta").length; i++) {
+	if(document.getElementsByTagName("meta")[i] && document.getElementsByTagName("meta")[i].getAttribute("version")) {
+		data.programmeta.version = document.getElementsByTagName("meta")[i].getAttribute("version");
+	}
+}
+
+if(data.programmeta.version != "MainOS(host)") {
+	if(!data.programmeta.version) {
+		data.programmeta.version = 0;
+		console.warn(parent.thisprogram.title + " doesn't have a program version in meta tags. Please add a <meta version=xx> to your <head>.");
+	}
+	
+	if(!parent.thisprogram.version) {
+		console.warn(parent.thisprogram.title + " doesn't have a registered program version. Please add it to the program JSON thingy.");
+	}
+	
+	if(data.programmeta.version != parent.thisprogram.version) {
+		console.warn(parent.thisprogram.title + "'s program version is not the expected one. (Meta:"+ data.programmeta.version + " vs. JSON: "+ parent.thisprogram.version + ")");
+	}
+}

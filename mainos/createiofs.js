@@ -168,56 +168,64 @@ program.colors = {
  "id": "colors",
  "title": "Colors",
  "icon": loadfile("C:/Program Files/colors/icon.png"),
- "src": "Program%20Files/colors/exec.html"
+ "src": "Program%20Files/colors/exec.html",
+ "version": 1.2
 };
 
 program.excel = {
  "id": "excel",
  "title": "Soft Excel",
  "icon": loadfile("C:/Program Files/excel/icon.png"),
- "src": "Program%20Files/excel/exec.html"
+ "src": "Program%20Files/excel/exec.html",
+ "version": 1.2
 }
 
 program.explorer = {
  "id": "explorer",
  "title": "Explorer",
  "icon": "img/folder-search.png",
- "src": "Program%20Files/Explorer/inner/exec.html"
+ "src": "Program%20Files/Explorer/inner/exec.html",
+ "version": 1.2
 }
 
 program.notepad = {
  "id": "notepad",
  "title": "Notepad",
  "icon": loadfile("C:/Program Files/notepad/icon.png"),
- "src": "Program%20Files/notepad/exec.html"
+ "src": "Program%20Files/notepad/exec.html",
+ "version": 1.2
 }
 
 program.paint = {
  "id": "paint",
  "title": "Paint",
  "icon": loadfile("C:/Program Files/paint/icon.png"),
- "src": "Program%20Files/paint/exec.html"
+ "src": "Program%20Files/paint/exec.html",
+ "version": 1.2
 }
 
 program.paint32x32 = {
  "id": "paint32x32",
  "title": "Paint 32x32",
  "icon": loadfile("C:/Program Files/paint32x32/icon.png"),
- "src": "Program%20Files/paint32x32/exec.html"
+ "src": "Program%20Files/paint32x32/exec.html",
+ "version": 1.2
 }
 
 program.donttagme = {
  "id": "donttagme",
  "title": "Don't Tag Me - The Game",
  "icon": loadfile("C:/Program Files/Dont Tag Me/icon.png"),
- "src": "Program%20Files/Dont%20Tag%20Me/exec.html"
+ "src": "Program%20Files/Dont%20Tag%20Me/exec.html",
+ "version": 1.2
 }
 
 program.optisocubes = {
  "id": "optisocubes",
  "title": "Optisocubes",
  "icon": "Program%20Files/optisocubes/icon.svg",
- "src": "Program%20Files/optisocubes/exec.html"
+ "src": "Program%20Files/optisocubes/exec.html",
+ "version": 1.2
 }
 
 program.simple_cookieclicker = {
@@ -232,7 +240,8 @@ program.hype = {
  "id": "hype",
  "title": "Hype Chat",
  "icon": loadfile("C:/Program Files/hype/icon.png"),
- "src": "Program%20Files/hype/exec.html"
+ "src": "Program%20Files/hype/exec.html",
+ "version": 1.2
 }
 
 program.explorer_start = {
@@ -243,7 +252,8 @@ program.explorer_start = {
  "noborder": 1,
  "isstartmenu": 1,
  "spawnicon": 0,
- "maxopen": 1
+ "maxopen": 1,
+ "version": 1.2
 }
 
 program.cmd = {
@@ -251,6 +261,7 @@ program.cmd = {
  "title": "cmd",
  "icon": loadfile("C:/Program Files/cmd/icon.png"),
  "src": "Program%20Files/cmd/exec.html",
+ "version": 1.2
 }
 
 program.notifications = {
@@ -260,7 +271,8 @@ program.notifications = {
  "autostart": 1,
  "noborder": 1,
  "maxopen": 1,
- "spawnicon": 0
+ "spawnicon": 0,
+ "version": 1.2
 }
 
 program.settings = {
@@ -269,7 +281,8 @@ program.settings = {
  "icon": loadfile("C:/Program Files/settings/icon.png"),
  "src": "Program%20Files/settings/exec.html",
  "autostart": 0,
- "spawnicon": 1
+ "spawnicon": 1,
+ "version": 1.2
 }
 
 program.paint2 = {
@@ -278,7 +291,8 @@ program.paint2 = {
  "icon": loadfile("C:/Program Files/paint2/icon.png"),
  "src": "Program%20Files/paint2/exec.html",
  "autostart": 0,
- "spawnicon": 1
+ "spawnicon": 1,
+ "version": 1.2
 }
 
 program.germantv_zdf = {
