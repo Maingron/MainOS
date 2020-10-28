@@ -71,7 +71,6 @@ function loadsettings() {
   setting.tts = loadsetting("tts");
   setting.font = loadsetting("font");
   setting.repository = loadsetting("repository");
-  setting.orangemode = loadsetting("orangemode");
   setting.big_buttons = loadsetting("big_buttons");
   setting.default_fullscreen = loadsetting("default_fullscreen");
   setting.language = loadsetting("language");
@@ -559,17 +558,6 @@ window.addEventListener("touchend", function() {
 function gooff() {
   window.close();
   self.close();
-}
-
-if (setting.orangemode != 1) {}
-
-if (setting.orangemode == 1) {
-  objects.noorangemode = document.getElementsByClassName("noorangemode");
-  for (o = 0; objects.noorangemode.length > o; o++) {
-    objects.noorangemode[o].innerHTML = " ";
-  }
-} else {
-  document.getElementById("orangemodestyle").innerHTML = " ";
 }
 
 

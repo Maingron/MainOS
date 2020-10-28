@@ -40,7 +40,6 @@ savefile("C:/users/" + setting.username + "/settings/hovercolornontransparent.tx
 savefile("C:/users/" + setting.username + "/settings/tts.txt", 0, 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/font.txt", "'Tahoma', 'Roboto', 'Arial', sans-serif", 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/repository.txt", 1, 0, "t=txt");
-savefile("C:/users/" + setting.username + "/settings/orangemode.txt", 0, 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/big_buttons.txt", 0, 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/default_fullscreen.txt", 0, 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/language.txt", "en", 0, "t=txt");

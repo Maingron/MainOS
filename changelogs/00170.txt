@@ -1,5 +1,6 @@
 ### Core / Various
 - Add program versions
+- Remove Orange mode
 
 ### All
 - Set version for programs - Version 1.2 for unknown / untracked versions
