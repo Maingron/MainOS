@@ -1,6 +1,7 @@
 ### Core / Various
 - Add program versions
 - Remove Orange mode
+- Make default themecolor and some other colors dark orange (brown) instead of gray or blue
 
 ### All
 - Set version for programs - Version 1.2 for unknown / untracked versions
@@ -11,3 +12,7 @@
     - Prevent cookie from being dragged around
     - Add more machines
     - Fix path of cookie image
+
+### Startmenu
+    - Add restart button
+    - Update icons for buttons and change user icon

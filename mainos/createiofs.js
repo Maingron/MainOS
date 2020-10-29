@@ -1,5 +1,6 @@
 document.title = "MainOS: Updating...";
 document.write("<div id='iinfo' style='position:fixed; display:inline-block; top:0; left:0; height:100%; width:100%; background-color:var(--themecolor); z-index:123456789; transition:.4s;'><center><h1 style='display:inline-block;'>Updating...</h1></center></div>");
+
 var chgd = "C:/Documents and Settings/Changelogs";
 
 savefile("C:/", "", 0, "t=dir");
@@ -32,7 +33,7 @@ savefile("C:/users/" + setting.username, "", 0, "t=dir");
 savefile("C:/users/" + setting.username + "/settings", "", 0, "t=dir");
 savefile("C:/users/" + setting.username + "/settings/backgroundimage.txt", "loadfile('C:/Documents and Settings/Images/fluent.jpg')", 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/developer.txt", 0, 0, "t=txt");
-savefile("C:/users/" + setting.username + "/settings/themecolor.txt", "#222", 0, "t=txt");
+savefile("C:/users/" + setting.username + "/settings/themecolor.txt", "#940", 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/darkmode.txt", 0, 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/notsodarkmode.txt", 0, 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/hovercolor.txt", "#ffaa0077", 0, "t=txt");

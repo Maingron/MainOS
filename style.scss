@@ -3,7 +3,7 @@
 
 body {
   margin: 0;
-  background-color: #058;
+  background-color: #853;
   overflow: hidden !important;
   position: fixed;
   top: 0;
@@ -18,7 +18,7 @@ body {
 }
 
 iframe {
-  border: 1px solid #222;
+  border: 1px solid var(--themecolor);
 }
 
 .content {
@@ -146,7 +146,6 @@ iframe {
 .program .headbar {
   position: relative;
   top: 0px;
-  background-color: #222;
   background-color: var(--themecolor);
   height: 30px;
   width: 100%;
@@ -203,7 +202,6 @@ iframe {
 }
 
 .resizers *:active {
-  outline: 3px solid #222;
   outline: 3px solid var(--themecolor);
   z-index: 9999;
   transition: 0s;
@@ -270,7 +268,6 @@ iframe {
 }
 
 #taskbar {
-  background-color: #222;
   background-color: var(--themecolor);
   position: absolute;
   bottom: 0px;
@@ -330,8 +327,8 @@ iframe {
     bottom: 0;
     height: 100%;
     width: 180px;
-    background-color: #1256cd;
-    border-left: 2px solid #2845ba;
+    background-color: #a60;
+    border-left: 2px solid #420;
     max-width: 28%;
 
     img {
