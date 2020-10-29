@@ -67,12 +67,16 @@ textarea {
 
 .contextMenu {
     width:auto;
-    background:var(--beige4);
+    background:#ffffff55;
+    backdrop-filter:blur(12px);
     height:auto;
     position:absolute;
     display:inline-block;
     z-index:1000;
-    outline:1px solid var(--themecolor);
+    padding:3px 0;
+    border-radius:6px;
+    border:1px solid var(--themecolor);
+    box-sizing:border-box;
     hr {
         margin:0;
         padding:0;
@@ -81,7 +85,7 @@ textarea {
     }
     a {
         display:block;
-        padding:3px 10px;
+        padding:3px 8px;
         text-decoration:none;
         cursor:pointer;
         &:last-of-type {
@@ -124,7 +128,7 @@ textarea {
     }
 
     .contextMenu {
-        background:var(--black2);
+        background:#00000055;
         a {
             color:#fff;
             &:last-of-type {
