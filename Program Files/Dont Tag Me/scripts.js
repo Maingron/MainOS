@@ -12,6 +12,10 @@ document.addEventListener('keydown', (event) => {
 	if(key == 'ArrowLeft') {if(be.offsetLeft <= 0) {} else {be.style.left = be.offsetLeft - 40 + "px";}}
 	if(key == 'ArrowUp') {if(be.offsetTop <= 0) {} else {be.style.top = be.offsetTop - 40 + "px";}}
 	if(key == 'ArrowDown') {if(be.offsetTop >= gameheight - 80) {} else {be.style.top = be.offsetTop + 40 + "px";}}
+	if(key == 'w') {if(be.offsetTop <= 0) {} else {be.style.top = be.offsetTop - 40 + "px";}}
+	if(key == 'a') {if(be.offsetLeft <= 0) {} else {be.style.left = be.offsetLeft - 40 + "px";}}
+	if(key == 's') {if(be.offsetTop >= gameheight - 80) {} else {be.style.top = be.offsetTop + 40 + "px";}}
+	if(key == 'd') {if(be.offsetLeft >= gamewidth - 80) {} else {be.style.left = be.offsetLeft + 40 + "px";}}
 	if(key == '#') {automatic()}
 	if(key == '-') {if(time < 5) {} else {time = time - 1;}}
 	if(key == '+') {time = time + 1;}
