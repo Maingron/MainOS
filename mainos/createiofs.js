@@ -217,7 +217,7 @@ program.donttagme = {
  "title": "Don't Tag Me - The Game",
  "icon": loadfile("C:/Program Files/Dont Tag Me/icon.png"),
  "src": "Program%20Files/Dont%20Tag%20Me/exec.html",
- "version": 1.2
+ "version": 1.3
 }
 
 program.optisocubes = {
