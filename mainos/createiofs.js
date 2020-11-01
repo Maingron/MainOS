@@ -253,7 +253,7 @@ program.explorer_start = {
  "isstartmenu": 1,
  "spawnicon": 0,
  "maxopen": 1,
- "version": 1.2
+ "version": 1.3
 }
 
 program.cmd = {

@@ -1,97 +1,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<meta version="1.2">
-	<title>Start</title>
-	<link rel="stylesheet" href="startmenu.css">
-	<link rel="stylesheet" href="../../../helper.css">
-	<script src="../../../helper.js"></script>
-	<script>
+    <meta charset="UTF-8">
+    <meta version="1.3">
+    <title>Start</title>
+    <link rel="stylesheet" href="startmenu.css">
+    <link rel="stylesheet" href="../../../helper.css">
+    <script src="../../../helper.js"></script>
+    <script>
 
 
-	function show_alleprogramme() {
-	    document.getElementById("alleprogramme").style.overflow = "visible";
-	    document.getElementById("alleprogramme").style.opacity = "1";
-	    document.getElementById("alleprogramme").style.transform = "rotate(-1deg)";
-	    document.getElementById("alleprogrammeout").style.display = "inline";
-	}
+    function show_alleprogramme() {
+        document.getElementById("alleprogramme").style.overflow = "visible";
+        document.getElementById("alleprogramme").style.opacity = "1";
+        document.getElementById("alleprogramme").style.transform = "rotate(0deg)";
+        document.getElementById("alleprogrammeout").style.display = "inline";
+    }
 
-	function hide_alleprogramme() {
-	  document.getElementById("alleprogrammeout").style.display = "none";
-	  document.getElementById("alleprogramme").style = "";
-	}
+    function hide_alleprogramme() {
+		document.getElementById("alleprogrammeout").style.display = "none";
+		document.getElementById("alleprogramme").style = "";
+    }
 
-	function run(which) {
-		parent.run(which);
-		parent.unrun(parent.document.getElementsByClassName('explorer_start')[0].children[0].children[0]);
-	}
-	</script>
+    function run(which) {
+        parent.run(which);
+        parent.unrun(parent.document.getElementsByClassName('explorer_start')[0].children[0].children[0]);
+    }
+    </script>
 </head>
 <body>
-	<div onclick="parent.unrun(parent.document.getElementsByClassName('explorer_start')[0].children[0].children[0]);" id="onout">
-	</div>
-	<button id="startbutton" onclick="parent.unrun(parent.document.getElementsByClassName('explorer_start')[0].children[0].children[0]);"><a class="speak">Close Start Menu</a></button>
-	<div id="start">
-		<div id="top">
-			<div id="usericon" >
-				<img src="usericon1.png">
-			</div>
-			<h2 id="username"></h2>
-			<hr>
-		</div>
-		<div id="center">
-			<div id="left">
-				<div id="works" style="height:20px; background:#222; background:var(--themecolor); color:#fff; border-bottom-left-radius:10px; border-bottom-right-radius:10px"><a style="color:#fff; text-decoration:none; width:100%; text-align:center" href="mailto:mainos@maingron.com"><p style="color:#fff">Feedback \ Report Bug</p></a></div>
-				<div id="works" onclick="run('excel')"><img id="excelimg1"><p>Soft Office Excel 2113</p></div>
-				<div id="works" onclick="run('optisocubes')"><img src="../../optisocubes/icon.svg"><p>Optisocubes</p></div>
-				<div id="works" onclick="run('paint')"><img id="paintimg1"><p>Paint</p></div>
-				<div id="works" onclick="run('notepad')"><img id="notepadimg1"><p>Notepad</p></div>
-				<div id="works" onclick="run('donttagme')"><img id="donttagmeimg1"><p>Don't Tag Me</p></div>
-				<div id="works" onclick="run('simple_cookieclicker')"><img id="cookieclickerimg1"><p>Simple Cookieclicker</p></div>
-				<div onclick="show_alleprogramme()" id="allprograms"><img src="../../Explorer/Start/all_programs.png"><p>All Programs</p></div>
-			</div>
-			<div id="right">
-				<div id="works" onclick="run('explorer');"><img src="../../Explorer/Start/my_files.png"><p>My Documents</p></div>
-				<div><img src="../../Explorer/Start/this_computer.png"><p>My Computer</p></div>
-				<div><img src="../../Explorer/Start/this_network.png"><p>My Network Places</p></div>
-			</div>
-		</div>
-		<div class="bottomright">
-			<button onclick="parent.gooff()"><img src="../../Explorer/Start/shutdown.png" style="background:red;" alt="">Shutdown</button>
-			<button onclick="parent.window.location.reload()"><img src="../../Explorer/Start/restart.png" style="background:green;" alt="">Restart</button>
-		</div>
-		<div id="bottom">
-		</div>
-	</div>
-	<div onclick="hide_alleprogramme()" id="alleprogrammeout"></div>
-	<div id="alleprogramme">
-		<div id="works" onclick="run('explorer')"><img src="../../Explorer/Start/some_folder.png"><p>Startup</p></div>
-		<div id="works" onclick="run('colors')"><img id="colorsimg"><p>Colors</p></div>
-		<div id="works" onclick="run('notepad')"><img id="notepadimg"><p>Notepad</p></div>
-		<div id="works" onclick="run('excel')"><img id="excelimg"><p>Soft Office Excel 2113</p></div>
-		<div id="works" onclick="run('paint')"><img id="paintimg"><p>Paint</p></div>
-		<div id="works" onclick="run('donttagme')"><img id="donttagmeimg"><p>Don't Tag Me</p></div>
-		<div id="works" onclick="run('optisocubes')"><img src="../../optisocubes/icon.svg"><p>Optisocubes</p></div>
-		<div id="works" onclick="run('simple_cookieclicker')"><img id="cookieclickerimg"><p>Simple Cookieclicker</p></div>
-		<div id="works" onclick="run('hype')"><img id="hypeimg"><p>Hype Chat</p></div>
-	</div>
+    <div onclick="parent.unrun(parent.document.getElementsByClassName('explorer_start')[0].children[0].children[0]);" id="onout">
+    </div>
+    <button id="startbutton" onclick="parent.unrun(parent.document.getElementsByClassName('explorer_start')[0].children[0].children[0]);"><a class="speak">Close Start Menu</a></button>
+    <div id="start">
+        <div id="top">
+            <div id="usericon" >
+                <img src="usericon1.png">
+            </div>
+            <h2 id="username"></h2>
+            <hr>
+        </div>
+        <div id="center">
+            <div id="left">
+                <div style="height:20px; background:#222; background:var(--themecolor); color:#fff; border-bottom-left-radius:10px; border-bottom-right-radius:10px"><a style="color:#fff; text-decoration:none; width:100%; text-align:center" href="mailto:mainos@maingron.com"><p style="color:#fff">Feedback \ Report Bug</p></a></div>
+                <div onclick="run('excel')"><img id="excelimg1"><p>Soft Office Excel 2113</p></div>
+                <div onclick="run('optisocubes')"><img src="../../optisocubes/icon.svg"><p>Optisocubes</p></div>
+                <div onclick="run('paint')"><img id="paintimg1"><p>Paint</p></div>
+                <div onclick="run('notepad')"><img id="notepadimg1"><p>Notepad</p></div>
+                <div onclick="run('donttagme')"><img id="donttagmeimg1"><p>Don't Tag Me</p></div>
+                <div onclick="run('simple_cookieclicker')"><img id="cookieclickerimg1"><p>Simple Cookieclicker</p></div>
+                <div onclick="show_alleprogramme()" id="allprograms"><img src="../../Explorer/Start/all_programs.png"><p>(not) All Programs</p></div>
+            </div>
+            <div id="right">
+                <div onclick="run('explorer');"><img src="../../Explorer/Start/my_files.png"><p>My Documents</p></div>
+                <div onclick="run('explorer');"><img src="../../Explorer/Start/this_computer.png"><p>My Computer</p></div>
+            </div>
+        </div>
+        <div class="bottomright">
+            <button onclick="parent.gooff()"><img src="../../Explorer/Start/shutdown.png" style="background:red;" alt="">Shutdown</button>
+            <button onclick="parent.window.location.reload()"><img src="../../Explorer/Start/restart.png" style="background:green;" alt="">Restart</button>
+        </div>
+        <div id="bottom">
+        </div>
+    </div>
+    <div onclick="hide_alleprogramme()" id="alleprogrammeout"></div>
+    <div id="alleprogramme">
+        <div onclick="run('explorer')"><img src="../../Explorer/Start/some_folder.png"><p>Startup</p></div>
+        <div onclick="run('colors')"><img id="colorsimg"><p>Colors</p></div>
+        <div onclick="run('notepad')"><img id="notepadimg"><p>Notepad</p></div>
+        <div onclick="run('excel')"><img id="excelimg"><p>Soft Office Excel 2113</p></div>
+        <div onclick="run('paint')"><img id="paintimg"><p>Paint</p></div>
+        <div onclick="run('donttagme')"><img id="donttagmeimg"><p>Don't Tag Me</p></div>
+        <div onclick="run('optisocubes')"><img src="../../optisocubes/icon.svg"><p>Optisocubes</p></div>
+        <div onclick="run('simple_cookieclicker')"><img id="cookieclickerimg"><p>Simple Cookieclicker</p></div>
+        <div onclick="run('hype')"><img id="hypeimg"><p>Hype Chat</p></div>
+    </div>
 
-	<script>
-		document.getElementById("colorsimg").src = parent.loadfile("C:/Program Files/colors/icon.png");
-		document.getElementById("notepadimg").src = parent.loadfile("C:/Program Files/notepad/icon.png");
-		document.getElementById("notepadimg1").src = parent.loadfile("C:/Program Files/notepad/icon.png");
-		document.getElementById("excelimg").src = parent.loadfile("C:/Program Files/excel/icon.png");
-		document.getElementById("excelimg1").src = parent.loadfile("C:/Program Files/excel/icon.png");
-		document.getElementById("paintimg").src = parent.loadfile("C:/Program Files/paint/icon.png");
-		document.getElementById("paintimg1").src = parent.loadfile("C:/Program Files/paint/icon.png");
-		document.getElementById("donttagmeimg").src = parent.loadfile("C:/Program Files/Dont Tag Me/icon.png");
-		document.getElementById("donttagmeimg1").src = parent.loadfile("C:/Program Files/Dont Tag Me/icon.png");
-		document.getElementById("cookieclickerimg").src = parent.loadfile("C:/Program Files/Simple Cookieclicker/icon.png");
-		document.getElementById("cookieclickerimg1").src = parent.loadfile("C:/Program Files/Simple Cookieclicker/icon.png");
-		document.getElementById("hypeimg").src = parent.loadfile("C:/Program Files/hype/icon.png");
+    <script>
+        document.getElementById("colorsimg").src = parent.loadfile("C:/Program Files/colors/icon.png");
+        document.getElementById("notepadimg").src = parent.loadfile("C:/Program Files/notepad/icon.png");
+        document.getElementById("notepadimg1").src = parent.loadfile("C:/Program Files/notepad/icon.png");
+        document.getElementById("excelimg").src = parent.loadfile("C:/Program Files/excel/icon.png");
+        document.getElementById("excelimg1").src = parent.loadfile("C:/Program Files/excel/icon.png");
+        document.getElementById("paintimg").src = parent.loadfile("C:/Program Files/paint/icon.png");
+        document.getElementById("paintimg1").src = parent.loadfile("C:/Program Files/paint/icon.png");
+        document.getElementById("donttagmeimg").src = parent.loadfile("C:/Program Files/Dont Tag Me/icon.png");
+        document.getElementById("donttagmeimg1").src = parent.loadfile("C:/Program Files/Dont Tag Me/icon.png");
+        document.getElementById("cookieclickerimg").src = parent.loadfile("C:/Program Files/Simple Cookieclicker/icon.png");
+        document.getElementById("cookieclickerimg1").src = parent.loadfile("C:/Program Files/Simple Cookieclicker/icon.png");
+        document.getElementById("hypeimg").src = parent.loadfile("C:/Program Files/hype/icon.png");
 
-	</script>
-	<script>document.getElementById("username").innerHTML = parent.setting.username</script>
+    </script>
+    <script>document.getElementById("username").innerHTML = parent.setting.username</script>
 </body>
 </html>
