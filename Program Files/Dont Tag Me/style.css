@@ -1,0 +1,137 @@
+* {
+	transition:0s;
+}
+
+div {
+	filter:drop-shadow(0px 0px 1px white);
+}
+
+body {	
+	background-color:black;
+	padding:0;
+	margin:0;
+	overflow:hidden;
+}
+
+#ah {
+	min-height:200px;
+	min-width:200px;
+	position:absolute;
+	display:inline;
+	top:10vh;
+	left:10vw;
+	height:80vh;
+	width:80vw;
+	border:4px solid white;
+	overflow:hidden;
+}
+
+#be {
+	position:absolute;
+	top:0px;
+	left:0px;
+	height:40px;
+	width:40px;
+	background-color:yellow;
+	border-radius:50%;
+	border:4px solid transparent;
+}
+
+#berry {
+	position:absolute;
+	top:40px;
+	left:40px;
+	height:40px;
+	width:40px;
+	background-color:transparent;
+	border-radius:50%;
+	border:4px solid yellow;
+}
+
+#bet {
+	display:none;
+	position:absolute;
+	top:0px;
+	left:0px;
+	height:40px;
+	width:40px;
+	background-color:white;
+	border-radius:50%;
+	border:4px solid transparent;
+}
+
+#betrry {
+	position:absolute;
+	display:none;
+	top:0px;
+	left:0px;
+	height:40px;
+	width:40px;
+	background-color:transparent;
+	border-radius:50%;
+	border:4px solid white;
+}
+
+#beth {
+	position:absolute;
+	display:none;
+	top:0px;
+	left:0px;
+	height:40px;
+	width:40px;
+	background-color:lime;
+	border-radius:50%;
+	border:4px solid transparent;
+}
+
+#bethrry {
+	position:absolute;
+	display:none;
+	top:0px;
+	left:0px;
+	height:40px;
+	width:40px;
+	background-color:transparent;
+	border-radius:50%;
+	border:4px solid lime;
+}
+
+#bothh {
+	position:absolute;
+	display:none;
+	top:0px;
+	left:0px;
+	height:40px;
+	width:40px;
+	background-color:orange;
+	border-radius:50%;
+	border:4px solid transparent;
+}
+
+#bothhrry {
+	position:absolute;
+	display:none;
+	top:0px;
+	left:0px;
+	height:40px;
+	width:40px;
+	background-color:transparent;
+	border-radius:50%;
+	border:4px solid orange;
+
+}
+
+
+#score {
+	display:block;
+	height:100%;
+	width:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	margin:0;
+	text-align:center;
+	font-size:14em;
+	font-family:"Tahoma";
+	color:#121212;
+}
