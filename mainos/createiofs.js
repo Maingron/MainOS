@@ -272,7 +272,7 @@ program.notifications = {
  "noborder": 1,
  "maxopen": 1,
  "spawnicon": 0,
- "version": 1.2
+ "version": 1.3
 }
 
 program.settings = {

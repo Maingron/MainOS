@@ -15,22 +15,21 @@ body {
 
 ::-webkit-scrollbar {
   width: 7px;
-  background-color: #fff;
+  background-color: #ffffff88;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #777;
+  background-color: #77777788;
 }
 
 .a_notificaton {
-  background-color: #ff7;
+  background-color: #ffff7733;
+  backdrop-filter: blur(4px);
   border: 1px solid #000;
   position: relative;
   height: auto;
   width: 100%;
   display: block;
-  border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px 15px;
 }
 
 .rm_not {
@@ -38,11 +37,16 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  background-color: #f00;
+  background-color: #ff000066;
   border: 0;
-  height: 30px;
-  width: 30px;
-  border-radius: 0 0 0 12px;
+  height: 20px;
+  width: 20px;
+  border-radius: 0;
+  transition:.1s;
+}
+
+.rm_not:hover {
+  background-color:#f00;
 }
 
 h3 {
