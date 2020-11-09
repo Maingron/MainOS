@@ -22,3 +22,6 @@
 ### Don't Tag Me
     - Add WASD-Controls
     - Minor style updates
+
+### Notifications
+    - Change style
