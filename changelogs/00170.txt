@@ -4,6 +4,7 @@
     - Make default themecolor and some other colors dark orange (brown) instead of gray or blue
     - Make programs async to improve multithreading
     - Make context menu glossy
+    - Add Themecolor 2
 
 ### All
     - Set version for programs - Version 1.2 for unknown / untracked versions

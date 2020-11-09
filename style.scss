@@ -180,7 +180,7 @@ iframe {
   }
 
   .max {
-    background-color: #18f;
+    background-color: var(--themecolor2);
     right: 28px;
     border-bottom-left-radius: 8px;
   }
@@ -327,7 +327,7 @@ iframe {
     bottom: 0;
     height: 100%;
     width: 180px;
-    background-color: #a60;
+    background-color: var(--themecolor2);
     border-left: 2px solid #420;
     max-width: 28%;
 

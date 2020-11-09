@@ -64,6 +64,7 @@ function loadsettings() {
   setting.backgroundimage = loadsetting("backgroundimage");
   setting.developer = loadsetting("developer");
   setting.themecolor = loadsetting("themecolor");
+  setting.themecolor2 = loadsetting("themecolor2");
   setting.darkmode = loadsetting("darkmode");
   setting.notsodarkmode = loadsetting("notsodarkmode");
   setting.hovercolor = loadsetting("hovercolor");
@@ -79,6 +80,7 @@ function loadsettings() {
   setting.temp.toautostart = [];
 
   document.documentElement.style.setProperty("--themecolor", setting.themecolor);
+  document.documentElement.style.setProperty("--themecolor2", setting.themecolor2);
   document.documentElement.style.setProperty("--font", setting.font);
 
   document.documentElement.style.setProperty("--hovercolor",setting.hovercolor);
