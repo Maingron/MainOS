@@ -13,6 +13,12 @@ var pidmax = 10;
 
 var clicking = 0;
 var clicked = 0;
+
+
+if(!mainos) {
+  var mainos = {};
+}
+
 objects.content = document.getElementsByClassName("content")[0];
 objects.overlay = document.getElementsByClassName("overlay")[0];
 objects.progicons = document.getElementsByClassName("icons")[0];
@@ -39,7 +45,7 @@ function jsoncombine(which1, which2) {
     which1 = Object.assign(which1, which2);
   } catch (e) {
 
-    var objs = [which1, which2],
+    var objs = [which1, which2];
       result = objs.reduce(function(r, o) {
         Object.keys(o).forEach(function(k) {
           r[k] = o[k];
@@ -98,7 +104,7 @@ function loadsettings() {
 
 loadsettings();
 
-var program = JSON.parse(loadfile("C:/mainos/programs.dat"));
+program = JSON.parse(loadfile("C:/mainos/programs.dat"));
 
 function ifjsonparse(which) {
   try {
@@ -115,7 +121,7 @@ if (isfile("C:/mainos/customprograms.txt")) {
     program = Object.assign(program, ifjsonparse(loadfile("C:/mainos/customprograms.txt")));
   } catch (e) {
 
-    var objs = [program, ifjsonparse(loadfile("C:/mainos/customprograms.txt"))],
+    objs = [program, ifjsonparse(loadfile("C:/mainos/customprograms.txt"))];
       result = objs.reduce(function(r, o) {
         Object.keys(o).forEach(function(k) {
           r[k] = o[k];
@@ -146,8 +152,8 @@ if (setting.repository == 1) {
 
 
 
-for (i = 0; Object.keys(program).length > i; i++) {
-  var thisprogram = program[Object.keys(program)[i]];
+for (var i = 0; Object.keys(program).length > i; i++) {
+  thisprogram = program[Object.keys(program)[i]];
   if (thisprogram.devonly == 1) {
     if (setting.developer == 0) {
       continue;
@@ -221,14 +227,15 @@ function run(which, iattr, how) {
   pid[pidmax] = which;
 
 
+  var spawnprog;
 
   if (thisprogram.noborder != 1) {
-    var spawnprog = document.createElement("div");
+    spawnprog = document.createElement("div");
     spawnprog.classList.add("program");
     spawnprog.id = pidmax;
     objects.programs.appendChild(spawnprog);
   } else {
-    var spawnprog = document.createElement("div");
+    spawnprog = document.createElement("div");
     spawnprog.classList.add("program");
     spawnprog.classList.add("noborder");
     spawnprog.id = pidmax;
@@ -244,11 +251,11 @@ function run(which, iattr, how) {
     thisprogram.src = "Program%20Files/xmlexec/exec.html#" + thisprogram.src;
   }
 
-  if (thisprogram.noborder == 1) {
+  // if (thisprogram.noborder == 1) {
+    // mypid.innerHTML = "<div class=\"headbar\"></div><div class=\"resizers\"></div><iframe class=\"proframe " + thisprogram.id + "\" src=\"about:blank\" async>" + thisprogram.src + "</iframe>";
+  // } else {
     mypid.innerHTML = "<div class=\"headbar\"></div><div class=\"resizers\"></div><iframe class=\"proframe " + thisprogram.id + "\" src=\"about:blank\" async>" + thisprogram.src + "</iframe>";
-  } else {
-    mypid.innerHTML = "<div class=\"headbar\"></div><div class=\"resizers\"></div><iframe class=\"proframe " + thisprogram.id + "\" src=\"about:blank\" async>" + thisprogram.src + "</iframe>";
-  }
+  // }
 
   if (thisprogram.sandbox == 1) {
     mypid.classList.add("sandbox");
@@ -569,7 +576,8 @@ function wait(time) {
     console.log("Waiting time may only be 500ms or less.");
   }
   var starttime = new Date().getTime();
-  while (new Date().getTime() < starttime + time) {}
+
+  while(new Date().getTime() < starttime + time) {}
 }
 
 
