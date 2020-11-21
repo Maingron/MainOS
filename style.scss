@@ -443,11 +443,13 @@ iframe {
 
 .aboutthisversion {
   position: absolute;
-  bottom: 20px;
-  right: 5px;
-  font-size: 1.2em;
+  bottom: 40px;
+  right: 20px;
+  text-align: right;
+  font-size: 1.05em;
+  line-height:1.4;
   a {
-    color:#fff;
+    color:#ffffaacc;
   }
 }
 
@@ -485,28 +487,7 @@ iframe {
   border: none;
 }
 
-.support_mainos {
-  bottom: 35px;
-  right: 40vw;
-  display: inline;
-  position: absolute;
-  background: var(--themecolor);
-  transition: .2s;
-
-  &:hover {
-    transform: scale(1.5) translateY(-12.5%)
-  }
-
-  * {
-    text-decoration: none;
-    font-family: var(--font);
-    padding: 0;
-    margin: 0;
-    color:#fff;
-  }
-}
-
-@media screen and (max-width:350px) {
+@media (max-width:350px) {
   #icons {
     padding: 5px;
     position: absolute;
@@ -611,16 +592,6 @@ iframe {
   .maximized {
     height: calc(100% - 17.5px);
     width: 100%;
-  }
-
-  .support_mainos {
-    bottom: 17.5px;
-    right: 42vw;
-    display: inline;
-    position: absolute;
-    background: var(--themecolor);
-    transition: .2s;
-    font-size:10px;
   }
 
   .aboutthisversion {

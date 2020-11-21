@@ -6,6 +6,7 @@
     - Make context menu glossy
     - Add Themecolor 2
     - Compress images even more and remove unused files
+    - Change version watermark on desktop and remove "Support MainOS" button
 
 ### All
     - Set version for programs - Version 1.2 for unknown / untracked versions
