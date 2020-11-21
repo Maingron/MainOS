@@ -29,6 +29,7 @@ function is_online() {
 function send_notification(title, content) {
   parent.savefile(parent.setting.userdata + "Notifications/Notification History.log", parent.loadfile(parent.setting.userdata + "Notifications/Notification History.log") + parent.setting.time.full + "\n" + title + "\n" + content + "\n\n");
   content = content.replace(/\n/g, '<br>');
+  content = content.replace(/\t/g, '&emsp;');
   notifications.push("{\"title\":\"" + title + "\",\"content\":\"" + content + "\"}");
   parent.savefile(parent.setting.userdata + "Notifications/notifications.txt", notifications, 1, "t=txt");
   refreshNotifications()
@@ -94,7 +95,7 @@ setTimeout(function() {
 
 document.documentElement.style.setProperty("--font", parent.setting.font);
 
-if (parent.loadfile(parent.setting.userdata + "notifications/notify_changelog.dat") !== "") {
-  send_notification("Changes to MainOS - What's new:", parent.loadfile(parent.loadfile(parent.setting.userdata + "notifications/notify_changelog.dat")));
-  parent.savefile(parent.setting.userdata + "notifications/notify_changelog.dat", "", 1, "t=txt");
+if (parent.loadfile(parent.setting.userdata + "Notifications/notify_changelog.dat") !== "") {
+  send_notification("Changes to MainOS - What's new:", parent.loadfile(parent.loadfile(parent.setting.userdata + "Notifications/notify_changelog.dat")));
+  parent.savefile(parent.setting.userdata + "Notifications/notify_changelog.dat", "", 1, "t=txt");
 }
