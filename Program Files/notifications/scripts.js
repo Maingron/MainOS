@@ -4,7 +4,7 @@ var one_notification = "<div></div>";
 var needinit = 0;
 if (parent.isfile(parent.setting.userdata + "Notifications") == 0) {
   needinit = 1;
-  parent.savefile(parent.setting.userdata + "Notifications/", "", 0, "t=dir");
+  parent.savefile(parent.setting.userdata + "Notifications", "", 0, "t=dir");
   parent.savefile(parent.setting.userdata + "Notifications/notifications.txt", new Array("{\"title\":\"dummy\",\"content\":\"dummy\"}"), 1, "t=txt");
   parent.savefile(parent.setting.userdata + "Notifications/Notification History.log", "", 0, "t=log");
 }
