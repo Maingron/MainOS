@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta version="1.3">
+    <meta version="1.4">
     <title>Start</title>
     <link rel="stylesheet" href="startmenu.css">
     <link rel="stylesheet" href="../../../helper.css">
@@ -35,25 +35,27 @@
     <div id="start">
         <div id="top">
             <div id="usericon" >
-                <img src="usericon1.png">
+                <img src="usericon1.png" alt="">
             </div>
             <h2 id="username"></h2>
             <hr>
         </div>
         <div id="center">
             <div id="left">
-                <div style="height:20px; background:#222; background:var(--themecolor); color:#fff; border-bottom-left-radius:10px; border-bottom-right-radius:10px"><a style="color:#fff; text-decoration:none; width:100%; text-align:center" href="mailto:mainos@maingron.com"><p style="color:#fff">Feedback \ Report Bug</p></a></div>
-                <div onclick="run('excel')"><img id="excelimg1"><p>Soft Office Excel 2113</p></div>
-                <div onclick="run('optisocubes')"><img src="../../optisocubes/icon.svg"><p>Optisocubes</p></div>
-                <div onclick="run('paint')"><img id="paintimg1"><p>Paint</p></div>
-                <div onclick="run('notepad')"><img id="notepadimg1"><p>Notepad</p></div>
-                <div onclick="run('donttagme')"><img id="donttagmeimg1"><p>Don't Tag Me</p></div>
-                <div onclick="run('simple_cookieclicker')"><img id="cookieclickerimg1"><p>Simple Cookieclicker</p></div>
-                <div onclick="show_alleprogramme()" id="allprograms"><img src="../../Explorer/Start/all_programs.png"><p>(not) All Programs</p></div>
+                <div onclick="run('excel')"><img id="excelimg1" alt=""><p>Soft Office Excel 2113</p></div>
+                <div onclick="run('optisocubes')"><img src="../../optisocubes/icon.svg" alt=""><p>Optisocubes</p></div>
+                <div onclick="run('paint')"><img id="paintimg1" alt=""><p>Paint</p></div>
+                <div onclick="run('notepad')"><img id="notepadimg1" alt=""><p>Notepad</p></div>
+                <div onclick="run('donttagme')"><img id="donttagmeimg1" alt=""><p>Don't Tag Me</p></div>
+                <div onclick="run('simple_cookieclicker')"><img id="cookieclickerimg1" alt=""><p>Simple Cookieclicker</p></div>
+                <div onclick="show_alleprogramme()" id="allprograms"><img src="../../Explorer/Start/all_programs.png" alt=""><p>(not) All Programs</p></div>
             </div>
             <div id="right">
-                <div onclick="run('explorer');"><img src="../../Explorer/Start/my_files.png"><p>My Documents</p></div>
-                <div onclick="run('explorer');"><img src="../../Explorer/Start/this_computer.png"><p>My Computer</p></div>
+                <div onclick="run('explorer');"><img src="../../Explorer/Start/my_files.png" alt=""><p>My Documents</p></div>
+                <div onclick="run('explorer');"><img src="../../Explorer/Start/this_computer.png" alt=""><p>My Computer</p></div>
+                <p style="line-height:1;margin:0">&nbsp;</p>
+                <a id="viewonitch" href="https://maingron.itch.io/mainos" target="_blank">&nbsp;👀&nbsp;&nbsp;on itch</a>
+                <a id="viewongithub" href="https://maingron.com/github/mainos" target="_blank">&nbsp;👀&nbsp;&nbsp;on Github</a>
             </div>
         </div>
         <div class="bottomright">
@@ -65,15 +67,17 @@
     </div>
     <div onclick="hide_alleprogramme()" id="alleprogrammeout"></div>
     <div id="alleprogramme">
-        <div onclick="run('explorer')"><img src="../../Explorer/Start/some_folder.png"><p>Startup</p></div>
-        <div onclick="run('colors')"><img id="colorsimg"><p>Colors</p></div>
-        <div onclick="run('notepad')"><img id="notepadimg"><p>Notepad</p></div>
-        <div onclick="run('excel')"><img id="excelimg"><p>Soft Office Excel 2113</p></div>
-        <div onclick="run('paint')"><img id="paintimg"><p>Paint</p></div>
-        <div onclick="run('donttagme')"><img id="donttagmeimg"><p>Don't Tag Me</p></div>
-        <div onclick="run('optisocubes')"><img src="../../optisocubes/icon.svg"><p>Optisocubes</p></div>
-        <div onclick="run('simple_cookieclicker')"><img id="cookieclickerimg"><p>Simple Cookieclicker</p></div>
-        <div onclick="run('hype')"><img id="hypeimg"><p>Hype Chat</p></div>
+        <div onclick="run('explorer')"><img src="../../Explorer/Start/some_folder.png" alt=""><p>Startup</p></div>
+        <div onclick="run('colors')"><img id="colorsimg" alt=""><p>Colors</p></div>
+        <div onclick="run('notepad')"><img id="notepadimg" alt=""><p>Notepad</p></div>
+        <div onclick="run('excel')"><img id="excelimg" alt=""><p>Soft Excel</p></div>
+        <div onclick="run('paint')"><img id="paintimg" alt=""><p>Paint</p></div>
+        <div onclick="run('donttagme')"><img id="donttagmeimg" alt=""><p>Don't Tag Me</p></div>
+        <div onclick="run('optisocubes')"><img src="../../optisocubes/icon.svg" alt=""><p>Optisocubes</p></div>
+        <div onclick="run('simple_cookieclicker')"><img id="cookieclickerimg" alt=""><p>Simple Cookieclicker</p></div>
+        <div onclick="run('hype')"><img id="hypeimg" alt=""><p>Hype Chat</p></div>
+        <div class="nohoverbg"></div>
+        <div class="nohoverbg"><p>ℹ All programs to be found on desktop.</p></div>
     </div>
 
     <script>

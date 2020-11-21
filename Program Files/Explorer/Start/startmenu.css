@@ -153,7 +153,7 @@ body {
     cursor:pointer;
 }
 
-#alleprogramme div:hover {
+#alleprogramme div:not(.nohoverbg):hover {
     background-color: var(--hovercolornontransparent);
     cursor:pointer;
 
@@ -325,10 +325,32 @@ body {
     font-size: .7em;
     left: 5px;
     white-space: nowrap;
-    width: calc(100% - 41px);
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     padding-right: 35px;
+}
+
+
+#viewonitch {
+    color:#fff;
+    background:#ff555555;
+    text-decoration:none;
+    line-height: 1.8;
+    font-size: .8em;
+}
+#viewonitch:hover {
+    background:#f55
+}
+#viewongithub {
+    color:#000;
+    background:#ffffff55;
+    text-decoration:none;
+    line-height: 1.8;
+    font-size: .8em;
+}
+#viewongithub:hover {
+    background:#fff;
 }
 
 @media screen and (max-width:500px) {

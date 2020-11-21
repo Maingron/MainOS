@@ -10,6 +10,13 @@
 ### All
     - Set version for programs - Version 1.2 for unknown / untracked versions
 
+### Startmenu
+    - Add restart button
+    - Update icons for buttons and change user icon
+    - Remove Email button
+    - Add button to view MainOS on Github and itch.io
+    - Other minor improvements
+
 ### File Explorer
     - Cleanup code
     - Prevent 404-errors
@@ -21,10 +28,6 @@
     - Prevent cookie from being dragged around
     - Add more machines
     - Fix path of cookie image
-
-### Startmenu
-    - Add restart button
-    - Update icons for buttons and change user icon
 
 ### Don't Tag Me
     - Add WASD-Controls
