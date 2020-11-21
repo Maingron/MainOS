@@ -1,300 +1,300 @@
 :root {
-	font: sans-serif;
+    font: sans-serif;
 }
 
 body {
-	margin: 0px;
-	overflow: hidden;
+    margin: 0px;
+    overflow: hidden;
 }
 
 * {
-	font-family: var(--font);
-	font-size: .99em;
+    font-family: var(--font);
+    font-size: .99em;
 }
 
 #altbar {
-	position: relative;
-	background: #ddb;
-	height: 18px;
-	overflow: hidden;
-	width: 100%;
-	border-bottom: 1px solid #999;
-	user-select: none;
+    position: relative;
+    background: #ddb;
+    height: 18px;
+    overflow: hidden;
+    width: 100%;
+    border-bottom: 1px solid #999;
+    user-select: none;
 }
 
 #altbar a {
-	text-decoration: none;
-	position: relative;
-	display: inline;
-	left: 2px;
-	top: -1px;
-	color: #000;
-	padding: 2px 5px;
-	margin: -1px;
-	border-width: 0;
+    text-decoration: none;
+    position: relative;
+    display: inline;
+    left: 2px;
+    top: -1px;
+    color: #000;
+    padding: 2px 5px;
+    margin: -1px;
+    border-width: 0;
 }
 
 #altbar a:hover {
-	background-color: #bb9;
+    background-color: #bb9;
 }
 
 #altbar img {
-	display: inline;
-	position: absolute;
-	right: 0px;
-	top: 0px;
-	background-color: #fff;
-	padding-left: 3px;
-	padding-right: 3px;
-	height: 100%;
+    display: inline;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    background-color: #fff;
+    padding-left: 3px;
+    padding-right: 3px;
+    height: 100%;
 }
 
 #headbar1 {
-	position: relative;
-	top: 0px;
-	background-color: #ddb;
-	height: auto;
-	overflow: hidden;
-	width: 100%;
-	border-bottom: 1px solid #999;
-	user-select: none;
+    position: relative;
+    top: 0px;
+    background-color: #ddb;
+    height: auto;
+    overflow: hidden;
+    width: 100%;
+    border-bottom: 1px solid #999;
+    user-select: none;
 }
 
 #headbar1 * {
-	display: none !important;
+    display: none !important;
 }
 
 #headbar1 .works,
 #headbar1 .works * {
-	display: inline-block !important;
+    display: inline-block !important;
 }
 
 #headbar1 a {
-	height: 40px;
-	border-style: none;
-	border-radius: 6px;
-	display: inline-flex;
-	width: auto;
-	text-decoration: none;
-	color: #000;
-	padding: 5px 10px;
+    height: 40px;
+    border-style: none;
+    border-radius: 6px;
+    display: inline-flex;
+    width: auto;
+    text-decoration: none;
+    color: #000;
+    padding: 5px 10px;
 }
 
 #headbar1 a p {
-	display: inline;
-	position: relative;
-	padding: 0px 2px;
-	margin: auto;
-	color: #000;
-	left: 5px;
-	font-size: 20px;
+    display: inline;
+    position: relative;
+    padding: 0px 2px;
+    margin: auto;
+    color: #000;
+    left: 5px;
+    font-size: 20px;
 }
 
 #headbar1 img {
-	margin: 0;
-	padding: 0;
-	height: 40px;
-	display: inline;
+    margin: 0;
+    padding: 0;
+    height: 40px;
+    display: inline;
 }
 
 #headbar1 a:hover {
-	background-color: #bb9;
+    background-color: #bb9;
 }
 
 #headbar1 #slice {
-	display: inline-flex;
-	position: absolute;
-	margin: auto;
-	padding: 0;
-	height: 50px;
-	border: 1px solid #999;
+    display: inline-flex;
+    position: absolute;
+    margin: auto;
+    padding: 0;
+    height: 50px;
+    border: 1px solid #999;
 }
 
 #headbar2 {
-	display: inline-flex;
-	justify-content: space-between;
-	position: relative;
-	background-color: #ddb;
-	height: 22px;
-	overflow: visible;
-	width: 100%;
-	border-bottom: 1px solid #999;
+    display: inline-flex;
+    justify-content: space-between;
+    position: relative;
+    background-color: #ddb;
+    height: 22px;
+    overflow: visible;
+    width: 100%;
+    border-bottom: 1px solid #999;
 }
 
 #headbar2 div {
-	margin: 0 2px;
-	display: inline;
-	position: relative;
-	height: 98%;
+    margin: 0 2px;
+    display: inline;
+    position: relative;
+    height: 98%;
 }
 
 #headbar2 img {
-	display: inline;
-	position: relative;
-	height: 100%;
-	user-select: none;
+    display: inline;
+    position: relative;
+    height: 100%;
+    user-select: none;
 }
 
 #headbar2 a,
 #headbar2 p {
-	position: relative;
-	display: inline;
-	white-space: nowrap;
-	text-decoration: none;
-	color: black;
-	user-select: none;
+    position: relative;
+    display: inline;
+    white-space: nowrap;
+    text-decoration: none;
+    color: black;
+    user-select: none;
 }
 
 #headbar2 input {
-	background: transparent;
-	border: none;
-	border-left: 1px solid #999;
-	border-right: 1px solid #999;
-	margin: 0;
-	padding: 0;
-	height: 100%;
-	width: 100%;
-	box-sizing: border-box;
-	line-height: 1;
+    background: transparent;
+    border: none;
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    line-height: 1;
 }
 
 #headbar2 #input img {
-	position: absolute;
-	right: 1px;
-	top: 0px;
-	margin: 0;
-	padding: 0;
+    position: absolute;
+    right: 1px;
+    top: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 #headbar2 #gotoa p {
-	top: -4px;
-	position: relative;
-	margin: 2px;
+    top: -4px;
+    position: relative;
+    margin: 2px;
 }
 
 #content_files {
-	padding: 15px;
-	position: relative;
-	overflow: scroll;
-	overflow-x: hidden;
-	width: 100%;
-	left: 0;
-	height: calc(100vh - 90px);
-	box-sizing: border-box;
+    padding: 15px;
+    position: relative;
+    overflow: scroll;
+    overflow-x: hidden;
+    width: 100%;
+    left: 0;
+    height: calc(100vh - 90px);
+    box-sizing: border-box;
 }
 
 #content_files button {
-	background-color: transparent;
-	border: 0;
-	position: relative;
-	margin: 4px;
-	overflow: hidden;
-	width: 64px;
-	height: 100px;
-	display: inline-flex;
-	justify-content: center;
-	z-index: 10;
-	user-select: none;
+    background-color: transparent;
+    border: 0;
+    position: relative;
+    margin: 4px;
+    overflow: hidden;
+    width: 64px;
+    height: 100px;
+    display: inline-flex;
+    justify-content: center;
+    z-index: 10;
+    user-select: none;
 }
 
 #content_files img {
-	position: absolute;
-	top: -2px;
-	margin-top: 2px;
-	display: inline-block;
-	height: 64px;
-	pointer-events: none;
-	max-width:100%;
-	object-fit: contain;
+    position: absolute;
+    top: -2px;
+    margin-top: 2px;
+    display: inline-block;
+    height: 64px;
+    pointer-events: none;
+    max-width:100%;
+    object-fit: contain;
 }
 
 #content_files p {
-	font-size: .85em;
-	word-wrap: break-word;
-	position: absolute;
-	display: inline;
-	left: 0px;
-	top: 55px;
-	width: 100%;
-	text-align: center;
-	padding-bottom: 2px;
+    font-size: .85em;
+    word-wrap: break-word;
+    position: absolute;
+    display: inline;
+    left: 0px;
+    top: 55px;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 2px;
 }
 
 #content_files button:hover {
-	overflow: visible;
-	z-index: 20;
-	border-radius: 1px;
-	background-color: var(--hovercolor);
+    overflow: visible;
+    z-index: 20;
+    border-radius: 1px;
+    background-color: var(--hovercolor);
 
 }
 
 
 @media (max-width:610px) {
-	#headbar1 {
-		height: 30px;
-	}
+    #headbar1 {
+        height: 30px;
+    }
 
-	#headbar1 a {
-		height: 20px;
-	}
+    #headbar1 a {
+        height: 20px;
+    }
 
-	#headbar1 img {
-		height: 20px;
-		display: inline;
-	}
+    #headbar1 img {
+        height: 20px;
+        display: inline;
+    }
 
-	#headbar1 a p {
-		color: #000;
-		left: 5px;
-		font-size: 12px;
-	}
+    #headbar1 a p {
+        color: #000;
+        left: 5px;
+        font-size: 12px;
+    }
 
-	#headbar1 #slice {
-		height: 25px;
-		border: 1px solid #999;
-	}
+    #headbar1 #slice {
+        height: 25px;
+        border: 1px solid #999;
+    }
 
-	#headbar2 #go p {
-		font-size: 0;
-	}
+    #headbar2 #go p {
+        font-size: 0;
+    }
 
-	p,
-	a {
-		font-size: .8em;
-	}
+    p,
+    a {
+        font-size: .8em;
+    }
 
-	#content_files {
-		height: calc(100vh - 70px);
-	}
+    #content_files {
+        height: calc(100vh - 70px);
+    }
 
 }
 
 @media (prefers-color-scheme:dark) {
 
-	#altbar {
-		background: var(--themecolor);
-		border: none;
-	}
+    #altbar {
+        background: var(--themecolor);
+        border: none;
+    }
 
-	#altbar a {
-		color: #fff;
-	}
+    #altbar a {
+        color: #fff;
+    }
 
-	#headbar1 {
-		background: var(--black2);
-		border: none;
-	}
+    #headbar1 {
+        background: var(--black2);
+        border: none;
+    }
 
-	#headbar2 {
-		background: var(--black3);
-		border: none;
-	}
+    #headbar2 {
+        background: var(--black3);
+        border: none;
+    }
 
-	#headbar2 p {
-		color: #fff;
-	}
+    #headbar2 p {
+        color: #fff;
+    }
 
-	#altbar img {
-		background-color: var(--themecolor);
-	}
+    #altbar img {
+        background-color: var(--themecolor);
+    }
 }

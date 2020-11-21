@@ -186,7 +186,7 @@ program.explorer = {
  "title": "Explorer",
  "icon": "img/folder-search.png",
  "src": "Program%20Files/Explorer/inner/exec.html",
- "version": 1.2
+ "version": 1.3
 }
 
 program.notepad = {

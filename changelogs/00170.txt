@@ -5,9 +5,15 @@
     - Make programs async to improve multithreading
     - Make context menu glossy
     - Add Themecolor 2
+    - Compress images even more and remove unused files
 
 ### All
     - Set version for programs - Version 1.2 for unknown / untracked versions
+
+### File Explorer
+    - Cleanup code
+    - Prevent 404-errors
+    - Update to Version 1.3
 
 ### Simple Cookieclicker
     - Update to Version 0.4

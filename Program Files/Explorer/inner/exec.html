@@ -2,55 +2,44 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<meta version="1.2">
-	<link rel="stylesheet" type="text/css" href="explorerstyle.css">
-	<link rel="stylesheet" href="../../../helper.css">
-	<script src="../../../helper.js"></script>
+    <meta charset="UTF-8">
+    <meta version="1.3">
+    <title>File Explorer</title>
+    <link rel="stylesheet" href="../../../helper.css">
+    <link rel="stylesheet" type="text/css" href="explorerstyle.css">
+    <script src="../../../helper.js"></script>
 </head>
 
 <body>
-	<div id="altbar">
-		<a href="#file">File</a>
-		<a href="#edit">Edit</a>
-		<a href="#view">View</a>
-		<a href="#favs">Favorites</a>
-		<a href="#more">Extras</a>
-		<a href="#help">?</a>
-		<img src="../../../img/logo.svg"></img>
-	</div>
-	<div id="headbar1">
-		<a id="gooneback"><img src="../../../img/arrow1.png"></img>
-			<p>Back</p>
-			<p>ߜ</p>
-		</a>
-		<a><img src="../../../img/arrow1.png" style="transform:rotate(180deg);"></img>
-			<p>ߜ</p>
-		</a>
-		<a class="works" id="gooneup"><img src="../../../img/folder_up.svg"></img></a>
-		<hr id="slice">
-		<a><img src="../../../img/zoom-in.png">
-			<p>Search</p>
-		</a>
-		<a><img src="../../../img/folder.svg">
-			<p>Folder</p>
-		</a>
-		<hr id="slice">
-		<a><img src="../../../img/folder.svg">
-			<p>ߜ</p>
-		</a>
-	</div>
-	<div id="headbar2">
-		<div id="addrdiv" style="width:auto;">
-			<p id="addr">Address</p>
-		</div>
-		<div id="input" style="width:100%;"><input type="text" id="mypathrn" disabled></input></div>
-		<div id="go"><a id="gotoa"><img src="../../../img/arrow1.png" style="transform:rotate(180deg);">
-				<p id="goto">Go to</p>
-			</a></div>
-	</div>
-	<div id="content_files"></div>
-	<script src="innerexplorer.js"></script>
+    <div id="altbar">
+        <a href="#file">File</a>
+        <a href="#edit">Edit</a>
+        <a href="#view">View</a>
+        <a href="#favs">Favorites</a>
+        <a href="#more">Extras</a>
+        <a href="#help">?</a>
+        <img src="../../../img/logo.svg" alt="">
+    </div>
+    <div id="headbar1">
+        <a class="works" id="gooneup"><img src="../../../img/folder_up.svg" alt="Go up a directory"></a>
+
+    </div>
+    <div id="headbar2">
+        <div id="addrdiv" style="width:auto;">
+            <p id="addr">Address</p>
+        </div>
+        <div id="input" style="width:100%;">
+            <input type="text" id="mypathrn" disabled> <!-- rn in ID standing for right now -->
+        </div>
+        <div id="go">
+            <a id="gotoa">
+                <img src="../../../img/arrow1.png" style="transform:rotate(180deg);" alt="">
+                <p id="goto">Go to</p>
+            </a>
+        </div>
+    </div>
+    <div id="content_files"></div>
+    <script src="innerexplorer.js"></script>
 </body>
 
 </html>
