@@ -23,13 +23,19 @@ body {
 }
 
 .a_notificaton {
-  background-color: #ffff7733;
-  backdrop-filter: blur(4px);
+  background-color: #ffff6688;
   border: 1px solid #000;
   position: relative;
   height: auto;
   width: 100%;
   display: block;
+}
+
+@supports (backdrop-filter: blur(4px)) {
+  .a_notificaton {
+    backdrop-filter: blur(4px);
+    background-color:#ffff6633;
+  }
 }
 
 .rm_not {
