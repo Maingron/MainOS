@@ -1,8 +1,28 @@
 document.title = "MainOS: Updating...";
 document.write("<div id='iinfo' style='position:fixed; display:inline-block; top:0; left:0; height:100%; width:100%; background-color:var(--themecolor); z-index:123456789; transition:.4s;'><center><h1 style='display:inline-block;'>Updating...</h1></center></div>");
 
+window.onload = function(){
+
+
+// Check Disk size
+if (localStorage && !localStorage.getItem('size')) {
+    var i = 0;
+    try {
+        // Test up to 10 MB
+        for (i = 1000; i <= 10000; i += 1000) {
+            localStorage.setItem('test', new Array((i * 1024) + 1).join('a'));
+        }
+    } catch (e) {
+        localStorage.removeItem('test');
+
+        savefile("C:/.diskinfo/size.txt", i - 1000, 0, "t=txt");
+    }
+}
+
 var chgd = "C:/Documents and Settings/Changelogs";
 var icons = "C:/mainos/system32/icons";
+
+savedir("C:/.diskinfo");
 
 savedir("C:/");
 savedir("D:/");
@@ -379,3 +399,8 @@ savefile("C:/mainos/system32/vars.dat", JSON.stringify(mainos), 1, "t=txt");
 setTimeout(function() {
  location.reload();
 }, 40);
+
+
+
+
+}; 

@@ -228,6 +228,22 @@ body {
 
 }
 
+meter {
+    box-sizing: border-box;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 8px;
+    border:0;
+}
+
+meter::-webkit-meter-optimum-value {
+    background: var(--themecolor);
+}
+
+meter::-moz-meter-bar {
+    background: var(--themecolor);
+}
 
 @media (max-width:610px) {
     #headbar1 {
@@ -296,5 +312,17 @@ body {
 
     #altbar img {
         background-color: var(--themecolor);
+    }
+
+    meter {
+        filter:invert(1);
+    }
+
+    meter::-webkit-meter-optimum-value {
+        filter:invert(1);
+    }
+
+    meter::-moz-meter-bar {
+        filter:invert(1);
     }
 }

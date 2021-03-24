@@ -493,7 +493,6 @@ function unrun(which) {
     document.getElementById(which.id).outerHTML = "";
     pid[Number(which.id)] = "";
 
-
   }, 250);
 }
 
@@ -532,10 +531,6 @@ function max(which, how) {
     which.style.transition = "0s";
   }, 300);
 }
-
-
-
-
 
 
 
@@ -579,22 +574,6 @@ function wait(time) {
 
   while(new Date().getTime() < starttime + time) {}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -679,5 +658,6 @@ function notification(title, content) {
 
 window.alert = notification;
 
+savefile("C:/.diskinfo/size_used.txt", JSON.stringify(localStorage).length / 1000, 1, "t=txt");
 
-
+savefile("C:/.diskinfo/size_remaining.txt", loadfile("C:/.diskinfo/size.txt") - loadfile("C:/.diskinfo/size_used.txt"), 1, "t=txt");
