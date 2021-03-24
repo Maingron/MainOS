@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta version="0.4.1">
+    <meta version="0.4.2">
     <title>Simple Cookieclicker</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../../helper.css">
@@ -13,7 +13,7 @@
     <div class="content">
       <a class="cookiecount">0</a>
       <div class="cookie">
-        <img id="cookie" onclick="clicked()" ondragstart="return false">
+        <img id="cookie" onclick="clicked()" ondragstart="return false" src="iofs:C:/Program Files/Simple Cookieclicker/icon.png">
       </div>
       <div class="store">
         <a href="#" onclick="buy('machine1')">Automatic Clicker<br>25 / 1</a>
@@ -29,8 +29,5 @@
     </div>
 
     <script src="scripts.js"></script>
-    <script>
-      document.getElementById("cookie").src = loadfile("C:/Program Files/Simple Cookieclicker/icon.png");
-    </script>
   </body>
 </html>

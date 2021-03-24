@@ -19,6 +19,8 @@ function explorerdo(nowpath) {
   if (newparentpath.length == 0) {
     newparentpath = " /";
   };
+
+
   document.getElementById("mypathrn").value = newparentpath;
 
   document.getElementById("gooneup").onclick = function() {
@@ -26,18 +28,19 @@ function explorerdo(nowpath) {
   };
 
 
+
   contentfiles.innerHTML = "";
   while (fscontentsnr < fscontents.length) {
     var mycurrentfile = fscontents[fscontentsnr];
     if (newparentpath == " /" && mycurrentfile.length == 3 && mycurrentfile.indexOf(":/") == 1) {
-      contentfiles.innerHTML = contentfiles.innerHTML + "<button onclick='explorerdo(\"" + fscontents[fscontentsnr] + "/\")'><img src='../../../img/windows_folder.svg'><p>" + fscontents[fscontentsnr] + "</p></button>";
+      contentfiles.innerHTML = contentfiles.innerHTML + "<button onclick='explorerdo(\"" + fscontents[fscontentsnr] + "/\")'><img src='iofs:C:/mainos/system32/icons/mainos_folder.svg'><p>" + fscontents[fscontentsnr] + "</p></button>";
     } else {
       //window.alert(mycurrentfile + ";" + mycurrentfile.indexOf(currentpath));
       if ((mycurrentfile.match(/\//g) || []).length == (newparentpath.match(/\//g) || []).length && mycurrentfile.length > 3 && mycurrentfile.indexOf(newparentpath) > -1) {
         if (mycurrentfile.indexOf(".") == mycurrentfile.length - 4) {
-          contentfiles.innerHTML = contentfiles.innerHTML + "<button class='aonefile' onclick='//explorerdo(\"" + fscontents[fscontentsnr] + "\")'><img id='animg' src='../../../img/unknown_file.svg'><p>" + mycurrentfile.split(newparentpath)[1] + "</p></button>";
+          contentfiles.innerHTML = contentfiles.innerHTML + "<button class='aonefile' onclick='//explorerdo(\"" + fscontents[fscontentsnr] + "\")'><img id='animg' src='iofs:C:/mainos/system32/icons/unknown_file.svg'><p>" + mycurrentfile.split(newparentpath)[1] + "</p></button>";
         } else {
-          contentfiles.innerHTML = contentfiles.innerHTML + "<button class='aonefile' onclick='explorerdo(\"" + fscontents[fscontentsnr] + "\")'><img id='animg' src='../../../img/folder.svg'><p>" + mycurrentfile.split(newparentpath)[1] + "</p></button>";
+          contentfiles.innerHTML = contentfiles.innerHTML + "<button class='aonefile' onclick='explorerdo(\"" + fscontents[fscontentsnr] + "\")'><img id='animg' src='iofs:C:/mainos/system32/icons/folder.svg'><p>" + mycurrentfile.split(newparentpath)[1] + "</p></button>";
         }
       }
     }
@@ -62,8 +65,12 @@ function explorerdo(nowpath) {
       mylistedfile_img.src = parent.loadfile(newparentpath + mylistedfile_inner);
     }
 
+    if (mylistedfile_inner.indexOf(".svg") == mylistedfile_inner.length - 4) {
+      mylistedfile_img.src = parent.loadfile(newparentpath + mylistedfile_inner);
+    }
+
     if (mylistedfile_inner.indexOf(".dat") == mylistedfile_inner.length - 4) {
-      mylistedfile_img.src = "../../../img/unknown_file.svg";
+      mylistedfile_img.src = "iofs:C:/mainos/system32/icons/unknown_file.svg";
     }
     if (mylistedfile_inner.indexOf(".xec") == mylistedfile_inner.length - 4) {
       mylistedfiles[mylistedfilesnr].setAttribute("onClick", "window.parent.run('" + mylistedfile_inner.split('.xec')[0] + "')");
@@ -72,12 +79,15 @@ function explorerdo(nowpath) {
 
     if (mylistedfile_inner.indexOf(".del") == mylistedfile_inner.length - 4) {
       mylistedfiles[mylistedfilesnr].setAttribute("onClick", "window.parent.formatfs('yes')");
-      mylistedfile_img.src = "../../../img/unknown_file.svg";
+      mylistedfile_img.src = "iofs:C:/mainos/system32/icons/unknown_file.svg";
     }
 
 
     mylistedfilesnr++;
   }
+
+
+  loadIOfsLinks();
 
 
 }

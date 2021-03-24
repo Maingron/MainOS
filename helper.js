@@ -162,3 +162,26 @@ if(data.programmeta.version != "MainOS(host)") {
         console.warn(parent.thisprogram.title + "'s program version is not the expected one. (Meta:"+ data.programmeta.version + " vs. JSON: "+ parent.thisprogram.version + ")");
     }
 }
+
+
+// Load iofs:*-paths that are found in HTML Elements
+function loadIOfsLinks() {
+    for(var i = 0; i < document.getElementsByTagName("*").length; i++) { // TODO: Possible performance improvement by checking for Array[img, script, ...] instead of the entire page
+        if(document.getElementsByTagName("*")[i].src) {
+            if(document.getElementsByTagName("*")[i].src.includes("iofs:")) {
+            document.getElementsByTagName("*")[i].src = loadfile(document.getElementsByTagName("*")[i].src.split("iofs:")[1]);
+            }
+        }
+        if(document.getElementsByTagName("*")[i].href) {
+            if(document.getElementsByTagName("*")[i].href.includes("iofs:")) {
+            document.getElementsByTagName("*")[i].href = loadfile(document.getElementsByTagName("*")[i].href.split("iofs:")[1]);
+            }
+        }
+    }
+}
+
+loadIOfsLinks();
+
+window.setInterval(function() {
+    loadIOfsLinks();
+},20)
