@@ -71,6 +71,9 @@ var ismainos;
 	if(ismainos != 1 && parent.ismainos == 1) {
 		window.loadfile = parent.loadfile;
 		window.savefile = parent.savefile;
+        window.isfile = parent.isfile;
+        window.deletefile = parent.deletefile;
+        window.savedir = parent.savedir;
 		/* TODO:
 		window.close
 		window.maximize
