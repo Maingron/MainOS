@@ -193,7 +193,7 @@ program.notepad = {
  "title": "Notepad",
  "icon": "iofs:C:/Program Files/notepad/icon.png",
  "src": "Program%20Files/notepad/exec.html",
- "version": 1.3
+ "version": "1.3.1"
 }
 
 program.paint = {

@@ -13,7 +13,7 @@ if (path) {
     object.filename1.style.display = "inline";
 }
 
-function savefile() {
+function savetextfile() {
     if (object.filename1.style.display == "none") {
         savefile(path, object.textcontent.value, 1);
     } else {
