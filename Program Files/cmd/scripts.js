@@ -8,8 +8,8 @@ objects.cmdinput = document.getElementsByClassName("cmdinput")[0];
 objects.cmdoutput = document.getElementsByClassName("cmdoutput")[0];
 document.documentElement.style.setProperty("--font", window.parent.setting.font);
 
-objects.cmdoutput.innerHTML = window.parent.loadfile("C:/mainos/temp/cmdhistory.dat");
-window.parent.savefile("C:/mainos/temp/cmdhistory.dat", "", 1, "t=txt");
+objects.cmdoutput.innerHTML = loadfile("C:/mainos/temp/cmdhistory.dat");
+savefile("C:/mainos/temp/cmdhistory.dat", "", 1, "t=txt");
 
 window.scrollTo(0, document.body.scrollHeight);
 
@@ -23,19 +23,17 @@ function cmdsubmit() {
 
   if (response == "") {
     if (cls == 1) {
-      window.parent.savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + escapeHtml(objects.cmdinput.value), 1, "t=txt");
+      savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + escapeHtml(objects.cmdinput.value), 1, "t=txt");
       cls = 0;
     } else {
-      window.parent.savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + escapeHtml(objects.cmdinput.value) + "<br>", 1, "t=txt");
-
+      savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + escapeHtml(objects.cmdinput.value) + "<br>", 1, "t=txt");
     }
 
   } else {
-    window.parent.savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + escapeHtml(objects.cmdinput.value) + "<br>" + response + "<br>", 1, "t=txt");
-
+    savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + escapeHtml(objects.cmdinput.value) + "<br>" + response + "<br>", 1, "t=txt");
   }
 
-  objects.cmdoutput.innerHTML = window.parent.loadfile("C:/mainos/temp/cmdhistory.dat");
+  objects.cmdoutput.innerHTML = loadfile("C:/mainos/temp/cmdhistory.dat");
 }
 
 function runcmd(which) {
@@ -69,13 +67,21 @@ function runcmd(which) {
     return result;
   }
 
+  if (which.indexOf("mkdir") == 4) {
+    if(isfile(which.split("cmd:mkdir")[1])) {
+      return "Error: Folder already exists";
+    } else {
+      savedir(which.split("cmd:mkdir")[1]);
+      return "Created folder";
+    }
+  }
 
 
   if (which.indexOf("cls") == 4 || which.indexOf("clear") == 4) {
     cls = 1;
     objects.cmdoutput.innerHTML = "";
     objects.cmdinput.value = "";
-    window.parent.savefile("C:/mainos/temp/cmdhistory.dat", "", 1, "t=txt");
+    savefile("C:/mainos/temp/cmdhistory.dat", "", 1, "t=txt");
     location.reload();
     return "";
   }
@@ -83,9 +89,7 @@ function runcmd(which) {
   if (which.indexOf("setting") == 4) {
     which = which.split("cmd:setting ")[1];
     which = which.toLowerCase();
-    parent.savefile(parent.setting.settingpath + which.split(" ")[0] + ".txt", which.split(" ")[1], 1, "t=txt");
-
-
+    savefile(parent.setting.settingpath + which.split(" ")[0] + ".txt", which.split(" ")[1], 1, "t=txt");
 
 
     window.parent.loadsettings();
@@ -100,6 +104,10 @@ function runcmd(which) {
     return "";
   }
 
+  if (which.indexOf("version") == 4) {
+    return("MainOS Version: " + parent.mainos.version);
+  }
+
 
   if (which.indexOf("help") == 4) {
     return `<b class='helpb' style='font-weight:inherit'><b>cls</b> clears console<br>
@@ -109,6 +117,8 @@ function runcmd(which) {
     <b>pids </b> lists currently running programs<br><b>exit</b> closes the terminal<br>
     <b>setting <b> [Name of setting] [value]</b></b> changes a setting<br>
     <b>restart</b> restarts MainOS<br>
+    <b>mkdir <a>[Path]</a></b> Create a directory<br>
+    <b>version</b> Shows MainOS Version<br>
     </b>
     <p style='display:block;line-height:18px'>&nbsp;</p>
     <b class='helpb'>devmode commands:<br><b>js <b>js</b></b> executes js<br>`;
@@ -123,7 +133,7 @@ function runcmd(which) {
   if (which.indexOf("exit") == 4) {
     objects.cmdoutput.innerHTML = "";
     objects.cmdinput.value = "";
-    window.parent.savefile("C:/mainos/temp/cmdhistory.dat", "", 1, "t=txt");
+    savefile("C:/mainos/temp/cmdhistory.dat", "", 1, "t=txt");
     window.parent.unrun("cmd");
     location.reload();
     return "";
@@ -132,7 +142,7 @@ function runcmd(which) {
 
   if (which.indexOf("js ") == 4) {
     if (window.parent.setting.developer = 1) {
-      window.parent.savefile("C:/mainos/temp/cmdhistory.dat", "", 1, "t=txt");
+      savefile("C:/mainos/temp/cmdhistory.dat", "", 1, "t=txt");
       if (which.indexOf("js ") == 4) {
         eval(which.split("cmd:js ")[1]);
         return "Ran JS Command";

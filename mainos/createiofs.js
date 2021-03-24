@@ -236,7 +236,7 @@ program.simple_cookieclicker = {
  "title": "Simple Cookieclicker",
  "icon": loadfile("C:/Program Files/Simple Cookieclicker/icon.png"),
  "src": "Program%20Files/simple%20cookieclicker/exec.html",
- "version":"0.4.1"
+ "version": "0.4.1"
 }
 
 program.hype = {
@@ -264,7 +264,7 @@ program.cmd = {
  "title": "cmd",
  "icon": loadfile("C:/Program Files/cmd/icon.png"),
  "src": "Program%20Files/cmd/exec.html",
- "version": 1.2
+ "version": "1.2.1"
 }
 
 program.notifications = {
