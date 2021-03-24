@@ -27,20 +27,24 @@ function explorerdo(nowpath) {
     explorerdo(newparentpath.split(newparentpath.split("/")[newparentpath.split("/").length - 2])[0] + "/")
   };
 
+  // document.getElementById("refreshdir").onclick = function() {
+  //   explorerdo(newparentpath + "/")
+  // };
+
 
 
   contentfiles.innerHTML = "";
   while (fscontentsnr < fscontents.length) {
     var mycurrentfile = fscontents[fscontentsnr];
     if (newparentpath == " /" && mycurrentfile.length == 3 && mycurrentfile.indexOf(":/") == 1) {
-      contentfiles.innerHTML = contentfiles.innerHTML + "<button onclick='explorerdo(\"" + fscontents[fscontentsnr] + "/\")'><img src='iofs:C:/mainos/system32/icons/mainos_folder.svg'><p>" + fscontents[fscontentsnr] + "</p><meter value='" + loadfile("C:/.diskinfo/size_used.txt") + "' min='0' max='" + loadfile("C:/.diskinfo/size.txt") + "'>&nbsp;</meter></button>";
+      contentfiles.innerHTML = contentfiles.innerHTML + "<button path='" + fscontents[fscontentsnr] + "' onclick='explorerdo(\"" + fscontents[fscontentsnr] + "/\")'><img src='iofs:C:/mainos/system32/icons/mainos_folder.svg'><p>" + fscontents[fscontentsnr] + "</p><meter value='" + loadfile("C:/.diskinfo/size_used.txt") + "' min='0' max='" + loadfile("C:/.diskinfo/size.txt") + "'>&nbsp;</meter></button>";
     } else {
       //window.alert(mycurrentfile + ";" + mycurrentfile.indexOf(currentpath));
       if ((mycurrentfile.match(/\//g) || []).length == (newparentpath.match(/\//g) || []).length && mycurrentfile.length > 3 && mycurrentfile.indexOf(newparentpath) > -1) {
         if (mycurrentfile.indexOf(".") == mycurrentfile.length - 4) {
-          contentfiles.innerHTML = contentfiles.innerHTML + "<button class='aonefile' onclick='//explorerdo(\"" + fscontents[fscontentsnr] + "\")'><img id='animg' src='iofs:C:/mainos/system32/icons/unknown_file.svg'><p>" + mycurrentfile.split(newparentpath)[1] + "</p></button>";
+          contentfiles.innerHTML = contentfiles.innerHTML + "<button class='aonefile' path='" + fscontents[fscontentsnr] + "' onclick='//explorerdo(\"" + fscontents[fscontentsnr] + "\")'><img id='animg' src='iofs:C:/mainos/system32/icons/unknown_file.svg'><p>" + mycurrentfile.split(newparentpath)[1] + "</p></button>";
         } else {
-          contentfiles.innerHTML = contentfiles.innerHTML + "<button class='aonefile' onclick='explorerdo(\"" + fscontents[fscontentsnr] + "\")'><img id='animg' src='iofs:C:/mainos/system32/icons/folder.svg'><p>" + mycurrentfile.split(newparentpath)[1] + "</p></button>";
+          contentfiles.innerHTML = contentfiles.innerHTML + "<button class='aonefile' path='" + fscontents[fscontentsnr] + "' onclick='explorerdo(\"" + fscontents[fscontentsnr] + "\")'><img id='animg' src='iofs:C:/mainos/system32/icons/folder.svg'><p>" + mycurrentfile.split(newparentpath)[1] + "</p></button>";
         }
       }
     }
@@ -94,6 +98,20 @@ function explorerdo(nowpath) {
 
 explorerdo(" ");
 
+function deletefileandrefresh(path) {
+  deletefile(path);
+  explorerdo(document.getElementById("mypathrn").value + "/");
+}
+
 function contextMenu(event) {
-  spawnContextMenu([["Properties","","disabled"]])
+  if(event.target.attributes.path) {
+    console.log(isfolder(event.target.attributes.path.value));
+    if(!isfolder(event.target.attributes.path.value)) {
+      spawnContextMenu([["Delete File","deletefileandrefresh('" + event.target.attributes.path.value + "')"], ["<hr>"], ["Properties","","disabled"]]) // ["Backup File","savefile('" + event.target.attributes.path.value + ' - Copy' + "','" + loadfile(event.target.attributes.path.value) + "', 0, 't=txt')"]
+    } else {
+      spawnContextMenu([["Properties","","disabled"]])
+    }
+  } else {
+    spawnContextMenu([["Refresh","explorerdo(document.getElementById('mypathrn').value + '/')"],["<hr>"],["Properties","","disabled"]])
+  }
 }

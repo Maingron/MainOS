@@ -205,7 +205,7 @@ program.explorer = {
  "title": "Explorer",
  "icon": "iofs:C:/mainos/system32/icons/folder-search.png",
  "src": "Program%20Files/Explorer/inner/exec.html",
- "version": "1.3.1"
+ "version": "1.3.2"
 }
 
 program.notepad = {

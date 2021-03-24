@@ -206,6 +206,7 @@ body {
     pointer-events: none;
     max-width:100%;
     object-fit: contain;
+    pointer-events:none;
 }
 
 #content_files p {
@@ -218,6 +219,7 @@ body {
     width: 100%;
     text-align: center;
     padding-bottom: 2px;
+    pointer-events:none;
 }
 
 #content_files button:hover {
@@ -225,7 +227,6 @@ body {
     z-index: 20;
     border-radius: 1px;
     background-color: var(--hovercolor);
-
 }
 
 meter {
