@@ -64,7 +64,7 @@ function explorerdo(nowpath) {
       mylistedfile_img.src = parent.loadfile("C:/Program Files/notepad/icon.png");
     }
 
-    if (mylistedfile_inner.indexOf(".png") == mylistedfile_inner.length - 4 || mylistedfile_inner.indexOf(".jpg") == mylistedfile_inner.length - 4) {
+    if (mylistedfile_inner.indexOf(".png") == mylistedfile_inner.length - 4 || mylistedfile_inner.indexOf(".jpg") == mylistedfile_inner.length - 4 || mylistedfile_inner.indexOf(".gif") == mylistedfile_inner.length - 4)  {
       mylistedfiles[mylistedfilesnr].setAttribute("onClick", "javascript: window.parent.run('paint2', '" + newparentpath + mylistedfile_inner + "');");
       mylistedfile_img.src = parent.loadfile(newparentpath + mylistedfile_inner);
     }
