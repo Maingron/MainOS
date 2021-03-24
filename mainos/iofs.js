@@ -35,7 +35,7 @@ function listfs(path) {
 }
 
 
-function loadfile(path) {
+function loadfile(path,requestattributes = 0) {
   if (localStorage.getItem(path) != 0 && localStorage.getItem((path)) != null) {
     if (localStorage.getItem(path).length < 2 || localStorage.getItem(path).indexOf("***") < 5) {
       savefile(path, localStorage.getItem(path));
@@ -49,9 +49,11 @@ function loadfile(path) {
       }
     }
 
-
-
-    return localStorage.getItem((path)).split("***")[1];
+    if(requestattributes == 1) { // Return only file attributes if requested
+      return localStorage.getItem((path)).split("***")[0];
+    } else {
+      return localStorage.getItem((path)).split("***")[1];
+    }
   } else {
     return localStorage.getItem(path);
   }
@@ -62,6 +64,18 @@ function isfile(path) {
     return (0);
   } else {
     return (1);
+  }
+}
+
+function isfolder(path) {
+  if(localStorage.getItem(path) == null || localStorage.getItem(path) == "undefined") {
+    return 0;
+  } else {
+    if(loadfile(path,1) == "t=dir") {
+      return 1;
+    } else {
+      return 0;
+    }
   }
 }
 

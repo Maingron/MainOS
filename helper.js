@@ -74,6 +74,7 @@ var ismainos;
         window.isfile = parent.isfile;
         window.deletefile = parent.deletefile;
         window.savedir = parent.savedir;
+        window.isfolder = parent.isfolder;
 		/* TODO:
 		window.close
 		window.maximize
