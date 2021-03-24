@@ -67,6 +67,17 @@ var ismainos;
         })
     }
 
+
+	if(ismainos != 1 && parent.ismainos == 1) {
+		window.loadfile = parent.loadfile;
+		window.savefile = parent.savefile;
+		/* TODO:
+		window.close
+		window.maximize
+		window.minimize */
+	}
+
+
     var key = [];
 
 
