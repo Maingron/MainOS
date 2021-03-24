@@ -87,6 +87,13 @@ function savefile(path, content, override, attr) {
   }
 }
 
+function savedir(path) {
+  if(isfile(path)) {
+  } else {
+    savefile(path, 0, 0, "t=dir");
+  }
+}
+
 
 function deletefile(path) {
   localStorage.removeItem(path);
