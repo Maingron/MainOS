@@ -1,9 +1,9 @@
-if (!parent.loadfile("C:/Program Files/Simple Cookieclicker")) {
-  parent.savefile("C:/Program Files/Simple Cookieclicker", "");
+if (!loadfile("C:/Program Files/Simple Cookieclicker")) {
+  savefile("C:/Program Files/Simple Cookieclicker", "");
 }
 
-if (parent.loadfile("C:/Program Files/Simple Cookieclicker/cookies.txt")) {
-  var cookies = parent.loadfile("C:/Program Files/Simple Cookieclicker/cookies.txt");
+if (loadfile("C:/Program Files/Simple Cookieclicker/cookies.txt")) {
+  var cookies = loadfile("C:/Program Files/Simple Cookieclicker/cookies.txt");
 } else {
   var cookies = 0;
 }
@@ -13,7 +13,7 @@ cookies = cookies;
 var machines = {};
 
 
-if (!parent.loadfile("C:/Program Files/Simple Cookieclicker/machines.txt")) {
+if (!loadfile("C:/Program Files/Simple Cookieclicker/machines.txt")) {
   init();
 }
 
@@ -26,10 +26,10 @@ function init() {
   machines.machine6 = 0;
   machines.machine7 = 0;
   machines.machine8 = 0;
-  parent.savefile("C:/Program Files/Simple Cookieclicker/machines.txt", JSON.stringify(machines), 1);
+  savefile("C:/Program Files/Simple Cookieclicker/machines.txt", JSON.stringify(machines), 1);
 }
 
-machines = parent.loadfile("C:/Program Files/Simple Cookieclicker/machines.txt");
+machines = loadfile("C:/Program Files/Simple Cookieclicker/machines.txt");
 machines = JSON.parse(machines);
 
 
@@ -55,7 +55,7 @@ function clicked() {
 
 
 setInterval(function () {
-  parent.savefile("C:/Program Files/Simple Cookieclicker/cookies.txt", cookies, 1);
+  savefile("C:/Program Files/Simple Cookieclicker/cookies.txt", cookies, 1);
 }, 1000);
 
 
@@ -137,6 +137,6 @@ function buy(which) {
 
 
   objects.cookiecount.innerHTML = cookies;
-  parent.savefile("C:/Program Files/Simple Cookieclicker/machines.txt", JSON.stringify(machines), 1);
+  savefile("C:/Program Files/Simple Cookieclicker/machines.txt", JSON.stringify(machines), 1);
 }
 
