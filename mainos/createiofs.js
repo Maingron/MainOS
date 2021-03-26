@@ -284,7 +284,7 @@ program.notifications = {
 
 program.settings = {
  "id": "settings",
- "title": "Settings - Beta",
+ "title": "Settings",
  "icon": "iofs:C:/Program Files/settings/icon.png",
  "src": "Program%20Files/settings/exec.html",
  "autostart": 0,

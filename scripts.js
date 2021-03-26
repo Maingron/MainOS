@@ -71,7 +71,6 @@ function loadsettings() {
   setting.developer = loadsetting("developer");
   setting.themecolor = loadsetting("themecolor");
   setting.themecolor2 = loadsetting("themecolor2");
-  setting.darkmode = loadsetting("darkmode");
   setting.notsodarkmode = loadsetting("notsodarkmode");
   setting.hovercolor = loadsetting("hovercolor");
   setting.hovercolornontransparent = loadsetting("hovercolornontransparent");
