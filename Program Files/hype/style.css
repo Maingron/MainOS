@@ -52,10 +52,8 @@
   left:0;
   height:32px;
   width:32px;
-  background:url("img/spritesheet1.png") 0 0;
   border-radius:50%;
 }
-
 
 .videocall {
   margin:0;
@@ -64,7 +62,6 @@
   width:100%;
   overflow:hidden;
 }
-
 
 #cam {
   position:relative;
@@ -90,9 +87,7 @@
 }
 
 @media (prefers-color-scheme:dark) {
-
   .left {
     background:var(--themecolor)
   }
-  
 }

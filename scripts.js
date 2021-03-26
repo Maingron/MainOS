@@ -246,10 +246,6 @@ function run(which, iattr, how) {
 
   var mypid = document.getElementById(pidmax);
 
-  if (thisprogram.tryxml == 1) {
-    thisprogram.src = "Program%20Files/xmlexec/exec.html#" + thisprogram.src;
-  }
-
   // if (thisprogram.noborder == 1) {
     // mypid.innerHTML = "<div class=\"headbar\"></div><div class=\"resizers\"></div><iframe class=\"proframe " + thisprogram.id + "\" src=\"about:blank\" async>" + thisprogram.src + "</iframe>";
   // } else {
@@ -267,6 +263,9 @@ function run(which, iattr, how) {
     mypid.children[2].sandbox = "allow-scripts allow-forms";
   }
 
+  if(!thisprogram.icon) {
+    thisprogram.icon = "iofs:C:/mainos/system32/icons/transparent.png";
+  }
 
   mypid.children[0].innerHTML = "<img class=\"progicon\" src=\"" + thisprogram.icon + "\" alt=\"" + thisprogram.title + "\"/><p class=\"progtitle\">" + thisprogram.title + "</p><button class=\"max\"><p class='speak'>maximize</p></button><button class=\"close\"><p class='speak'>close</p></button>";
   mypid.children[1].innerHTML = "<div class=\"resizer2\"></div>";
@@ -559,12 +558,12 @@ window.addEventListener("touchend", function() {
 
 
 function gooff() {
-  window.close();
-  self.close();
+    window.close();
+    self.close();
 }
 
 
-function wait(time) {
+function wait(time) { //depreciated
   if (time > 500) {
     time = 0;
     console.log("Waiting time may only be 500ms or less.");

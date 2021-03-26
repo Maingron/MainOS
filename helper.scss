@@ -52,7 +52,7 @@ textarea {
     position:sticky;
     display:block;
     top:0;
-    box-sizing:border-box; 
+    box-sizing:border-box;
 }
 
 .toolbar {
@@ -81,7 +81,7 @@ textarea {
         margin:0;
         padding:0;
         border:none;
-        border-bottom:1px solid var(--themecolor); 
+        border-bottom:1px solid var(--themecolor);
     }
     a {
         display:block;
@@ -96,10 +96,8 @@ textarea {
 
 
 
-
 @media (prefers-color-scheme: dark) {
     body {
-        /* background: var(--black); */
         background: transparent;
         color: #fff;
     }
@@ -109,13 +107,9 @@ textarea {
     }
 
     .altbar {
-        border-top:1px solid transparent;
         background:var(--altbarcolor);
         border-bottom:none;
         transition:.1s;
-        &:hover {
-            border-top-color:var(--black2);
-        }
     }
 
     input,

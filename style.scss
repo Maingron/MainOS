@@ -88,20 +88,6 @@ iframe {
     object-fit: contain;
     filter: drop-shadow(2px 2px 2px #fff) drop-shadow(-2px 2px 2px #fff) drop-shadow(2px -2px 2px #fff) drop-shadow(-2px -2px 2px #fff);
   }
-
-  #eggpng {
-    display: none;
-    position: fixed;
-    top: auto;
-    bottom: 35px;
-    right: 40%;
-    left: auto;
-    height: 40px;
-    width: auto;
-    object-fit: contain;
-    z-index: 0;
-    filter: drop-shadow(0 0);
-  }
 }
 
 
