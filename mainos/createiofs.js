@@ -58,7 +58,6 @@ savefile("C:/users/" + setting.username + "/settings/backgroundimage.txt", "load
 savefile("C:/users/" + setting.username + "/settings/developer.txt", 0, 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/themecolor.txt", "#994400", 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/themecolor2.txt", "#dd6600", 0, "t=txt");
-savefile("C:/users/" + setting.username + "/settings/darkmode.txt", 0, 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/notsodarkmode.txt", 0, 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/hovercolor.txt", "#ffaa0077", 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/hovercolornontransparent.txt", "#ffaa00", 0, "t=txt");
