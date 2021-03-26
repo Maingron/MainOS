@@ -312,7 +312,7 @@ program.paint2 = {
  "src": "Program%20Files/paint2/exec.html",
  "autostart": 0,
  "spawnicon": 1,
- "version": "1.2.1"
+ "version": 1.2
 }
 
 program.germantv_zdf = {
