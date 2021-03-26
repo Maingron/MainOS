@@ -139,9 +139,8 @@ function render() {
             ctx.moveTo(steps[i][1],steps[i][2]);
             ctx.beginPath();
         }
- 
-        ctx.stroke();
 
+        ctx.stroke();
 
     }
 
@@ -196,7 +195,11 @@ function savefile(type) {
 var fileformat = "png";
 
 function setfileformat(which) {
-    fileformat = which;
+    if(which.toLowerCase() == "jpg") {
+        fileformat = "jpeg";
+    } else {
+        fileformat = which;
+    }
 }
 
 function contextMenu(event) {
