@@ -14,6 +14,8 @@ var pidmax = 10;
 var clicking = 0;
 var clicked = 0;
 
+var objs, result, iattr;
+
 
 if(!mainos) {
   var mainos = {};
@@ -30,7 +32,7 @@ try {
   mainos = Object.assign(mainos, ifjsonparse(loadfile("C:/mainos/system32/vars.dat")));
 } catch (e) {
 
-  var objs = [mainos, ifjsonparse(loadfile("C:/mainos/system32/vars.dat"))],
+  objs = [mainos, ifjsonparse(loadfile("C:/mainos/system32/vars.dat"))];
     result = objs.reduce(function(r, o) {
       Object.keys(o).forEach(function(k) {
         r[k] = o[k];
@@ -44,8 +46,7 @@ function jsoncombine(which1, which2) {
   try {
     which1 = Object.assign(which1, which2);
   } catch (e) {
-
-    var objs = [which1, which2];
+    objs = [which1, which2];
       result = objs.reduce(function(r, o) {
         Object.keys(o).forEach(function(k) {
           r[k] = o[k];
@@ -164,9 +165,6 @@ for (var i = 0; Object.keys(program).length > i; i++) {
       continue;
     }
   }
-
-
-
 
 
 
@@ -459,8 +457,6 @@ function run(which, iattr, how) {
   if (!how) {
     max(mypid.children[0].children[0], "tomax");
   }
-
-  attr = iattr;
 
   mypid.children[2].contentWindow.window.alert = notification;
   mypid.children[2].contentWindow.alert = notification;
