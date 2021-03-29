@@ -1,271 +1,132 @@
-score = 0;
+var score = 0;
 var automa = 0;
 var time = 30;
 
-document.addEventListener('keydown', (event) => {
-	var berrytop = document.getElementById("berry").offsetTop;
-	var berryleft = document.getElementById("berry").offsetLeft;
-	key = event.key;
-	be = document.getElementById("be");
-	gameheight = document.getElementById("ah").offsetHeight;
-	gamewidth = document.getElementById("ah").offsetWidth;
-	if (key == 'ArrowRight') {
-		if (be.offsetLeft >= gamewidth - 80) {} else {
-			be.style.left = be.offsetLeft + 40 + "px";
-		}
-	}
-	if (key == 'ArrowLeft') {
-		if (be.offsetLeft <= 0) {} else {
-			be.style.left = be.offsetLeft - 40 + "px";
-		}
-	}
-	if (key == 'ArrowUp') {
-		if (be.offsetTop <= 0) {} else {
-			be.style.top = be.offsetTop - 40 + "px";
-		}
-	}
-	if (key == 'ArrowDown') {
-		if (be.offsetTop >= gameheight - 80) {} else {
-			be.style.top = be.offsetTop + 40 + "px";
-		}
-	}
-	if (key == 'w') {
-		if (be.offsetTop <= 0) {} else {
-			be.style.top = be.offsetTop - 40 + "px";
-		}
-	}
-	if (key == 'a') {
-		if (be.offsetLeft <= 0) {} else {
-			be.style.left = be.offsetLeft - 40 + "px";
-		}
-	}
-	if (key == 's') {
-		if (be.offsetTop >= gameheight - 80) {} else {
-			be.style.top = be.offsetTop + 40 + "px";
-		}
-	}
-	if (key == 'd') {
-		if (be.offsetLeft >= gamewidth - 80) {} else {
-			be.style.left = be.offsetLeft + 40 + "px";
-		}
-	}
-	if (key == '#') {
-		automatic()
-	}
-	if (key == '-') {
-		if (time < 5) {} else {
-			time = time - 1;
-		}
-	}
-	if (key == '+') {
-		time = time + 1;
-	}
-	if (key == 'z') {
-		score = score - .58;
-	}
-	if (key == 'h') {
-		be.style.opacity = "0";
-		bet.style.opacity = "0";
-		beth.style.opacity = "0";
-		bothh.style.opacity = "0";
-		berry.style.border = "4px solid var(--themecolor)";
-		betrry.style.border = "4px solid var(--themecolor)";
-		bethrry.style.border = "4px solid var(--themecolor)";
-		bothhrry.style.border = "4px solid var(--themecolor)";
-	}
-	if (key == 'j') {
-		be.style.opacity = "1";
-		bet.style.opacity = "";
-		beth.style.opacity = "";
-		bothh.style.opacity = "";
-		berry.style.border = ""
-		betrry.style.border = "";
-		bethrry.style.border = "";
-		bothhrry.style.border = "";
-	}
+var key, gameheight, gamewidth;
 
-	var beleft = be.offsetLeft;
-	var betop = be.offsetTop;
-	if (beleft == berryleft && betop == berrytop) {
-		score++;
-		document.getElementById("score").innerHTML = score;
-		var randomtop = Math.floor(Math.random() * 1000) * 40;
-		while (randomtop > gameheight - 80) {
-			var randomtop = Math.floor(Math.random() * 1000) * 40;
-		}
-		berry.style.top = randomtop + "px";
-		var randomleft = Math.floor(Math.random() * 1000) * 40;
-		while (randomleft > gamewidth - 80) {
-			var randomleft = Math.floor(Math.random() * 1000) * 40;
-		}
-		berry.style.left = randomleft + "px";
-	}
+var player1 = document.getElementById("player1");
+var player2 = document.getElementById("player2");
+var player3 = document.getElementById("player3");
+var player4 = document.getElementById("player4");
+var berry1 = document.getElementById("berry1");
+var berry2 = document.getElementById("berry2");
+var berry3 = document.getElementById("berry3");
+var berry4 = document.getElementById("berry4");
+
+
+document.addEventListener('keydown', (event) => {
+    key = event.key;
+    gameheight = document.getElementById("field").offsetHeight;
+    gamewidth = document.getElementById("field").offsetWidth;
+    if (key == 'ArrowRight' || key == 'd') {
+        if (player1.offsetLeft >= gamewidth - 80) {} else {
+            player1.style.left = player1.offsetLeft + 40 + "px";
+        }
+    }
+    if (key == 'ArrowLeft' || key == 'a') {
+        if (player1.offsetLeft <= 0) {} else {
+            player1.style.left = player1.offsetLeft - 40 + "px";
+        }
+    }
+    if (key == 'ArrowUp' || key == 'w') {
+        if (player1.offsetTop <= 0) {} else {
+            player1.style.top = player1.offsetTop - 40 + "px";
+        }
+    }
+    if (key == 'ArrowDown' || key == 's') {
+        if (player1.offsetTop >= gameheight - 80) {} else {
+            player1.style.top = player1.offsetTop + 40 + "px";
+        }
+    }
+
+	if (key == '#') {
+        automatic()
+    }
+    if (key == '-') {
+        if (time < 5) {} else {
+            time = time - 1;
+        }
+    }
+    if (key == '+') {
+        time = time + 1;
+    }
+    if (key == 'h') {
+		document.body.classList.add("hide");
+    }
+    if (key == 'j') {
+		document.body.classList.remove("hide");
+    }
+
+	updatePlayer(player1, berry1);
+
 });
 
+
 function automatic() {
-	if (automa != "1") {
-		automa = "1";
-		be = document.getElementById("be");
-		bet = document.getElementById("bet");
-		beth = document.getElementById("beth");
-		bothh = document.getElementById("bothh");
-		betrry = document.getElementById("betrry");
-		bethrry = document.getElementById("bethrry");
-		bothhrry = document.getElementById("bothhrry");
-		be.style.display = "inline";
-		bet.style.display = "inline";
-		beth.style.display = "inline";
-		bothh.style.display = "inline";
-		betrry.style.display = "inline";
-		bethrry.style.display = "inline";
-		bothhrry.style.display = "inline";
+    if (!automa) {
+        automa++;
+        player1.style.display = "inline";
+        player2.style.display = "inline";
+        player3.style.display = "inline";
+        player4.style.display = "inline";
+        berry1.style.display = "inline";
+        berry2.style.display = "inline";
+        berry3.style.display = "inline";
+        berry4.style.display = "inline";
 
-		setInterval(function () {
-			var berrytop = document.getElementById("berry").offsetTop;
-			var berryleft = document.getElementById("berry").offsetLeft;
-			var beleft = be.offsetLeft;
-			var betop = be.offsetTop;
-			if (berrytop < betop) {
-				be.style.top = be.offsetTop - 40 + "px";
-			}
-			if (berrytop > betop) {
-				be.style.top = be.offsetTop + 40 + "px";
-			}
-			if (berryleft < beleft) {
-				be.style.left = be.offsetLeft - 40 + "px";
-			}
-			if (berryleft > beleft) {
-				be.style.left = be.offsetLeft + 40 + "px";
-			}
-
-			var beleft = be.offsetLeft;
-			var betop = be.offsetTop;
-			if (beleft == berryleft && betop == berrytop) {
-				score++;
-				document.getElementById("score").innerHTML = score;
-				var randomtop = Math.floor(Math.random() * 1000) * 40;
-				while (randomtop > gameheight - 80) {
-					var randomtop = Math.floor(Math.random() * 1000) * 40;
-				}
-				berry.style.top = randomtop + "px";
-				var randomleft = Math.floor(Math.random() * 1000) * 40;
-				while (randomleft > gamewidth - 80) {
-					var randomleft = Math.floor(Math.random() * 1000) * 40;
-				}
-				berry.style.left = randomleft + "px";
-			}
+        setInterval(function () {
+			updatePlayer(player1, berry1);
+			updatePlayer(player2, berry2);
+			updatePlayer(player3, berry3);
+			updatePlayer(player4, berry4);
+        }, time);
+    }
+}
 
 
-			var betrrytop = document.getElementById("betrry").offsetTop;
-			var betrryleft = document.getElementById("betrry").offsetLeft;
-			var betleft = bet.offsetLeft;
-			var bettop = bet.offsetTop;
+function updatePlayer(whichplayer, whichberry) {
+	whichplayer.top = whichplayer.offsetTop;
+	whichplayer.left = whichplayer.offsetLeft;
+	whichberry.top = whichberry.offsetTop;
+	whichberry.left = whichberry.offsetLeft;
 
-			if (betrrytop < bettop) {
-				bet.style.top = bet.offsetTop - 40 + "px";
-			}
-			if (betrrytop > bettop) {
-				bet.style.top = bet.offsetTop + 40 + "px";
-			}
-			if (betrryleft < betleft) {
-				bet.style.left = bet.offsetLeft - 40 + "px";
-			}
-			if (betrryleft > betleft) {
-				bet.style.left = bet.offsetLeft + 40 + "px";
-			}
-
-
-			var betleft = bet.offsetLeft;
-			var bettop = bet.offsetTop;
-			if (betleft == betrryleft && bettop == betrrytop) {
-				score++;
-				document.getElementById("score").innerHTML = score;
-				var randomtop = Math.floor(Math.random() * 1000) * 40;
-				while (randomtop > gameheight - 80) {
-					var randomtop = Math.floor(Math.random() * 1000) * 40;
-				}
-				betrry.style.top = randomtop + "px";
-				var randomleft = Math.floor(Math.random() * 1000) * 40;
-				while (randomleft > gamewidth - 80) {
-					var randomleft = Math.floor(Math.random() * 1000) * 40;
-				}
-				betrry.style.left = randomleft + "px";
-			}
-
-
-			var bethrrytop = document.getElementById("bethrry").offsetTop;
-			var bethrryleft = document.getElementById("bethrry").offsetLeft;
-			var bethleft = beth.offsetLeft;
-			var bethtop = beth.offsetTop;
-
-			if (bethrrytop < bethtop) {
-				beth.style.top = beth.offsetTop - 40 + "px";
-			}
-			if (bethrrytop > bethtop) {
-				beth.style.top = beth.offsetTop + 40 + "px";
-			}
-			if (bethrryleft < bethleft) {
-				beth.style.left = beth.offsetLeft - 40 + "px";
-			}
-			if (bethrryleft > bethleft) {
-				beth.style.left = beth.offsetLeft + 40 + "px";
-			}
-
-
-			var bethleft = beth.offsetLeft;
-			var bethtop = beth.offsetTop;
-			if (bethleft == bethrryleft && bethtop == bethrrytop) {
-				score++;
-				document.getElementById("score").innerHTML = score;
-				var randomtop = Math.floor(Math.random() * 1000) * 40;
-				while (randomtop > gameheight - 80) {
-					var randomtop = Math.floor(Math.random() * 1000) * 40;
-				}
-				bethrry.style.top = randomtop + "px";
-				var randomleft = Math.floor(Math.random() * 1000) * 40;
-				while (randomleft > gamewidth - 80) {
-					var randomleft = Math.floor(Math.random() * 1000) * 40;
-				}
-				bethrry.style.left = randomleft + "px";
-			}
-
-
-			var bothhrrytop = document.getElementById("bothhrry").offsetTop;
-			var bothhrryleft = document.getElementById("bothhrry").offsetLeft;
-			var bothhleft = bothh.offsetLeft;
-			var bothhtop = bothh.offsetTop;
-
-			if (bothhrrytop < bothhtop) {
-				bothh.style.top = bothh.offsetTop - 40 + "px";
-			}
-			if (bothhrrytop > bothhtop) {
-				bothh.style.top = bothh.offsetTop + 40 + "px";
-			}
-			if (bothhrryleft < bothhleft) {
-				bothh.style.left = bothh.offsetLeft - 40 + "px";
-			}
-			if (bothhrryleft > bothhleft) {
-				bothh.style.left = bothh.offsetLeft + 40 + "px";
-			}
-
-			var bothhleft = bothh.offsetLeft;
-			var bothhtop = bothh.offsetTop;
-
-			if (bothhleft == bothhrryleft && bothhtop == bothhrrytop) {
-				score++;
-				document.getElementById("score").innerHTML = score;
-				var randomtop = Math.floor(Math.random() * 1000) * 40;
-				while (randomtop > gameheight - 80) {
-					var randomtop = Math.floor(Math.random() * 1000) * 40;
-				}
-				bothhrry.style.top = randomtop + "px";
-				var randomleft = Math.floor(Math.random() * 1000) * 40;
-				while (randomleft > gamewidth - 80) {
-					var randomleft = Math.floor(Math.random() * 1000) * 40;
-				}
-				bothhrry.style.left = randomleft + "px";
-			}
-
-		}, time);
+	if(automa) {
+		if (whichberry.top < whichplayer.top) {
+			whichplayer.style.top = whichplayer.offsetTop - 40 + "px";
+		}
+		if (whichberry.top > whichplayer.top) {
+			whichplayer.style.top = whichplayer.offsetTop + 40 + "px";
+		}
+		if (whichberry.left < whichplayer.left) {
+			whichplayer.style.left = whichplayer.offsetLeft - 40 + "px";
+		}
+		if (whichberry.left > whichplayer.left) {
+			whichplayer.style.left = whichplayer.offsetLeft + 40 + "px";
+		}
 	}
+
+
+	whichplayer.left = whichplayer.offsetLeft;
+	whichplayer.top = whichplayer.offsetTop;
+
+	if (whichplayer.left == whichberry.left && whichplayer.top == whichberry.top) {
+		updateScore(whichberry);
+	}
+}
+
+function updateScore(berry) {
+	score++;
+	document.getElementById("score").innerHTML = score;
+
+	var randomtop = Math.floor(Math.random() * 1000) * 40;
+	while (randomtop > gameheight - 80) {
+		randomtop = Math.floor(Math.random() * 1000) * 40;
+	}
+	berry.style.top = randomtop + "px";
+
+	var randomleft = Math.floor(Math.random() * 1000) * 40;
+	while (randomleft > gamewidth - 80) {
+		randomleft = Math.floor(Math.random() * 1000) * 40;
+	}
+	berry.style.left = randomleft + "px";
 }
