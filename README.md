@@ -1,5 +1,7 @@
 # MainOS
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/9d58a482a614229a0f83/maintainability)](https://codeclimate.com/github/Maingron/MainOS/maintainability)
+
 ## About MainOS
 
 MainOS is a browser based Windows XP clone thing. It is inspired by Microsofts Windows XP and other Windows versions, though it's more and more taking it's own path.
