@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta version="1.4.2">
+    <meta version="1.4.3">
     <title>Start</title>
     <link rel="stylesheet" href="startmenu.css">
     <link rel="stylesheet" href="../../../helper.css">
@@ -13,7 +13,6 @@
     function show_alleprogramme() {
         document.getElementById("alleprogramme").style.overflow = "visible";
         document.getElementById("alleprogramme").style.opacity = "1";
-        document.getElementById("alleprogramme").style.transform = "rotate(0deg)";
         document.getElementById("alleprogrammeout").style.display = "inline";
     }
 
@@ -42,8 +41,8 @@
         </div>
         <div id="center">
             <div id="left">
-                <div onclick="run('excel')"><img src="iofs:C:/Program Files/excel/icon.png" alt=""><p>Soft Office Excel 2113</p></div>
-                <div onclick="run('optisocubes')"><img src="../../optisocubes/icon.svg" alt=""><p>Optisocubes</p></div>
+                <div onclick="run('excel')"><img src="iofs:C:/Program Files/excel/icon.png" alt=""><p>Soft Excel</p></div>
+                <div onclick="run('optisocubes')"><img src="iofs:C:/Program Files/Optisocubes/icon.svg" alt=""><p>Optisocubes</p></div>
                 <div onclick="run('paint')"><img src="iofs:C:/Program Files/paint/icon.png" alt=""><p>Paint</p></div>
                 <div onclick="run('notepad')"><img src="iofs:C:/Program Files/notepad/icon.png" alt=""><p>Notepad</p></div>
                 <div onclick="run('donttagme')"><img src="iofs:C:/Program Files/Dont Tag Me/icon.png" alt=""><p>Don't Tag Me</p></div>
@@ -65,20 +64,35 @@
         <div id="bottom">
         </div>
     </div>
-    <div onclick="hide_alleprogramme()" id="alleprogrammeout"></div>
+    <a onclick="hide_alleprogramme()" id="alleprogrammeout"></a>
     <div id="alleprogramme">
-        <div onclick="run('colors')"><img src="iofs:C:/Program Files/colors/icon.png" alt=""><p>Colors</p></div>
-        <div onclick="run('notepad')"><img src="iofs:C:/Program Files/notepad/icon.png" alt=""><p>Notepad</p></div>
-        <div onclick="run('excel')"><img src="iofs:C:/Program Files/excel/icon.png" alt=""><p>Soft Excel</p></div>
-        <div onclick="run('paint')"><img src="iofs:C:/Program Files/paint/icon.png" alt=""><p>Paint</p></div>
-        <div onclick="run('donttagme')"><img src="iofs:C:/Program Files/Dont Tag Me/icon.png" alt=""><p>Don't Tag Me</p></div>
-        <div onclick="run('optisocubes')"><img src="../../optisocubes/icon.svg" alt=""><p>Optisocubes</p></div>
-        <div onclick="run('simple_cookieclicker')"><img src="iofs:C:/Program Files/Simple Cookieclicker/icon.png" alt=""><p>Simple Cookieclicker</p></div>
-        <div onclick="run('hype')"><img src="iofs:C:/Program Files/hype/icon.png" alt=""><p>Hype Chat</p></div>
-        <div class="nohoverbg"></div>
-        <div class="nohoverbg"><p>ℹ All programs to be found on desktop.</p></div>
+        <script>
+            for (var i = 0; Object.keys(parent.program).length > i; i++) {
+
+                thisprogram = parent.program[Object.keys(parent.program)[i]];
+
+                if (thisprogram.devonly == 1) {
+                    if (parent.setting.developer == 0) {
+                    continue;
+                    }
+                }
+
+                if (thisprogram.germantv == 1) {
+                    if (parent.setting.german_tv != 1 || parent.setting.language != "de") {
+                    continue;
+                    }
+                }
+
+                if (thisprogram.spawnicon != 0) {
+                    document.write("<a onclick=\"run('" + thisprogram.id + "')\"><img src=\"" + thisprogram.icon + "\" alt=''>" + thisprogram.title + "</a>");
+                }
+            }
+        </script>
     </div>
 
-    <script>document.getElementById("username").innerHTML = parent.setting.username</script>
+    <script>
+        document.getElementById("username").innerHTML = parent.setting.username
+    </script>
+
 </body>
 </html>

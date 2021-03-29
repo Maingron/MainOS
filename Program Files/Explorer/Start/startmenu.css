@@ -7,19 +7,19 @@
 
 body {
     overflow: hidden;
-    background-color: transparent;
-    background: transparent !important;
+    background-color: transparent !important;
+    user-select: none;
 }
 
 #startbutton {
-    background-color: transparent;
+    background: transparent;
     position: absolute;
     height: 0;
     width: 0;
     border: none;
     display: inline;
-    bottom: 0px;
-    left: 0px;
+    bottom: 0;
+    left: 0;
     overflow: hidden;
 }
 
@@ -34,21 +34,19 @@ body {
 #start {
     position: absolute;
     bottom: 35px;
-    left: 0px;
+    left: 0;
     display: flex;
     height: 500px;
     width: 350px;
-    border: 2px solid #222;
     border: 2px solid var(--themecolor);
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
     overflow: hidden;
-    background-color: transparent;
+    background: transparent;
 }
 
 #start #top {
-    background-color: #222;
-    background-color: var(--themecolor);
+    background: var(--themecolor);
     top: 0;
     left: 0;
     position: absolute;
@@ -83,7 +81,6 @@ body {
     border-bottom: 2px solid #fff;
     left: 64px;
     top: 25px;
-    z-index: 43223;
     height: 20px;
     width: 200px;
 }
@@ -106,7 +103,7 @@ body {
 }
 
 #start #center #left {
-    background-color: #fff;
+    background: #fff;
     color: #000;
     display: flex;
     flex-direction: column;
@@ -149,14 +146,19 @@ body {
 }
 
 #start #center #left div:hover, #start #center #right div:hover {
-    background-color: var(--hovercolor);
+    background: var(--hovercolor);
     cursor:pointer;
 }
 
-#alleprogramme div:not(.nohoverbg):hover {
-    background-color: var(--hovercolornontransparent);
-    cursor:pointer;
 
+
+#alleprogramme a:not(.nohoverbg):hover {
+    background: var(--hovercolornontransparent);
+    cursor:pointer;
+}
+
+#alleprogramme a.bottominfo {
+    padding-left:12px;
 }
 
 #start #center #left #allprograms {
@@ -175,7 +177,6 @@ body {
     overflow: hidden;
     flex-wrap: wrap;
     align-content: flex-start;
-    background: #bcf;
     background: var(--background-color-type-2);
     color: var(--color);
 }
@@ -212,7 +213,6 @@ body {
 #start #bottom {
     display: flex;
     justify-content: flex-end;
-    background: #222;
     background: var(--themecolor);
     bottom: 0;
     left: 0;
@@ -233,12 +233,10 @@ body {
     max-width: 45%;
     height: 23px;
     padding:2px 0 2px 2px;
-    border-top-left-radius: 4px;
-    background-color: var(--themecolor);
+    background: var(--themecolor);
     display:inline-flex;
     box-sizing: border-box;
     justify-content:flex-end;
-
 }
 
 .bottomright button {
@@ -267,7 +265,6 @@ body {
     border-radius: 2px;
     box-sizing: border-box;
     float:left;
-    display:inline-block;
     margin-right:2px;
 }
 
@@ -282,7 +279,6 @@ body {
 
 #alleprogramme {
     opacity: 0;
-    transition: 1s;
     position: absolute;
     bottom: 7px;
     left: 180px;
@@ -294,41 +290,32 @@ body {
     flex-direction: column;
     flex-wrap: wrap;
     align-content: flex-start;
-    transform: rotate(100deg);
 }
 
-#alleprogramme div {
+#alleprogramme a {
+    box-sizing: border-box;
     position: relative;
     display: flex;
-    height: 20px;
+    height: 32px;
     width: 230px;
     overflow: hidden;
     align-items: center;
     border-right: 1px solid #000;
     max-width: 28vw;
-    background-color: #fff;
-    background-color: var(--background-color);
-}
-
-
-
-#alleprogramme div img {
-    margin: 2px;
-    height: 16px;
-    width: 16px;
-    display: inline;
-}
-
-#alleprogramme div p {
-    position: relative;
-    display: inline;
-    font-size: .7em;
+    background: var(--background-color);
+    font-size: .8em;
     left: 5px;
     white-space: nowrap;
-    width: 100%;
-    overflow: hidden;
     text-overflow: ellipsis;
-    padding-right: 35px;
+    padding:3px;
+}
+
+#alleprogramme a img {
+    margin: 0 8px 0 2px;
+    height: 24px;
+    width: 24px;
+    display: inline;
+    object-fit: contain;
 }
 
 
@@ -363,7 +350,7 @@ body {
     #alleprogramme {
         left: 0;
         bottom: 80px;
-        transform: rotate(0deg) !important;
+        height:calc(100% - 90px);
     }
 
     #alleprogramme div {
@@ -381,8 +368,13 @@ body {
 }
 
 @media (prefers-color-scheme:dark) {
+
+    :root {
+        --background-color: var(--black);
+    }
+
     #start #center #left {
-        background-color: var(--black);
+        background: var(--black);
     }
 
 
@@ -408,7 +400,7 @@ body {
 
 
     #alleprogramme div {
-        background-color: #000;
+        background: #000;
         color: #fff;
     }
 }
