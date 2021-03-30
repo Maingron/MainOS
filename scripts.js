@@ -14,7 +14,7 @@ var pidmax = 10;
 var clicking = 0;
 var clicked = 0;
 
-var objs, result, iattr;
+var objs, result, iattr, attr;
 
 
 if(!mainos) {
@@ -98,7 +98,7 @@ function loadsettings() {
     document.getElementById("start").children[0].style.color = "#000";
   }
 
-  objects.taskbarlanguage.innerHTML = setting.language;
+  objects.taskbarlanguage.innerHTML = setting.language; // Show language in taskbar
 
 }
 
@@ -106,21 +106,10 @@ loadsettings();
 
 program = JSON.parse(loadfile("C:/mainos/programs.dat"));
 
-function ifjsonparse(which) {
-  try {
-    JSON.parse(which);
-  } catch (e) {
-    return {};
-  }
-  return JSON.parse(which);
-}
-
-
 if (isfile("C:/mainos/customprograms.txt")) {
   try {
     program = Object.assign(program, ifjsonparse(loadfile("C:/mainos/customprograms.txt")));
   } catch (e) {
-
     objs = [program, ifjsonparse(loadfile("C:/mainos/customprograms.txt"))];
       result = objs.reduce(function(r, o) {
         Object.keys(o).forEach(function(k) {
@@ -128,9 +117,10 @@ if (isfile("C:/mainos/customprograms.txt")) {
         });
         program = r;
       }, {});
-
   }
 }
+
+
 
 if (setting.big_buttons == 1) {
   document.write("<style> .headbar .max, .headbar .close, .headbar .devreload {height: 30px; width: 50px;} .headbar .max {right:40px;} .resizer2 {height:20px; width:20px; bottom:-11px; right:-11px; }</style>");
@@ -180,6 +170,14 @@ for (var i = 0; Object.keys(program).length > i; i++) {
 
 
 
+function ifjsonparse(which) { // Parse JSON but only if valid
+  try {
+    JSON.parse(which);
+  } catch (e) {
+    return {};
+  }
+  return JSON.parse(which);
+}
 
 
 
@@ -200,7 +198,7 @@ function vari(which) {
 
 
 
-function run(which, iattr, how) {
+function run(which, iattr, how) { // Run a program
   pidmax++;
   thisprogram = program[which];
   if (thisprogram.maxopen == "undefined") {
@@ -458,6 +456,9 @@ function run(which, iattr, how) {
     max(mypid.children[0].children[0], "tomax");
   }
 
+
+  attr = iattr; // Will get used to pass arguments to programs when starting them
+
   mypid.children[2].contentWindow.window.alert = notification;
   mypid.children[2].contentWindow.alert = notification;
   mypid.children[2].contentWindow.document.documentElement.style.setProperty("--font", setting.font);
@@ -465,11 +466,11 @@ function run(which, iattr, how) {
 }
 
 
-function unrun(which) {
+function unrun(which) { // Unrun / close a program
   if (document.getElementById(which)) {
-    which = document.getElementById(which);
+    which = document.getElementById(which); // By id (?)
   } else {
-    which = which.parentElement.parentElement;
+    which = which.parentElement.parentElement; // Program can close itself more easily
   }
 
 
@@ -491,7 +492,7 @@ function unrun(which) {
 }
 
 
-function max(which, how) {
+function max(which, how) { // Maximize or unmaximize program
   which = which.parentElement.parentElement;
   which.style.transition = ".5s";
   if (!how) {
@@ -553,20 +554,24 @@ window.addEventListener("touchend", function() {
 
 
 
-function gooff() {
+function gooff() { // Shutdown MainOS
+    // TODO: Add check so it can't be run by every program
     window.close();
     self.close();
 }
 
 
 function wait(time) { //depreciated
-  if (time > 500) {
-    time = 0;
-    console.log("Waiting time may only be 500ms or less.");
-  }
-  var starttime = new Date().getTime();
+    // TODO: Remove function
+    if (time > 500) {
+        time = 0;
+        console.warn("function wait(): Waiting time may only be 500ms or less.");
+    }
+    var starttime = new Date().getTime();
 
-  while(new Date().getTime() < starttime + time) {}
+    while(new Date().getTime() < starttime + time) {}
+
+    console.warn("function wait() is depreciated. Please remove this function from your code.");
 }
 
 
@@ -611,7 +616,8 @@ window.setInterval(function() {
   objects.taskbartime.innerHTML = setting.time.hour + ":" + setting.time.minute;
 }, 250);
 
-function enterFullscreen(element) {
+
+function enterFullscreen(element) { // Make MainOS Fullscreen
   if (element.requestFullscreen) {
     element.requestFullscreen();
   } else if (element.mozRequestFullScreen) {
@@ -623,25 +629,25 @@ function enterFullscreen(element) {
   }
 }
 
+
 if (setting.default_fullscreen == 1) {
   enterFullscreen(document.body);
 }
 
 
 
-document.getElementById("background").style.backgroundImage = "url(" + setting.backgroundimage + ")";
+document.getElementById("background").style.backgroundImage = "url(" + setting.backgroundimage + ")"; // Load Desktop Background
 
-setTimeout(function() {
+setTimeout(function() { // Run Autostart programs
   for (i = 0; i < setting.temp.toautostart.length; i++) {
     run(setting.temp.toautostart[i]);
   }
 }, 500);
 
-function notification(title, content) {
+function notification(title, content) { // Send notification
 
   if (document.getElementsByClassName("notifications")[0] != null) {
     document.getElementsByClassName("notifications")[0].contentWindow.send_notification(title, content);
-
   } else {
     run("notifications", {
       "title": title,
@@ -649,8 +655,9 @@ function notification(title, content) {
     });
   }
 }
-
 window.alert = notification;
+
+
 
 savefile("C:/.diskinfo/size_used.txt", JSON.stringify(localStorage).length / 1000, 1, "t=txt");
 
