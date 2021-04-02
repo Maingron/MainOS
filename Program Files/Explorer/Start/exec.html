@@ -2,32 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta version="1.4.3">
-    <title>Start</title>
+    <meta version="1.4.4">
+    <title>Start Menu</title>
     <link rel="stylesheet" href="startmenu.css">
     <link rel="stylesheet" href="../../../helper.css">
+    <link rel="shortcut icon" href="iofs:C:/mainos/system32/icons/logo.svg">
     <script src="../../../helper.js"></script>
-    <script>
-
-
-    function show_alleprogramme() {
-        document.getElementById("alleprogramme").style.overflow = "visible";
-        document.getElementById("alleprogramme").style.opacity = "1";
-        document.getElementById("alleprogrammeout").style.display = "inline";
-    }
-
-    function hide_alleprogramme() {
-		document.getElementById("alleprogrammeout").style.display = "none";
-		document.getElementById("alleprogramme").style = "";
-    }
-
-    function run(which) {
-        parent.run(which);
-        parent.unrun(parent.document.getElementsByClassName('explorer_start')[0].children[0].children[0]);
-    }
-    </script>
 </head>
 <body>
+    <script>
+
+        function show_alleprogramme() {
+            document.getElementById("alleprogramme").style.overflow = "visible";
+            document.getElementById("alleprogramme").style.opacity = "1";
+            document.getElementById("alleprogrammeout").style.display = "inline";
+        }
+
+        function hide_alleprogramme() {
+            document.getElementById("alleprogrammeout").style.display = "none";
+            document.getElementById("alleprogramme").style = "";
+        }
+
+        function run(which) {
+            parent.run(which);
+            parent.unrun(parent.document.getElementsByClassName('explorer_start')[0].children[0].children[0]);
+        }
+    </script>
+
     <div onclick="parent.unrun(parent.document.getElementsByClassName('explorer_start')[0].children[0].children[0]);" id="onout">
     </div>
     <button id="startbutton" onclick="parent.unrun(parent.document.getElementsByClassName('explorer_start')[0].children[0].children[0]);"><a class="speak">Close Start Menu</a></button>
