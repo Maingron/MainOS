@@ -20,17 +20,53 @@ data.mypid = (window.parent.pid.length - 1);
 
 
 
+
+if(ismainos != 1 && parent.ismainos == 1) {
+    // IOfs
+    window.loadfile = parent.loadfile;
+    window.savefile = parent.savefile;
+    window.isfile = parent.isfile;
+    window.deletefile = parent.deletefile;
+    window.savedir = parent.savedir;
+    window.isfolder = parent.isfolder;
+
+    // Alerts / Notifications
+    window.alert = alert = parent.notification;
+
+    /* TODO:
+    window.close
+    window.maximize
+    window.minimize */
+
+
+    data.programmeta = {};
+
+    for(var i = 0; i < document.getElementsByTagName("meta").length; i++) { // depreciated
+        if(document.getElementsByTagName("meta")[i] && document.getElementsByTagName("meta")[i].getAttribute("version")) {
+            data.programmeta.version = document.getElementsByTagName("meta")[i].getAttribute("version");
+        }
+    }
+
+    if(!data.programmeta.version) {
+        data.programmeta.version = 0;
+        console.warn("Program " + parent.thisprogram.title + " doesn't have a program version in meta tags. Please add a <meta version=xx> to your <head>.");
+    }
+}
+
+
+
+
 // Load iofs:*-paths that are found in HTML Elements
 function loadIOfsLinks() {
     for(var i = 0; i < document.getElementsByTagName("*").length; i++) { // TODO: Possible performance improvement by checking for Array[img, script, ...] instead of the entire page
         if(document.getElementsByTagName("*")[i].src) {
             if(document.getElementsByTagName("*")[i].src.includes("iofs:")) {
-            document.getElementsByTagName("*")[i].src = loadfile(document.getElementsByTagName("*")[i].src.split("iofs:")[1]);
+                document.getElementsByTagName("*")[i].src = loadfile(document.getElementsByTagName("*")[i].src.split("iofs:")[1]);
             }
         }
         if(document.getElementsByTagName("*")[i].href) {
             if(document.getElementsByTagName("*")[i].href.includes("iofs:")) {
-            document.getElementsByTagName("*")[i].href = loadfile(document.getElementsByTagName("*")[i].href.split("iofs:")[1]);
+                document.getElementsByTagName("*")[i].href = loadfile(document.getElementsByTagName("*")[i].href.split("iofs:")[1]);
             }
         }
     }
@@ -56,10 +92,8 @@ document.addEventListener("contextmenu", function (event) {
     }
 });
 
-window.alert = alert = parent.notification;
 
-
-function spawnContextMenu(content) {
+function spawnContextMenu(content) { // TODO: Make async
     if (document.getElementsByClassName("contextMenu")[0]) {
         document.getElementsByClassName("contextMenu")[0].outerHTML = "";
     }
@@ -91,36 +125,10 @@ function spawnContextMenu(content) {
 }
 
 
-if(ismainos != 1 && parent.ismainos == 1) {
-    window.loadfile = parent.loadfile;
-    window.savefile = parent.savefile;
-    window.isfile = parent.isfile;
-    window.deletefile = parent.deletefile;
-    window.savedir = parent.savedir;
-    window.isfolder = parent.isfolder;
-    /* TODO:
-    window.close
-    window.maximize
-    window.minimize */
 
-
-    data.programmeta = {};
-
-    for(var i = 0; i < document.getElementsByTagName("meta").length; i++) {
-        if(document.getElementsByTagName("meta")[i] && document.getElementsByTagName("meta")[i].getAttribute("version")) {
-            data.programmeta.version = document.getElementsByTagName("meta")[i].getAttribute("version");
-        }
-    }
-
-    if(!data.programmeta.version) {
-        data.programmeta.version = 0;
-        console.warn("Program " + parent.thisprogram.title + " doesn't have a program version in meta tags. Please add a <meta version=xx> to your <head>.");
-    }
-}
 
 
 var key = [];
-
 
 window.addEventListener("keydown", function (event) {
 
