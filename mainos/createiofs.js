@@ -237,8 +237,6 @@ program.donttagme = {
 
 program.optisocubes = {
  "id": "optisocubes",
- "title": "Optisocubes",
- "icon": "iofs:C:/Program Files/Optisocubes/icon.svg",
  "src": "Program%20Files/optisocubes/exec.html"
 }
 
