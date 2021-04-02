@@ -81,11 +81,6 @@ function explorerdo(nowpath) {
             mylistedfile_img.src = "../../../Program%20Files/" + mylistedfile_inner.split(".xec")[0] + "/icon.png";
         }
 
-        if (mylistedfile_inner.indexOf(".del") == mylistedfile_inner.length - 4) {
-            mylistedfiles[mylistedfilesnr].setAttribute("onClick", "window.parent.formatfs('yes')");
-            mylistedfile_img.src = "iofs:C:/mainos/system32/icons/unknown_file.svg";
-        }
-
     mylistedfilesnr++;
     }
 

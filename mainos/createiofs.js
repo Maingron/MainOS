@@ -39,7 +39,6 @@ savedir("C:/Documents and Settings");
 savedir("C:/Documents and Settings/appdata");
 
 savedir("C:/Program Files");
-savefile("C:/mainos/format MainOS.del", "cmd('js parent.formatfs(\"yes\")')", 0, "t=cmd");
 
 savedir("C:/mainos/system32/settings");
 savefile("C:/mainos/system32/settings/username.txt", "User", 1, "t=txt");
