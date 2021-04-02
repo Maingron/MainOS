@@ -176,3 +176,51 @@ window.addEventListener("keyup", function (event) {
         key["space"] = false;
     }
 });
+
+
+// Maths
+
+function random(min, max, decimals, runs) {
+    // Todo: Fix following limits:
+    // min has to be at least 0 (no negative possible)
+    // limited to digits of Math.random(), other digits will be 0
+    // runs only runs Math.random() a defined amount of times before the final result is generated and returned. Instead previous values should be used as some sort of seed to improve randomisation
+
+    if(min == null && max == null && decimals == null && runs == null) { // If nothing is given, assume Math.random()
+        return Math.random();
+    } else {
+
+
+        if(min == null) { // Min default value
+            min = 0;
+        }
+
+        if(max == null) { // Max default value
+            max = 255
+        }
+
+        if(decimals == null) { // No decimals by default
+            decimals = 0;
+        }
+
+        if(runs == null) { // Runs by default
+            runs = 3;
+        } else if (runs > 2 ** 16) {
+            runs = 3;
+            console.error("Max number of runs for random() is " + (2 ** 16) + " - Defaulting to " + runs + " runs.");
+            // TODO: Add System setting for default runs and max runs
+        }
+
+        for(; 0 < runs; runs--) {
+            if(runs > 1) {
+                Math.random();
+            } else if (runs == 1) {
+                var tryRandom = (Math.random() * max).toFixed(decimals);
+                while(tryRandom < min || tryRandom > max) {
+                    tryRandom = (Math.random() * max).toFixed(decimals);
+                }
+                return tryRandom;
+            }
+        }
+    }
+}
