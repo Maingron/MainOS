@@ -192,15 +192,11 @@ savefile("C:/Program Files/kika/icon.png", "data:image/png;base64,iVBORw0KGgoAAA
 var program = {};
 program.colors = {
  "id": "colors",
- "title": "Colors",
- "icon": "iofs:C:/Program Files/colors/icon.png",
  "src": "Program%20Files/colors/exec.html"
 };
 
 program.excel = {
  "id": "excel",
- "title": "Soft Excel",
- "icon": "iofs:C:/Program Files/excel/icon.png",
  "src": "Program%20Files/excel/exec.html"
 }
 
@@ -272,8 +268,6 @@ program.explorer_start = {
 
 program.cmd = {
  "id": "cmd",
- "title": "cmd",
- "icon": "iofs:C:/Program Files/cmd/icon.png",
  "src": "Program%20Files/cmd/exec.html"
 }
 

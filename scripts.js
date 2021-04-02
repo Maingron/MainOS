@@ -123,11 +123,11 @@ if (isfile("C:/mainos/customprograms.txt")) {
 
 
 if (setting.big_buttons == 1) {
-  document.write("<style> .headbar .max, .headbar .close, .headbar .devreload {height: 30px; width: 50px;} .headbar .max {right:40px;} .resizer2 {height:20px; width:20px; bottom:-11px; right:-11px; }</style>");
+  document.write("<style> .headbar .max, .headbar .close, .headbar .devreload {height: 30px; width: 50px;} .headbar .max {right:40px;} .resizer2 {height:20px; width:20px; bottom:-11px; right:-11px; }</style>"); // TODO: Don't hardcode this line
 }
 
 
-if (setting.repository == 1) {
+if (setting.repository == 1) { // Load programs from repository if repository is enabled
   try {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", mainos.repository, false);
@@ -143,29 +143,86 @@ if (setting.repository == 1) {
 
 
 for (var i = 0; Object.keys(program).length > i; i++) {
-  thisprogram = program[Object.keys(program)[i]];
-  if (thisprogram.devonly == 1) {
-    if (setting.developer == 0) {
-      continue;
+    thisprogram = program[Object.keys(program)[i]]; // The program we are checking meta for currently
+
+
+    if (thisprogram.src && thisprogram.src.includes("//")) {
+        // Don't request from external programs. Normally this would result in access denied
+        // TODO: Find a way
+    } else {
+
+        try {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", thisprogram.src, false); // TODO: Make async - Probably requires further changes in the core
+            xhr.onload = function () {
+                var thisprogramMeta = (xhr.responseText).substr(0, 1200); // Everything relevant to us has to be within the first 1200 chars (Performance reasons) //! TODO: Change Name of Variable
+                if (thisprogramMeta && thisprogramMeta.includes("<head>") && thisprogramMeta.includes("</head>")) { // Only continue if <head>-section doesn't exceed maximum length and has both start- and ending tags
+                    thisprogramMeta = thisprogramMeta.split("<head>")[1].split("</head>")[0]; // Extract everything between <head>*</head>
+                    thisprogramMeta = thisprogramMeta.replace(/\n|\r|\t/g, ''); // Remove empty lines and tabs
+                    thisprogramMeta = thisprogramMeta.split(new RegExp("\<")); // Split into array
+
+                    for (var i = 0; i < thisprogramMeta.length; i++) {
+
+                        if (thisprogramMeta[i].indexOf("/") == 0) { // Skip ending-tags
+                            continue;
+                        } else if(thisprogramMeta[i].indexOf("script") == 0 || thisprogramMeta[i].indexOf("style") == 0) { // Skip scripts and inline styles
+                            continue;
+                        }
+
+
+                        if (thisprogramMeta[i].toLowerCase().includes("meta")) { // Meta Tags
+                            if (thisprogramMeta[i].toLowerCase().includes("version")) {
+                                thisprogram.version = (thisprogramMeta[i].split("version=\"")[1].split("\"")[0]);
+                            }
+                        } else if (thisprogramMeta[i].toLowerCase().includes("link")) { // Link Tags
+                            if (thisprogramMeta[i].toLowerCase().includes("shortcut icon")) { // Favicon
+                                thisprogram.icon = (thisprogramMeta[i].split("href=\"")[1].split("\"")[0]);
+                            }
+                        } else if (thisprogramMeta[i].toLowerCase().includes("title")) { // Title
+                            thisprogram.title = (thisprogramMeta[i].split(">")[1].split("<")[0]);
+                        }
+                    }
+
+                } else {
+                    console.error("Problems with <head>-Tag in exec.html of program with id: " + thisprogram.id + "; src: " + thisprogram.src + ". Refusing to read meta data. \nMaybe it exceeds 1200 characters or is malformed?");
+
+                    thisprogram.version = 0;
+                    thisprogram.icon = "";
+                    thisprogram.title = thisprogram.id + " - Check error log";
+
+                    thisprogram.hasErrors = true;
+                }
+
+            }
+            xhr.send();
+
+        } catch (e) {}
+
     }
-  }
 
-  if (thisprogram.germantv == 1) {
-    if (setting.german_tv != 1 || setting.language != "de") {
-      continue;
+
+    if (thisprogram.devonly == 1) {
+        if (setting.developer == 0) {
+            continue;
+        }
     }
-  }
+
+    if (thisprogram.germantv == 1) {
+        if (setting.german_tv != 1 || setting.language != "de") {
+            continue;
+        }
+    }
 
 
 
 
-  if (thisprogram.spawnicon != 0) {
-    objects.progicons.innerHTML = objects.progicons.innerHTML + "<button id='icon1' onclick=\"run('" + thisprogram.id + "');\"><img src='" + thisprogram.icon + "' /><p>" + thisprogram.title + "</p></button>";
-  }
+    if (thisprogram.spawnicon != 0) {
+        objects.progicons.innerHTML = objects.progicons.innerHTML + "<button id='icon1' onclick=\"run('" + thisprogram.id + "');\"><img src='" + thisprogram.icon + "' /><p>" + thisprogram.title + "</p></button>";
+    }
 
-  if (thisprogram.autostart == 1) {
-    setting.temp.toautostart.push(thisprogram.id);
-  }
+    if (thisprogram.autostart == 1) {
+      setting.temp.toautostart.push(thisprogram.id);
+    }
 }
 
 
