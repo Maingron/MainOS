@@ -155,7 +155,7 @@ for (var i = 0; Object.keys(program).length > i; i++) {
             var xhr = new XMLHttpRequest();
             xhr.open("GET", thisprogram.src, false); // TODO: Make async - Probably requires further changes in the core
             xhr.onload = function () {
-                var thisprogramMeta = (xhr.responseText).substr(0, 1200); // Everything relevant to us has to be within the first 1200 chars (Performance reasons) //! TODO: Change Name of Variable
+                var thisprogramMeta = (xhr.responseText).substr(0, 1200); // Everything relevant to us has to be within the first 1200 chars (Performance reasons)
                 if (thisprogramMeta && thisprogramMeta.includes("<head>") && thisprogramMeta.includes("</head>")) { // Only continue if <head>-section doesn't exceed maximum length and has both start- and ending tags
                     thisprogramMeta = thisprogramMeta.split("<head>")[1].split("</head>")[0]; // Extract everything between <head>*</head>
                     thisprogramMeta = thisprogramMeta.replace(/\n|\r|\t/g, ''); // Remove empty lines and tabs
