@@ -147,11 +147,11 @@ window.addEventListener("keydown", function (event) {
     }
 
     if(key['shift'] && key['space']) {
-        if(key['current'] == "w") {
-            if(!ismainos) {
-                parent.unrun(data.mypid);
-            }
-        }
+        // if(key['current'] == "w") {
+        //     if(!ismainos) {
+        //         parent.unrun(data.mypid);
+        //     }
+        // }
     }
 
     if(key['alt'] == true) {
