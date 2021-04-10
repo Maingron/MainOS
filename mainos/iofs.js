@@ -37,7 +37,7 @@ function listfs(path) {
 
 function loadfile(path,requestattributes = 0) {
   if (localStorage.getItem(path) != 0 && localStorage.getItem((path)) != null) {
-    if (localStorage.getItem(path).length < 2 || localStorage.getItem(path).indexOf("***") < 5) {
+    if (localStorage.getItem(path).length < 2 || localStorage.getItem(path).indexOf("*") < 5) { // TODO: Check what this save thing does - probably can be removed
       savefile(path, localStorage.getItem(path));
     }
 
@@ -50,9 +50,9 @@ function loadfile(path,requestattributes = 0) {
     }
 
     if(requestattributes == 1) { // Return only file attributes if requested
-      return localStorage.getItem((path)).split("***")[0];
+      return localStorage.getItem((path)).split("*")[0];
     } else {
-      return localStorage.getItem((path)).split("***")[1];
+      return localStorage.getItem((path)).split("*")[1];
     }
   } else {
     return localStorage.getItem(path);
@@ -97,7 +97,7 @@ function savefile(path, content, override, attr) {
     override = 0;
   }
   if (!override && isfile(path)) {} else {
-    localStorage.setItem(path, attr + "***" + content);
+    localStorage.setItem(path, attr + "*" + content);
   }
 }
 
