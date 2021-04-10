@@ -323,7 +323,7 @@ function run(which, iattr, how) { // Run a program
         thisprogram.icon = "iofs:C:/mainos/system32/icons/transparent.png";
     }
 
-    mypid.children[0].innerHTML = "<img class=\"progicon\" src=\"" + thisprogram.icon + "\" alt=\"" + thisprogram.title + "\"/><p class=\"progtitle\">" + thisprogram.title + "</p><button class=\"max\"><p class='speak'>maximize</p></button><button class=\"close\"><p class='speak'>close</p></button>";
+    mypid.children[0].innerHTML = "<img class=\"progicon\" src=\"" + thisprogram.icon + "\" alt=\"" + thisprogram.title + "\"/><p class=\"progtitle\">" + thisprogram.title + "</p><button class=\"max\">🗗︎</button><button class=\"close\">🗙︎</button>"; // Todo: Add screenreader text; <button class=\"min\">🗕︎</button>
     mypid.children[1].innerHTML = "<div class=\"resizer2\"></div>";
 
 

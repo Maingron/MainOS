@@ -46,7 +46,7 @@ iframe {
 
   iframe {
     top: 0 !important;
-    border: 0px !important;
+    border: 0 !important;
     background-color: transparent !important;
   }
 
@@ -59,8 +59,8 @@ iframe {
 
 #background {
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
   background-size: cover;
@@ -131,13 +131,11 @@ iframe {
 
 .program .headbar {
   position: relative;
-  top: 0px;
+  top: 0;
   background-color: var(--themecolor);
   height: 30px;
   width: 100%;
   padding-right: 2px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
   border: none;
   overflow: hidden;
 }
@@ -150,8 +148,8 @@ iframe {
 
   .max,
   .close {
-    height: 24px;
-    width: 40px;
+    height: 28px;
+    width: 28px;
     top: -2px;
     border: 0;
     margin: 0;
@@ -161,16 +159,14 @@ iframe {
   }
 
   .close {
-    right: -2px;
+    right: 0;
     background-color: #f00;
   }
 
   .max {
     background-color: var(--themecolor2);
     right: 28px;
-    border-bottom-left-radius: 8px;
   }
-
 }
 
 .box2 {
@@ -181,17 +177,18 @@ iframe {
   left: 400px;
 }
 
-.resizers * {
-  height: 10px;
-  width: 10px;
-  position: absolute;
-}
-
-.resizers *:active {
-  outline: 3px solid var(--themecolor);
-  z-index: 9999;
-  transition: 0s;
-  cursor: se-resize;
+.resizers {
+  * {
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    &:active {
+      outline: 3px solid var(--themecolor);
+      z-index: 9999;
+      transition: 0s;
+      cursor: se-resize;
+    }
+  }
 }
 
 .resizer2 {
@@ -215,7 +212,6 @@ iframe {
     border-radius: 0;
   }
 }
-
 
 .notmaximized {
   height: 50%;
@@ -242,7 +238,6 @@ iframe {
   font-size: 16px;
   height: 16px;
   color:#fff;
-
 }
 
 .progicon {
@@ -251,13 +246,14 @@ iframe {
   left: 0;
   height: 24px;
   margin: 4px 4px 4px 6px;
+  pointer-events: none;
 }
 
 #taskbar {
   background-color: var(--themecolor);
   position: absolute;
-  bottom: 0px;
-  left: 0px;
+  bottom: 0;
+  left: 0;
   width: 100%;
   height: 35px;
   overflow: visible;
@@ -278,8 +274,8 @@ iframe {
     border-bottom-right-radius: 15px;
     border-top-right-radius: 15px;
     display: flex;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     z-index: 999;
     font-size: 2em;
     padding-right: 25px;
@@ -296,14 +292,13 @@ iframe {
       right: 35px;
       z-index: 999;
       color: #fff;
-
     }
 
     #starticonm {
       display: inline;
       opacity: 0;
-      width: 0px;
-      height: 0px;
+      width: 0;
+      height: 0;
     }
   }
 
@@ -393,7 +388,6 @@ iframe {
       margin-top:3px;
     }
 
-
     &:hover {
       background-color: var(--hovercolor);
       overflow: visible;
@@ -462,7 +456,6 @@ iframe {
     background-color: transparent;
   }
 }
-
 
 .preloadframe {
   position: fixed;
@@ -534,32 +527,29 @@ iframe {
 
   .headbar {
     position: relative;
-    top: 0px;
+    top: 0;
     background-color: var(--themecolor);
     height: 15px;
     width: 100%;
     padding-right: 1px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
     border: none;
 
     .max,
     .close {
       height: 12px;
       width: 12px;
+      padding: 0;
       top: 0;
-      border: 1px solid #fff;
-      margin: 2px 1px;
-      border-radius: 3px;
       position: absolute;
+      font-size: 0;
     }
 
     .close {
-      right: 2px;
+      right: 0;
     }
 
     .max {
-      right: 15px;
+      right: 12px;
     }
   }
 
