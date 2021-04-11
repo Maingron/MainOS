@@ -9,33 +9,77 @@ var ismainos = 1;
 var appdata = "C:/Documents and Settings/appdata";
 var setting = {};
 
-/*
-0BN - 00090
-0BO - 00100
-00110+ = 0CC
-*/
 
 
+function listdir(path) { // List directory // Todo!: add depth parameter
 
-
-
-function listfs(path) {
-  if (!path) {
-    path = "";
-  }
-  var mylist = [];
-  for (i = 0; i < Object.keys(localStorage).length; i++) {
-    mylist.push(Object.keys(localStorage)[i]);
-    if (Object.keys(localStorage)[i].indexOf(path) != -1) {
-    } else {
-      mylist.pop();
+    if(path.slice(-1) != "/") { // Check for trailing slash and add one if not found
+        path += "/";
     }
-  }
-  return mylist;
+
+
+    if(!isfolder(path) && path != "/") { // Return nothing if is not a folder and not requesting rootdir (/)
+        return;
+    }
+
+    var result = [];
+
+    var fileList = Object.keys(localStorage); // Use fileList instead of Object.keys(localStorage), else result might break because files might be added while in a loop
+    if(path == "/") { // If want to see rootdir ("/")
+        var rootDirContents = [];
+
+        for (var i = 0; i < fileList.length; i++) {
+            if(fileList[i].slice(0, -1).length <= 3) { // Only show rootdir / all HDDs - allow up to 2 letter-drives (C:/ or AB:/)
+                if(fileList[i].slice(-1) == "/") { // Make sure to ignore 1-letter-files (C:/t)
+                    rootDirContents.push(fileList[i]); // Push HDD into rootDirContents-Array
+                }
+            }
+        }
+
+        fileList = rootDirContents;
+        return fileList; // Return HDD list; We're assuming nothing is wrong with the list and skip the actual folder scanning part below
+    }
+
+
+
+    for (var i = 0; i < fileList.length; i++) { // Do for ALL files
+
+        var myNowFile = fileList[i];
+
+        if(myNowFile.includes(path)) { // Only work on Files / Folders within path
+            if(myNowFile.split(path)[1].includes("/")) {
+                if(myNowFile.split(path)[1].split("/")[1].length > 1) {
+                } else {
+                    result.push(myNowFile); // Return folders
+                }
+            } else {
+                result.push(myNowFile); // Return files
+            }
+
+        }
+
+    }
+
+    for(var i = 0; i < result.length; i++) { // Remove requested-path (The folder we're asking for) entry from final result in this loop
+        if(result[i] == path) { // If entry == requested-path
+            if(result[i] != result[0]) { // Make sure not to clone the requested-path entry instead if it happens to be on entry 0
+                result[i] = result[0]; // Take entry 0 and put it into requested-path entry
+                result.shift(); // Remove the now duplicated entry
+            } else {
+                result[i] = result[result.length - 1]; // Take last entry and put it into requested-path entry
+                result.pop();  // Remove the now duplicated entry
+            }
+        }
+    }
+
+    result = result.sort(); // Apply some bit of sorting - better than nothing but definitely space to be improved
+
+    return result;
+
 }
 
 
-function loadfile(path,requestattributes = 0) {
+function loadfile(path,requestattributes = false) {
   if (localStorage.getItem(path) != 0 && localStorage.getItem((path)) != null) {
     if (localStorage.getItem(path).length < 2 || localStorage.getItem(path).indexOf("*") < 5) { // TODO: Check what this save thing does - probably can be removed
       savefile(path, localStorage.getItem(path));
@@ -61,30 +105,30 @@ function loadfile(path,requestattributes = 0) {
 
 function isfile(path) {
   if (localStorage.getItem(path) == null || localStorage.getItem(path) == "undefined") {
-    return (0);
+    return false;
   } else {
-    return (1);
+    return true;
   }
 }
 
 function isfolder(path) {
-  if(localStorage.getItem(path) == null || localStorage.getItem(path) == "undefined") {
-    return 0;
+  if(localStorage.getItem(path) == null || localStorage.getItem(path) == "undefined") { // If file or folder doesn't exist
+      return false;
   } else {
-    if(loadfile(path,1) == "t=dir") {
-      return 1;
-    } else {
-      return 0;
-    }
+      if(loadfile(path,1) == "t=dir") { // If attributes of path equal type=dir
+          return true;
+      } else {
+          return false;
+      }
   }
 }
 
 
-function isnofile(path) {
+function isnofile(path) { // Todo: Check if should be depreciated
   if (isfile(path)) {
-    return (0);
+    return false;
   } else {
-    return (1);
+    return true;
   }
 }
 
@@ -92,10 +136,17 @@ function isnofile(path) {
 function savefile(path, content, override, attr) {
   if (attr == "null" || attr == "undefined") {
     attr = "d=" + new Date.now();
+  } else if(attr && attr.includes("t=dir")) {
+    if(path.slice(-1) != "/") { // Check for trailing slash
+      console.warn("Directories are supposed to have a trailing slash. Saving: " + path + ".");
+      path += "/";
+    }
   }
+
   if (override == "undefined" || override == "null") {
     override = 0;
   }
+
   if (!override && isfile(path)) {} else {
     localStorage.setItem(path, attr + "*" + content);
   }
@@ -109,12 +160,12 @@ function savedir(path) {
 }
 
 
-function deletefile(path) {
+function deletefile(path) { // Delete a file // Todo: improve
   localStorage.removeItem(path);
 }
 
 
-function formatfs(sure) {
+function formatfs(sure) { // Todo: Update
   if (sure == "yes") {
     savefile("C:/mainos/system32/exists.dat", "false");
     localStorage.clear();
