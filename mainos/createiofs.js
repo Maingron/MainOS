@@ -61,7 +61,7 @@ savefile("C:/users/" + setting.username + "/settings/notsodarkmode.txt", 0, 0, "
 savefile("C:/users/" + setting.username + "/settings/hovercolor.txt", "#ffaa0077", 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/hovercolornontransparent.txt", "#ffaa00", 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/tts.txt", 0, 0, "t=txt");
-savefile("C:/users/" + setting.username + "/settings/font.txt", "'Tahoma', 'Roboto', 'Arial', sans-serif", 0, "t=txt");
+savefile("C:/users/" + setting.username + "/settings/font.txt", "-apple-system, system-ui, 'Tahoma', 'Roboto', 'Arial', sans-serif", 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/repository.txt", 1, 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/big_buttons.txt", 0, 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/default_fullscreen.txt", 0, 0, "t=txt");
