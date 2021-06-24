@@ -21,6 +21,8 @@ if(!mainos) {
     var mainos = {};
 }
 
+mainos.timeOfBoot = new Date().getTime(); // Log time of boot
+
 objects.content = document.getElementsByClassName("content")[0];
 objects.overlay = document.getElementsByClassName("overlay")[0];
 objects.progicons = document.getElementsByClassName("icons")[0];
