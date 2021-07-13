@@ -4,6 +4,7 @@ body {
   width:100vw;
   margin:0;
   padding:0;
+  background: transparent;
 }
 
 * {
@@ -24,26 +25,26 @@ body {
   left:50%;
   height:55%;
   width:30%;
+  overflow: visible;
   transform:translate(-50%,-50%);
   padding:0;
   margin:0;
-}
-
-.cookie img {
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  height:60%;
-  width:auto;
-  object-fit:contain;
-  border-radius:50%;
+    img {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    height:60%;
+    width:auto;
+    object-fit:contain;
+    border-radius:50%;
+  }
 }
 
 .cookie img:active {
-  box-shadow:0px 0px 10px 5px var(--hovercolornontransparent),
-              0px 0px 20px 5px var(--hovercolor),
-              0px 0px 30px 5px var(--hovercolor);
+  box-shadow:0 0 10px 5px var(--hovercolornontransparent),
+              0 0 20px 5px var(--hovercolor),
+              0 0 30px 5px var(--hovercolor);
 }
 
 .cookiecount {
@@ -57,25 +58,39 @@ body {
   width:100%;
 }
 
-.version {
-  opacity:1;
-  transition:.4s;
-  position:absolute;
-  bottom:0;
-  right:0;
-}
-
 .store {
+  overflow: auto;
+  display: inline-block;
   position:absolute;
+  background: var(--themecolor);
   left:0;
   bottom:0;
   height:auto;
-  max-height:500px;
   width:100%;
+  >nav {
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    width: auto;
+    overflow: visible;
+    white-space: nowrap;
+  }
+    a {
+    display:inline-block;
+    margin:0;
+    height: 100%;
+    width: auto;
+    text-align:center;
+    position: relative;
+    background: #000;
+    border: 1px solid var(--themecolor);
+    padding: .3rem;
+    text-decoration: none;
+  }
 }
 
-.store a {
-  display:inline-block;
-  margin:20px;
-  text-align:center;
+@media (prefers-color-scheme: light) {
+  .store>nav a {
+    background: #fff;
+  }
 }
