@@ -113,11 +113,21 @@ function newFile(fileName = "New File.txt") {
         explorerrefresh();
     }
 }
+
+function renameFile(source, target) {
+    // TODO: Add input field so we can actually rename
+    if(isfile(source)) {
+        savefile(target, loadfile(source,0), 0); // TODO: Copy attributes
+        // TODO!: Verify file is copied correctly!
+        deletefileandrefresh(source);
+    }
+}
+
 function contextMenu(event) {
     if(event.target.attributes.path) {
         console.log(isfolder(event.target.attributes.path.value));
         if(!isfolder(event.target.attributes.path.value)) {
-            spawnContextMenu([["Delete File","deletefileandrefresh('" + event.target.attributes.path.value + "')"], ["<hr>"], ["Properties","","disabled"]]) // ["Backup File","savefile('" + event.target.attributes.path.value + ' - Copy' + "','" + loadfile(event.target.attributes.path.value) + "', 0, 't=txt')"]
+            spawnContextMenu([["Rename File", "renameFile('"+event.target.attributes.path.value+"','"+currentPath + "renamed File - something.txt"+"')","disabled"], ["Delete File","deletefileandrefresh('" + event.target.attributes.path.value + "')"], ["<hr>"], ["Properties","","disabled"]]) // ["Backup File","savefile('" + event.target.attributes.path.value + ' - Copy' + "','" + loadfile(event.target.attributes.path.value) + "', 0, 't=txt')"]
         } else {
             spawnContextMenu([["Properties","","disabled"]])
         }
