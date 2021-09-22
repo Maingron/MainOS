@@ -107,6 +107,12 @@ function explorerrefresh() {
     explorerdo(currentPath);
 }
 
+function newFile(fileName = "New File.txt") {
+    if(isfolder(currentPath)) {
+        savefile(currentPath + fileName,"",0);
+        explorerrefresh();
+    }
+}
 function contextMenu(event) {
     if(event.target.attributes.path) {
         console.log(isfolder(event.target.attributes.path.value));
@@ -116,7 +122,7 @@ function contextMenu(event) {
             spawnContextMenu([["Properties","","disabled"]])
         }
     } else {
-        spawnContextMenu([["Refresh","explorerrefresh()"],["<hr>"],["Properties","","disabled"]])
+        spawnContextMenu([["Refresh","explorerrefresh()"],["<hr>"],["New File","newFile()"],["<hr>"],["Properties","","disabled"]])
     }
 }
 
