@@ -113,7 +113,8 @@ function spawnContextMenu(content) { // TODO: Make async
             newcontextelement.href = "#";
             newcontextelement.setAttribute("onclick",content[i][1]);
             if (content[i][2] && content[i][2] == "disabled") {
-                newcontextelement.removeAttribute("href")
+                newcontextelement.removeAttribute("href");
+                newcontextelement.setAttribute("disabled","disabled");
             }
         }
         newelement.append(newcontextelement);

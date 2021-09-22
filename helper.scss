@@ -92,6 +92,9 @@ textarea {
             border-bottom:none;
         }
     }
+    *[disabled="disabled"] {
+        display: none;
+    }
 }
 
 
