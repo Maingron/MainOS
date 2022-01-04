@@ -164,6 +164,16 @@ function deletefile(path) { // Delete a file // Todo: improve
   localStorage.removeItem(path);
 }
 
+function getFilename(path) { // This returns the filename and removes the full path ("C:/users/testuser/test.txt" -> "test.txt")
+  var myResult;
+  if(isfolder(path)) {
+    myResult = path.split("/")[path.split("/").length - 2]; // Return this if is folder
+  } else {
+    myResult = path.split("/")[path.split("/").length - 1]; // Return this if is file
+  }
+    return myResult;
+}
+
 
 function formatfs(sure) { // Todo: Update
   if (sure == "yes") {
