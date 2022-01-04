@@ -179,12 +179,6 @@ function formatfs(sure) { // Todo: Update
   if (sure == "yes") {
     savefile("C:/mainos/system32/exists.dat", "false");
     localStorage.clear();
-    var allmyfiles = listfs().toString().split(",");
-    var allmyfilesnr = 0;
-    while (allmyfilesnr < allmyfiles.length) {
-      localStorage.removeItem(allmyfiles[allmyfilesnr]);
-      allmyfilesnr++;
-    }
     window.location.reload();
   }
 }
