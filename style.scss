@@ -275,8 +275,9 @@ iframe {
       filter: drop-shadow(0 0 1px #000);
     }
 
-    &:hover {
-      filter: brightness(1.3);
+    &:hover,
+    &:focus {
+      filter: brightness(1.4);
     }
 
     p {
@@ -384,7 +385,8 @@ iframe {
       margin-top:3px;
     }
 
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: var(--hovercolor);
       overflow: visible;
     }

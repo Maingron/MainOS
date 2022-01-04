@@ -29,11 +29,6 @@ body {
 * {
     color: #000;
     font-family: var(--font);
-    outline: 0;
-}
-
-*:focus, *:active {
-    outline:none !important;
 }
 
 input,
