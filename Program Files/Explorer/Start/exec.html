@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta version="1.4.4">
+    <meta version="1.5">
     <title>Start Menu</title>
     <link rel="stylesheet" href="startmenu.css">
     <link rel="stylesheet" href="../../../helper.css">
@@ -10,56 +10,36 @@
     <script src="../../../helper.js"></script>
 </head>
 <body>
-    <script>
-
-        function show_alleprogramme() {
-            document.getElementById("alleprogramme").style.overflow = "visible";
-            document.getElementById("alleprogramme").style.opacity = "1";
-            document.getElementById("alleprogrammeout").style.display = "inline";
-        }
-
-        function hide_alleprogramme() {
-            document.getElementById("alleprogrammeout").style.display = "none";
-            document.getElementById("alleprogramme").style = "";
-        }
-
-        function run(which) {
-            parent.run(which);
-            parent.unrun(parent.document.getElementsByClassName('explorer_start')[0].children[0].children[0]);
-        }
-    </script>
-
-    <div onclick="parent.unrun(parent.document.getElementsByClassName('explorer_start')[0].children[0].children[0]);" id="onout">
-    </div>
-    <button id="startbutton" onclick="parent.unrun(parent.document.getElementsByClassName('explorer_start')[0].children[0].children[0]);"><a class="speak">Close Start Menu</a></button>
+    <div onclick="close_startmenu()" id="onout"></div> <!-- Invisible background which; Closes menu when clicked -->
+    <button id="startbutton" onclick="close_startmenu()"><a class="speak">Close Start Menu</a></button>
     <div id="start">
         <div id="top">
-            <div id="usericon" >
-                <img src="iofs:C:/mainos/system32/icons/usericons/flower.png" alt="">
+            <div id="usericon">
+                <img alt="">
             </div>
             <h2 id="username"></h2>
             <hr>
         </div>
         <div id="center">
             <div id="left">
-                <div onclick="run('excel')"><img src="iofs:C:/Program Files/excel/icon.svg" alt=""><p>Soft Excel</p></div>
-                <div onclick="run('optisocubes')"><img src="iofs:C:/Program Files/Optisocubes/icon.svg" alt=""><p>Optisocubes</p></div>
-                <div onclick="run('paint')"><img src="iofs:C:/Program Files/paint/icon.png" alt=""><p>Paint</p></div>
-                <div onclick="run('notepad')"><img src="iofs:C:/Program Files/notepad/icon.png" alt=""><p>Notepad</p></div>
-                <div onclick="run('donttagme')"><img src="iofs:C:/Program Files/Dont Tag Me/icon.png" alt=""><p>Don't Tag Me</p></div>
-                <div onclick="run('simple_cookieclicker')"><img src="iofs:C:/Program Files/Simple Cookieclicker/icon.png" alt=""><p>Simple Cookieclicker</p></div>
-                <div onclick="show_alleprogramme()" id="allprograms"><img src="iofs:C:/mainos/system32/icons/all programs.svg" alt=""><p>(not) All Programs</p></div>
+                <a onclick="run('excel')"><img src="iofs:C:/Program Files/excel/icon.svg" alt=""><span>Soft Excel</span></a>
+                <a onclick="run('optisocubes')"><img src="iofs:C:/Program Files/Optisocubes/icon.svg" alt=""><span>Optisocubes</span></a>
+                <a onclick="run('paint')"><img src="iofs:C:/Program Files/paint/icon.png" alt=""><span>Paint</span></a>
+                <a onclick="run('notepad')"><img src="iofs:C:/Program Files/notepad/icon.png" alt=""><span>Notepad</span></a>
+                <a onclick="run('donttagme')"><img src="iofs:C:/Program Files/Dont Tag Me/icon.png" alt=""><span>Don't Tag Me</span></a>
+                <a onclick="run('simple_cookieclicker')"><img src="iofs:C:/Program Files/Simple Cookieclicker/icon.png" alt=""><span>Simple Cookieclicker</span></a>
+                <a onclick="show_alleprogramme()" id="allprograms"><img src="iofs:C:/mainos/system32/icons/all programs.svg" alt=""><span>All Programs</span></a>
             </div>
             <div id="right">
-                <div onclick="run('explorer');"><img src="iofs:C:/mainos/system32/icons/folder.svg" alt=""><p>My Documents</p></div>
-                <div onclick="run('explorer');"><img src="iofs:C:/mainos/system32/icons/pc.png" alt=""><p>My Computer</p></div>
+                <a onclick="run('explorer');"><img src="iofs:C:/mainos/system32/icons/folder.svg" alt=""><span>My Documents</span></a>
+                <a onclick="run('explorer');"><img src="iofs:C:/mainos/system32/icons/pc.png" alt=""><span>My Computer</span></a>
                 <p style="line-height:1;margin:0">&nbsp;</p>
                 <a id="viewonitch" href="https://maingron.itch.io/mainos" target="_blank">&nbsp;👀&nbsp;&nbsp;on itch</a>
                 <a id="viewongithub" href="https://maingron.com/github/mainos" target="_blank">&nbsp;👀&nbsp;&nbsp;on Github</a>
             </div>
         </div>
         <div class="bottomright">
-            <button onclick="parent.gooff()"><img src="iofs:C:/mainos/system32/icons/shutdown.png" style="background:red;" alt="">Shutdown</button>
+            <button onclick="parent.gooff()"><img src="iofs:C:/mainos/system32/icons/shutdown.png" style="background:red;" alt="">Shut<wbr>down</button>
             <button onclick="parent.window.location.reload()"><img src="iofs:C:/mainos/system32/icons/restart.png" style="background:green;" alt="">Restart</button>
         </div>
         <div id="bottom">
@@ -67,33 +47,8 @@
     </div>
     <a onclick="hide_alleprogramme()" id="alleprogrammeout"></a>
     <div id="alleprogramme">
-        <script>
-            for (var i = 0; Object.keys(parent.program).length > i; i++) {
-
-                thisprogram = parent.program[Object.keys(parent.program)[i]];
-
-                if (thisprogram.devonly == 1) {
-                    if (parent.setting.developer == 0) {
-                    continue;
-                    }
-                }
-
-                if (thisprogram.germantv == 1) {
-                    if (parent.setting.german_tv != 1 || parent.setting.language != "de") {
-                    continue;
-                    }
-                }
-
-                if (thisprogram.spawnicon != 0) {
-                    document.write("<a onclick=\"run('" + thisprogram.id + "')\"><img src=\"" + thisprogram.icon + "\" alt=''>" + thisprogram.title + "</a>");
-                }
-            }
-        </script>
     </div>
 
-    <script>
-        document.getElementById("username").innerHTML = parent.setting.username
-    </script>
-
+    <script src="scripts.js"></script>
 </body>
 </html>

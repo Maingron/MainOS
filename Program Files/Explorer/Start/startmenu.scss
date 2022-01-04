@@ -1,0 +1,429 @@
+:root {
+    --background-color: #fff;
+    --color-type-2: #fff;
+    --background-color-type-2: #bcf;
+    --font: var(--font), sans-serif;
+}
+
+body {
+    overflow: hidden;
+    background-color: transparent !important;
+    user-select: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+#startbutton {
+    background: transparent;
+    position: absolute;
+    height: 0;
+    width: 0;
+    border: none;
+    display: inline;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+#onout {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#start {
+    position: absolute;
+    bottom: 35px;
+    left: 0;
+    display: flex;
+    height: 500px;
+    width: 350px;
+    border: 2px solid var(--themecolor);
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    overflow: hidden;
+    background: transparent;
+
+    #top {
+        background: var(--themecolor);
+        top: 0;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        height: 70px;
+
+        hr {
+            position: absolute;
+            border: 0;
+            border-bottom: 2px solid #fff;
+            left: 64px;
+            top: 25px;
+            height: 20px;
+            width: 200px;
+        }
+
+        #usericon {
+            position: absolute;
+            display: inline;
+            top: 5px;
+            left: 5px;
+            height: 60px;
+            width: 60px;
+            border: 3px solid #fff;
+            border-radius: 3px;
+
+            img {
+                position: absolute;
+                margin: 0;
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    #center {
+        display: flex;
+        position: absolute;
+        top: 70px;
+        width: 100%;
+        height: calc(100% - 70px);
+    
+        #left,
+        #right {
+            a {
+                &:hover,
+                &:focus {
+                    background: var(--hovercolor);
+                    cursor:pointer;
+                }
+            }
+        }
+    
+        #left {
+            background: #fff;
+            color: #000;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            height: 100%;
+            width: 55%;
+            overflow: hidden;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            padding-bottom: 40px;
+    
+            #allprograms {
+                border-top: 1px solid #f70;
+                position: absolute;
+                bottom: 0;
+            }
+    
+            a {
+                position: relative;
+                display: flex;
+                height: 35px;
+                width: 100%;
+                overflow: hidden;
+                align-items: center;
+                color: #fff;
+    
+                span {
+                    position: relative;
+                    display: inline;
+                    font-size: .9em;
+                    left: 3px;
+                    white-space: nowrap;
+                    width: calc(100% - 41px);
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    bottom: 1px;
+                }
+    
+                img {
+                    margin: 2px;
+                    height: 31px;
+                    width: 31px;
+                    display: inline;
+                }
+            }
+        }
+    
+        #right {
+            position: relative;
+            height: 100%;
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            background: var(--background-color-type-2);
+            color: var(--color);
+
+            a {
+                position: relative;
+                display: flex;
+                height: 30px;
+                width: 100%;
+                overflow: hidden;
+                align-items: center;
+
+                span {
+                    position: relative;
+                    display: inline;
+                    font-size: .8em;
+                    left: 1px;
+                    white-space: nowrap;
+                    width: calc(100% - 41px);
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    bottom: 1px;
+                }
+
+                img {
+                    margin: 5px;
+                    height: 24px;
+                    width: 24px;
+                    display: inline;
+                }
+            }
+        }
+    }
+
+    #bottom {
+        display: flex;
+        justify-content: flex-end;
+        background: var(--themecolor);
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        height: 0;
+        padding-top: 2px;
+    }
+}
+
+#username {
+    position: absolute;
+    color: var(--color-type-2);
+    font-size: 30px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    left: 75px;
+    top: -14px;
+}
+
+#alleprogramme {
+    a {
+        &.bottominfo {
+            padding-left:12px;
+        }
+
+        &:not(.nohoverbg) {
+            &:hover,
+            &:focus {
+                background: var(--hovercolornontransparent);
+                cursor:pointer;
+            }
+        }
+    }
+}
+
+.bottomright { // Shutdown icons
+    position: absolute;
+    bottom: 2px;
+    right: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    width:auto;
+    max-width: 45%;
+    height: 23px;
+    padding:2px 0 1px 2px;
+    background: var(--themecolor);
+    display:inline-flex;
+    justify-content:flex-end;
+
+
+    button {
+        margin: 0;
+        padding: 1px;
+        cursor: pointer;
+        font-size: 12.5px;
+        line-height: 1.3;
+        color: #fff;
+        border:0;
+        text-align: left;
+        width:auto;
+        background: var(--themecolor);
+        font-weight: lighter;
+
+        &:hover,
+        &:focus {
+            filter: brightness(1.4);
+        }
+
+        * {
+            position: relative;
+            display: inline-block;
+            margin: 0;
+        }
+
+        img {
+            height: 100%;
+            border: 1px solid #fff;
+            border-radius: 2px;
+            float:left;
+            margin-right:2px;
+        }
+
+
+    }
+}
+
+#alleprogrammeout {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+#alleprogramme {
+    opacity: 0;
+    position: absolute;
+    bottom: 7px;
+    left: 180px;
+    max-height: 97vh;
+    max-width: 80vw;
+    width: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-start;
+
+    a {
+        position: relative;
+        display: flex;
+        height: 32px;
+        width: 230px;
+        overflow: hidden;
+        align-items: center;
+        border-right: 1px solid #000;
+        max-width: 28vw;
+        background: var(--background-color);
+        font-size: .8em;
+        left: 5px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding:3px;
+
+        img {
+            margin: 0 8px 0 2px;
+            height: 24px;
+            width: 24px;
+            display: inline;
+            object-fit: contain;
+        }
+    }
+}
+
+#viewonitch {
+    color:#fff;
+    background:#ff555555;
+    text-decoration:none;
+    line-height: 1.8;
+    font-size: .8em;
+
+    &:hover,
+    &:focus {
+        background:#f55
+    }
+}
+
+#viewongithub {
+    color:#000;
+    background:#ffffff55;
+    text-decoration:none;
+    line-height: 1.8;
+    font-size: .8em;
+
+    &:hover,
+    &:focus {
+        background:#fff;
+    }
+}
+
+@media screen and (max-width:500px) {
+    #start {
+        width: calc(100% - 4px);
+        height: calc(100% - 39px);
+        border-radius: 0;
+    }
+
+    #alleprogramme {
+        left: 0;
+        bottom: 80px;
+        height:calc(100% - 90px);
+
+        div {
+            width: 50vw;
+            max-width: none;
+            height: 30px;
+            border: .5px solid #000;
+        }
+    }
+}
+
+@media screen and (max-height:550px) {
+    #start {
+        height: calc(100% - 38px);
+    }
+}
+
+@media (prefers-color-scheme:dark) {
+
+    :root {
+        --background-color: var(--black);
+    }
+
+    #start {
+        #center {
+            #left {
+                background: var(--black);
+                div {
+                    p {
+                        color: #fff;
+                    }
+                }
+            }
+            #right {
+                background: var(--black2);
+                color: #fff;
+                div {
+                    position: relative;
+                    display: flex;
+                    height: 30px;
+                    width: 100%;
+                    overflow: hidden;
+                    align-items: center;
+                }
+            }
+        }
+    }
+
+    #alleprogramme {
+        div {
+            background: #000;
+            color: #fff;
+        }
+    }
+}
