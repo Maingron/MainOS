@@ -29,6 +29,8 @@ if(ismainos != 1 && parent.ismainos == 1) {
     window.deletefile = parent.deletefile;
     window.savedir = parent.savedir;
     window.isfolder = parent.isfolder;
+    window.listdir = parent.listdir;
+    window.getFilename = parent.getFilename;
 
     // Alerts / Notifications
     window.alert = alert = parent.notification;
