@@ -36,7 +36,7 @@ function explorerdo(path) { // Shows directory or does stuff asigned to files / 
         newChild.setAttribute("path", filesInPath[i]); // Todo: maybe chack for onclick in #content_files and then do explorerdo() with this instead of using href=javascript:*
         newChild.href = "javascript:explorerdo('"+filesInPath[i]+"')"; // Open folder or file onclick
 
-        if(!isfolder(filesInPath[i])) { // If is no folder asign program icon
+        if(!isfolder(filesInPath[i])) { // If is no folder assign program icon
             newChild.innerHTML = "<img id='animg' src='iofs:C:/mainos/system32/icons/unknown_file.svg'>"; // Add default icon
 
             var fileending = filesInPath[i].slice(filesInPath[i].lastIndexOf("."));
@@ -44,6 +44,8 @@ function explorerdo(path) { // Shows directory or does stuff asigned to files / 
                 newChild.innerHTML = "<img id='animg' src='iofs:C:/Program Files/notepad/icon.png'>"; // Add icon
             } else if (fileending == ".png" || fileending == ".jpg" || fileending == ".jpeg" || fileending == ".svg") { // Images
                 newChild.innerHTML = "<img id='animg' src='iofs:"+filesInPath[i]+"'>"; // Add icon
+            } else if (fileending == ".run") {
+                newChild.innerHTML = "<img id='animg' src='"+JSON.parse(loadfile(filesInPath[i])).icon+"'>";
             }
 
         } else {
@@ -59,10 +61,9 @@ function explorerdo(path) { // Shows directory or does stuff asigned to files / 
             }
         }
 
-        newChild.innerHTML += filesInPath[i].split(path)[1].split("/")[0]; // Add text while removing full path and trailing slash
+        newChild.innerHTML += getFilename(filesInPath[i]); // Add text while removing full path and trailing slash
 
         document.getElementById("content_files").appendChild(newChild);
-
     }
 
 
@@ -91,6 +92,8 @@ function explorerdofile(path) { // Run if program is clicked
             window.parent.run('notepad', path);
         } else if (fileending == ".png" || fileending == ".jpg" || fileending == ".jpeg") {
             window.parent.run('painthd', path);
+        } else if (fileending == ".run") {
+            window.parent.run(JSON.parse(loadfile(path)).id);
         }
 }
 
