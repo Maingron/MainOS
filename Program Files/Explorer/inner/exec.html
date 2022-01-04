@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta version="1.4">
+    <meta version="1.4.1">
     <title>Explorer</title>
     <link rel="stylesheet" href="../../../helper.css">
     <link rel="stylesheet" type="text/css" href="explorerstyle.css">
@@ -14,7 +14,7 @@
 
 <body>
     <div id="headbar2">
-        <a onclick="explorerdo('..')" title="Up">
+        <a onclick="explorerdo('..')" title="Up" href="#">
             <img src="iofs:C:/mainos/system32/icons/folder_up.svg" alt="Go up a directory">
         </a>
 
@@ -28,7 +28,7 @@
     <div id="content_files"></div>
 
 
-    <div id="spaceinfo">
+    <div id="spaceinfo" tabindex="-1">
         <span>Space used:</span>
         <script>
             document.write("<span>~" + loadfile("C:/.diskinfo/size_used.txt") + "KB / ~" + loadfile("C:/.diskinfo/size.txt") + "KB</span>");
@@ -36,8 +36,6 @@
             document.write("<meter value='" + loadfile("C:/.diskinfo/size_used.txt") + "' min='0' max='" + loadfile("C:/.diskinfo/size.txt") + "'>&nbsp;</meter>");
         </script>
     </div>
-
-
 
 
     <script src="innerexplorer.js"></script>

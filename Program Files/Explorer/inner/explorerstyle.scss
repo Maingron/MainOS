@@ -48,6 +48,13 @@ body {
     overflow: visible;
     font-size: 1em;
 
+    a, input, button {
+        &:hover,
+        &:focus {
+            background-color: var(--hovercolor);
+        }
+    }
+
     form { // Yet only supposed for path input
         display: flex;
         height: 100%;
@@ -123,14 +130,13 @@ body {
         font-size: .85em;
         text-decoration: none;
 
-
-        &:hover {
+        &:hover,
+        &:focus {
             overflow: visible;
             z-index: 20;
             border-radius: 1px;
             background-color: var(--hovercolor);
         }
-
 
         img {
             position: relative;
@@ -173,9 +179,7 @@ meter {
 }
 
 
-
 @media (prefers-color-scheme:dark) {
-
     #headbar2 {
         background: var(--black2);
         border: none;
