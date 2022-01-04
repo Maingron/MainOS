@@ -718,8 +718,19 @@ function notification(title, content) { // Send notification
 }
 window.alert = notification;
 
-
-
 // Check space on disk
 savefile("C:/.diskinfo/size_used.txt", JSON.stringify(localStorage).length / 1000, 1, "t=txt");
 savefile("C:/.diskinfo/size_remaining.txt", loadfile("C:/.diskinfo/size.txt") - loadfile("C:/.diskinfo/size_used.txt"), 1, "t=txt");
+
+// Re-Create program shortcuts; Delete them beforehand
+listdir("C:/users/" + setting.username + "/programs/").forEach((item) => {
+    deletefile(item, 1);
+})
+
+
+Object.keys(program).forEach((item) => {
+    var myTitle = program[item].title;
+    myTitle = myTitle.replaceAll("'", "&#39;");
+    savefile("C:/users/" + setting.username + "/programs/" + myTitle + ".run", JSON.stringify(program[item]), 1, "run");
+});
+

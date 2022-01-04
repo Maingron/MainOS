@@ -310,7 +310,7 @@ program.germantv_kika = {
 
 
 
-
+savedir("C:/users/" + setting.username + "/programs/");
 
 savefile("C:/mainos/programs.dat", JSON.stringify(program), 1, "t=txt");
 
