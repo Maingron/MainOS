@@ -94,7 +94,25 @@ function loadfile(path,requestattributes = false) {
     }
 
     if(requestattributes == 1) { // Return only file attributes if requested
-      return localStorage.getItem((path)).split("*")[0];
+
+      var myLoadResult = localStorage.getItem((path)).split("*")[0];
+
+      if(myLoadResult.includes("d=")) { // only if file has a date
+
+        // - We have to expand the timestamp again, since we removed important parts of it when saving
+
+        var myLoadResultDate = myLoadResult.split("d=")[1].split(",")[0];
+
+        var myLoadResultDateOld = myLoadResultDate;
+
+        myLoadResultDate = +myLoadResultDate + 1000000000;
+        myLoadResultDate = myLoadResultDate + "000";
+        myLoadResultDate = myLoadResultDate;
+
+        myLoadResult = myLoadResult.replace(myLoadResultDateOld, myLoadResultDate);
+    }
+
+      return myLoadResult;
     } else {
       return localStorage.getItem((path)).split("*")[1];
     }
@@ -115,7 +133,7 @@ function isfolder(path) {
   if(localStorage.getItem(path) == null || localStorage.getItem(path) == "undefined") { // If file or folder doesn't exist
       return false;
   } else {
-      if(loadfile(path,1) == "t=dir") { // If attributes of path equal type=dir
+      if(loadfile(path,1).includes("t=dir") || loadfile(path,1).includes("t=d")) { // If attributes of path equal type=dir
           return true;
       } else {
           return false;
@@ -134,8 +152,11 @@ function isnofile(path) { // Todo: Check if should be depreciated
 
 
 function savefile(path, content, override, attr) {
-  if (attr == "null" || attr == "undefined") {
-    attr = "d=" + new Date.now();
+  if (!attr || attr.includes("d=") == false) {
+    var mySaveDate = new Date();
+    mySaveDate = (mySaveDate.getTime() - mySaveDate.getMilliseconds()) / 1000; // Save without milliseconds to save about 3 bytes per file
+    mySaveDate -= 1000000000; // Remove this value to save up to 1 byte per file. Won't save storage after the year 2033
+    attr = "d=" + mySaveDate + "," + attr; // Todo: Make the date footprint as small as possible
   } else if(attr && attr.includes("t=dir")) {
     if(path.slice(-1) != "/") { // Check for trailing slash
       console.warn("Directories are supposed to have a trailing slash. Saving: " + path + ".");
