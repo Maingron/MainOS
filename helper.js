@@ -1,5 +1,6 @@
 document.documentElement.style.setProperty("--themecolor", window.parent.setting.themecolor);
 document.documentElement.style.setProperty("--font", window.parent.setting.font);
+document.documentElement.style.setProperty("--border-radius", window.parent.setting.borderradius);
 document.documentElement.style.setProperty("--hovercolor", window.parent.setting.hovercolor);
 document.documentElement.style.setProperty("--hovercolornontransparent", window.parent.setting.hovercolornontransparent);
 

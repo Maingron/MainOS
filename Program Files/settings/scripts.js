@@ -24,7 +24,7 @@ function gohome() {
   for (j = 0; j < settingtabs.length; j++) {
     settingtabs[j].style.display = "none";
   }
-  document.getElementById("home").style.display = "block";
+  document.getElementById("home").style.display = "";
   document.getElementById("header").style.display = "none";
 
 }

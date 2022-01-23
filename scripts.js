@@ -77,6 +77,7 @@ function loadsettings() {
     setting.notsodarkmode = loadsetting("notsodarkmode");
     setting.hovercolor = loadsetting("hovercolor");
     setting.hovercolornontransparent = loadsetting("hovercolornontransparent");
+    setting.borderradius = loadsetting("borderradius") + "px";
     setting.tts = loadsetting("tts");
     setting.font = loadsetting("font");
     setting.repository = loadsetting("repository");

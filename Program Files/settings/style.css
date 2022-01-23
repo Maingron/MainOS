@@ -60,6 +60,7 @@ h1 {
   display: inline-block;
   font-size: 30px;
   word-wrap: break-word;
+  border-radius: var(--border-radius);
 }
 
 .settingtab {
@@ -104,7 +105,4 @@ h1 {
   .setting .bool_range::-webkit-slider-thumb {
     background: #000;
   }
-  
-
-  
 }
