@@ -14,6 +14,7 @@
     --beige4: #fdfdfa;
     --altbarheight:22px;
     --altbarcolor: var(--themecolor);
+    --border-radius: 2px;
 }
 
 
@@ -69,7 +70,7 @@ textarea {
     display:inline-block;
     z-index:1000;
     padding:3px 0;
-    border-radius:6px;
+    border-radius:var(--border-radius);
     border:1px solid var(--themecolor);
     box-sizing:border-box;
     hr {
