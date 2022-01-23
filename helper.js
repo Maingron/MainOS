@@ -43,7 +43,7 @@ if(ismainos != 1 && parent.ismainos == 1) {
 
     data.programmeta = {};
 
-    for(var i = 0; i < document.getElementsByTagName("meta").length; i++) { // depreciated
+    for(var i = 0; i < document.getElementsByTagName("meta").length; i++) { // deprecated
         if(document.getElementsByTagName("meta")[i] && document.getElementsByTagName("meta")[i].getAttribute("version")) {
             data.programmeta.version = document.getElementsByTagName("meta")[i].getAttribute("version");
         }
@@ -60,15 +60,15 @@ if(ismainos != 1 && parent.ismainos == 1) {
 
 // Load iofs:*-paths that are found in HTML Elements
 function loadIOfsLinks() {
-    for(var i = 0; i < document.getElementsByTagName("*").length; i++) { // TODO: Possible performance improvement by checking for Array[img, script, ...] instead of the entire page
-        if(document.getElementsByTagName("*")[i].src) {
-            if(document.getElementsByTagName("*")[i].src.includes("iofs:")) {
-                document.getElementsByTagName("*")[i].src = loadfile(document.getElementsByTagName("*")[i].src.split("iofs:")[1]);
+    for(var item of document.getElementsByTagName("*")) { // TODO: Possible performance improvement by checking for Array[img, script, ...] instead of the entire page
+        if(item.src) {
+            if(item.src.includes("iofs:")) {
+                item.src = loadfile(item.src.split("iofs:")[1]);
             }
         }
-        if(document.getElementsByTagName("*")[i].href) {
-            if(document.getElementsByTagName("*")[i].href.includes("iofs:")) {
-                document.getElementsByTagName("*")[i].href = loadfile(document.getElementsByTagName("*")[i].href.split("iofs:")[1]);
+        if(item.href) {
+            if(item.href.includes("iofs:")) {
+                item.href = loadfile(item.href.split("iofs:")[1]);
             }
         }
     }
@@ -79,8 +79,6 @@ loadIOfsLinks();
 window.setInterval(function() {
     loadIOfsLinks();
 },20)
-
-
 
 document.addEventListener("contextmenu", function (event) {
     console.log(event);
@@ -126,8 +124,6 @@ function spawnContextMenu(content) { // TODO: Make async
         newelement.outerHTML = "";
     })
 }
-
-
 
 
 
