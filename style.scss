@@ -192,6 +192,12 @@ iframe {
   max-height: 100vh;
   max-width: 100vw;
 
+  iframe {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+  }
+
   .resizers {
     display: none;
   }
