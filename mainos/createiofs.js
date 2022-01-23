@@ -72,7 +72,7 @@ savedir("C:/users/" + setting.username + "/Program Data/");
 
 savefile("C:/Documents and Settings/wallpapers.txt", "Links to wallpapers to use as background image for MainOS\n\nWallpapers made by Michael Gillett (https://twitter.com/MichaelGillett):\n https://maingron.com/things/wp/michael_gillett/fluent.jpg\n https://maingron.com/things/wp/michael_gillett/andromeda.jpg\n https://maingron.com/things/wp/michael_gillett/bliss-night.jpg\n https://maingron.com/things/wp/michael_gillett/clippy-x-rex.jpg (modified by Maingron)\n https://maingron.com/things/wp/michael_gillett/polaris.jpg", 0, "t=txt");
 
-savefile("C:/Documents and Settings/Credits.txt", "MainOS Credits:\n\nMainOS is a one-man project, though some people contributed to it. Thanks to:\n\nDavid King - Optisocubes | https://twitter.com/dr_d_king\nMichael Gillett - Wallpapers | https://twitter.com/MichaelGillett\n\nYou - Enjoying MainOS", 1, "t=txt");
+savefile("C:/Documents and Settings/Credits.txt", "MainOS Credits:MainOS Credits:\n\nMainOS is a one-man project, though some people contributed to it or gave financial support. Special thanks to:\n\nDerry Shribman | https://lif.zone/team#derry\nDavid King - Optisocubes | https://twitter.com/dr_d_king\nMichael Gillett - Wallpapers | https://twitter.com/MichaelGillett", 1, "t=txt");
 
 savefile("C:/Documents and Settings/More Programs.txt", "If you want more programs, open cmd and type 'setting repository 1'. Afterwards restart MainOS.", 0, "t=txt");
 
