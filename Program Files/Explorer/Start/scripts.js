@@ -1,14 +1,3 @@
-function show_alleprogramme() {
-    document.getElementById("alleprogramme").style.overflow = "visible";
-    document.getElementById("alleprogramme").style.opacity = "1";
-    document.getElementById("alleprogrammeout").style.display = "inline";
-}
-
-function hide_alleprogramme() {
-    document.getElementById("alleprogrammeout").style.display = "none";
-    document.getElementById("alleprogramme").style = "";
-}
-
 function run(which) {
     parent.run(which);
     parent.unrun(parent.document.getElementsByClassName('explorer_start')[0].children[0].children[0]);
@@ -21,7 +10,7 @@ function close_startmenu() {
 // Spawn icons in all-programs list
 
 var programsinfolder = listdir("C:/users/" + parent.setting.username + "/programs/");
-var allProgramsContainer = document.getElementById("alleprogramme");
+var allProgramsContainer = document.getElementById("left");
 
 programsinfolder.forEach((item, index) => {
     var myCurrentProgram = JSON.parse(loadfile(item));
@@ -57,6 +46,4 @@ programsinfolder.forEach((item, index) => {
 
 
 // Set username- and icon
-document.getElementById("username").innerText = parent.setting.username;
-
-document.getElementById("usericon").children[0].src = "iofs:C:/mainos/system32/icons/usericons/flower.png";
+document.getElementById("usericon").src = "iofs:C:/mainos/system32/icons/usericons/flower.png";

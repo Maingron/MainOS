@@ -13,42 +13,30 @@
     <div onclick="close_startmenu()" id="onout"></div> <!-- Invisible background which; Closes menu when clicked -->
     <button id="startbutton" onclick="close_startmenu()"><a class="speak">Close Start Menu</a></button>
     <div id="start">
-        <div id="top">
-            <div id="usericon">
-                <img alt="">
+        <div id="statusbar">
+            <div>
+                <button class="usericon-button">
+                    <img id="usericon" alt="">
+                </button>
+                <button onclick="run('settings')"><img src="iofs:C:/Program Files/settings/icon.png" alt=""></button>
+                <br>
+                <button onclick="run('explorer');"><img src="iofs:C:/mainos/system32/icons/folder.svg" alt=""></button>
             </div>
-            <h2 id="username"></h2>
-            <hr>
+            <div class="align-end">
+                <button onclick="parent.gooff()"><img src="iofs:C:/mainos/system32/icons/shutdown.png" alt=""></button>
+                <button onclick="parent.window.location.reload()"><img src="iofs:C:/mainos/system32/icons/restart.png" alt=""></button>
+            </div>
+
         </div>
         <div id="center">
             <div id="left">
-                <a onclick="run('excel')"><img src="iofs:C:/Program Files/excel/icon.svg" alt=""><span>Soft Excel</span></a>
-                <a onclick="run('optisocubes')"><img src="iofs:C:/Program Files/Optisocubes/icon.svg" alt=""><span>Optisocubes</span></a>
-                <a onclick="run('paint')"><img src="iofs:C:/Program Files/paint/icon.png" alt=""><span>Paint</span></a>
-                <a onclick="run('notepad')"><img src="iofs:C:/Program Files/notepad/icon.png" alt=""><span>Notepad</span></a>
-                <a onclick="run('donttagme')"><img src="iofs:C:/Program Files/Dont Tag Me/icon.png" alt=""><span>Don't Tag Me</span></a>
-                <a onclick="run('simple_cookieclicker')"><img src="iofs:C:/Program Files/Simple Cookieclicker/icon.png" alt=""><span>Simple Cookieclicker</span></a>
-                <a onclick="show_alleprogramme()" id="allprograms"><img src="iofs:C:/mainos/system32/icons/all programs.svg" alt=""><span>All Programs</span></a>
-            </div>
-            <div id="right">
-                <a onclick="run('explorer');"><img src="iofs:C:/mainos/system32/icons/folder.svg" alt=""><span>My Documents</span></a>
-                <a onclick="run('explorer');"><img src="iofs:C:/mainos/system32/icons/pc.png" alt=""><span>My Computer</span></a>
-                <p style="line-height:1;margin:0">&nbsp;</p>
+                <span>Links: </span>
                 <a id="viewonitch" href="https://maingron.itch.io/mainos" target="_blank">&nbsp;👀&nbsp;&nbsp;on itch</a>
                 <a id="viewongithub" href="https://maingron.com/github/mainos" target="_blank">&nbsp;👀&nbsp;&nbsp;on Github</a>
+                <span>All programs: </span>
             </div>
         </div>
-        <div class="bottomright">
-            <button onclick="parent.gooff()"><img src="iofs:C:/mainos/system32/icons/shutdown.png" style="background:red;" alt="">Shut<wbr>down</button>
-            <button onclick="parent.window.location.reload()"><img src="iofs:C:/mainos/system32/icons/restart.png" style="background:green;" alt="">Restart</button>
-        </div>
-        <div id="bottom">
-        </div>
     </div>
-    <a onclick="hide_alleprogramme()" id="alleprogrammeout"></a>
-    <div id="alleprogramme">
-    </div>
-
     <script src="scripts.js"></script>
 </body>
 </html>
