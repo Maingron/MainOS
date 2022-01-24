@@ -1,6 +1,5 @@
 @import "helper.css";
 
-
 body {
   margin: 0;
   background-color: #853;
@@ -17,9 +16,6 @@ body {
   font-family: var(--font);
 }
 
-iframe {
-  border: 1px solid var(--themecolor);
-}
 
 .content {
   position: absolute;
@@ -87,8 +83,34 @@ iframe {
   min-height: 50px;
   background-color: transparent;
   border-radius: var(--border-radius);
-  max-height: 90vh;
-  max-width: 95vw;
+
+  &.maximized {
+    height: calc(100% - 35px);
+    width: 100%;
+    max-height: 100vh;
+    max-width: 100vw;
+    border-radius: 0;
+  
+    iframe {
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      border-radius: 0;
+    }
+  
+    .resizers {
+      display: none;
+    }
+  
+    .headbar {
+      border-radius: 0;
+    }
+  }
+
+  &.notmaximized {
+    height: 50%;
+    width: 50%;
+  }
 
   * {
     -webkit-user-select: none;
@@ -111,53 +133,69 @@ iframe {
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
   }
+
+  .headbar {
+    position: relative;
+    top: 0;
+    background-color: var(--themecolor);
+    height: 30px;
+    width: 100%;
+    padding-right: 2px;
+    border: none;
+    overflow: hidden;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    * {
+      display: inline;
+      transition: .5s;
+    }
+    
+    .max,
+    .close {
+      height: 28px;
+      width: 28px;
+      top: -2px;
+      border: 0;
+      margin: 0;
+      position: absolute;
+      border-left: 1px solid #fff;
+      border-bottom: 1px solid #fff;
+    }
+
+    .close {
+      right: 0;
+      background-color: #f00;
+    }
+
+    .max {
+      background-color: var(--themecolor2);
+      right: 28px;
+    }
+  }
+  .resizers {
+    * {
+      height: 10px;
+      width: 10px;
+      position: absolute;
+      &:active {
+        outline: 3px solid var(--themecolor);
+        z-index: 9999;
+        transition: 0s;
+        cursor: se-resize;
+      }
+    }
+    .resizer2 {
+      bottom: -5px;
+      right: -5px;
+      cursor: se-resize;
+      z-index: 20;
+    }
+  }
 }
 
-
-.explorer_start,
-.explorer_start iframe {
-  background-color: transparent !important;
-}
-
-.program .headbar {
-  position: relative;
-  top: 0;
-  background-color: var(--themecolor);
-  height: 30px;
-  width: 100%;
-  padding-right: 2px;
-  border: none;
-  overflow: hidden;
-  border-top-left-radius: var(--border-radius);
-  border-top-right-radius: var(--border-radius);
-}
-
-.headbar {
-  * {
-    display: inline;
-    transition: .5s;
-  }
-
-  .max,
-  .close {
-    height: 28px;
-    width: 28px;
-    top: -2px;
-    border: 0;
-    margin: 0;
-    position: absolute;
-    border-left: 1px solid #fff;
-    border-bottom: 1px solid #fff;
-  }
-
-  .close {
-    right: 0;
-    background-color: #f00;
-  }
-
-  .max {
-    background-color: var(--themecolor2);
-    right: 28px;
+.explorer_start {
+  &, iframe {
+    background-color: transparent !important;
   }
 }
 
@@ -167,56 +205,6 @@ iframe {
   width: 200px;
   top: 400px;
   left: 400px;
-}
-
-.resizers {
-  * {
-    height: 10px;
-    width: 10px;
-    position: absolute;
-    &:active {
-      outline: 3px solid var(--themecolor);
-      z-index: 9999;
-      transition: 0s;
-      cursor: se-resize;
-    }
-  }
-}
-
-.resizer2 {
-  bottom: -5px;
-  right: -5px;
-  cursor: se-resize;
-  z-index: 20;
-}
-
-.maximized {
-  height: calc(100% - 35px);
-  width: 100%;
-  max-height: 100vh;
-  max-width: 100vw;
-  border-radius: 0;
-
-
-  iframe {
-    border-left: none;
-    border-right: none;
-    border-bottom: none;
-    border-radius: 0;
-  }
-
-  .resizers {
-    display: none;
-  }
-
-  .headbar {
-    border-radius: 0;
-  }
-}
-
-.notmaximized {
-  height: 50%;
-  width: 50%;
 }
 
 .overlay {
@@ -303,13 +291,6 @@ iframe {
       z-index: 999;
       color: #fff;
     }
-
-    #starticonm {
-      display: inline;
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
   }
 
   #taskbarright {
@@ -321,6 +302,7 @@ iframe {
     background-color: var(--themecolor2);
     border-left: 2px solid #420;
     max-width: 28%;
+    color: #fff;
 
     img {
       height: 30px;
@@ -345,15 +327,14 @@ iframe {
       top: 7px;
       margin: 0;
       padding: 1px 3px;
-      margin-left: 7px;
+      margin-left: 9px;
       width: 60px;
       height: 18px;
-      font-size: 18px;
+      font-size: 16px;
       color: #fff;
     }
   }
 }
-
 
 #startmenu {
   display: none;
@@ -440,7 +421,7 @@ iframe {
   font-size: 1.05em;
   line-height:1.4;
   a {
-    color:#ffffaacc;
+    color:#ffffffcc;
   }
 }
 
@@ -509,50 +490,57 @@ iframe {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 
+    &.maximized {
+      height: calc(100% - 17.5px);
+      width: 100%;
+    }
+
     iframe {
       transform: scale(.5, .5) translate(-50%, -50%);
       height: calc(200% - 30px);
       width: calc(200%);
       top: 15px;
     }
+
+    .headbar {
+      position: relative;
+      top: 0;
+      background-color: var(--themecolor);
+      height: 15px;
+      width: 100%;
+      padding-right: 1px;
+      border: none;
+  
+      .max,
+      .close {
+        height: 12px;
+        width: 12px;
+        padding: 0;
+        top: 0;
+        position: absolute;
+        font-size: 0;
+      }
+  
+      .close {
+        right: 0;
+      }
+  
+      .max {
+        right: 12px;
+      }
+    }
   }
 
-  .explorer_start iframe {
-    height: calc(200% + 36px);
-    background-color: transparent;
+  .explorer_start {
+    iframe {
+      height: calc(200% + 36px);
+      background-color: transparent;
+    }
   }
 
   #taskbar {
     transform: scale(.5, .5) translate(-50%, 50%);
     width: calc(200%);
-  }
-
-  .headbar {
-    position: relative;
-    top: 0;
-    background-color: var(--themecolor);
-    height: 15px;
-    width: 100%;
-    padding-right: 1px;
-    border: none;
-
-    .max,
-    .close {
-      height: 12px;
-      width: 12px;
-      padding: 0;
-      top: 0;
-      position: absolute;
-      font-size: 0;
-    }
-
-    .close {
-      right: 0;
-    }
-
-    .max {
-      right: 12px;
-    }
   }
 
   .progtitle {
@@ -565,11 +553,6 @@ iframe {
   .progicon {
     height: 13px;
     margin: 1px;
-  }
-
-  .maximized {
-    height: calc(100% - 17.5px);
-    width: 100%;
   }
 
   .aboutthisversion {
