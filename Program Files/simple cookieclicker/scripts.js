@@ -54,13 +54,13 @@ const machineList = [
 
 function generateStoreItem(a) {
   var result = "";
-  result += "<a href='#' onclick='buy("+(a+1)+")'><b>";
+  result += "<button onclick='buy("+(a+1)+")'><b>";
   result += machineList[a][0];
   result += "</b><br>";
   result += lang.Price + ": " + machineList[a][1];
   result += "<br>";
   result += lang.CpS + ": " + machineList[a][2];
-  result += "</a>";
+  result += "</button>";
   return result;
 }
 

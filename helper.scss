@@ -44,6 +44,9 @@ body {
             transition: background-color .1s, filter .1s;
             &:hover,
             &:focus {
+                &:not(input) {
+                    cursor: pointer;
+                }
                 background-color: var(--hovercolor);
                 filter: brightness(1.2);
             }
