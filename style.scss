@@ -298,11 +298,6 @@ body.big_buttons { // Big Buttons
       filter: drop-shadow(0 0 1px #000);
     }
 
-    &:hover,
-    &:focus {
-      filter: brightness(1.4);
-    }
-
     p {
       position: absolute;
       display: inline;

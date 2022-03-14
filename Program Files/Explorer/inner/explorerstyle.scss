@@ -59,13 +59,6 @@ body.big_buttons {
     overflow: visible;
     font-size: 1em;
 
-    a, input, button {
-        &:hover,
-        &:focus {
-            background-color: var(--hovercolor);
-        }
-    }
-
     form { // Yet only supposed for path input
         display: flex;
         height: 100%;
@@ -145,8 +138,6 @@ body.big_buttons {
         &:focus {
             overflow: visible;
             z-index: 20;
-            border-radius: 1px;
-            background-color: var(--hovercolor);
         }
 
         img {

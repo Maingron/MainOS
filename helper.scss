@@ -29,7 +29,39 @@ body {
 * {
     color: #000;
     font-family: var(--font);
+    &::selection {
+        background-color: var(--hovercolor);
+    }
 }
+
+body {
+    button,
+    input,
+    select,
+    .has_hover,
+    .contextMenu a {
+        &:not([disabled]) {
+            transition: background-color .1s, filter .1s;
+            &:hover,
+            &:focus {
+                background-color: var(--hovercolor);
+                filter: brightness(1.2);
+            }
+        }
+    }
+
+    .has_hover {
+        &:not([disabled]) {
+            transition: background-color .1s, filter .1s !important;
+            &:hover,
+            &:focus {
+                background-color: var(--hovercolor) !important;
+                filter: brightness(1.2) !important;
+            }
+        }
+    }
+}
+
 
 input,
 select,
@@ -90,6 +122,15 @@ textarea {
     *[disabled="disabled"] {
         display: none;
     }
+}
+
+*[disabled],
+*[disabled="disabled"] {
+    filter:contrast(.3) brightness(.5) grayscale(.1);
+    cursor: default;
+    user-select: none;
+    touch-action: none;
+    pointer-events: none;
 }
 
 

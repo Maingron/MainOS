@@ -34,6 +34,7 @@ function explorerdo(path) { // Shows directory or does stuff asigned to files / 
 
         newChild = document.createElement("a");
         newChild.setAttribute("path", filesInPath[i]); // Todo: maybe chack for onclick in #content_files and then do explorerdo() with this instead of using href=javascript:*
+        newChild.setAttribute("class","has_hover");
         newChild.href = "javascript:explorerdo('"+filesInPath[i]+"')"; // Open folder or file onclick
 
         if(!isfolder(filesInPath[i])) { // If is no folder assign program icon
