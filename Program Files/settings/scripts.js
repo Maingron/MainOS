@@ -5,6 +5,9 @@ objects.bool_range = document.getElementsByClassName("bool_range");
 function setting_send(which, who) {
   parent.savefile(parent.setting.settingpath + who + ".txt", which.value, 1, "t=txt");
   parent.loadsettings();
+  document.documentElement.style.setProperty("--themecolor", setting.themecolor);
+  document.documentElement.style.setProperty("--font", setting.font);
+  
 }
 
 function setting_load(which, who) {
