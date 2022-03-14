@@ -130,12 +130,6 @@ if (isfile("C:/mainos/customprograms.txt")) {
 }
 
 
-
-if (setting.big_buttons == 1) {
-    document.write("<style> .headbar .max, .headbar .close, .headbar .devreload {height: 30px; width: 50px;} .headbar .max {right:40px;} .resizer2 {height:20px; width:20px; bottom:-11px; right:-11px; }</style>"); // TODO: Don't hardcode this line
-}
-
-
 if (setting.repository == 1) { // Load programs from repository if repository is enabled
     try {
         var xhr = new XMLHttpRequest();

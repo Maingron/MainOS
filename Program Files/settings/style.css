@@ -1,5 +1,20 @@
+body.big_buttons .setting .bool_range {
+  height: 2.2rem;
+  width: 7rem;
+  border-radius: 2.2rem;
+}
+
+body.big_buttons #header {
+  height:3rem;
+}
+
+body.big_buttons #header button {
+  height:3rem;
+  width:3rem;
+}
+
 h1 {
-  font-size: 40px;
+  font-size: 2.5rem;
 }
 .settingtab {
   display: none;
@@ -20,7 +35,7 @@ h1 {
   top: 0;
   left: 0;
   display: none;
-  height: 40px;
+  height: 2.5rem;
   width: 100%;
   background: var(--themecolor);
 }
@@ -28,8 +43,8 @@ h1 {
 #header button {
   background: #fff;
   border: 0;
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
 .home {
@@ -50,7 +65,7 @@ h1 {
   position: relative;
   width: calc(33% - 20px);
   box-sizing: border-box;
-  min-width: 160px;
+  min-width: 80px;
   flex-grow: 5;
   margin: 10px;
   padding: 0;
@@ -58,7 +73,7 @@ h1 {
   border: 2px solid #000;
   height: 200px;
   display: inline-block;
-  font-size: 30px;
+  font-size: 2rem;
   word-wrap: break-word;
   border-radius: var(--border-radius);
 }

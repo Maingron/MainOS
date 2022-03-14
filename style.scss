@@ -76,6 +76,27 @@ body {
 }
 
 
+body.big_buttons { // Big Buttons
+  .headbar .max,
+  .headbar .close,
+  .headbar .devreload {
+    height: 2rem;
+    width: 2rem;
+  }
+  
+  .headbar .max {
+    right:calc(2rem - 1px);
+  }
+  
+  .resizer2 {
+    height:20px;
+    width:20px;
+    bottom:-11px;
+    right:-11px;
+  }
+}
+
+
 .program {
   position: absolute;
   display: none;
@@ -152,8 +173,8 @@ body {
     
     .max,
     .close {
-      height: 28px;
-      width: 28px;
+      height: 1.8rem;
+      width: 1.8rem;
       top: -2px;
       border: 0;
       margin: 0;
@@ -169,7 +190,8 @@ body {
 
     .max {
       background-color: var(--themecolor2);
-      right: 28px;
+      right: calc(1.8rem - 1px);
+      border-right: 1px solid #fff;
     }
   }
   .resizers {

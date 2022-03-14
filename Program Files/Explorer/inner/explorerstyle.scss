@@ -15,6 +15,18 @@ body {
     font-size: .99em;
 }
 
+body.big_buttons {
+    #headbar2 {
+        height: 2.4rem;
+    }
+
+    #content_files {
+        a {
+            width: 72px;
+        }
+    }
+}
+
 #spaceinfo {
     background: var(--black2);
     height: auto;
