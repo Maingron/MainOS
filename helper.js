@@ -57,13 +57,11 @@ if(ismainos != 1 && parent.ismainos == 1) {
 }
 
 
-window.onload = () => {
+window.addEventListener("load", function() {
     if (setting.big_buttons == 1) {
         document.body.classList.add("big_buttons");
-        // ! TODO: document.write("<style> .headbar .max, .headbar .close, .headbar .devreload {height: 30px; width: 50px;} .headbar .max {right:40px;} .resizer2 {height:20px; width:20px; bottom:-11px; right:-11px; }</style>"); // TODO: Don't hardcode this line
-
     }
-}
+})
 
 // Load iofs:*-paths that are found in HTML Elements
 function loadIOfsLinks() {
