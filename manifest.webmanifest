@@ -1,0 +1,28 @@
+{
+    "description": "MainOS",
+    "display": "fullscreen",
+    "categories": "games, navigation, productivity, utilities, tools, mainos, operating system",
+    "author": "Maingron",
+    "name": "MainOS",
+    "short_name": "MainOS",
+    "start_url": ".",
+    "orientation": "any",
+    "icons": [
+      {
+        "src": "logo.png",
+        "sizes": "96x96",
+        "type": "image/png"
+      },
+      {
+        "src": "img/logo.svg",
+        "sizes": "128x128",
+        "type": "image/svg+xml"
+      },
+      {
+        "src": "img/logo.svg",
+        "sizes": "256x256",
+        "type": "image/svg+xml"
+      }
+    ]
+  }
+  
