@@ -330,7 +330,7 @@ function run(which, iattr, how) { // Run a program
 
 
     mypid.children[0].getElementsByClassName("drag")[0].addEventListener("mousemove", function(event) {
-        if(clicking == 1) {
+        if(clicking == 1 && !mypid.classList.contains("maximized")) {
             overlayDragBar(this, true);
             dragWindow(mypid, pos.mouse.x , pos.mouse.y, (mypid.offsetLeft + event.clientX), (mypid.offsetTop + event.clientY));
         } else {
@@ -349,6 +349,7 @@ function run(which, iattr, how) { // Run a program
 
     mypid.children[0].getElementsByClassName("drag")[0].addEventListener("mousedown", function() {
         clicking = 1;
+        focusWindow(mypid);
         overlayDragBar(this, true);
         this.addEventListener("mouseup", function() {
             clicking = 0;
@@ -358,6 +359,7 @@ function run(which, iattr, how) { // Run a program
 
     mypid.getElementsByClassName("resizer2")[0].addEventListener("mousedown", function() {
         clicking = 1;
+        focusWindow(mypid);
         overlayResizer(this, true);
         this.addEventListener("mouseup", function() {
             clicking = 0;
@@ -368,7 +370,7 @@ function run(which, iattr, how) { // Run a program
 
 
     mypid.children[0].getElementsByClassName("drag")[0].addEventListener("touchmove", function(event) {
-        if(clicking == 1) {
+        if(clicking == 1 && !mypid.classList.contains("maximized")) {
             overlayDragBar(this, true);
             dragWindow(mypid, pos.mouse.x , pos.mouse.y, (mypid.offsetLeft + event.targetTouches[0].clientX), (mypid.offsetTop + event.targetTouches[0].clientY));
         } else {
@@ -387,6 +389,7 @@ function run(which, iattr, how) { // Run a program
 
     mypid.children[0].getElementsByClassName("drag")[0].addEventListener("touchstart", function() {
         clicking = 1;
+        focusWindow(mypid);
         overlayDragBar(this, true);
         this.addEventListener("touchend", function() {
             clicking = 0;
@@ -396,7 +399,7 @@ function run(which, iattr, how) { // Run a program
 
     mypid.getElementsByClassName("resizer2")[0].addEventListener("touchstart", function() {
         clicking = 1;
-        overlayResizer(this, true);
+        focusWindow(mypid);
         this.addEventListener("touchend", function() {
             clicking = 0;
             overlayResizer(this, false);
@@ -405,6 +408,7 @@ function run(which, iattr, how) { // Run a program
 
 
     mypid.children[0].getElementsByClassName("drag")[0].addEventListener("dblclick", function() {
+        focusWindow(mypid);
         max(this);
     });
 
@@ -413,14 +417,13 @@ function run(which, iattr, how) { // Run a program
     });
 
     mypid.children[0].children[2].addEventListener("click", function() {
+        focusWindow(mypid);
         max(this);
     });
 
     mypid.style = "display:inline";
     mypid.style.opacity = "1";
     mypid.style.display = "inline";
-    zindex++;
-    mypid.style.zIndex = zindex;
     mypid.children[2].src = mypid.children[2].innerHTML;
 
     if (!how) {
@@ -434,7 +437,14 @@ function run(which, iattr, how) { // Run a program
     mypid.children[2].contentWindow.alert = notification;
     mypid.children[2].contentWindow.document.documentElement.style.setProperty("--font", setting.font);
 
-    mypid.children[2].focus();
+    focusWindow(mypid);
+}
+
+
+function focusWindow(which) {
+    zindex++;
+    which.style.zIndex = zindex;
+    which.children[2].focus();
 }
 
 function dragWindow(which, x, y, offsetX = 0, offsetY = 0) {
