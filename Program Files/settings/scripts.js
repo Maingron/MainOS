@@ -7,7 +7,6 @@ function setting_send(which, who) {
   parent.loadsettings();
   document.documentElement.style.setProperty("--themecolor", setting.themecolor);
   document.documentElement.style.setProperty("--font", setting.font);
-  
 }
 
 function setting_load(which, who) {

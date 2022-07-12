@@ -71,7 +71,7 @@ h1 {
   padding: 0;
   background: transparent;
   border: 2px solid #000;
-  height: 200px;
+  height: 180px;
   display: inline-block;
   font-size: 2rem;
   word-wrap: break-word;
@@ -110,7 +110,7 @@ h1 {
 @media (prefers-color-scheme: dark) {
 
   #header button {
-    background: #000;
+    background: var(--black);
   }
 
   .home button {
@@ -119,5 +119,11 @@ h1 {
 
   .setting .bool_range::-webkit-slider-thumb {
     background: #000;
+  }
+}
+
+@media (max-width: 650px) {
+  .home button {
+    width: 100%;
   }
 }
