@@ -134,13 +134,6 @@ body.big_buttons { // Big Buttons
     .headbar {
       .drag {
         cursor: grab;
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-        display: inline-block !important;
-        position: absolute;
-        z-index: 0;
       }
     }
   }
@@ -181,6 +174,16 @@ body.big_buttons { // Big Buttons
     * {
       display: inline;
       transition: .5s;
+    }
+
+    .drag {
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        display: inline-block !important;
+        position: absolute;
+        z-index: 0;
     }
     
     .max,

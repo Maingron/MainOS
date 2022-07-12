@@ -404,6 +404,9 @@ function run(which, iattr, how) { // Run a program
     });
 
 
+    mypid.children[0].getElementsByClassName("drag")[0].addEventListener("dblclick", function() {
+        max(this);
+    });
 
     mypid.children[0].children[3].addEventListener("click", function() {
         unrun(this);
