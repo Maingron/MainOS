@@ -1,10 +1,10 @@
 function run(which) {
     parent.run(which);
-    parent.unrun(parent.document.getElementsByClassName('explorer_start')[0].children[0].children[0]);
+    close_startmenu();
 }
 
 function close_startmenu() {
-    parent.unrun(parent.document.getElementsByClassName('explorer_start')[0].children[0].children[0]);
+    parent.unrun(data.mypid);
 }
 
 // Spawn icons in all-programs list
