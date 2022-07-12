@@ -526,6 +526,8 @@ function run(which, iattr, how) { // Run a program
     mypid.children[2].contentWindow.alert = notification;
     mypid.children[2].contentWindow.document.documentElement.style.setProperty("--font", setting.font);
 
+    mypid.children[2].focus();
+
 
 }
 
@@ -625,7 +627,7 @@ function gooff() { // Shutdown MainOS
 }
 
 
-function wait(time) { //depreciated
+function wait(time) { //deprecated
     // TODO: Remove function
     if (time > 500) {
         time = 0;
