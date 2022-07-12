@@ -97,16 +97,18 @@ textarea {
 
 .contextMenu {
     width:auto;
-    background:#ffffff55;
+    background:#ffffff77;
     backdrop-filter:blur(12px);
     height:auto;
     position:absolute;
     display:inline-block;
     z-index:1000;
-    padding:3px 0;
+    padding:0;
     border-radius:var(--border-radius);
     border:1px solid var(--themecolor);
     box-sizing:border-box;
+    min-width: 130px;
+    min-height: 1rem;
     hr {
         margin:0;
         padding:0;
@@ -122,14 +124,11 @@ textarea {
             border-bottom:none;
         }
     }
-    *[disabled="disabled"] {
-        display: none;
-    }
 }
 
 *[disabled],
 *[disabled="disabled"] {
-    filter:contrast(.3) brightness(.5) grayscale(.1);
+    filter:contrast(.4) brightness(.6) grayscale(.1);
     cursor: default;
     user-select: none;
     touch-action: none;
@@ -164,7 +163,7 @@ textarea {
     }
 
     .contextMenu {
-        background:#00000055;
+        background:#000000aa;
         a {
             color:#fff;
             &:last-of-type {
