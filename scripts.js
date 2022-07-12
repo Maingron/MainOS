@@ -24,7 +24,6 @@ if(!mainos) {
 mainos.timeOfBoot = new Date().getTime(); // Log time of boot
 
 objects.content = document.getElementsByClassName("content")[0];
-objects.overlay = document.getElementsByClassName("overlay")[0];
 objects.progicons = document.getElementsByClassName("icons")[0];
 objects.programs = document.getElementsByClassName("programs")[0];
 objects.taskbarlanguage = document.getElementsByClassName("taskbarlanguage")[0];
@@ -326,187 +325,93 @@ function run(which, iattr, how) { // Run a program
         thisprogram.icon = "iofs:C:/mainos/system32/icons/transparent.png";
     }
 
-    mypid.children[0].innerHTML = "<img class=\"progicon\" src=\"" + thisprogram.icon + "\" alt=\"" + thisprogram.title + "\"/><p class=\"progtitle\">" + thisprogram.title + "</p><button class=\"max has_hover\">🗗︎</button><button class=\"close has_hover\">🗙︎</button>"; // Todo: Add screenreader text; <button class=\"min\">🗕︎</button>
+    mypid.children[0].innerHTML = "<img class=\"progicon\" src=\"" + thisprogram.icon + "\" alt=\"" + thisprogram.title + "\"/><p class=\"progtitle\">" + thisprogram.title + "</p><button class=\"max has_hover\">⎚</button><button class=\"close has_hover\"><b>x</b></button><div class=\"drag\"></div>"; // Todo: Add screenreader text; <button class=\"min\">🗕︎</button>
     mypid.children[1].innerHTML = "<div class=\"resizer2\"></div>";
 
 
-
-    mypid.addEventListener("mousedown", function(event) {
-        document.getElementsByClassName("overlay")[0].style.display = "inline";
-        pos.relative.layerX = event.clientX - this.offsetLeft;
-        pos.relative.layerY = event.clientY - this.offsetTop;
-        var which = this;
-        pos.x = which.offsetLeft;
-        pos.y = which.offsetTop;
-        pos.width = which.offsetWidth;
-        pos.height = which.offsetHeight;
-        zindex++;
-        which.style.zIndex = zindex;
-        if (which.classList.contains("maximized")) {} else {
-            if (clicking == 1) {
-                if (clicked == 0) {
-                    timer1 = setInterval(function() {
-                        which.style.left = pos.mouse.x - pos.relative.layerX + "px";
-                        which.style.top = pos.mouse.y - pos.relative.layerY + "px";
-                    }, 1);
-                } else {
-                    clicked = 0;
-                }
-            }
+    mypid.children[0].getElementsByClassName("drag")[0].addEventListener("mousemove", function(event) {
+        if(clicking == 1) {
+            overlayDragBar(this, true);
+            dragWindow(mypid, pos.mouse.x , pos.mouse.y, (mypid.offsetLeft + event.clientX), (mypid.offsetTop + event.clientY));
+        } else {
+            overlayDragBar(this, false);
         }
     });
 
-    mypid.children[0].addEventListener("mousedown", function(event) {
+    mypid.getElementsByClassName("resizer2")[0].addEventListener("mousemove", function(event) {
+        if(clicking == 1) {
+            overlayResizer(this, true);
+            resizeWindow(mypid, event.clientX - mypid.offsetLeft, event.clientY - mypid.offsetTop);
+        } else {
+            overlayResizer(this, false);
+        }
+    });
+
+    mypid.children[0].getElementsByClassName("drag")[0].addEventListener("mousedown", function() {
         clicking = 1;
+        overlayDragBar(this, true);
+        this.addEventListener("mouseup", function() {
+            clicking = 0;
+            overlayDragBar(this, false);
+        }, {"once": true})
     });
 
-
-    mypid.addEventListener("touchstart", function(event) {
-        document.getElementsByClassName("overlay")[0].style.display = "inline";
-        pos.relative.layerX = event.touches[0].clientX - this.offsetLeft;
-        pos.relative.layerY = event.touches[0].clientY - this.offsetTop;
-        var which = this;
-        pos.x = which.offsetLeft;
-        pos.y = which.offsetTop;
-        pos.width = which.offsetWidth;
-        pos.height = which.offsetHeight;
-        zindex++;
-        which.style.zIndex = zindex;
-        if (which.classList.contains("maximized")) {} else {
-            if (clicking == 1) {
-                if (clicked == 0) {
-                    timer1 = setInterval(function() {
-                        which.style.left = pos.mouse.x - pos.relative.layerX + "px";
-                        which.style.top = pos.mouse.y - pos.relative.layerY + "px";
-                    }, 1);
-                } else {
-                    clicked = 0;
-                }
-            }
-        }
-    });
-
-
-    mypid.children[0].addEventListener("touchstart", function(event) {
+    mypid.getElementsByClassName("resizer2")[0].addEventListener("mousedown", function() {
         clicking = 1;
+        overlayResizer(this, true);
+        this.addEventListener("mouseup", function() {
+            clicking = 0;
+            overlayResizer(this, false);
+        }, {"once": true})
     });
 
 
 
-    mypid.children[0].children[3].addEventListener("mousedown", function() {
-        if (!clicked1) {
-            clicked1 = 1;
-            unrun(this);
-            setTimeout(function() {
-                clicked1 = 0;
-            }, 500);
+    mypid.children[0].getElementsByClassName("drag")[0].addEventListener("touchmove", function(event) {
+        if(clicking == 1) {
+            overlayDragBar(this, true);
+            dragWindow(mypid, pos.mouse.x , pos.mouse.y, (mypid.offsetLeft + event.targetTouches[0].clientX), (mypid.offsetTop + event.targetTouches[0].clientY));
+        } else {
+            overlayDragBar(this, false);
         }
     });
 
-    mypid.children[0].children[3].addEventListener("touchstart", function() {
-        if (!clicked1) {
-            clicked1 = 1;
-            unrun(this);
-            setTimeout(function() {
-                clicked1 = 0;
-            }, 500);
+    mypid.getElementsByClassName("resizer2")[0].addEventListener("touchmove", function(event) {
+        if(clicking == 1) {
+            overlayResizer(this, true);
+            resizeWindow(mypid, event.targetTouches[0].clientX - mypid.offsetLeft, event.targetTouches[0].clientY - mypid.offsetTop);
+        } else {
+            overlayResizer(this, false);
         }
     });
+
+    mypid.children[0].getElementsByClassName("drag")[0].addEventListener("touchstart", function() {
+        clicking = 1;
+        overlayDragBar(this, true);
+        this.addEventListener("touchend", function() {
+            clicking = 0;
+            overlayDragBar(this, false);
+        }, {"once": true})
+    });
+
+    mypid.getElementsByClassName("resizer2")[0].addEventListener("touchstart", function() {
+        clicking = 1;
+        overlayResizer(this, true);
+        this.addEventListener("touchend", function() {
+            clicking = 0;
+            overlayResizer(this, false);
+        }, {"once": true})
+    });
+
+
 
     mypid.children[0].children[3].addEventListener("click", function() {
-        if (!clicked1) {
-            clicked1 = 1;
-            unrun(this);
-            setTimeout(function() {
-                clicked1 = 0;
-            }, 500);
-        }
-    });
-
-
-
-
-    mypid.children[0].children[2].addEventListener("mousedown", function() {
-        if (!clicked1) {
-            clicked1 = 1;
-            max(this);
-            setTimeout(function() {
-                clicked1 = 0;
-            }, 500);
-        }
-    });
-
-    mypid.children[0].children[2].addEventListener("touchstart", function() {
-        if (!clicked1) {
-            clicked1 = 1;
-            max(this);
-            setTimeout(function() {
-                clicked1 = 0;
-            }, 500);
-        }
+        unrun(this);
     });
 
     mypid.children[0].children[2].addEventListener("click", function() {
-        if (!clicked1) {
-            clicked1 = 1;
-            max(this);
-            setTimeout(function() {
-                clicked1 = 0;
-            }, 500);
-        }
+        max(this);
     });
-
-
-
-
-
-    mypid.children[1].children[0].addEventListener("mousedown", function(event) {
-        document.getElementsByClassName("overlay")[0].style.display = "none";
-        pos.relative.layerX = event.clientX - this.offsetLeft;
-        pos.relative.layerY = event.clientY - this.offsetTop;
-        which = this;
-        pos.x = which.offsetLeft;
-        pos.y = which.offsetTop;
-        pos.width = which.offsetWidth;
-        pos.height = which.offsetHeight;
-        if (which.parentElement.parentElement.classList.contains("maximized")) {} else {
-            if (clicked == 0) {
-                timer1 = setInterval(function() {
-                    which.parentElement.parentElement.style.width = pos.mouse.x - which.parentElement.parentElement.offsetLeft + "px";
-                    which.parentElement.parentElement.style.height = pos.mouse.y - which.parentElement.parentElement.offsetTop + "px";
-                }, 25);
-            } else {
-                clicked = 0;
-            }
-        }
-    });
-
-
-
-    mypid.children[1].children[0].addEventListener("touchstart", function(event) {
-        document.getElementsByClassName("overlay")[0].style.display = "none";
-        which = this;
-        pos.relative.layerX = event.touches[0].clientX - which.offsetLeft;
-        pos.relative.layerY = event.touches[0].clientY - which.offsetTop;
-        pos.x = which.offsetLeft;
-        pos.y = which.offsetTop;
-        pos.width = which.offsetWidth;
-        pos.height = which.offsetHeight;
-        if (which.parentElement.parentElement.classList.contains("maximized")) {} else {
-            if (clicked == 0) {
-                timer1 = setInterval(function() {
-                    which.parentElement.parentElement.style.width = pos.mouse.x - which.parentElement.parentElement.offsetLeft + "px";
-                    which.parentElement.parentElement.style.height = pos.mouse.y - which.parentElement.parentElement.offsetTop + "px";
-                }, 25);
-            } else {
-                clicked = 0;
-            }
-        }
-    });
-
-
-
-
 
     mypid.style = "display:inline";
     mypid.style.opacity = "1";
@@ -527,8 +432,46 @@ function run(which, iattr, how) { // Run a program
     mypid.children[2].contentWindow.document.documentElement.style.setProperty("--font", setting.font);
 
     mypid.children[2].focus();
+}
 
+function dragWindow(which, x, y, offsetX = 0, offsetY = 0) {
+    which.style.left = offsetX - x + "px";
+    which.style.top = offsetY - y + "px";
+}
 
+function resizeWindow(which, width, height) {
+    which.style.width = width + "px";
+    which.style.height = height + "px";
+}
+
+function overlayDragBar(which, onoff) {
+    if(which.classList.contains("drag")) {
+        if(onoff == false) { // Turn off
+            which.style.position = "";
+            which.style.zIndex = "";
+        } else if(onoff == true) { // Turn on
+            which.style.position = "fixed";
+            which.style.zIndex = "99999";
+        }
+    }
+}
+
+function overlayResizer(which, onoff) {
+    if(onoff == false) { // Turn off
+        which.style.position = "";
+        which.style.zIndex = "";
+        which.style.top = "";
+        which.style.left = "";
+        which.style.height = "";
+        which.style.width = "";
+    } else if(onoff == true) { // Turn on
+        which.style.position = "fixed";
+        which.style.zIndex = "99999";
+        which.style.top = "99999";
+        which.style.left = "99999";
+        which.style.height = "100%";
+        which.style.width = "100%";
+    }
 }
 
 
@@ -606,15 +549,18 @@ window.addEventListener("touchmove", function(e) {
     pos.mouse.y = e.targetTouches[0].pageY;
 });
 
+window.addEventListener("touchstart", function(e) {
+    pos.mouse.x = e.targetTouches[0].pageX;
+    pos.mouse.y = e.targetTouches[0].pageY;
+});
+
 window.addEventListener("mouseup", function() {
     clearInterval(timer1);
-    document.getElementsByClassName("overlay")[0].style.display = "none";
     clicking = 0;
 });
 
 window.addEventListener("touchend", function() {
     clearInterval(timer1);
-    document.getElementsByClassName("overlay")[0].style.display = "none";
     clicking = 0;
 });
 
