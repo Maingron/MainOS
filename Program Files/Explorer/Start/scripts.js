@@ -47,3 +47,9 @@ programsinfolder.forEach((item, index) => {
 
 // Set username- and icon
 document.getElementById("usericon").src = "iofs:C:/mainos/system32/icons/usericons/flower.png";
+
+window.addEventListener("keydown", function (event) {
+    if(event.key.toLowerCase == "escape" || event.which == 27 ) {
+        close_startmenu();
+    }
+});
