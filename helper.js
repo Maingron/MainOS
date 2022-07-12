@@ -143,7 +143,7 @@ window.addEventListener("keydown", function (event) {
         key["shift"] = true;
     } else if (key["current"] == "alt") {
         key["alt"] = true;
-    } else if (key["current"] == "meta") {
+    } else if (key["current"] == "meta" || key["current"] == "os") {
         key["meta"] = true;
     } else if (key["current"] == " ") {
         key["space"] = true;
@@ -170,6 +170,13 @@ window.addEventListener("keydown", function (event) {
     }
 
     if(key['meta'] == true) {
+        event.preventDefault();
+        event.stopPropagation();
+        if(parent.pid.includes("explorer_start")) {
+            parent.unrun(parent.document.getElementsByClassName("explorer_start")[0].id);
+        } else {
+            parent.run("explorer_start");
+        }
     }
 })
 
@@ -182,7 +189,7 @@ window.addEventListener("keyup", function (event) {
         key["shift"] = false;
     } else if (key["current"] == "alt") {
         key["alt"] = false;
-    } else if (key["current"] == "meta") {
+    } else if (key["current"] == "meta" || key["current"] == "os") {
         key["meta"] = false;
     } else if (key["current"] == " ") {
         key["space"] = false;
