@@ -150,7 +150,7 @@ function render() {
 
 }
 
-window.setInterval(function() {
+window.setInterval(async function() {
     document.getElementById("canvascopy").src = canvas.toDataURL('image/png');
 },300)
 

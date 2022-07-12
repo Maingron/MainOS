@@ -1,28 +1,11 @@
-document.documentElement.style.setProperty("--themecolor", window.parent.setting.themecolor);
-document.documentElement.style.setProperty("--font", window.parent.setting.font);
-document.documentElement.style.setProperty("--border-radius", window.parent.setting.borderradius);
-document.documentElement.style.setProperty("--hovercolor", window.parent.setting.hovercolor);
-document.documentElement.style.setProperty("--hovercolornontransparent", window.parent.setting.hovercolornontransparent);
-
-var ismainos;
-
-if (parent.setting.notsodarkmode == 1) {
-    document.documentElement.style.setProperty("--black", "#151515");
-    document.documentElement.style.setProperty("--black2", "#444");
-    document.documentElement.style.setProperty("--black3", "#555");
-    document.documentElement.style.setProperty("--black4", "#666");
-    document.documentElement.style.setProperty("--black5", "#757575");
-}
-
 var data = {};
 data.system = {};
 data.system.mouse = {};
-data.mypid = (window.parent.pid.length - 1);
-
-
-
 
 if(ismainos != 1 && parent.ismainos == 1) {
+    var setting = window.parent.setting; // Get setting variable from MainOS and make it available the same way as in MainOS itself
+    data.mypid = (window.parent.pid.length - 1); // Set process ID
+
     // IOfs
     window.loadfile = parent.loadfile;
     window.savefile = parent.savefile;
@@ -32,10 +15,10 @@ if(ismainos != 1 && parent.ismainos == 1) {
     window.isfolder = parent.isfolder;
     window.listdir = parent.listdir;
     window.getFilename = parent.getFilename;
-
+    
     // Alerts / Notifications
     window.alert = alert = parent.notification;
-
+    
     /* TODO:
     window.close
     window.maximize
@@ -56,6 +39,22 @@ if(ismainos != 1 && parent.ismainos == 1) {
     }
 }
 
+var ismainos;
+
+document.documentElement.style.setProperty("--themecolor", setting.themecolor);
+document.documentElement.style.setProperty("--font", setting.font);
+document.documentElement.style.setProperty("--border-radius", setting.borderradius);
+document.documentElement.style.setProperty("--hovercolor", setting.hovercolor);
+document.documentElement.style.setProperty("--hovercolornontransparent", setting.hovercolornontransparent);
+
+
+if (setting.notsodarkmode == 1) {
+    document.documentElement.style.setProperty("--black", "#151515");
+    document.documentElement.style.setProperty("--black2", "#444");
+    document.documentElement.style.setProperty("--black3", "#555");
+    document.documentElement.style.setProperty("--black4", "#666");
+    document.documentElement.style.setProperty("--black5", "#757575");
+}
 
 window.addEventListener("load", function() {
     if (setting.big_buttons == 1) {
@@ -64,7 +63,7 @@ window.addEventListener("load", function() {
 })
 
 // Load iofs:*-paths that are found in HTML Elements
-function loadIOfsLinks() {
+async function loadIOfsLinks() {
     for(var item of document.getElementsByTagName("*")) { // TODO: Possible performance improvement by checking for Array[img, script, ...] instead of the entire page
         if(item.src) {
             if(item.src.includes("iofs:")) {
@@ -79,9 +78,9 @@ function loadIOfsLinks() {
     }
 }
 
-loadIOfsLinks();
+// loadIOfsLinks();
 
-window.setInterval(function() {
+window.setInterval(async function() {
     loadIOfsLinks();
 },20)
 
