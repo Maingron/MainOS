@@ -437,7 +437,11 @@ function run(which, iattr, how) { // Run a program
     mypid.children[2].contentWindow.alert = notification;
     mypid.children[2].contentWindow.document.documentElement.style.setProperty("--font", setting.font);
 
+    refreshTaskList();
     focusWindow(mypid);
+    window.setTimeout(function() {
+        focusWindow(mypid);
+    }, 260)
 }
 
 
@@ -445,6 +449,17 @@ function focusWindow(which) {
     zindex++;
     which.style.zIndex = zindex;
     which.children[2].focus();
+
+
+    for(myTask of document.getElementById("tasklist").children) {
+        if(myTask.getAttribute("pid") == which.id) {
+            myTask.classList.add("active");
+        } else {
+            if(myTask.classList.contains("active")) {
+                myTask.classList.remove("active");
+            }
+        }
+    }
 }
 
 function dragWindow(which, x, y, offsetX = 0, offsetY = 0) {
@@ -509,6 +524,7 @@ function unrun(which) { // Unrun / close a program
         which.children[2].src = "about:blank";
         document.getElementById(which.id).outerHTML = "";
         pid[Number(which.id)] = "";
+        refreshTaskList();
 
     }, 250);
 }
@@ -696,3 +712,38 @@ Object.keys(program).forEach((item) => {
     savefile("C:/users/" + setting.username + "/programs/" + myTitle + ".run", JSON.stringify(program[item]), 1, "run");
 });
 
+
+
+// Task List
+function refreshTaskList() {
+    document.getElementById("tasklist").innerHTML = "";
+    for(var i = 0; i < pid.length; i++) {
+        myProgram = pid[i];
+        if(myProgram != undefined && myProgram != "" && program[myProgram].spawnicon != 0) {
+            var myNewChildNode1 = document.createElement("button");
+            var myNewChildNode2 = document.createElement("img");
+            myNewChildNode2.src = program[myProgram].icon;
+            myNewChildNode2.alt = "";
+            myNewChildNode1.appendChild(myNewChildNode2);
+
+            myNewChildNode3 = document.createElement("span");
+            myNewChildNode3.innerHTML = program[myProgram].title;
+
+            myNewChildNode1.appendChild(myNewChildNode3);
+
+            myNewChildNode1.setAttribute("pid", i)
+
+            myNewChildNode1.addEventListener("click", function() {
+                focusWindow(document.getElementById(this.getAttribute("pid")));
+            });
+
+            myNewChildNode1.addEventListener("mouse", function() {
+                focusWindow(document.getElementById(this.getAttribute("pid")));
+            });
+
+            // myNewChildNode1.onclick = focusWindow(i);
+
+            document.getElementById("tasklist").appendChild(myNewChildNode1);
+        }
+    }
+}

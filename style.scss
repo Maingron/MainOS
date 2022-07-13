@@ -271,6 +271,8 @@ body.big_buttons { // Big Buttons
 #taskbar {
   background-color: var(--themecolor);
   position: absolute;
+  display: flex;
+  justify-content: space-between;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -286,7 +288,8 @@ body.big_buttons { // Big Buttons
 
   #start {
     background-color: #4a0;
-    position: absolute;
+    position: relative;
+    float: left;
     height: 100%;
     width: auto;
     border: none;
@@ -297,6 +300,7 @@ body.big_buttons { // Big Buttons
     font-size: 1.5em;
     padding: 2px 5px;
     justify-content: left;
+    min-width: 36px;
 
     img {
       position: relative;
@@ -304,6 +308,7 @@ body.big_buttons { // Big Buttons
       height: 100%;
       width: 100%;
       filter: drop-shadow(0 0 1px #000);
+      object-fit: contain;
     }
 
     p {
@@ -318,16 +323,45 @@ body.big_buttons { // Big Buttons
     }
   }
 
+  #tasklist {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: flex;
+    button {
+      height: 100%;
+      display: inline-flex;
+      border: 0;
+      background: #77777755;
+      padding: 2px 5px;
+      margin: 0 2px;
+      &.active {
+        background: #777777cc;
+        border-bottom: 2px solid var(--themecolor2);
+      }
+      img {
+        height: 100%;
+        margin-right: 10px;
+      }
+      span {
+        margin: auto;
+        line-height: 1;
+      }
+    }
+  }
+
   #taskbarright {
-    position: absolute;
+    position: relative;
+    display: inline-block;
     right: 0;
-    bottom: 0;
+    top: 0;
     height: 100%;
     width: 180px;
     background-color: var(--themecolor2);
     border-left: 2px solid #420;
     max-width: 28%;
     color: #fff;
+    min-width: 100px;
 
     img {
       height: 30px;
