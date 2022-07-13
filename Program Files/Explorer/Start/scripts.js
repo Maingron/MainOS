@@ -4,7 +4,7 @@ function run(which) {
 }
 
 function close_startmenu() {
-    parent.unrun(data.mypid);
+    parent.unrun(parent.getWindowByMagic(this));
 }
 
 // Spawn icons in all-programs list

@@ -172,12 +172,12 @@ window.addEventListener("keydown", function (event) {
         event.preventDefault();
         event.stopPropagation();
         if(parent.pid.includes("explorer_start")) {
-            parent.unrun(parent.document.getElementsByClassName("explorer_start")[0].id);
+            parent.unrun(parent.getWindowByMagic(parent.document.getElementsByClassName("explorer_start")[0].id));
         } else {
             parent.run("explorer_start");
         }
     }
-})
+});
 
 
 window.addEventListener("keyup", function (event) {

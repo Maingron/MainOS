@@ -105,6 +105,13 @@ body.big_buttons { // Big Buttons
   background-color: transparent;
   border-radius: var(--border-radius);
 
+  &.closing {
+      transition: .3s !important;
+      transform: scale(0) !important;
+      transform-origin: bottom left;
+      opacity: .5 !important;
+  }
+
   &.fullscreen {
     z-index: 100000 !important;
     top: 0 !important;

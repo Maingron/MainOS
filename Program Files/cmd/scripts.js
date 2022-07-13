@@ -53,7 +53,7 @@ function runcmd(which) {
   }
 
   if (which.indexOf("close") == 4) {
-    window.parent.unrun(which.split("cmd:close ")[1]);
+    parent.unrun(parent.getWindowByMagic(which.split("cmd:close ")[1]));
     return "";
   }
 
@@ -134,10 +134,9 @@ function runcmd(which) {
     objects.cmdoutput.innerHTML = "";
     objects.cmdinput.value = "";
     savefile("C:/mainos/temp/cmdhistory.dat", "", 1, "t=txt");
-    window.parent.unrun("cmd");
+    parent.unrun(parent.getWindowByMagic(this));
     location.reload();
     return "";
-    die("😏");
   }
 
   if (which.indexOf("js ") == 4) {

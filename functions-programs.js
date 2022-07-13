@@ -62,14 +62,14 @@ function run(which, iattr, how) { // Run a program
         thisprogram.icon = "iofs:C:/mainos/system32/icons/transparent.png";
     }
 
-    mypid.children[0].innerHTML = "<img class=\"progicon\" src=\"" + thisprogram.icon + "\" alt=\"" + thisprogram.title + "\"/><p class=\"progtitle\">" + thisprogram.title + "</p><button onclick=\"focusWindow(this.parentElement.parentElement); max(this)\" href='#' title='(Un-)Maximize' class=\"max has_hover\">⎚</button><button onclick=\"unrun(this)\" href='#' title='Close' class=\"close has_hover\"><b>x</b></button><button onclick=\"windowFullscreen(this.parentElement.parentElement)\" href='#' title='Fullscreen' class=\"fullscreen has_hover\"><img src=\""+loadfile("C:/mainos/system32/icons/fullscreen.svg")+"\" alt=\"\"></button><div class=\"drag\"></div>"; // Todo: Add screenreader text; <button class=\"min\">🗕︎</button>
+    mypid.children[0].innerHTML = "<img class=\"progicon\" src=\"" + thisprogram.icon + "\" alt=\"" + thisprogram.title + "\"/><p class=\"progtitle\">" + thisprogram.title + "</p><button onclick=\"focusWindow(getWindowByMagic(this)); max(getWindowByMagic(this))\" href='#' title='(Un-)Maximize' class=\"max has_hover\">⎚</button><button onclick=\"unrun(getWindowByMagic(this))\" href='#' title='Close' class=\"close has_hover\"><b>x</b></button><button onclick=\"windowFullscreen(getWindowByMagic(this))\" href='#' title='Fullscreen' class=\"fullscreen has_hover\"><img src=\""+loadfile("C:/mainos/system32/icons/fullscreen.svg")+"\" alt=\"\"></button><div class=\"drag\"></div>"; // Todo: Add screenreader text; <button class=\"min\">🗕︎</button>
     mypid.children[1].innerHTML = "<div class=\"resizer2\"></div>";
 
 
     mypid.children[0].getElementsByClassName("drag")[0].addEventListener("mousemove", function(event) {
         if(clicking == 1 && !mypid.classList.contains("maximized")) {
             overlayDragBar(this, true);
-            dragWindow(mypid, pos.mouse.x , pos.mouse.y, (mypid.offsetLeft + event.clientX), (mypid.offsetTop + event.clientY));
+            dragWindow(getWindowByMagic(mypid), pos.mouse.x , pos.mouse.y, (mypid.offsetLeft + event.clientX), (mypid.offsetTop + event.clientY));
         } else {
             overlayDragBar(this, false);
         }
@@ -78,7 +78,7 @@ function run(which, iattr, how) { // Run a program
     mypid.getElementsByClassName("resizer2")[0].addEventListener("mousemove", function(event) {
         if(clicking == 1) {
             overlayResizer(this, true);
-            resizeWindow(mypid, event.clientX - mypid.offsetLeft, event.clientY - mypid.offsetTop);
+            resizeWindow(getWindowByMagic(mypid), event.clientX - mypid.offsetLeft, event.clientY - mypid.offsetTop);
         } else {
             overlayResizer(this, false);
         }
@@ -86,7 +86,7 @@ function run(which, iattr, how) { // Run a program
 
     mypid.children[0].getElementsByClassName("drag")[0].addEventListener("mousedown", function() {
         clicking = 1;
-        focusWindow(mypid);
+        focusWindow(getWindowByMagic(mypid));
         overlayDragBar(this, true);
         this.addEventListener("mouseup", function() {
             clicking = 0;
@@ -96,7 +96,7 @@ function run(which, iattr, how) { // Run a program
 
     mypid.getElementsByClassName("resizer2")[0].addEventListener("mousedown", function() {
         clicking = 1;
-        focusWindow(mypid);
+        focusWindow(getWindowByMagic(mypid));
         overlayResizer(this, true);
         this.addEventListener("mouseup", function() {
             clicking = 0;
@@ -109,7 +109,7 @@ function run(which, iattr, how) { // Run a program
     mypid.children[0].getElementsByClassName("drag")[0].addEventListener("touchmove", function(event) {
         if(clicking == 1 && !mypid.classList.contains("maximized")) {
             overlayDragBar(this, true);
-            dragWindow(mypid, pos.mouse.x , pos.mouse.y, (mypid.offsetLeft + event.targetTouches[0].clientX), (mypid.offsetTop + event.targetTouches[0].clientY));
+            dragWindow(getWindowByMagic(mypid), pos.mouse.x , pos.mouse.y, (mypid.offsetLeft + event.targetTouches[0].clientX), (mypid.offsetTop + event.targetTouches[0].clientY));
         } else {
             overlayDragBar(this, false);
         }
@@ -118,7 +118,7 @@ function run(which, iattr, how) { // Run a program
     mypid.getElementsByClassName("resizer2")[0].addEventListener("touchmove", function(event) {
         if(clicking == 1) {
             overlayResizer(this, true);
-            resizeWindow(mypid, event.targetTouches[0].clientX - mypid.offsetLeft, event.targetTouches[0].clientY - mypid.offsetTop);
+            resizeWindow(getWindowByMagic(mypid), event.targetTouches[0].clientX - mypid.offsetLeft, event.targetTouches[0].clientY - mypid.offsetTop);
         } else {
             overlayResizer(this, false);
         }
@@ -126,7 +126,7 @@ function run(which, iattr, how) { // Run a program
 
     mypid.children[0].getElementsByClassName("drag")[0].addEventListener("touchstart", function() {
         clicking = 1;
-        focusWindow(mypid);
+        focusWindow(getWindowByMagic(mypid));
         overlayDragBar(this, true);
         this.addEventListener("touchend", function() {
             clicking = 0;
@@ -136,7 +136,7 @@ function run(which, iattr, how) { // Run a program
 
     mypid.getElementsByClassName("resizer2")[0].addEventListener("touchstart", function() {
         clicking = 1;
-        focusWindow(mypid);
+        focusWindow(getWindowByMagic(mypid));
         this.addEventListener("touchend", function() {
             clicking = 0;
             overlayResizer(this, false);
@@ -145,8 +145,8 @@ function run(which, iattr, how) { // Run a program
 
 
     mypid.children[0].getElementsByClassName("drag")[0].addEventListener("dblclick", function() {
-        focusWindow(mypid);
-        max(this);
+        focusWindow(getWindowByMagic(mypid));
+        max(getWindowByMagic(this));
     });
 
 
@@ -156,7 +156,7 @@ function run(which, iattr, how) { // Run a program
     mypid.children[2].src = mypid.children[2].innerHTML;
 
     if (!how) {
-        max(mypid.children[0].children[0], "tomax");
+        max(getWindowByMagic(mypid), "tomax");
     }
 
 
@@ -167,9 +167,9 @@ function run(which, iattr, how) { // Run a program
     mypid.children[2].contentWindow.document.documentElement.style.setProperty("--font", setting.font);
 
     refreshTaskList();
-    focusWindow(mypid);
+    focusWindow(getWindowByMagic(mypid));
     window.setTimeout(function() {
-        focusWindow(mypid);
+        focusWindow(getWindowByMagic(mypid));
     }, 260)
 }
 
@@ -196,7 +196,7 @@ function focusWindow(which) {
 
 /**
  * Positions a window at a specific position
- * @param which which window 
+ * @param which which window
  * @param {number} x x coordinates
  * @param {number} y y coordinates
  * @param {number} [offsetX] offset
@@ -253,25 +253,13 @@ function overlayResizer(which, onoff) {
  * @param which program
  */
 function unrun(which) { // Unrun / close a program
-    if (document.getElementById(which)) {
-        which = document.getElementById(which); // By id (?)
-    } else {
-        which = which.parentElement.parentElement; // Program can close itself more easily
-    }
+    which.classList.add("closing");
 
-
-    which.style.transition = ".5s";
-    which.style.height = "50px";
-    which.style.width = "100px";
-    which.style.bottom = "100%";
-    which.style.right = "100%";
-
-    which.style.opacity = "0";
     setTimeout(function() {
         which.style.zIndex = "0";
         which.style.display = "none";
         which.children[2].src = "about:blank";
-        document.getElementById(which.id).outerHTML = "";
+        which.outerHTML = "";
         pid[Number(which.id)] = "";
         refreshTaskList();
 
@@ -284,8 +272,7 @@ function unrun(which) { // Unrun / close a program
  * @param how maximize or unmaximize
  */
 function max(which, how) { // Maximize or unmaximize window
-    which = which.parentElement.parentElement;
-    which.style.transition = ".5s";
+    which.style.transition = ".3s";
     if (!how) {
         if (which.classList.contains("maximized")) {
             how = "tonormal"
@@ -323,9 +310,51 @@ function max(which, how) { // Maximize or unmaximize window
  * @param which window
  */
 function windowFullscreen(which) {
-    which.style.transition = "1s";
+    which.style.transition = ".5s";
     which.classList.toggle("fullscreen");
     window.setTimeout(function() {
         which.style.transition = "";
-    },1000);
+    },500);
+}
+
+
+/**
+ * Returns a window by id
+ * @param {number} id
+ * @returns {object} window
+ */
+function getWindowById(id) {
+    return document.getElementById(id);
+}
+
+/**
+ * Returns a window by its child elements
+ * @param {object} which
+ * @returns {object} window
+ */
+function getWindowByChildElement(which) {
+    if(which != undefined) {
+        if(which.classList && which.classList.contains("program")) {
+            return which;
+        } else {
+            return getWindowByChildElement(which.parentElement);
+        }
+    }
+}
+
+function getWindowByMagic(which) {
+    var result;
+    console.log(result);
+    if(result == undefined) {
+        result = getWindowById(which);
+    }
+    if(result == undefined) {
+        result = getWindowByChildElement(which);
+    }
+    if(result == undefined) {
+        if(which.data && which.data.mypid) {
+            result = getWindowById(which.data.mypid);
+        }
+    }
+    return result;
 }
