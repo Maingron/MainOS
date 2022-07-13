@@ -195,6 +195,20 @@ function getFilename(path) { // This returns the filename and removes the full p
     return myResult;
 }
 
+function copyFile(source, destination, doOverride = false) {
+  // WIP
+  if(isfile(source) && !isfolder(source)) { // If source file does exist and is NOT a folder (for now)
+    savefile(destination, loadfile(source), doOverride, loadfile(source, true));
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function moveFile(source, destination) {
+  // WIP
+}
+
 
 function formatfs(sure) { // Todo: Update
   if (sure == "yes") {
