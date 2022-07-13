@@ -140,15 +140,25 @@ body.big_buttons { // Big Buttons
       }
 
       .max,
-      .close {
+      .close,
+      .minimize {
         display: none;
       }
+
       .fullscreen {
         transform: scale(.8);
         right: 2rem;
-
       }
     }
+  }
+
+  &.minimized {
+    top: 150%;
+    left: 150%;
+    user-select: none;
+    transform: scale(0);
+    opacity: 0;
+    z-index: -100;
   }
 
   &.maximized {
@@ -234,7 +244,8 @@ body.big_buttons { // Big Buttons
     
     .max,
     .close,
-    .fullscreen {
+    .fullscreen,
+    .minimize {
       height: 1.9rem;
       width: 1.9rem;
       top: 0;
@@ -266,6 +277,11 @@ body.big_buttons { // Big Buttons
     .max {
       background-color: var(--themecolor2);
       right: 2rem;
+    }
+
+    .minimize {
+      background-color: var(--themecolor2);
+      right: 4rem;
     }
 
     .fullscreen {

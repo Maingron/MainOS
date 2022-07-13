@@ -62,7 +62,7 @@ function run(which, iattr, how) { // Run a program
         thisprogram.icon = "iofs:C:/mainos/system32/icons/transparent.png";
     }
 
-    mypid.children[0].innerHTML = "<img class=\"progicon\" src=\"" + thisprogram.icon + "\" alt=\"" + thisprogram.title + "\"/><p class=\"progtitle\">" + thisprogram.title + "</p><button onclick=\"focusWindow(getWindowByMagic(this)); max(getWindowByMagic(this))\" href='#' title='(Un-)Maximize' class=\"max has_hover\">⎚</button><button onclick=\"unrun(getWindowByMagic(this))\" href='#' title='Close' class=\"close has_hover\"><b>x</b></button><button onclick=\"windowFullscreen(getWindowByMagic(this))\" href='#' title='Fullscreen' class=\"fullscreen has_hover\"><img src=\""+loadfile("C:/mainos/system32/icons/fullscreen.svg")+"\" alt=\"\"></button><div class=\"drag\"></div>"; // Todo: Add screenreader text; <button class=\"min\">🗕︎</button>
+    mypid.children[0].innerHTML = "<img class=\"progicon\" src=\"" + thisprogram.icon + "\" alt=\"" + thisprogram.title + "\"/><p class=\"progtitle\">" + thisprogram.title + "</p><button onclick=\"focusWindow(getWindowByMagic(this)); max(getWindowByMagic(this))\" href='#' title='(Un-)Maximize' class=\"max has_hover\">⎚</button><button onclick=\"unrun(getWindowByMagic(this))\" href='#' title='Close' class=\"close has_hover\"><b>x</b></button><button class=\"minimize\" onclick=\"setWindowMinimized(getWindowByMagic(this))\">-</button><button onclick=\"windowFullscreen(getWindowByMagic(this))\" href='#' title='Fullscreen' class=\"fullscreen has_hover\"><img src=\""+loadfile("C:/mainos/system32/icons/fullscreen.svg")+"\" alt=\"\"></button><div class=\"drag\"></div>"; // Todo: Add screenreader text; <button class=\"min\">🗕︎</button>
     mypid.children[1].innerHTML = "<div class=\"resizer2\"></div>";
 
 
@@ -181,6 +181,10 @@ function focusWindow(which) {
     zindex++;
     which.style.zIndex = zindex;
     which.children[2].focus();
+
+    // if(which.classList.contains("minimized")) {
+    //     setWindowMinimized(which, false);
+    // }
 
 
     for(myTask of document.getElementById("tasklist").children) {
@@ -303,6 +307,16 @@ function max(which, how) { // Maximize or unmaximize window
     setTimeout(function() {
         which.style.transition = "0s";
     }, 300);
+}
+
+function setWindowMinimized(which, state) {
+    if(state == true) {
+        which.classList.add("minimized");
+    } else if(state == false) {
+        which.classList.remove("minimized");
+    } else {
+        setWindowMinimized(which, !which.classList.contains("minimized"));
+    }
 }
 
 /**

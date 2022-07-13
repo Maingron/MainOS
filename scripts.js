@@ -429,12 +429,16 @@ function refreshTaskList() {
             myNewChildNode1.setAttribute("pid", i)
 
             myNewChildNode1.addEventListener("click", function() {
-                focusWindow(document.getElementById(this.getAttribute("pid")));
+                if(this.classList.contains("active")) {
+                    setWindowMinimized(getWindowByMagic(this.getAttribute("pid")));
+                }
+                focusWindow(getWindowByMagic(this.getAttribute("pid")));
+
             });
 
-            myNewChildNode1.addEventListener("mouse", function() {
-                focusWindow(document.getElementById(this.getAttribute("pid")));
-            });
+            // myNewChildNode1.addEventListener("mouse", function() {
+            //     focusWindow(document.getElementById(this.getAttribute("pid")));
+            // });
 
             // myNewChildNode1.onclick = focusWindow(i);
 
