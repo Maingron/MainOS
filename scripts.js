@@ -325,7 +325,7 @@ function run(which, iattr, how) { // Run a program
         thisprogram.icon = "iofs:C:/mainos/system32/icons/transparent.png";
     }
 
-    mypid.children[0].innerHTML = "<img class=\"progicon\" src=\"" + thisprogram.icon + "\" alt=\"" + thisprogram.title + "\"/><p class=\"progtitle\">" + thisprogram.title + "</p><button class=\"max has_hover\">⎚</button><button class=\"close has_hover\"><b>x</b></button><div class=\"drag\"></div>"; // Todo: Add screenreader text; <button class=\"min\">🗕︎</button>
+    mypid.children[0].innerHTML = "<img class=\"progicon\" src=\"" + thisprogram.icon + "\" alt=\"" + thisprogram.title + "\"/><p class=\"progtitle\">" + thisprogram.title + "</p><button onclick=\"focusWindow(this.parentElement.parentElement); max(this)\" href='#' title='(Un-)Maximize' class=\"max has_hover\">⎚</button><button onclick=\"unrun(this)\" href='#' title='Close' class=\"close has_hover\"><b>x</b></button><button onclick=\"windowFullscreen(this.parentElement.parentElement)\" href='#' title='Fullscreen' class=\"fullscreen has_hover\"><img src=\""+loadfile("C:/mainos/system32/icons/fullscreen.svg")+"\" alt=\"\"></button><div class=\"drag\"></div>"; // Todo: Add screenreader text; <button class=\"min\">🗕︎</button>
     mypid.children[1].innerHTML = "<div class=\"resizer2\"></div>";
 
 
@@ -412,14 +412,6 @@ function run(which, iattr, how) { // Run a program
         max(this);
     });
 
-    mypid.children[0].children[3].addEventListener("click", function() {
-        unrun(this);
-    });
-
-    mypid.children[0].children[2].addEventListener("click", function() {
-        focusWindow(mypid);
-        max(this);
-    });
 
     mypid.style = "display:inline";
     mypid.style.opacity = "1";
@@ -563,6 +555,14 @@ function max(which, how) { // Maximize or unmaximize program
     setTimeout(function() {
         which.style.transition = "0s";
     }, 300);
+}
+
+function windowFullscreen(which) {
+    which.style.transition = "1s";
+    which.classList.toggle("fullscreen");
+    window.setTimeout(function() {
+        which.style.transition = "";
+    },1000);
 }
 
 

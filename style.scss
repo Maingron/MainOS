@@ -105,6 +105,45 @@ body.big_buttons { // Big Buttons
   background-color: transparent;
   border-radius: var(--border-radius);
 
+  &.fullscreen {
+    z-index: 100000 !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100vh !important;
+    width: 100vw !important;
+
+    iframe {
+      top: 0;
+      left: 0;
+      height: calc(100%);
+      border: 0;
+      border-radius: 0;
+    }
+
+    .headbar {
+      &:hover {
+        z-index: 2;
+        border-bottom: 1px solid #000;
+        .close {
+          display: inline-block;
+        }
+        .fullscreen {
+          transform: scale(1);
+        }
+      }
+
+      .max,
+      .close {
+        display: none;
+      }
+      .fullscreen {
+        transform: scale(.8);
+        right: 2rem;
+
+      }
+    }
+  }
+
   &.maximized {
     height: calc(100% - 35px);
     width: 100%;
@@ -187,21 +226,29 @@ body.big_buttons { // Big Buttons
     }
     
     .max,
-    .close {
-      height: 1.8rem;
-      width: 1.8rem;
-      top: -2px;
+    .close,
+    .fullscreen {
+      height: 1.9rem;
+      width: 1.9rem;
+      top: 0;
       border: 0;
       margin: 0;
       padding: 0;
       position: absolute;
-      border-left: 1px solid #fff;
-      border-bottom: 1px solid #fff;
+      // border-left: 1px solid #fff;
+      // border-bottom: 1px solid #fff;
       z-index: 1;
       font-size: 1.2rem;
       line-height: 0;
       text-align: center;
       justify-content: center;
+      object-fit: contain;
+      img {
+        height: 100%;
+        width: 100%;
+        padding: 20%;
+        font-size: 0;
+      }
     }
 
     .close {
@@ -211,8 +258,12 @@ body.big_buttons { // Big Buttons
 
     .max {
       background-color: var(--themecolor2);
-      right: calc(1.8rem - 1px);
-      border-right: 1px solid #fff;
+      right: 2rem;
+    }
+
+    .fullscreen {
+      background-color: var(--themecolor2);
+      right: 6rem;
     }
   }
   .resizers {
