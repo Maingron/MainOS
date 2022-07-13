@@ -429,11 +429,14 @@ function refreshTaskList() {
             myNewChildNode1.setAttribute("pid", i)
 
             myNewChildNode1.addEventListener("click", function() {
+                
                 if(this.classList.contains("active")) {
                     setWindowMinimized(getWindowByMagic(this.getAttribute("pid")));
+                } else {
+                    setWindowMinimized(getWindowByMagic(this.getAttribute("pid")), false);
+                    focusWindow(getWindowByMagic(this.getAttribute("pid")));
                 }
-                focusWindow(getWindowByMagic(this.getAttribute("pid")));
-
+                
             });
 
             // myNewChildNode1.addEventListener("mouse", function() {

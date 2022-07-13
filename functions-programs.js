@@ -182,18 +182,32 @@ function focusWindow(which) {
     which.style.zIndex = zindex;
     which.children[2].focus();
 
+
     // if(which.classList.contains("minimized")) {
     //     setWindowMinimized(which, false);
     // }
 
+    unfocusWindow();
+
+    which.classList.add("active");
 
     for(myTask of document.getElementById("tasklist").children) {
         if(myTask.getAttribute("pid") == which.id) {
             myTask.classList.add("active");
-        } else {
-            if(myTask.classList.contains("active")) {
-                myTask.classList.remove("active");
-            }
+        }
+    }
+}
+
+function unfocusWindow() {
+    for(myWindow of document.getElementsByClassName("program")) {
+        if(myWindow.classList.contains("active")) {
+            myWindow.classList.remove("active");
+        }
+    }
+
+    for(myTask of document.getElementById("tasklist").children) {
+        if(myTask.classList.contains("active")) {
+            myTask.classList.remove("active");
         }
     }
 }
@@ -312,6 +326,7 @@ function max(which, how) { // Maximize or unmaximize window
 function setWindowMinimized(which, state) {
     if(state == true) {
         which.classList.add("minimized");
+        unfocusWindow();
     } else if(state == false) {
         which.classList.remove("minimized");
     } else {
@@ -358,7 +373,6 @@ function getWindowByChildElement(which) {
 
 function getWindowByMagic(which) {
     var result;
-    console.log(result);
     if(result == undefined) {
         result = getWindowById(which);
     }

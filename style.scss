@@ -105,6 +105,12 @@ body.big_buttons { // Big Buttons
   background-color: transparent;
   border-radius: var(--border-radius);
 
+  &:not(.active) {
+    .close {
+      filter: grayscale(.4) brightness(1.1);
+    }
+  }
+
   &.closing {
       transition: .3s !important;
       transform: scale(0) !important;
