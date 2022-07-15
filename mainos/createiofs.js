@@ -131,6 +131,8 @@ savefile(chgd + "/Version 00150.txt", "### Core / Various\n\t- Remove NES Progra
 savefile(chgd + "/Version 00160.txt", "### Core / Various\n\t- Fix context Menu\n\t- Move some images to iofs\n\t- Add functionality to open images\n\t- Add loadfile(loadfile(PATH)) functionality\n### Paint2\n\t- Add Paint2", 0, "t=txt");
 savefile(chgd + "/Version 00170.txt", "### Core / Various\n\t- Add program versions\n\t- Remove Orange mode\n\t- Make default themecolor and some other colors dark orange (brown) instead of gray or blue\n\t- Make programs async to improve multithreading\n\t- Make context menu glossy\n\t- Add Themecolor 2\n\t- Compress images even more and remove unused files\n\t- Change version watermark on desktop and remove \'Support MainOS\' button\n\t- Change ```` in changelogs with tabs\n\n### All\n\t- Set version for programs - Version 1.2 for unknown / untracked versions\n\n### Startmenu\n\t- Add restart button\n\t- Update icons for buttons and change user icon\n\t- Remove Email button\n\t- Add button to view MainOS on Github and itch.io\n\t- Other minor improvements\n\n### File Explorer\n\t- Cleanup code\n\t- Prevent 404-errors\n\t- Update to Version 1.3\n\n### Simple Cookieclicker\n\t- Update to Version 0.4\n\t- Fix HTML structure\n\t- Prevent cookie from being dragged around\n\t- Add more machines\n\t- Fix path of cookie image\n\n### Don't Tag Me\n\t- Add WASD-Controls\n\t- Minor style updates\n\n### Notifications\n\t- Change style", 0, "t=txt");
 
+savefile(chgd + "/Version 00180.txt", "There are too many changes to list them all, but you can take a look at https://github.com/Maingron/MainOS/compare/170...180", 0, "t=txt");
+
 
 
 
