@@ -213,11 +213,24 @@ function moveFile(source, destination) {
 }
 
 
-function formatfs(sure) { // Todo: Update
+function formatfs(sure, reload = true) { // Todo: Update
   if (sure == "yes") {
     savefile("C:/mainos/system32/exists.dat", "false");
     localStorage.clear();
-    window.location.reload();
+    if(reload) {
+      window.location.reload();
+    } else {
+      savefile = undefined;
+      savedir = undefined;
+      loadfile = undefined;
+      document.title += " - Frozen (Formatted; Waiting)";
+      document.body.innerHTML = "<center><br><br><h1>MainOS Formatted; Frozen until restart</h1></center>";
+      document.body.innerHTML += "<center><button onclick=\"formatfs('yes', true); window.location.reload();\">Restart</button></center>";
+      Object.freeze(mainos = undefined);
+      Object.freeze(setting = undefined);
+      Object.freeze(program = undefined);
+      Object.freeze(appdata = undefined);
+    }
   }
 }
 
