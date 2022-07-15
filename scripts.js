@@ -29,20 +29,6 @@ objects.programs = document.getElementsByClassName("programs")[0];
 objects.taskbarlanguage = document.getElementsByClassName("taskbarlanguage")[0];
 
 
-try {
-    mainos = Object.assign(mainos, ifjsonparse(loadfile("C:/mainos/system32/vars.dat")));
-} catch (e) {
-
-    objs = [mainos, ifjsonparse(loadfile("C:/mainos/system32/vars.dat"))];
-    result = objs.reduce(function(r, o) {
-        Object.keys(o).forEach(function(k) {
-            r[k] = o[k];
-        });
-        mainos = r;
-    }, {});
-}
-
-
 function jsoncombine(which1, which2) {
     try {
         which1 = Object.assign(which1, which2);

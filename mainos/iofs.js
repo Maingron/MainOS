@@ -4,6 +4,11 @@ mainos.versionnrstring = "00" + mainos.versionnr;
 mainos.version = mainos.versionnr;
 mainos.versionlt = "0CC";
 mainos.settings = {};
+mainos.serverpath = "https://maingron.com";
+mainos.serverroot = "https://maingron.com/projects/MainOS/server";
+mainos.repository = "https://maingron.com/projects/MainOS/server/repository.json";
+mainos.creator = "Maingron";
+mainos.copyright = "Maingron 2018 - 2022";
 
 var ismainos = 1;
 var appdata = "C:/Documents and Settings/appdata";

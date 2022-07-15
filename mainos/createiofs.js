@@ -1,7 +1,25 @@
 document.title = "MainOS: Updating...";
 document.write("<div id='iinfo' style='position:fixed; display:inline-block; top:0; left:0; height:100%; width:100%; background-color:var(--themecolor); z-index:123456789; transition:.4s;'><center><h1 style='display:inline-block;'>Updating...</h1></center></div>");
 
+function fixfs() {
+    for(myEntry of Object.keys(localStorage)) {
+        if(localStorage.getItem(myEntry).indexOf("***") > -1) {
+            if(isfolder(myEntry)) {
+                deletefile(myEntry);
+                savedir(myEntry);
+                console.log(myEntry);
+            } else {
+                savefile(myEntry, localStorage.getItem(myEntry).split("***")[1], 1, loadfile(myEntry, 1));
+            }
+        }
+    }
+}
+
+
+
 window.onload = function(){
+
+fixfs();
 
 
 // Check Disk size
@@ -364,38 +382,8 @@ savefile(icons + "/fullscreen.svg","data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub2
 savefile(icons + "/folder_search.svg","data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTBtbSIgaGVpZ2h0PSIxMG1tIiB2aWV3Qm94PSIwIDAgMTAgMTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbD0iI2E4MCIgZD0iTTEgMmg1djJIMXoiLz48cGF0aCBmaWxsPSIjZDRhYTAwIiBkPSJNMSAzLjQ3MWg4djVIMXoiLz48cGF0aCBmaWxsPSIjZDRhYTAwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik01IDIuNWg0djFINXoiLz48ZyB0cmFuc2Zvcm09InJvdGF0ZSg5MCAyLjMzNSA1KSBzY2FsZSguNjExMTEpIj48Y2lyY2xlIGN4PSIzLjUiIGN5PSIzLjUiIHI9IjMiLz48Y2lyY2xlIGN4PSIzLjUiIGN5PSIzLjUiIHI9IjIuNSIgZmlsbD0iIzBmZiIvPjxwYXRoIGQ9Ik01LjYyIDVMOS41IDguODhsLS42Mi42Mkw1IDUuNjJ6Ii8+PC9nPjwvc3ZnPg==", 0, "t=svg");
 
 
-
-
-
-var mainosnew = {
- "serverpath": "https://maingron.com",
- "serverroot": "https://maingron.com/projects/MainOS/server",
- "repository": "https://maingron.com/projects/MainOS/server/repository.json",
- "creator": "Maingron",
- "copyright": "Maingron 2018 - 2021"
-}
-
-
-try {
- mainos = Object.assign(mainos, mainosnew);
-} catch (e) {
-
- var objs = [mainos, mainosnew],
- result = objs.reduce(function(r, o) {
- Object.keys(o).forEach(function(k) {
- r[k] = o[k];
- });
- mainos = r;
- }, {});
-
-}
-
-savefile("C:/mainos/system32/vars.dat", JSON.stringify(mainos), 1, "t=txt");
-
-
-
 setTimeout(function() {
  location.reload();
-}, 40);
+}, 60);
 
 };
