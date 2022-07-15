@@ -135,7 +135,7 @@ body.big_buttons {
         text-decoration: none;
 
         &:hover,
-        &:focus {
+        &:focus-visible {
             overflow: visible;
             z-index: 20;
         }

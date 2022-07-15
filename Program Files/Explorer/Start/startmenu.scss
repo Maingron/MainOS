@@ -50,7 +50,7 @@ body.big_buttons {
 
 button {
     &:hover,
-    &:focus {
+    &:focus-visible {
         background-color: var(--hovercolor);
     }
 }
@@ -149,8 +149,9 @@ button {
     
         #left {
             a {
+                text-decoration: none;
                 &:hover,
-                &:focus {
+                &:focus-visible {
                     background: var(--hovercolor);
                     cursor:pointer;
                 }

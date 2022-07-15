@@ -32,6 +32,7 @@ programsinfolder.forEach((item, index) => {
     var myNewChildNode3 = document.createElement("span");
 
     myNewChildNode1.setAttribute("onclick", "run('" + myCurrentProgram.id + "')");
+    myNewChildNode1.setAttribute("href", "#");
 
     myNewChildNode2.setAttribute("src", myCurrentProgram.icon);
     myNewChildNode2.setAttribute("alt", "");

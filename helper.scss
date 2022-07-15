@@ -42,8 +42,7 @@ body {
     .contextMenu a {
         &:not([disabled]) {
             transition: background-color .1s, filter .1s;
-            &:hover,
-            &:focus {
+            &:hover, &:focus-visible {
                 &:not(input) {
                     cursor: pointer;
                 }
@@ -56,8 +55,7 @@ body {
     .has_hover {
         &:not([disabled]) {
             transition: background-color .1s, filter .1s !important;
-            &:hover,
-            &:focus {
+            &:hover, &:focus-visible {
                 background-color: var(--hovercolor) !important;
                 filter: brightness(1.2) !important;
             }

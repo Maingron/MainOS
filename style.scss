@@ -519,7 +519,7 @@ body.big_buttons { // Big Buttons
     }
 
     &:hover,
-    &:focus {
+    &:focus-visible {
       background-color: var(--hovercolor);
       overflow: visible;
     }
