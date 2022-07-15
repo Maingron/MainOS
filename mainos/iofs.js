@@ -176,6 +176,9 @@ function savefile(path, content, override, attr) {
 function savedir(path) {
   if(isfile(path)) {
   } else {
+    if(path.charAt(path.length - 1 ) != "/") {
+      path += "/"; // Append trailing slash, if there is none
+    }
     savefile(path, "", 0, "t=d");
   }
 }
