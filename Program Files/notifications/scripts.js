@@ -22,7 +22,7 @@ if (needinit == 1) {
 }
 
 function is_online() {
-  return (1);
+  return 1;
 }
 
 
@@ -95,7 +95,7 @@ setTimeout(function() {
 
 document.documentElement.style.setProperty("--font", parent.setting.font);
 
-if (parent.loadfile(parent.setting.userdata + "Notifications/notify_changelog.dat") !== "") {
-  send_notification("Changes to MainOS - What's new:", parent.loadfile(parent.loadfile(parent.setting.userdata + "Notifications/notify_changelog.dat")));
-  parent.savefile(parent.setting.userdata + "Notifications/notify_changelog.dat", "", 1, "t=txt");
-}
+// if (parent.loadfile(parent.setting.userdata + "Notifications/notify_changelog.dat") !== "") {
+//   send_notification("Changes to MainOS - What's new:", parent.loadfile(parent.loadfile(parent.setting.userdata + "Notifications/notify_changelog.dat")));
+//   parent.savefile(parent.setting.userdata + "Notifications/notify_changelog.dat", "", 1, "t=txt");
+// }
