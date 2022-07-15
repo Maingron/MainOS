@@ -33,13 +33,6 @@ body.big_buttons {
                     font-size: 1.1em;
                 }
             }
-
-
-            #viewonitch,
-            #viewongithub {
-                line-height: 2.1;
-                font-size: 1em;
-            }
         }
     }
 }
@@ -177,6 +170,7 @@ button {
                 z-index: 9;
                 line-height: 1.75;
                 padding-left: 2.4rem;
+                font-weight: bold;
             }
     
             a {
@@ -186,6 +180,7 @@ button {
                 width: 100%;
                 overflow: hidden;
                 align-items: center;
+                line-height: 2;
     
                 span {
                     position: relative;
@@ -204,25 +199,48 @@ button {
                     height: 2rem;
                     width: 2rem;
                     display: inline;
+                    object-fit: contain;
                 }
             }
         }
     }
 }
 
-#viewonitch {
-    background:#ff5555aa;
-    text-decoration:none;
+#start #center #left .link {
     line-height: 1.8;
-    font-size: .8em;
+
+    img {
+        height: 1.4rem
+    }
+    &#viewonitch {
+        background:#ff555544;
+    }
+    &#viewongithub {
+        background:#aaaaaa44;
+    }
+    &#reportabug {
+        background: #ff333344;
+    }
+    &:hover,
+    &:focus-visible {
+        background-color: var(--hovercolor) !important;
+    }
 }
 
-#viewongithub {
-    background:#aaaaaaaa;
-    text-decoration:none;
-    line-height: 1.8;
-    font-size: .8em;
+#start #center #left #moreandinfo {
+    line-height: 1.2;
+    a {
+        display: inline;
+        width: unset;
+        text-decoration: underline;
+        color: revert;
+    }
+
+    p {
+        padding-left: 2.3rem;
+    }
 }
+
 
 @media screen and (max-width:500px) {
     #start {

@@ -10,7 +10,7 @@ function close_startmenu() {
 // Spawn icons in all-programs list
 
 var programsinfolder = listdir("C:/users/" + parent.setting.username + "/programs/");
-var allProgramsContainer = document.getElementById("left");
+var allProgramsContainer = document.getElementById("allprograms");
 
 programsinfolder.forEach((item, index) => {
     var myCurrentProgram = JSON.parse(loadfile(item));
