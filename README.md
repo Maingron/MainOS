@@ -4,7 +4,7 @@
 
 ## About MainOS
 
-MainOS is a browser based Windows XP clone thing. It is inspired by Microsofts Windows XP and other Windows versions, though it's more and more taking it's own path.
+MainOS (short for **Maingron OS**) is a browser based Operating System, originally trying to look like Windows XP. Nowadays it's more and more taking it's own, serious path.
 
 I started MainOS at work, because my boss told me to learn CSS. Since that day I work on MainOS.
 
