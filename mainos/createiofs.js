@@ -84,8 +84,19 @@ savefile("C:/users/" + setting.username + "/settings/font.txt", "-apple-system, 
 savefile("C:/users/" + setting.username + "/settings/repository.txt", 1, 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/big_buttons.txt", 0, 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/default_fullscreen.txt", 0, 0, "t=txt");
-savefile("C:/users/" + setting.username + "/settings/language.txt", "en", 0, "t=txt");
 savefile("C:/users/" + setting.username + "/settings/german_tv.txt", 0, 0, "t=txt");
+
+
+// Dynamic settings (import from user's machine)
+if(navigator.language == "en") {
+    var initLang = "en"
+} else if(navigator.language == "de") {
+    var initLang = "de"
+} else {
+    var initLang = "en"
+}
+savefile("C:/users/" + setting.username + "/settings/language.txt", initLang, 0, "t=txt");
+
 
 savedir("C:/users/" + setting.username + "/Program Data/");
 
