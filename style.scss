@@ -165,6 +165,12 @@ body.big_buttons { // Big Buttons
     transform: scale(0);
     opacity: 0;
     z-index: -100;
+    visibility: hidden;
+    
+    iframe {
+      user-select: none;
+      visibility: hidden;
+    }
   }
 
   &.maximized {
