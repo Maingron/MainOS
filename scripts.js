@@ -337,21 +337,37 @@ window.setInterval(function() {
 }, 250);
 
 
-function enterFullscreen(element) { // Make MainOS Fullscreen
-    if (element.requestFullscreen) {
-        element.requestFullscreen();
-    } else if (element.mozRequestFullScreen) {
-        element.mozRequestFullScreen();
-    } else if (element.msRequestFullscreen) {
-        element.msRequestFullscreen();
-    } else if (element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen();
+function enterFullscreen(element) { // Toggle MainOS Fullscreen
+    if(document.fullscreenElement == null || document.fullscreenElement == undefined) {
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        } else if (element.msRequestFullscreen) {
+            element.msRequestFullscreen();
+        } else if (element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen();
+        } else {
+            element.requestFullscreen();
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
     }
 }
 
 
 if (setting.default_fullscreen == 1) { // Enter fullscreen on start if requested by setting
-    enterFullscreen(document.body);
+    window.addEventListener("click", function() {
+        enterFullscreen(document.body);
+    }, {"once": true});
 }
 
 
