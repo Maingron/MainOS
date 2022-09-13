@@ -4,9 +4,9 @@
 
 ## About MainOS
 
-MainOS (short for **Maingron OS**) is a browser based Operating System, originally trying to look like Windows XP. It started as a fun little project. Nowadays it's more and more taking it's own, serious path.
+MainOS (short for **Maingron OS**) is a browser based Operating System, originally trying to look like Windows XP. It started as a fun little project. Nowadays it's more and more taking it's own, serious path and tries to be a productivity tool.
 
-I started MainOS at work, because my boss told me to learn CSS. Since that day I work on MainOS.
+I started MainOS at work a few years ago, because my boss told me to learn CSS. Since that day I work on MainOS.
 
 If you want to contribute, that would be nice. It's hard to keep up as a single person.
 
@@ -15,6 +15,9 @@ If you want to contribute, that would be nice. It's hard to keep up as a single 
 
 ## Screenshots
 Latest screenshot on top
+
+MainOS Version 180
+![image](https://maingron.com/img/mainos/version_00180.png)
 
 MainOS Version 175
 ![image](https://maingron.com/img/mainos/version_00175.png)
