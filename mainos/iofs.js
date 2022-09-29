@@ -85,7 +85,7 @@ function listdir(path) { // List directory // Todo!: add depth parameter
 
 
 function loadfile(path,requestattributes = false) {
-  var myFile = localStorage.getItem(path);
+  const myFile = localStorage.getItem(path);
     // if (localStorage.getItem(path).length < 2 || localStorage.getItem(path).indexOf("*") < 5) { // TODO: Check what this save thing does - probably can be removed
     //   savefile(path, localStorage.getItem(path));
     // }
@@ -129,7 +129,8 @@ function loadfile(path,requestattributes = false) {
 }
 
 function isfile(path) {
-  if (localStorage.getItem(path) == null || localStorage.getItem(path) == "undefined") {
+  const myFile = localStorage.getItem(path)
+  if (myFile == null || myFile == "undefined") {
     return false;
   } else {
     return true;
@@ -137,7 +138,8 @@ function isfile(path) {
 }
 
 function isfolder(path) {
-  if(localStorage.getItem(path) == null || localStorage.getItem(path) == "undefined") { // If file or folder doesn't exist
+  const myFile = localStorage.getItem(path)
+  if(myFile == null || myFile == "undefined") { // If file or folder doesn't exist
       return false;
   } else {
       if(loadfile(path,1).includes("t=dir") || loadfile(path,1).includes("t=d")) { // If attributes of path equal type=dir
