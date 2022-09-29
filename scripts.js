@@ -5,7 +5,6 @@ pos.relative = {};
 var zindex = 10;
 var register = [];
 var timer1;
-var thisprogram = {};
 var program = {};
 var clicked1 = 0;
 var pid = [];
@@ -76,7 +75,6 @@ function loadsettings() {
     setting.language = loadsetting("language");
     setting.german_tv = loadsetting("german_tv");
     setting.temp = {};
-    setting.temp.toautostart = [];
 
     document.documentElement.style.setProperty("--themecolor", setting.themecolor);
     document.documentElement.style.setProperty("--themecolor2", setting.themecolor2);
@@ -118,9 +116,17 @@ if (isfile("C:/mainos/customprograms.txt")) {
 if (setting.repository == 1) { // Load programs from repository if repository is enabled
     try {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", mainos.repository, false); // TODO: Make async
+        xhr.open("GET", mainos.repository, true); // TODO: Make async
         xhr.onload = function() {
-            program = Object.assign(program, ifjsonparse((xhr.responseText)));
+            // program = Object.assign(program, ifjsonparse((xhr.responseText)));
+            const repoList = ifjsonparse(xhr.responseText);
+            setTimeout(function() {
+                for (let i in repoList) {
+                    program[i] = repoList[i];
+                    loadProgramMetadata(repoList[i]);
+                }
+            }, 100)
+
         }
         xhr.send();
 
@@ -129,92 +135,114 @@ if (setting.repository == 1) { // Load programs from repository if repository is
 }
 
 
-
-for (var i = 0; Object.keys(program).length > i; i++) {
-
-    // TODO: Scan program code and check for harmful code like direct access to localStorage. Save hash + version and only rescan if hash changed. If harmful code is found, notify user and don't spawn icon
-
-    thisprogram = program[Object.keys(program)[i]]; // The program we are checking meta for currently
-
-
-    if (thisprogram.src && thisprogram.src.includes("//")) {
-        // Don't request from external programs. Normally this would result in access denied
-        // TODO: Find a way
-    } else {
-
-        try {
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", thisprogram.src, false); // TODO: Make async - Probably requires further changes in the core
-            xhr.onload = function () {
-                var thisprogramMeta = (xhr.responseText).substr(0, 1200); // Everything relevant to us has to be within the first 1200 chars (Performance reasons)
-                if (thisprogramMeta && thisprogramMeta.includes("<head>") && thisprogramMeta.includes("</head>")) { // Only continue if <head>-section doesn't exceed maximum length and has both start- and ending tags
-                    thisprogramMeta = thisprogramMeta.split("<head>")[1].split("</head>")[0]; // Extract everything between <head>*</head>
-                    thisprogramMeta = thisprogramMeta.replace(/\n|\r|\t/g, ''); // Remove empty lines and tabs
-                    thisprogramMeta = thisprogramMeta.split(new RegExp("\<")); // Split into array
-
-                    for (var i = 0; i < thisprogramMeta.length; i++) {
-
-                        if (thisprogramMeta[i].indexOf("/") == 0) { // Skip ending-tags
-                            continue;
-                        } else if(thisprogramMeta[i].indexOf("script") == 0 || thisprogramMeta[i].indexOf("style") == 0) { // Skip scripts and inline styles
-                            continue;
-                        }
+// Add / handle programs
+for(var i = 0; i < Object.keys(program).length; i++) {
+    var myProgram = program[Object.keys(program).sort()[i]];
+    loadProgramMetadata(myProgram);
+}
 
 
-                        if (thisprogramMeta[i].toLowerCase().includes("meta")) { // Meta Tags
-                            if (thisprogramMeta[i].toLowerCase().includes("version")) {
-                                thisprogram.version = (thisprogramMeta[i].split("version=\"")[1].split("\"")[0]);
-                            }
-                        } else if (thisprogramMeta[i].toLowerCase().includes("link")) { // Link Tags
-                            if (thisprogramMeta[i].toLowerCase().includes("shortcut icon")) { // Favicon
-                                thisprogram.icon = (thisprogramMeta[i].split("href=\"")[1].split("\"")[0]);
-                            }
-                        } else if (thisprogramMeta[i].toLowerCase().includes("title")) { // Title
-                            thisprogram.title = (thisprogramMeta[i].split(">")[1].split("<")[0]);
-                        }
-                    }
+function loadProgramMetadata(which) { // Load program metadata from program file and handle some other stuff
+    if(typeof(which) == "string") {
+        which = program[which];
+    }
+    if(which.src && which.src.includes("//")) { // Don't request metadata from external programs. This would result in access denied.
+        addDesktopIcon(which);
+        addProgramIconToFolder(which);
+        
+        which.metaloaded = true;
+        return;
+    }
+    if(which.metaloaded) {
+        return; // Don't load metadata twice
+    }
 
-                } else {
-                    console.error("Problems with <head>-Tag in exec.html of program with id: " + thisprogram.id + "; src: " + thisprogram.src + ". Refusing to read meta data. \nMaybe it exceeds 1200 characters or is malformed?");
 
-                    thisprogram.version = 0;
-                    thisprogram.icon = "";
-                    thisprogram.title = thisprogram.id + " - Check error log";
 
-                    thisprogram.hasErrors = true;
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", which.src, true);
+    xhr.onload = function() {
+        let rawMetaString = xhr.responseText.substring(0, 1200); // Get first 1200 characters of program - Everything relevant must be within this range
+        if(rawMetaString.includes("<head") && rawMetaString.includes("</head>")) { // Only continue if <head> and </head> are present in range
+            let metaString = rawMetaString.replaceAll(/\<\!\-\-(.*?)\-\-\>/g, ""); // Remove comments
+            metaString = metaString.split("</head>")[0] // Extract everything before </head>
+            metaString = metaString.replace(/\n|\r|\t/g, ''); // Remove empty lines and tabs
+            metaString = metaString.replaceAll(/\<\/(.*?)\>/g, ""); // Remove all </...> tags
+            metaString = metaString.split("\<");
+            metaString.shift(); // Remove first element (everything before first <)
+
+            const skipThose = [ // Skip these tags // TODO: Add possibility to filter after space (e.g. <meta name="author" content="..."> -> author)
+                "script", "!DOCTYPE", "!doctype", "noscript", "style"
+            ];
+            for(let i = 0; i < metaString.length; i++) {
+                if(skipThose.includes(metaString[i].split(" ")[0])) {
+                    metaString.splice(i, 1);
                 }
-
             }
-            xhr.send();
 
-        } catch (e) {}
-
-    }
-
-
-    if (thisprogram.devonly == 1) {
-        if (setting.developer == 0) {
-            continue;
+            for(myMeta of metaString) {
+                if(myMeta.includes("title>")) {
+                    // Title
+                    which.title = myMeta.split("title>")[1];
+                }
+                if(myMeta.includes("shortcut icon")) {
+                    // Icon
+                    which.icon = myMeta.split("href=\"")[1].split("\"")[0];
+                }
+                if(myMeta.includes("version=")) {
+                    // Version
+                    which.version = myMeta.split("version=\"")[1].split("\"")[0];
+                }
+            }
+            which.metaloaded = true;
+        } else {
+            which.hasErrors = true;
         }
-    }
 
-    if (thisprogram.germantv == 1) {
-        if (setting.german_tv != 1 || setting.language != "de") {
-            continue;
+        addDesktopIcon(which);
+        addProgramIconToFolder(which);
+
+
+        if(which.autostart) { // TODO: Make it work for external programs
+            // Autostart
+            (async() => {
+                run(which.id);
+            })();
         }
+
+    }
+    xhr.send();
+}
+
+
+function addDesktopIcon(which) {
+    if(which.devonly && !setting.developer) {
+        return;
+    }
+    if(which.germantv && setting.german_tv != 1) {
+        return;
     }
 
+    if(which.spawnicon != 0) {
+        var newProgIcon = document.createElement("button");
+        newProgIcon.className = "programicon";
+        newProgIcon.id = which.id;
+        newProgIcon.innerHTML = `
+            <img src="${which.icon}" loading="lazy" alt="">
+            <p>${which.title}</p>
+        `;
+        newProgIcon.addEventListener("click", function() {
+            run(this.id);
+        });
 
-
-
-    if (thisprogram.spawnicon != 0) {
-        objects.progicons.innerHTML = objects.progicons.innerHTML + "<button id='icon1' onclick=\"run('" + thisprogram.id + "');\"><img src='" + thisprogram.icon + "' /><p>" + thisprogram.title + "</p></button>";
-    }
-
-    if (thisprogram.autostart == 1) {
-        setting.temp.toautostart.push(thisprogram.id);
+        objects.progicons.appendChild(newProgIcon);
     }
 }
+
+function addProgramIconToFolder(which) {
+    savefile("C:/users/" + setting.username + "/programs/" + (which.title).replaceAll("'", "&#39;") + ".run", JSON.stringify(which), 1, "run");
+}
+
 
 
 
@@ -374,12 +402,6 @@ if (setting.default_fullscreen == 1) { // Enter fullscreen on start if requested
 
 document.getElementById("background").style.backgroundImage = "url(" + setting.backgroundimage + ")"; // Load Desktop Background
 
-setTimeout(function() { // Run Autostart programs
-    for (i = 0; i < setting.temp.toautostart.length; i++) {
-        run(setting.temp.toautostart[i]);
-    }
-}, 500);
-
 function notification(title, content) { // Send notification
 
     if (document.getElementsByClassName("notifications")[0] != null) {
@@ -402,12 +424,6 @@ listdir("C:/users/" + setting.username + "/programs/").forEach((item) => {
     deletefile(item, 1);
 })
 
-
-Object.keys(program).forEach((item) => {
-    var myTitle = program[item].title;
-    myTitle = myTitle.replaceAll("'", "&#39;");
-    savefile("C:/users/" + setting.username + "/programs/" + myTitle + ".run", JSON.stringify(program[item]), 1, "run");
-});
 
 
 
