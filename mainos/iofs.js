@@ -85,22 +85,24 @@ function listdir(path) { // List directory // Todo!: add depth parameter
 
 
 function loadfile(path,requestattributes = false) {
-  if (localStorage.getItem(path) != 0 && localStorage.getItem((path)) != null) {
-    if (localStorage.getItem(path).length < 2 || localStorage.getItem(path).indexOf("*") < 5) { // TODO: Check what this save thing does - probably can be removed
-      savefile(path, localStorage.getItem(path));
-    }
+  var myFile = localStorage.getItem(path);
+    // if (localStorage.getItem(path).length < 2 || localStorage.getItem(path).indexOf("*") < 5) { // TODO: Check what this save thing does - probably can be removed
+    //   savefile(path, localStorage.getItem(path));
+    // }
 
-    if(localStorage.getItem(path).indexOf("loadfile(") > -1) {
-      if(localStorage.getItem(path).indexOf("loadfile('") > -1) {
-        return(loadfile(localStorage.getItem(path).split("loadfile('")[1].split("')")[0].toString()));
-      } else if(localStorage.getItem(path).indexOf("loadfile(\"")> -1) {
-        return(loadfile(localStorage.getItem(path).split("loadfile(\"")[1].split("\")")[0].toString()));
+  if(myFile != null && myFile != "undefined") { // If file exists
+    if(myFile.indexOf("loadfile(") > -1) {
+      if(myFile.indexOf("loadfile('") > -1) {
+        return(loadfile(myFile.split("loadfile('")[1].split("')")[0].toString()));
+      } else if(myFile.indexOf("loadfile(\"")> -1) {
+        return(loadfile(myFile.split("loadfile(\"")[1].split("\")")[0].toString()));
       }
     }
 
+
     if(requestattributes == 1) { // Return only file attributes if requested
 
-      var myLoadResult = localStorage.getItem((path)).split("*")[0];
+      var myLoadResult = myFile.split("*")[0];
 
       if(myLoadResult.includes("d=")) { // only if file has a date
 
@@ -119,10 +121,10 @@ function loadfile(path,requestattributes = false) {
 
       return myLoadResult;
     } else {
-      return localStorage.getItem((path)).split("*")[1];
+      return myFile.split("*")[1];
     }
   } else {
-    return localStorage.getItem(path);
+    return myFile;
   }
 }
 
