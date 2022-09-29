@@ -54,6 +54,8 @@ function loadsettings() {
     setting.userpath = "C:/users/" + setting.username + "/";
     setting.userdata = setting.userpath + "Program Data/";
     setting.settingpath = "C:/users/" + setting.username + "/settings/";
+    setting.time = new Date();
+
 
     function loadsetting(which) {
         return loadfile(setting.settingpath + which + ".txt");
