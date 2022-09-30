@@ -64,16 +64,12 @@ window.addEventListener("load", function() {
 
 // Load iofs:*-paths that are found in HTML Elements
 async function loadIOfsLinks() {
-    for(var item of document.getElementsByTagName("*")) { // TODO: Possible performance improvement by checking for Array[img, script, ...] instead of the entire page
-        if(item.src) {
-            if(item.src.includes("iofs:")) {
-                item.src = loadfile(item.src.split("iofs:")[1]);
-            }
+    for(const item of document.getElementsByTagName("*")) { // TODO: Possible performance improvement by checking for Array[img, script, ...] instead of the entire page
+        if(item?.src?.includes("iofs:")) {
+            item.src = loadfile(item.src.split("iofs:")[1]);
         }
-        if(item.href) {
-            if(item.href.includes("iofs:")) {
-                item.href = loadfile(item.href.split("iofs:")[1]);
-            }
+        if(item?.href?.includes("iofs:")) {
+            item.href = loadfile(item.href.split("iofs:")[1]);
         }
     }
 }
@@ -107,7 +103,7 @@ function spawnContextMenu(content) { // TODO: Make async
     newelement.style.top = data.system.mouse.y + "px";
     document.body.append(newelement);
 
-    for (var i = 0; content.length > i; i++) {
+    for (let i = 0; content.length > i; i++) {
         newelement = document.getElementsByClassName("contextMenu")[0];
         if (content[i][0] == "<hr>") {
             var newcontextelement = document.createElement("hr");

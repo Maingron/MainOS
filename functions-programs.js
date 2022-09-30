@@ -45,7 +45,27 @@ function run(which, iattr, how) { // Run a program
 
     var mypid = document.getElementById(pidmax);
 
-        mypid.innerHTML = "<div class=\"headbar\"></div><div class=\"resizers\"></div><iframe class=\"proframe " + thisprogram.id + "\" src=\"about:blank\" async>" + thisprogram.src + "</iframe>";
+    if(!thisprogram.icon) { // Add fallback image to avoid errors
+        thisprogram.icon = "iofs:C:/mainos/system32/icons/transparent.png";
+    }
+
+        mypid.innerHTML = `
+        <div class="headbar">
+            <img class="progicon" src="${thisprogram.icon}" alt="${thisprogram.title}">
+            <p class="progtitle">${thisprogram.title}</p>
+            <button class="max has_hover" onclick="focusWindow(getWindowByMagic(this)); max(getWindowByMagic(this))" href="#" title="(Un-)Maximize">⎚</button>
+            <button class="close has_hover" onclick="unrun(getWindowByMagic(this))" href="#" title="Close"><b>x</b></button>
+            <button class="minimize" onclick="setWindowMinimized(getWindowByMagic(this))">-</button>
+            <button class="fullscreen has_hover" onclick="windowFullscreen(getWindowByMagic(this))" href="#" title="Toggle Fullscreen">
+                <img src="${loadfile("C:/mainos/system32/icons/fullscreen.svg")}" alt="">
+            </button>
+            <div class="drag"></div>
+        </div>
+        <div class="resizers">
+            <div class="resizer2"></div>
+        </div>
+        <iframe class="proframe ${thisprogram.id}" src="about:blank" async>${thisprogram.src}</iframe>
+        `;
 
     if (thisprogram.sandbox == 1) {
         mypid.classList.add("sandbox");
@@ -58,12 +78,6 @@ function run(which, iattr, how) { // Run a program
         mypid.children[2].sandbox = "allow-scripts allow-forms";
     }
 
-    if(!thisprogram.icon) { // Add fallback image to avoid errors
-        thisprogram.icon = "iofs:C:/mainos/system32/icons/transparent.png";
-    }
-
-    mypid.children[0].innerHTML = "<img class=\"progicon\" src=\"" + thisprogram.icon + "\" alt=\"" + thisprogram.title + "\"/><p class=\"progtitle\">" + thisprogram.title + "</p><button onclick=\"focusWindow(getWindowByMagic(this)); max(getWindowByMagic(this))\" href='#' title='(Un-)Maximize' class=\"max has_hover\">⎚</button><button onclick=\"unrun(getWindowByMagic(this))\" href='#' title='Close' class=\"close has_hover\"><b>x</b></button><button class=\"minimize\" onclick=\"setWindowMinimized(getWindowByMagic(this))\">-</button><button onclick=\"windowFullscreen(getWindowByMagic(this))\" href='#' title='Fullscreen' class=\"fullscreen has_hover\"><img src=\""+loadfile("C:/mainos/system32/icons/fullscreen.svg")+"\" alt=\"\"></button><div class=\"drag\"></div>"; // Todo: Add screenreader text; <button class=\"min\">🗕︎</button>
-    mypid.children[1].innerHTML = "<div class=\"resizer2\"></div>";
 
 
     mypid.children[0].getElementsByClassName("drag")[0].addEventListener("mousemove", function(event) {
@@ -150,6 +164,7 @@ function run(which, iattr, how) { // Run a program
     });
 
 
+    // Display once we're done
     mypid.style = "display:inline";
     mypid.style.opacity = "1";
     mypid.style.display = "inline";
@@ -167,10 +182,7 @@ function run(which, iattr, how) { // Run a program
     mypid.children[2].contentWindow.document.documentElement.style.setProperty("--font", setting.font);
 
     refreshTaskList();
-    focusWindow(getWindowByMagic(mypid));
-    window.setTimeout(function() {
-        focusWindow(getWindowByMagic(mypid));
-    }, 260)
+    focusWindow(getWindowById(mypid.id));
 }
 
 /**
@@ -324,13 +336,18 @@ function max(which, how) { // Maximize or unmaximize window
 }
 
 function setWindowMinimized(which, state) {
+
     if(state == true) {
         which.classList.add("minimized");
+        which.getElementsByTagName("iframe")[0].setAttribute("disabled", true);
         unfocusWindow();
     } else if(state == false) {
+        which.getElementsByTagName("iframe")[0].removeAttribute("disabled");
         which.classList.remove("minimized");
+
     } else {
         setWindowMinimized(which, !which.classList.contains("minimized"));
+        return;
     }
 }
 
@@ -363,7 +380,7 @@ function getWindowById(id) {
  */
 function getWindowByChildElement(which) {
     if(which != undefined) {
-        if(which.classList && which.classList.contains("program")) {
+        if(which?.classList?.contains("program")) {
             return which;
         } else {
             return getWindowByChildElement(which.parentElement);
@@ -380,7 +397,7 @@ function getWindowByMagic(which) {
         result = getWindowByChildElement(which);
     }
     if(result == undefined) {
-        if(which.data && which.data.mypid) {
+        if(which?.data?.mypid) {
             result = getWindowById(which.data.mypid);
         }
     }
