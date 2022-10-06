@@ -335,6 +335,12 @@ function max(which, how) { // Maximize or unmaximize window
     }, 300);
 }
 
+
+/**
+ * Minimizes or unminimizes a window
+ * @param which window
+ * @param {boolean} state minimize / unminimize (default: auto)
+ */
 function setWindowMinimized(which, state) {
 
     if(state == true) {
@@ -348,6 +354,17 @@ function setWindowMinimized(which, state) {
     } else {
         setWindowMinimized(which, !which.classList.contains("minimized"));
         return;
+    }
+}
+
+/**
+ * Minimizes all windows
+ */
+function showDesktop() {
+    for(let i = 0; i < pid.length; i++) {
+        if(pid[i] != "" && pid[i] != undefined) {
+            setWindowMinimized(getWindowById(i), true);
+        }
     }
 }
 
