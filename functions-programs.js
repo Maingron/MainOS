@@ -388,15 +388,20 @@ function getWindowByChildElement(which) {
     }
 }
 
+function getWindowsByName(which) {
+    const result = document.getElementsByClassName(which);
+    return result;
+}
+
 function getWindowByMagic(which) {
     var result;
-    if(result == undefined) {
+    if(result == undefined || result == null || result == "") {
         result = getWindowById(which);
     }
-    if(result == undefined) {
+    if(result == undefined || result == null || result == "") {
         result = getWindowByChildElement(which);
     }
-    if(result == undefined) {
+    if(result == undefined || result == null || result == "") {
         if(which?.data?.mypid) {
             result = getWindowById(which.data.mypid);
         }
