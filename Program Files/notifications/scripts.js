@@ -1,101 +1,117 @@
-var objects = {};
-objects.notifications = document.getElementsByClassName("notifications")[0];
-var one_notification = "<div></div>";
-var needinit = 0;
-if (parent.isfile(parent.setting.userdata + "Notifications") == 0) {
-  needinit = 1;
-  parent.savefile(parent.setting.userdata + "Notifications", "", 0, "t=dir");
-  parent.savefile(parent.setting.userdata + "Notifications/notifications.txt", new Array("{\"title\":\"dummy\",\"content\":\"dummy\"}"), 1, "t=txt");
-  parent.savefile(parent.setting.userdata + "Notifications/Notification History.log", "", 0, "t=log");
-}
+const programPath = parent.setting.userdata + "Notifications/";
+const notificationFilePath = programPath + "notifications.txt";
+const notificationWindow = parent.getWindowByMagic(this);
+const notificationContainer = document.getElementsByClassName("notifications")[0];
+let notifications = [];
+installer();
+init();
 
-
-var notifications = parent.loadfile(parent.setting.userdata + "Notifications/notifications.txt").split("},");
-for (var i = 0; i < notifications.length - 1; i++) {
-  notifications[i] = notifications[i] + "}";
-}
-
-if (needinit == 1) {
-  send_notification("Notifications is set up.", "Successfully initialized Notifications.<br>Here you can see your notifications :)");
-  send_notification("Cookie Hint", "MainOS sets Cookies / Local Storage Data based on what you save. That's just what an OS does. Data is not sent to anyone, it's all your data.");
-  parent.savefile(parent.setting.userdata + "Notifications/notifications.txt", notifications, 1, "t=txt");
-}
 
 function is_online() {
   return 1;
 }
 
 
-function send_notification(title, content) {
-  parent.savefile(parent.setting.userdata + "Notifications/Notification History.log", parent.loadfile(parent.setting.userdata + "Notifications/Notification History.log") + parent.setting.time.full + "\n" + title + "\n" + content + "\n\n");
-  content = content.replace(/\n/g, '<br>');
-  content = content.replace(/\t/g, '&emsp;');
-  notifications.push("{\"title\":\"" + title + "\",\"content\":\"" + content + "\"}");
-  parent.savefile(parent.setting.userdata + "Notifications/notifications.txt", notifications, 1, "t=txt");
-  refreshNotifications()
+function sendNotification(content) {
+  if(!content.time) {
+    content.time = new Date();
+  }
+  notifications.push(content);
+  refreshNotifications();
+  parent.savefile(notificationFilePath, JSON.stringify(notifications), 1, "t=txt");
+  // Example:
+  // sendNotification({
+  //   "title": "test",
+  //   "content": "test",
+  //   "sender": "test",
+  //   "type": "warning"
+  // });
 }
 
-
-function remove_notification(which) {
+function removeNotification(which) {
   notifications.splice(which, 1);
-  parent.savefile(parent.setting.userdata + "Notifications/notifications.txt", notifications, 1, "t=txt");
-  refreshNotifications()
+  refreshNotifications();
+  parent.savefile(notificationFilePath, JSON.stringify(notifications), 1, "t=txt");
 }
 
-
-if (typeof window.parent.attr == "object") {
-  send_notification(parent.attr.title, parent.attr.content);
+function updateNotificationWindow() {
+  if(document.body.offsetHeight + "px" != notificationWindow.style.height) {
+    notificationWindow.style.bottom = "0";
+    notificationWindow.style.right = "0";
+    notificationWindow.style.top = "";
+    notificationWindow.style.left = "";
+    notificationWindow.style.width = "30%";
+    notificationWindow.style.height = "100%";
+    // notificationWindow.style.height = document.body.offsetHeight + "px";
+    // notificationWindow.style.maxHeight = "calc(100vh - 35px)";
+    // notificationWindow.getElementsByClassName("proframe")[0].style.height = document.body.offsetHeight + "px";
+    // notificationWindow.getElementsByClassName("proframe")[0].style.maxHeight = "100%";
+  }
 }
 
 function refreshNotifications() {
-
-  objects.notifications.innerHTML = "";
-  for (i = 0; i < notifications.length; i++) {
-
-    var thisnotification = parent.ifjsonparse(notifications[i]);
-    if (thisnotification.title == "dummy" && thisnotification.content == "dummy") {
-      continue;
+  notificationContainer.innerHTML = "";
+    for(let myNotification of notifications) {
+        let notificationElement = document.createElement("div");
+        notificationElement.className = "a_notificaton";
+        notificationElement.innerHTML = `
+        <h3>${myNotification.title}</h3>
+        <button class="rm_not" onclick="removeNotification(${notifications.indexOf(myNotification)})">x</button>
+        <p>${myNotification.content}</p>
+        <p class="meta">${myNotification.time}</p>
+        `;
+        console.log(myNotification);
+        if(myNotification.sender && parent.program[myNotification.sender]) {
+          notificationElement.innerHTML = `
+          <img src="${parent.program[myNotification.sender].icon}" class="notification_icon" ondblclick="parent.run('${myNotification.sender}')">
+        ` + notificationElement.innerHTML;
+        }
+        notificationContainer.appendChild(notificationElement);
     }
+}
 
-    objects.notifications.innerHTML += "<div class='a_notificaton'><h3>" + thisnotification.title + "</h3><button class='rm_not' onclick='remove_notification(" + i + ")'>x</button><p>" + thisnotification.content + "</p></div>";
-  }
+refreshNotifications();
+updateNotificationWindow();
 
-  if (notifications.length <= 1) {
-    parent.document.getElementsByClassName("notifications")[0].parentElement.style.width = "220px";
-    parent.document.getElementsByClassName("notifications")[0].parentElement.style.right = "-200px";
-    parent.document.getElementsByClassName("notifications")[0].parentElement.style.minWidth = "0";
-  } else {
-    parent.document.getElementsByClassName("notifications")[0].parentElement.style.width = "25%";
-    parent.document.getElementsByClassName("notifications")[0].parentElement.style.right = "0";
-    parent.document.getElementsByClassName("notifications")[0].parentElement.style.minWidth = "250px";
+
+setInterval(updateNotificationWindow, 100);
+
+function init() {
+  notifications = JSON.parse(parent.loadfile(notificationFilePath, 0));
+
+  if(parent.document.getElementById("taskbarrighticons")) {
+    if(!parent.document.getElementById("notifications")) {
+      let notificationIcon = document.createElement("a");
+      notificationIcon.id = "notifications";
+      notificationIcon.className = "notifications has_hover";
+      notificationIcon.style.height = "100%";
+      notificationIcon.addEventListener("click", function() {
+        console.log();
+        toggleNotificationWindow();
+      });
+      notificationIcon.innerHTML = "<img src='iofs:C:/Program Files/notifications/icon.png' class='icon'>";
+      parent.document.getElementById("taskbarrighticons").appendChild(notificationIcon);
+    }
   }
 }
 
 
-parent.document.getElementsByClassName("notifications")[0].parentElement.classList.remove('maximized');
-parent.document.getElementsByClassName("notifications")[0].parentElement.style.transition = "0s";
-parent.document.getElementsByClassName("notifications")[0].parentElement.style.width = "0";
-parent.document.getElementsByClassName("notifications")[0].parentElement.style.height = "50%";
-parent.document.getElementsByClassName("notifications")[0].parentElement.style.backgroundColor = "transparent";
-parent.document.getElementsByClassName("notifications")[0].parentElement.style.bottom = "25%";
-parent.document.getElementsByClassName("notifications")[0].parentElement.style.right = "-30%";
-parent.document.getElementsByClassName("notifications")[0].parentElement.style.top = "auto";
-parent.document.getElementsByClassName("notifications")[0].parentElement.style.left = "auto";
-parent.document.getElementsByClassName("notifications")[0].parentElement.style.overflow = "hidden";
-parent.document.getElementsByClassName("notifications")[0].style.height = "100%";
 
+function toggleNotificationWindow() {
+  parent.setWindowMinimized(parent.getWindowsByName("notifications")[0].parentElement);
+}
 
-setTimeout(function() {
-  parent.document.getElementsByClassName("notifications")[0].parentElement.style.transition = "1.5s";
-  parent.document.getElementsByClassName("notifications")[0].parentElement.style.right = "0";
-  parent.document.getElementsByClassName("notifications")[0].parentElement.style.width = "30%";
-  refreshNotifications();
-}, 500);
+function installer() {
+  if(!parent.isfolder(programPath) || !parent.isfile(notificationFilePath)) {
+    parent.savefile(programPath, "", 0, "t=dir");
+    parent.savefile(notificationFilePath, "[{}]", 1, "t=txt");
+    sendNotification({
+      "title": "test",
+      "content": "blablabla. <br>lfköadjlkjfödaslkj",
+      "sender": "test",
+      "time": "2022-01-01 00:00:00",
+      "type": "warning"
+    });
+  }
+}
 
-
-document.documentElement.style.setProperty("--font", parent.setting.font);
-
-// if (parent.loadfile(parent.setting.userdata + "Notifications/notify_changelog.dat") !== "") {
-//   send_notification("Changes to MainOS - What's new:", parent.loadfile(parent.loadfile(parent.setting.userdata + "Notifications/notify_changelog.dat")));
-//   parent.savefile(parent.setting.userdata + "Notifications/notify_changelog.dat", "", 1, "t=txt");
-// }

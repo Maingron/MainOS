@@ -439,7 +439,8 @@ body.big_buttons { // Big Buttons
 
   #taskbarright {
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    flex-direction: row;
     right: 0;
     top: 0;
     height: 100%;
@@ -449,6 +450,13 @@ body.big_buttons { // Big Buttons
     max-width: 28%;
     color: #fff;
     min-width: 100px;
+
+    #taskbarrighticons {
+      display: inline;
+      a {
+        display: inline-block;
+      }
+    }
 
     img {
       height: 30px;
