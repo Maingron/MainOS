@@ -2,6 +2,7 @@ var data = {};
 data.system = {};
 data.system.mouse = {};
 
+const docroot = window.top.location.pathname;
 if(ismainos != 1 && parent.ismainos == 1) {
     var setting = window.parent.setting; // Get setting variable from MainOS and make it available the same way as in MainOS itself
     data.mypid = (window.parent.pid.length - 1); // Set process ID
