@@ -43,6 +43,7 @@ if(ismainos != 1 && parent.ismainos == 1) {
 var ismainos;
 
 document.documentElement.style.setProperty("--themecolor", setting.themecolor);
+document.documentElement.style.setProperty("--themecolor2", setting.themecolor2);
 document.documentElement.style.setProperty("--font", setting.font);
 document.documentElement.style.setProperty("--border-radius", setting.borderradius);
 document.documentElement.style.setProperty("--hovercolor", setting.hovercolor);
