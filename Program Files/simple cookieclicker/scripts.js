@@ -1,6 +1,8 @@
-var cookies = 0;
-var machines = [];
-var objects = {};
+let cookies = 0;
+let machines = [];
+let objects = {};
+let cps = 0;
+const storagePath = "C:/Program Files/Simple Cookieclicker/";
 
 // Translations
 if(parent.setting.language == "de") { // German
@@ -53,80 +55,87 @@ const machineList = [
 ];
 
 function generateStoreItem(a) {
-  var result = "";
-  result += "<button onclick='buy("+(a+1)+")'><b>";
-  result += machineList[a][0];
-  result += "</b><br>";
-  result += lang.Price + ": " + machineList[a][1];
-  result += "<br>";
-  result += lang.CpS + ": " + machineList[a][2];
-  result += "</button>";
+  var result = `
+  <button onclick="buy(${a+1})">
+  <b>${machineList[a][0]}</b>
+  <br>
+  ${lang.price}: ${machineList[a][1]}
+  <br>
+  ${lang.CpS}: ${machineList[a][2]}
+  </button>
+  `;
   return result;
 }
 
 
-for(var i = 0; machineList.length > i; i++) {
+for(let i = 0; machineList.length > i; i++) {
   document.getElementById("storenav").innerHTML += generateStoreItem(i);
 }
 
 
-if(!isfolder("C:/Program Files/Simple Cookieclicker/")) {
-  savedir("C:/Program Files/Simple Cookieclicker/");
-}
+install();
 
-
-if (isfile("C:/Program Files/Simple Cookieclicker/cookies.txt")) {
-  cookies = +loadfile("C:/Program Files/Simple Cookieclicker/cookies.txt");
-} else {
-  savefile("C:/Program Files/Simple Cookieclicker/cookies.txt", cookies, 1);
-}
-
-if (!isfile("C:/Program Files/Simple Cookieclicker/machines.txt")) {
-  init();
-}
-
-function init() {
-  for(var k = 0; machineList.length > k; k++) {
-    console.log(k);
-    machines[k] = 0;
-  }
-  savefile("C:/Program Files/Simple Cookieclicker/machines.txt", JSON.stringify(machines), 1);
-}
-
-machines = loadfile("C:/Program Files/Simple Cookieclicker/machines.txt"); // Load file
+machines = loadfile(storagePath+"machines.txt"); // Load file
 machines = JSON.parse(machines); // Convert file into JSON / Array
 
 
 objects.cookiecount = document.getElementsByClassName("cookiecount")[0];
-objects.cookiecount.innerHTML = cookies;
+updateCookieCounter();
 
 
 function clicked() {
   cookies++;
-  objects.cookiecount.innerHTML = cookies;
+  updateCookieCounter();
 }
 
 setInterval(function () {
-  savefile("C:/Program Files/Simple Cookieclicker/cookies.txt", cookies, 1);
+  savefile(storagePath+"cookies.txt", cookies, 1);
 }, 1000);
 
 
 // Automatic cookies
 setInterval(function () {
-  for(var j = 0; machines.length > j; j++) {
+  for(let j = 0; machines.length > j; j++) {
     cookies += +machines[j] * +machineList[j][2];
   }
-  objects.cookiecount.innerHTML = cookies;
+  updateCookieCounter();
 }, 1000);
+
 
 
 function buy(which) { // Buy automatic cookies
   if(cookies >= machineList[which - 1][1]) {
     cookies -= machineList[which - 1][1];
-    machines[which - 1] +=  1;
+    machines[which - 1] += 1;
   }
-
-  objects.cookiecount.innerHTML = cookies;
-  savefile("C:/Program Files/Simple Cookieclicker/machines.txt", JSON.stringify(machines), 1);
+  updateCookieCounter();
+  savefile(storagePath+"machines.txt", JSON.stringify(machines), 1);
 }
 
+function updateCookieCounter() {
+  cps = 0;
+  for(let j = 0; machines.length > j; j++) {
+    cps += machines[j] * machineList[j][2];
+  }
+  objects.cookiecount.innerHTML = cookies + "<sub>" + cps + "/s</sub>";
+}
+
+function install() {
+  if(!isfolder(storagePath)) {
+    savedir(storagePath);
+  }
+  
+  
+  if (isfile(storagePath+"cookies.txt")) {
+    cookies = +loadfile(storagePath+"cookies.txt");
+  } else {
+    savefile(storagePath+"cookies.txt", cookies, 1);
+  }
+  
+  if (!isfile(storagePath+"machines.txt")) {
+    for(let k = 0; machineList.length > k; k++) {
+      machines[k] = 0;
+    }
+    savefile(storagePath+"machines.txt", JSON.stringify(machines), 1);
+  }
+}
