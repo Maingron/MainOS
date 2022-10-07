@@ -163,6 +163,11 @@
         </div>
 
         <div class="setting">
+          <h3>Force-Upgrade</h3>
+          <button class="settinginput" onclick="parent.savefile('C:/mainos/system32/ExpectedVersionnr.txt', (parent.mainos.version-1),1);parent.window.location.reload()">Upgrade through downgrade</button>
+        </div>
+
+        <div class="setting">
           <h3>Reset MainOS</h3>
           <button class="settinginput" onclick="window.parent.formatfs('yes')">Reset MainOS</button>
         </div>
