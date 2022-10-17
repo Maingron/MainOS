@@ -172,6 +172,8 @@ function run(which, iattr, how) { // Run a program
 
     if (!how) {
         max(getWindowByMagic(mypid), "tomax");
+    } else if(how == "min" || how == "minimized" || how == "minimised" || how == "background") {
+        setWindowMinimized(getWindowByMagic(mypid));
     }
 
 
@@ -195,9 +197,9 @@ function focusWindow(which) {
     which.children[2].focus();
 
 
-    // if(which.classList.contains("minimized")) {
-    //     setWindowMinimized(which, false);
-    // }
+    if(which.classList.contains("minimized")) {
+        setWindowMinimized(which, false);
+    }
 
     unfocusWindow();
 
@@ -330,6 +332,10 @@ function max(which, how) { // Maximize or unmaximize window
     clicking = 0;
     clicked = 1;
 
+    if(which.classList.contains("minimized")) {
+        setWindowMinimized(which, false);
+    }
+
     setTimeout(function() {
         which.style.transition = "0s";
     }, 300);
@@ -424,4 +430,8 @@ function getWindowByMagic(which) {
         }
     }
     return result;
+}
+
+function getProgramByMagic(which) {
+    return program[pid[getWindowByMagic(which).id]].id;
 }

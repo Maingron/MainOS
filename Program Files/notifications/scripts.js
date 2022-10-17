@@ -1,7 +1,14 @@
+const config = {
+  "enableBubble": true
+};
+
 const programPath = parent.setting.userdata + "Notifications/";
 const notificationFilePath = programPath + "notifications.txt";
 const notificationWindow = parent.getWindowByMagic(this);
 const notificationContainer = document.getElementsByClassName("notifications")[0];
+let notificationBubble;
+let notificationIcon = createNotificationIcon();
+
 let notifications = [];
 installer();
 init();
@@ -16,9 +23,11 @@ function sendNotification(content) {
   if(!content.time) {
     content.time = new Date();
   }
+  content.sender = getSender(content.sender); // Get the sender of the notification; We will override any custom value to prevent spoofing
   notifications.push(content);
   refreshNotifications();
   parent.savefile(notificationFilePath, JSON.stringify(notifications), 1, "t=txt");
+  toggleNotificationWindow(true);
   // Example:
   // sendNotification({
   //   "title": "test",
@@ -68,6 +77,14 @@ function refreshNotifications() {
         }
         notificationContainer.appendChild(notificationElement);
     }
+    setNotificationBubble();
+}
+
+function getSender(which) {
+  if(!which) {
+    return "undefined";
+  }
+  return parent.getProgramByMagic(which);
 }
 
 refreshNotifications();
@@ -78,27 +95,70 @@ setInterval(updateNotificationWindow, 100);
 
 function init() {
   notifications = JSON.parse(parent.loadfile(notificationFilePath, 0));
+}
 
+function createNotificationIcon() {
   if(parent.document.getElementById("taskbarrighticons")) {
     if(!parent.document.getElementById("notifications")) {
-      let notificationIcon = document.createElement("a");
-      notificationIcon.id = "notifications";
-      notificationIcon.className = "notifications has_hover";
-      notificationIcon.style.height = "100%";
-      notificationIcon.addEventListener("click", function() {
-        console.log();
+      let notificationIconTemp = document.createElement("a");
+      notificationIconTemp.id = "notifications";
+      notificationIconTemp.className = "notifications has_hover";
+      notificationIconTemp.style.height = "100%";
+      notificationIconTemp.addEventListener("click", function() {
         toggleNotificationWindow();
       });
-      notificationIcon.innerHTML = "<img src='iofs:C:/Program Files/notifications/icon.png' class='icon'>";
-      parent.document.getElementById("taskbarrighticons").appendChild(notificationIcon);
+      notificationIconTemp.innerHTML = "<img src='iofs:C:/Program Files/notifications/icon.png' class='icon'>";
+      parent.document.getElementById("taskbarrighticons").appendChild(notificationIconTemp);
+
+      if(config.enableBubble) {
+        notificationBubble = document.createElement("span");
+        notificationBubble.className = "notification_bubble";
+        notificationBubble.innerHTML = "0";
+        notificationIconTemp.appendChild(notificationBubble);
+      }
+
+
+
+      return notificationIconTemp;
     }
+  }
+
+}
+
+function toggleNotificationWindow(maximize = "undefined") {
+  if(maximize == "undefined") {
+    parent.setWindowMinimized(notificationWindow);
+  } else if(maximize==true) {
+    if(notificationWindow.classList.contains("minimized")) {
+      parent.max(notificationWindow);
+    } else if(!notificationWindow.classList.contains("active")) {
+      parent.focusWindow(notificationWindow);
+    }
+  } else if(maximize==false) {
+    parent.setWindowMinimized(notificationWindow);
+  }
+  if(!notificationWindow.classList.contains("minimized")) {
+      parent.focusWindow(notificationWindow);
   }
 }
 
+function getNotificationCount() {
+  return notifications.length;
+}
 
-
-function toggleNotificationWindow() {
-  parent.setWindowMinimized(parent.getWindowsByName("notifications")[0].parentElement);
+function setNotificationBubble() {
+  notificationBubble.innerHTML = getNotificationCount();
+  notificationBubble.style.top = "0";
+  notificationBubble.style.left = "50%";
+  notificationBubble.style.transform = "translate(-50%, 40%)";
+  notificationBubble.style.position = "absolute";
+  notificationBubble.style.display = "inline";
+  notificationBubble.style.color = "red";
+  notificationBubble.style.lineHeight = "1";
+  notificationBubble.style.fontWeight = "900";
+  if(getNotificationCount() == 0) {
+    notificationBubble.innerHTML = "";
+  }
 }
 
 function installer() {
@@ -115,3 +175,9 @@ function installer() {
   }
 }
 
+function createHook() {
+    const mainos = parent;
+    mainos.sendNotification = sendNotification;
+}
+
+createHook();

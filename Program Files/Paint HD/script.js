@@ -189,7 +189,7 @@ setRenderInterval(20);
 
 function savefile(type) {
     window.parent.savefile(document.getElementById("filename1").value, canvas.toDataURL('image/'+fileformat), 1);
-    parent.notification("Paint2","Saved image as: <a href='#' onclick=\\\"parent.run(\'paint2\','"+document.getElementById("filename1").value + "')\\\">"+document.getElementById("filename1").value+"</a>.");
+    parent.sendNotification({"title": "Image saved", "content": "Saved image as: " + document.getElementById("filename1").value + ".", "type": "success", "sender": this});
 }
 
 var fileformat = "png";

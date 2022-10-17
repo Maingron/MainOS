@@ -208,7 +208,7 @@ function loadProgramMetadata(which) { // Load program metadata from program file
         if(which.autostart) { // TODO: Make it work for external programs
             // Autostart
             (async() => {
-                run(which.id);
+                run(which.id,[],which.autostart);
             })();
         }
 
@@ -404,18 +404,6 @@ if (setting.default_fullscreen == 1) { // Enter fullscreen on start if requested
 
 document.getElementById("background").style.backgroundImage = "url(" + setting.backgroundimage + ")"; // Load Desktop Background
 
-function notification(title, content) { // Send notification
-
-    if (document.getElementsByClassName("notifications")[0] != null) {
-        document.getElementsByClassName("notifications")[0].contentWindow.send_notification(title, content);
-    } else {
-        run("notifications", {
-            "title": title,
-            "content": content
-        });
-    }
-}
-window.alert = notification;
 
 // Check space on disk
 savefile("C:/.diskinfo/size_used.txt", JSON.stringify(localStorage).length / 1000, 1, "t=txt");

@@ -309,7 +309,7 @@ program.notifications = {
  "id": "notifications",
  "title": "notifications",
  "src": "Program%20Files/notifications/exec.html",
- "autostart": 1,
+ "autostart": "minimized",
  "noborder": 1,
  "maxopen": 1,
  "spawnicon": 0

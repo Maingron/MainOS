@@ -17,9 +17,6 @@ if(ismainos != 1 && parent.ismainos == 1) {
     window.listdir = parent.listdir;
     window.getFilename = parent.getFilename;
     
-    // Alerts / Notifications
-    window.alert = alert = parent.notification;
-    
     /* TODO:
     window.close
     window.maximize
