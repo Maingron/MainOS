@@ -18,102 +18,82 @@ function newProcessListEntry(programIdentifier) {
  * @param how defines if program should be launched windowed or maximized
  */
 function run(which, iattr, how) { // Run a program
-    pidmax++;
-    thisprogram = program[which];
-    if (thisprogram.maxopen == "undefined") {
-        thisprogram.maxopen = 100;
+    let myPid = newProcessListEntry(which);
+    let myProgram = program[which];
+    if(!checkMayStillOpen(which)) {
+        processList[myPid] = null;
+        return;
     }
-    var maystillopen = thisprogram.maxopen;
 
-    if (thisprogram.maxopen < 100) {
-        for (i = 0; i < pid.length; i++) {
-            if (pid[i] == which) {
-                maystillopen--;
-            }
-            if (maystillopen <= 0) {
-                return;
-            }
+    let newWindow = document.createElement("div");
+    newWindow.classList.add("program");
+    newWindow.id = myPid;
+    if(myProgram.noborder) {
+        newWindow.classList.add("noborder");
+    }
+
+    objects.programs.appendChild(newWindow);
+
+    let myWindow = newWindow;
+
+    if(!myProgram.icon) {myProgram.icon = "#iofs:C:/mainos/system32/icons/transparent.png"}; // Set default icon
+
+    myWindow.innerHTML = `
+    <div class="headbar">
+        <img class="progicon" src="${myProgram.icon}" alt="${myProgram.title}">
+        <p class="progtitle">${myProgram.title}</p>
+        <button class="max has_hover" onclick="focusWindow(getWindowByMagic(this)); max(getWindowByMagic(this))" href="#" title="(Un-)Maximize">⎚</button>
+        <button class="close has_hover" onclick="unrun(getWindowByMagic(this))" href="#" title="Close"><b>x</b></button>
+        <button class="minimize" onclick="setWindowMinimized(getWindowByMagic(this))">-</button>
+        <button class="fullscreen has_hover" onclick="windowFullscreen(getWindowByMagic(this))" href="#" title="Toggle Fullscreen">
+            <img src="${loadfile("C:/mainos/system32/icons/fullscreen.svg")}" alt="">
+        </button>
+        <div class="drag"></div>
+    </div>
+    <div class="resizers">
+        <div class="resizer2"></div>
+    </div>
+    <iframe class="proframe ${myProgram.id}" src="about:blank" pid="${myPid}" async>${myProgram.src}</iframe>
+    `;
+
+    myWindow.frame = myWindow.children[2];
+    myWindow.drag = myWindow.children[0].getElementsByClassName("drag")[0];
+    myWindow.resizer2 = myWindow.getElementsByClassName("resizer2")[0];
+
+    if(myProgram.sandbox) {
+        myWindow.classList.add("sandbox");
+        if(myProgram.sandbox == 1) {
+            myWindow.classList.add("sandbox_l1");
+            myWindow.frame.sandbox = "allow-scripts allow-forms allow-pointer-lock allow-same-origin"
+        }
+        if(myProgram.sandbox == 1) {
+            myWindow.classList.add("sandbox_l2");
+            myWindow.frame.sandbox = "allow-scripts allow-forms";
         }
     }
 
-    pid[pidmax] = which;
 
-    var spawnprog;
-
-    if (thisprogram.noborder != 1) {
-        spawnprog = document.createElement("div");
-        spawnprog.classList.add("program");
-        spawnprog.id = pidmax;
-        objects.programs.appendChild(spawnprog);
-    } else {
-        spawnprog = document.createElement("div");
-        spawnprog.classList.add("program");
-        spawnprog.classList.add("noborder");
-        spawnprog.id = pidmax;
-        if (thisprogram.isstartmenu) {
-            spawnprog.classList.add("explorer_start");
-        }
-        objects.programs.appendChild(spawnprog);
-    }
-
-    var mypid = document.getElementById(pidmax);
-
-    if(!thisprogram.icon) { // Add fallback image to avoid errors
-        thisprogram.icon = "iofs:C:/mainos/system32/icons/transparent.png";
-    }
-
-        mypid.innerHTML = `
-        <div class="headbar">
-            <img class="progicon" src="${thisprogram.icon}" alt="${thisprogram.title}">
-            <p class="progtitle">${thisprogram.title}</p>
-            <button class="max has_hover" onclick="focusWindow(getWindowByMagic(this)); max(getWindowByMagic(this))" href="#" title="(Un-)Maximize">⎚</button>
-            <button class="close has_hover" onclick="unrun(getWindowByMagic(this))" href="#" title="Close"><b>x</b></button>
-            <button class="minimize" onclick="setWindowMinimized(getWindowByMagic(this))">-</button>
-            <button class="fullscreen has_hover" onclick="windowFullscreen(getWindowByMagic(this))" href="#" title="Toggle Fullscreen">
-                <img src="${loadfile("C:/mainos/system32/icons/fullscreen.svg")}" alt="">
-            </button>
-            <div class="drag"></div>
-        </div>
-        <div class="resizers">
-            <div class="resizer2"></div>
-        </div>
-        <iframe class="proframe ${thisprogram.id}" src="about:blank" async>${thisprogram.src}</iframe>
-        `;
-
-    if (thisprogram.sandbox == 1) {
-        mypid.classList.add("sandbox");
-        mypid.classList.add("sandbox_l1");
-        mypid.children[2].sandbox = "allow-scripts allow-forms allow-pointer-lock allow-same-origin";
-    }
-    if (thisprogram.sandbox == 2) {
-        mypid.classList.add("sandbox");
-        mypid.classList.add("sandbox_l2");
-        mypid.children[2].sandbox = "allow-scripts allow-forms";
-    }
-
-
-
-    mypid.children[0].getElementsByClassName("drag")[0].addEventListener("mousemove", function(event) {
-        if(clicking == 1 && !mypid.classList.contains("maximized")) {
+    myWindow.drag.addEventListener("mousemove", function(event) {
+        if(clicking == 1 && !myWindow.classList.contains("maximized")) {
             overlayDragBar(this, true);
-            dragWindow(getWindowByMagic(mypid), pos.mouse.x , pos.mouse.y, (mypid.offsetLeft + event.clientX), (mypid.offsetTop + event.clientY));
+            dragWindow(getWindowByMagic(myWindow), pos.mouse.x , pos.mouse.y, (myWindow.offsetLeft + event.clientX), (myWindow.offsetTop + event.clientY));
         } else {
             overlayDragBar(this, false);
         }
     });
 
-    mypid.getElementsByClassName("resizer2")[0].addEventListener("mousemove", function(event) {
+    myWindow.resizer2.addEventListener("mousemove", function(event) {
         if(clicking == 1) {
             overlayResizer(this, true);
-            resizeWindow(getWindowByMagic(mypid), event.clientX - mypid.offsetLeft, event.clientY - mypid.offsetTop);
+            resizeWindow(getWindowByMagic(myWindow), event.clientX - myWindow.offsetLeft, event.clientY - myWindow.offsetTop);
         } else {
             overlayResizer(this, false);
         }
     });
 
-    mypid.children[0].getElementsByClassName("drag")[0].addEventListener("mousedown", function() {
+    myWindow.drag.addEventListener("mousedown", function() {
         clicking = 1;
-        focusWindow(getWindowByMagic(mypid));
+        focusWindow(getWindowByMagic(myWindow));
         overlayDragBar(this, true);
         this.addEventListener("mouseup", function() {
             clicking = 0;
@@ -121,9 +101,9 @@ function run(which, iattr, how) { // Run a program
         }, {"once": true})
     });
 
-    mypid.getElementsByClassName("resizer2")[0].addEventListener("mousedown", function() {
+    myWindow.resizer2.addEventListener("mousedown", function() {
         clicking = 1;
-        focusWindow(getWindowByMagic(mypid));
+        focusWindow(getWindowByMagic(myWindow));
         overlayResizer(this, true);
         this.addEventListener("mouseup", function() {
             clicking = 0;
@@ -131,29 +111,27 @@ function run(which, iattr, how) { // Run a program
         }, {"once": true})
     });
 
-
-
-    mypid.children[0].getElementsByClassName("drag")[0].addEventListener("touchmove", function(event) {
-        if(clicking == 1 && !mypid.classList.contains("maximized")) {
+    myWindow.drag.addEventListener("touchmove", function(event) {
+        if(clicking == 1 && !myWindow.classList.contains("maximized")) {
             overlayDragBar(this, true);
-            dragWindow(getWindowByMagic(mypid), pos.mouse.x , pos.mouse.y, (mypid.offsetLeft + event.targetTouches[0].clientX), (mypid.offsetTop + event.targetTouches[0].clientY));
+            dragWindow(getWindowByMagic(myWindow), pos.mouse.x , pos.mouse.y, (myWindow.offsetLeft + event.targetTouches[0].clientX), (myWindow.offsetTop + event.targetTouches[0].clientY));
         } else {
             overlayDragBar(this, false);
         }
     });
 
-    mypid.getElementsByClassName("resizer2")[0].addEventListener("touchmove", function(event) {
+    myWindow.resizer2.addEventListener("touchmove", function(event) {
         if(clicking == 1) {
             overlayResizer(this, true);
-            resizeWindow(getWindowByMagic(mypid), event.targetTouches[0].clientX - mypid.offsetLeft, event.targetTouches[0].clientY - mypid.offsetTop);
+            resizeWindow(getWindowByMagic(myWindow), event.targetTouches[0].clientX - myWindow.offsetLeft, event.targetTouches[0].clientY - myWindow.offsetTop);
         } else {
             overlayResizer(this, false);
         }
     });
 
-    mypid.children[0].getElementsByClassName("drag")[0].addEventListener("touchstart", function() {
+    myWindow.drag.addEventListener("touchstart", function() {
         clicking = 1;
-        focusWindow(getWindowByMagic(mypid));
+        focusWindow(getWindowByMagic(myWindow));
         overlayDragBar(this, true);
         this.addEventListener("touchend", function() {
             clicking = 0;
@@ -161,9 +139,9 @@ function run(which, iattr, how) { // Run a program
         }, {"once": true})
     });
 
-    mypid.getElementsByClassName("resizer2")[0].addEventListener("touchstart", function() {
+    myWindow.resizer2.addEventListener("touchstart", function() {
         clicking = 1;
-        focusWindow(getWindowByMagic(mypid));
+        focusWindow(getWindowByMagic(myWindow));
         this.addEventListener("touchend", function() {
             clicking = 0;
             overlayResizer(this, false);
@@ -171,34 +149,81 @@ function run(which, iattr, how) { // Run a program
     });
 
 
-    mypid.children[0].getElementsByClassName("drag")[0].addEventListener("dblclick", function() {
-        focusWindow(getWindowByMagic(mypid));
+    myWindow.drag.addEventListener("dblclick", function() {
+        focusWindow(getWindowByMagic(myWindow));
         max(getWindowByMagic(this));
     });
 
 
     // Display once we're done
-    mypid.style = "display:inline";
-    mypid.style.opacity = "1";
-    mypid.style.display = "inline";
-    mypid.children[2].src = mypid.children[2].innerHTML;
+    myWindow.style = "display:inline";
+    myWindow.style.opacity = "1";
+    myWindow.style.display = "inline";
+
+
+    myWindow.frame.src = myWindow.frame.innerHTML;
+    myWindow.frame.pid = myPid;
+    
+    // pass pid to iframe
+    
 
     if (!how) {
-        max(getWindowByMagic(mypid), "tomax");
+        max(getWindowByMagic(myWindow), "tomax");
     } else if(how == "min" || how == "minimized" || how == "minimised" || how == "background") {
-        setWindowMinimized(getWindowByMagic(mypid));
+        setWindowMinimized(getWindowByMagic(myWindow));
     }
 
+    attr = iattr; // Will get used to pass arguments to programs when starting them // Deprecated - use getProgramArgs(this) instead
 
-    attr = iattr; // Will get used to pass arguments to programs when starting them
+    myWindow.frame.data = {};
+    myWindow.frame.data.mypid = myPid;
+    myWindow.frame.contentWindow.pid = myPid;
+    myWindow.frame.contentWindow.os = myWindow.frame.contentWindow.mainos = this.window;
 
-    mypid.children[2].contentWindow.window.alert = notification;
-    mypid.children[2].contentWindow.alert = notification;
-    mypid.children[2].contentWindow.document.documentElement.style.setProperty("--font", setting.font);
+    myWindow.frame.contentWindow.osWindow = {
+        "pid": myPid,
+        "attributes": iattr,
+        "programObject": myProgram,
+        "path": {
+            "folderOfExecutable": myProgram.src.split("/").slice(0, -1).join("/"),
+            "executable": myProgram.src,
+            "folder": path.programFiles + myProgram.id + "/",
+            "data": path.appdata + myProgram.id + "/",
+        },
+        "os": this.window,
+        "mainos": this.window
+    };
+
+
+    // myWindow.frame.contentWindow.window.alert = notification;
+    // myWindow.frame.contentWindow.alert = notification;
+    myWindow.frame.contentWindow.document.documentElement.style.setProperty("--font", setting.font);
 
     refreshTaskList();
-    focusWindow(getWindowById(mypid.id));
+    focusWindow(getWindowById(myWindow.id));
+
+
+    function checkMayStillOpen(programIdentifier) {
+        let myProgram = program[programIdentifier];
+        if(!myProgram.maxopen) {
+            return true; // No limit
+        }
+        let stillOpenable = myProgram.maxopen + 1;
+    
+        for(let processListEntry of getProcessList()) {
+            if(processListEntry == programIdentifier) {
+                stillOpenable--;
+            }
+        }
+    
+        if(stillOpenable > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
+
 
 /**
  * focusses a window
@@ -305,7 +330,7 @@ function unrun(which) { // Unrun / close a program
         which.style.display = "none";
         which.children[2].src = "about:blank";
         which.outerHTML = "";
-        pid[Number(which.id)] = "";
+        processList[+which.id] = null;
         refreshTaskList();
 
     }, 250);
@@ -438,8 +463,8 @@ function getWindowByMagic(which) {
         result = getWindowByChildElement(which);
     }
     if(result == undefined || result == null || result == "") {
-        if(which?.data?.mypid) {
-            result = getWindowById(which.data.mypid);
+        if(which?.osWindow?.pid) {
+            result = getWindowById(which.osWindow.pid);
         }
     }
     return result;
