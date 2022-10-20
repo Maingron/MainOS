@@ -1,3 +1,16 @@
+function getProcessList() {
+    return(processList);
+}
+
+function newProcessListEntry(programIdentifier) {
+    if(!processList.length>0) {
+        processList.push(null);
+    }
+    processList.push(programIdentifier);
+    pidmax = processList.length - 1;
+    return(pidmax);
+}
+
 /**
  * Runs a program
  * @param {string} which program identifier
