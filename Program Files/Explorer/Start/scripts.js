@@ -1,19 +1,20 @@
+const startMenuWindow = os.getWindowById(osWindow.pid);
 function run(which) {
-    parent.run(which);
+    os.run(which);
     close_startmenu();
 }
 
 function close_startmenu() {
-    parent.unrun(parent.getWindowByMagic(this));
+    os.unrun(startMenuWindow);
 }
 
 // Spawn icons in all-programs list
 
-var programsinfolder = listdir("C:/users/" + parent.setting.username + "/programs/");
-var allProgramsContainer = document.getElementById("allprograms");
+const programsinfolder = os.listdir(os.path.user + "programs/");
+const allProgramsContainer = document.getElementById("allprograms");
 
 programsinfolder.forEach((item, index) => {
-    var myCurrentProgram = JSON.parse(loadfile(item));
+    let myCurrentProgram = JSON.parse(loadfile(item));
 
     if(myCurrentProgram.spawnicon == !1) {
         return;
@@ -27,9 +28,9 @@ programsinfolder.forEach((item, index) => {
         return;
     } // else:
 
-    var myNewChildNode1 = document.createElement("a");
-    var myNewChildNode2 = document.createElement("img");
-    var myNewChildNode3 = document.createElement("span");
+    let myNewChildNode1 = document.createElement("a");
+    let myNewChildNode2 = document.createElement("img");
+    let myNewChildNode3 = document.createElement("span");
 
     myNewChildNode1.setAttribute("onclick", "run('" + myCurrentProgram.id + "')");
     myNewChildNode1.setAttribute("href", "#");
@@ -47,10 +48,28 @@ programsinfolder.forEach((item, index) => {
 
 
 // Set username- and icon
-document.getElementById("usericon").src = "iofs:C:/mainos/system32/icons/usericons/flower.png";
+document.getElementById("usericon").src = "#iofs:" + os.path.sysicons + "usericons/flower.png";
 
 window.addEventListener("keydown", function (event) {
     if(event.key.toLowerCase == "escape" || event.which == 27 ) {
         close_startmenu();
     }
 });
+
+function register() {
+    if(os?.document.getElementById("taskbar")) {
+        if(!os.document.getElementById("start")) {
+            let startButton = document.createElement("button");
+            startButton.id = "start";
+            startButton.className = "has_hover";
+            startButton.setAttribute("onclick", "run('explorer_start')");
+            startButton.innerHTML = `
+                <img src="#iofs:${os.path.sysicons}logo.svg" alt="Start">
+            `;
+            os.document.getElementById("taskbar").prepend(startButton);
+            close_startmenu(); // Close startmenu after registering
+        }
+    }
+}
+
+register();

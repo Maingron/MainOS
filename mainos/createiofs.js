@@ -298,6 +298,7 @@ program.explorer_start = {
  "noborder": 1,
  "isstartmenu": 1,
  "spawnicon": 0,
+ "autostart": "minimized",
  "maxopen": 1
 }
 

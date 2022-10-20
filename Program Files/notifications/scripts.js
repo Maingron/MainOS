@@ -2,9 +2,8 @@ const config = {
   "enableBubble": true
 };
 
-const programPath = parent.setting.userdata + "Notifications/";
-const notificationFilePath = programPath + "notifications.txt";
-const notificationWindow = parent.getWindowByMagic(this);
+const notificationFilePath = osWindow.path.data + "notifications.txt";
+const notificationWindow = os.getWindowByMagic(this);
 const notificationContainer = document.getElementsByClassName("notifications")[0];
 let notificationBubble;
 let notificationIcon = createNotificationIcon();
@@ -23,6 +22,7 @@ function sendNotification(content) {
   if(!content.time) {
     content.time = new Date();
   }
+  content.time = content.time.toLocaleString();
   content.sender = getSender(content.sender); // Get the sender of the notification; We will override any custom value to prevent spoofing
   notifications.push(content);
   refreshNotifications();
@@ -69,7 +69,6 @@ function refreshNotifications() {
         <p>${myNotification.content}</p>
         <p class="meta">${myNotification.time}</p>
         `;
-        console.log(myNotification);
         if(myNotification.sender && parent.program[myNotification.sender]) {
           notificationElement.innerHTML = `
           <img src="${parent.program[myNotification.sender].icon}" class="notification_icon" ondblclick="parent.run('${myNotification.sender}')">
@@ -84,7 +83,7 @@ function getSender(which) {
   if(!which) {
     return "undefined";
   }
-  return parent.getProgramByMagic(which);
+  return os.getProgramByMagic(which);
 }
 
 refreshNotifications();
@@ -162,22 +161,21 @@ function setNotificationBubble() {
 }
 
 function installer() {
-  if(!parent.isfolder(programPath) || !parent.isfile(notificationFilePath)) {
-    parent.savefile(programPath, "", 0, "t=dir");
+  if(!parent.isfolder(osWindow.path.data) || !parent.isfile(notificationFilePath)) {
+    parent.savefile(osWindow.path.data, "", 0, "t=dir");
     parent.savefile(notificationFilePath, "[{}]", 1, "t=txt");
     sendNotification({
-      "title": "test",
-      "content": "blablabla. <br>lfköadjlkjfödaslkj",
-      "sender": "test",
-      "time": "2022-01-01 00:00:00",
-      "type": "warning"
+      "title": "Notifications initialized",
+      "content": "The notifications app has been successfully initialized.",
+      "sender": this,
+      "time": new Date(),
+      "type": "success"
     });
   }
 }
 
 function createHook() {
-    const mainos = parent;
-    mainos.sendNotification = sendNotification;
+    os.sendNotification = sendNotification;
 }
 
 createHook();

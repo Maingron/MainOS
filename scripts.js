@@ -7,9 +7,11 @@ var register = [];
 var timer1;
 var program = {};
 var clicked1 = 0;
-var pid = [];
-var pidmax = 10;
+var processList = pid = [];
+var pidmax = 0;
 const documentRoot = location.pathname;
+
+loadsettings();
 
 var path = {
     "system": "C:/mainos/",
@@ -102,12 +104,11 @@ function loadsettings() {
         document.getElementById("start").children[0].style.color = "#000";
     }
 
-    objects.taskbarlanguage.innerHTML = setting.language; // Show language in taskbar
-
     setDocumentMeta();
 }
 
-loadsettings();
+
+objects.taskbarlanguage.innerHTML = setting.language; // Show language in taskbar
 
 program = JSON.parse(loadfile("C:/mainos/programs.dat"));
 
