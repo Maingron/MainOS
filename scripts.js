@@ -9,6 +9,17 @@ var program = {};
 var clicked1 = 0;
 var pid = [];
 var pidmax = 10;
+const documentRoot = location.pathname;
+
+var path = {
+    "system": "C:/mainos/",
+    "sysicons": "C:/mainos/system32/icons/",
+    "user": "C:/users/User/",
+    "programFiles": "C:/Program Files/",
+    "appdata": "C:/users/"+setting.username+"/appdata/"
+}
+var appdata = path.appdata; // deprecated
+
 
 var clicking = 0;
 var clicked = 0;

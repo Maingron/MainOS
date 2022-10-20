@@ -10,8 +10,8 @@ mainos.repository = "https://maingron.com/projects/MainOS/server/repository.json
 mainos.creator = "Maingron";
 mainos.copyright = "Maingron 2018 - 2022";
 
+
 var ismainos = 1;
-var appdata = "C:/Documents and Settings/appdata";
 var setting = {};
 
 
@@ -239,6 +239,7 @@ function formatfs(sure, reload = true) { // Todo: Update
       Object.freeze(setting = undefined);
       Object.freeze(program = undefined);
       Object.freeze(appdata = undefined);
+      Object.freeze(path = undefined);
     }
   }
 }

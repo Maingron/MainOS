@@ -61,10 +61,10 @@ savedir("C:/Program Files/");
 savedir("C:/mainos/system32/settings/");
 savefile("C:/mainos/system32/settings/username.txt", "User", 1, "t=txt");
 setting.username = loadfile("C:/mainos/system32/settings/username.txt");
-if (setting.username != "User") {
-    savefile("C:/mainos/system32/settings/username.txt", "User", 0, "t=txt");
-    setting.username = "User";
-}
+// if (setting.username != "User") {
+//     savefile("C:/mainos/system32/settings/username.txt", "User", 0, "t=txt");
+//     setting.username = "User";
+// }
 
 savedir("C:/users/default/");
 
@@ -99,6 +99,7 @@ savefile("C:/users/" + setting.username + "/settings/language.txt", initLang, 0,
 
 
 savedir("C:/users/" + setting.username + "/Program Data/");
+savedir("C:/users/" + setting.username + "/appdata/");
 
 savefile("C:/Documents and Settings/wallpapers.txt", "Links to wallpapers to use as background image for MainOS\n\nWallpapers made by Michael Gillett (https://twitter.com/MichaelGillett):\n https://maingron.com/things/wp/michael_gillett/fluent.jpg\n https://maingron.com/things/wp/michael_gillett/andromeda.jpg\n https://maingron.com/things/wp/michael_gillett/bliss-night.jpg\n https://maingron.com/things/wp/michael_gillett/clippy-x-rex.jpg (modified by Maingron)\n https://maingron.com/things/wp/michael_gillett/polaris.jpg", 0, "t=txt");
 
