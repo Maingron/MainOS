@@ -1,5 +1,4 @@
 body {
-    background:#000;
     padding:0;
     margin:0;
     overflow:hidden;
@@ -7,6 +6,7 @@ body {
     font-size:14em;
     font-family:var(--font), Tahoma, sans-serif;
     color:var(--themecolor);
+    background-color:#77777766;
 }
 
 body.hide .player,
@@ -14,62 +14,46 @@ body.hide .berry {
     opacity: 0 !important;
 }
 
+body.isAutomatic {
+    font-size: 8em;
+}
+
+body.isAutomatic .player,
+body.isAutomatic .berry,
+body.isAutomatic .counter {
+    display: inline-block;
+}
+
 * {
     transition:0s;
 }
 
 div {
-    filter:drop-shadow(0 0 1.5px #fff);
+    filter:drop-shadow(0 0 1px #fff);
 }
 
 #field {
-    min-height:200px;
-    min-width:200px;
+    min-height:120px;
+    min-width:160px;
     position:absolute;
     display:inline;
-    top:10vh;
-    left:10vw;
-    height:80vh;
-    width:80vw;
-    border:4px solid #fff;
+    top:5px;
+    left:5px;
+    height:calc(100vh - 10px);
+    width:calc(100vw - 10px);
+    border:1px solid #fff;
     overflow:hidden;
+    box-sizing: border-box;
+    border-radius: var(--border-radius);
+    background: #000;
 }
 
-#player1 {
-    background-color: var(--themecolor);
-    display:inline;
+#player0, #berry0, #counter0 {
+    display: inline;
+    --playercolor: var(--themecolor) !important;
 }
 
-#berry1 {
-    border-color: var(--themecolor);
-    display:inline;
-}
-
-#player2 {
-    background-color: #fff;
-}
-
-#berry2 {
-    border-color: #fff;
-}
-
-#player3 {
-    background-color: lime;
-}
-
-#berry3 {
-    border-color: lime;
-}
-
-#player4 {
-    background-color: #ff0;
-}
-
-#berry4 {
-    border-color: #ff0;
-}
-
-#score {
+#counterDiv {
     display:block;
     height:100%;
     width:100%;
@@ -79,26 +63,35 @@ div {
     margin:0;
 }
 
-.player {
-    position:absolute;
-    top:0px;
-    left:0px;
-    height:40px;
-    width:40px;
-    border-radius:50%;
-    background-color:transparent;
-    border:4px solid transparent;
+.counter {
+    height: auto;
+    width: auto;
+    position: relative;
+    top: 0;
+    margin: 0 auto;
+    padding: 0 0.15em;
+    color: var(--playercolor);
     display:none;
 }
 
+.player {
+    top:0;
+    left:0;
+    background-color: var(--playercolor);
+    border:4px solid transparent;
+}
+
 .berry {
-    position:absolute;
     top:40px;
     left:40px;
-    height:40px;
-    width:40px;
     background-color:transparent;
-    border-radius:50%;
-    border:4px solid transparent;
-    display:none;
+    border:4px solid var(--playercolor);
+}
+
+.player, .berry {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: none;
 }

@@ -1,45 +1,82 @@
-var score = 0;
 var automa = 0;
 var time = 30;
 
 var key, gameheight, gamewidth;
 
-var player1 = document.getElementById("player1");
-var player2 = document.getElementById("player2");
-var player3 = document.getElementById("player3");
-var player4 = document.getElementById("player4");
-var berry1 = document.getElementById("berry1");
-var berry2 = document.getElementById("berry2");
-var berry3 = document.getElementById("berry3");
-var berry4 = document.getElementById("berry4");
+var config = c = {
+    maxPlayers: 6
+}
 
+var players = [];
+var berries = [];
+var counters = [];
+var scores = [];
+
+const field = document.getElementById("field");
+const counterDiv = document.getElementById("counterDiv");
+var counter;
+
+function init() {
+
+    for(var i = 0; i < config.maxPlayers; i++) {
+        let newPlayer = document.createElement("div");
+        newPlayer.id = `player${i}`;
+        newPlayer.className = "player";
+        field.appendChild(newPlayer);
+        players.push(document.getElementById(`player${i}`));
+
+        let newBerry = document.createElement("div");
+        newBerry.id = `berry${i}`;
+        newBerry.className = "berry";
+        field.appendChild(newBerry);
+        berries.push(document.getElementById(`berry${i}`));
+
+        let newCounter = document.createElement("p");
+        newCounter.id = `counter${i}`;
+        newCounter.className = "counter"
+        newCounter.innerHTML = 0;
+        counterDiv.appendChild(newCounter);
+        counters.push(document.getElementById(`counter${i}`));
+
+
+        document.styleSheets[0].insertRule(`
+        #player${i},
+        #berry${i},
+        #counter${i} {
+            --playercolor: ${randomColorGenerator()};
+        }`);
+    }
+
+}
+
+init();
 
 document.addEventListener('keydown', (event) => {
     key = event.key;
     gameheight = document.getElementById("field").offsetHeight;
     gamewidth = document.getElementById("field").offsetWidth;
     if (key == 'ArrowRight' || key == 'd') {
-        if (player1.offsetLeft >= gamewidth - 80) {} else {
-            player1.style.left = player1.offsetLeft + 40 + "px";
+        if (players[0].offsetLeft >= gamewidth - 80) {} else {
+            players[0].style.left = players[0].offsetLeft + 40 + "px";
         }
     }
     if (key == 'ArrowLeft' || key == 'a') {
-        if (player1.offsetLeft <= 0) {} else {
-            player1.style.left = player1.offsetLeft - 40 + "px";
+        if (players[0].offsetLeft <= 0) {} else {
+            players[0].style.left = players[0].offsetLeft - 40 + "px";
         }
     }
     if (key == 'ArrowUp' || key == 'w') {
-        if (player1.offsetTop <= 0) {} else {
-            player1.style.top = player1.offsetTop - 40 + "px";
+        if (players[0].offsetTop <= 0) {} else {
+            players[0].style.top = players[0].offsetTop - 40 + "px";
         }
     }
     if (key == 'ArrowDown' || key == 's') {
-        if (player1.offsetTop >= gameheight - 80) {} else {
-            player1.style.top = player1.offsetTop + 40 + "px";
+        if (players[0].offsetTop >= gameheight - 80) {} else {
+            players[0].style.top = players[0].offsetTop + 40 + "px";
         }
     }
 
-	if (key == '#') {
+    if (key == '#') {
         automatic()
     }
     if (key == '-') {
@@ -51,13 +88,13 @@ document.addEventListener('keydown', (event) => {
         time = time + 1;
     }
     if (key == 'h') {
-		document.body.classList.add("hide");
+        document.body.classList.add("hide");
     }
     if (key == 'j') {
-		document.body.classList.remove("hide");
+        document.body.classList.remove("hide");
     }
 
-	updatePlayer(player1, berry1);
+    updatePlayer(0);
 
 });
 
@@ -65,68 +102,77 @@ document.addEventListener('keydown', (event) => {
 function automatic() {
     if (!automa) {
         automa++;
-        player1.style.display = "inline";
-        player2.style.display = "inline";
-        player3.style.display = "inline";
-        player4.style.display = "inline";
-        berry1.style.display = "inline";
-        berry2.style.display = "inline";
-        berry3.style.display = "inline";
-        berry4.style.display = "inline";
+        document.body.classList.add("isAutomatic");
 
         setInterval(function () {
-			updatePlayer(player1, berry1);
-			updatePlayer(player2, berry2);
-			updatePlayer(player3, berry3);
-			updatePlayer(player4, berry4);
+            for(var i = 0; i < players.length; i++) {
+                updatePlayer(i);
+            }
         }, time);
     }
 }
 
 
-function updatePlayer(whichplayer, whichberry) {
-	whichplayer.top = whichplayer.offsetTop;
-	whichplayer.left = whichplayer.offsetLeft;
-	whichberry.top = whichberry.offsetTop;
-	whichberry.left = whichberry.offsetLeft;
+function updatePlayer(playerID) {
+    var whichplayer = players[playerID];
+    var whichberry = berries[playerID];
+    whichplayer.top = whichplayer.offsetTop;
+    whichplayer.left = whichplayer.offsetLeft;
+    whichberry.top = whichberry.offsetTop;
+    whichberry.left = whichberry.offsetLeft;
 
-	if(automa) {
-		if (whichberry.top < whichplayer.top) {
-			whichplayer.style.top = whichplayer.offsetTop - 40 + "px";
-		}
-		if (whichberry.top > whichplayer.top) {
-			whichplayer.style.top = whichplayer.offsetTop + 40 + "px";
-		}
-		if (whichberry.left < whichplayer.left) {
-			whichplayer.style.left = whichplayer.offsetLeft - 40 + "px";
-		}
-		if (whichberry.left > whichplayer.left) {
-			whichplayer.style.left = whichplayer.offsetLeft + 40 + "px";
-		}
-	}
+    if(automa) {
+        if (whichberry.top < whichplayer.top) {
+            whichplayer.style.top = whichplayer.offsetTop - 40 + "px";
+        }
+        if (whichberry.top > whichplayer.top) {
+            whichplayer.style.top = whichplayer.offsetTop + 40 + "px";
+        }
+        if (whichberry.left < whichplayer.left) {
+            whichplayer.style.left = whichplayer.offsetLeft - 40 + "px";
+        }
+        if (whichberry.left > whichplayer.left) {
+            whichplayer.style.left = whichplayer.offsetLeft + 40 + "px";
+        }
+    }
 
 
-	whichplayer.left = whichplayer.offsetLeft;
-	whichplayer.top = whichplayer.offsetTop;
+    whichplayer.left = whichplayer.offsetLeft;
+    whichplayer.top = whichplayer.offsetTop;
 
-	if (whichplayer.left == whichberry.left && whichplayer.top == whichberry.top) {
-		updateScore(whichberry);
-	}
+    if (whichplayer.left == whichberry.left && whichplayer.top == whichberry.top) {
+        updateScore(playerID);
+    }
 }
 
-function updateScore(berry) {
-	score++;
-	document.getElementById("score").innerHTML = score;
+function updateScore(playerID) {
+    berry = berries[playerID];
+    score = scores[playerID];
+    counter = counters[playerID];
 
-	var randomtop = Math.floor(Math.random() * 1000) * 40;
-	while (randomtop > gameheight - 80) {
-		randomtop = Math.floor(Math.random() * 1000) * 40;
-	}
-	berry.style.top = randomtop + "px";
+    if(!scores[playerID]) {
+        scores[playerID] = 0;
+    }
 
-	var randomleft = Math.floor(Math.random() * 1000) * 40;
-	while (randomleft > gamewidth - 80) {
-		randomleft = Math.floor(Math.random() * 1000) * 40;
-	}
-	berry.style.left = randomleft + "px";
+    scores[playerID]++;
+
+    counter.innerText = scores[playerID];
+
+    var randomtop = Math.floor(Math.random() * 1000) * 40;
+    while (randomtop > gameheight - 80) {
+        randomtop = Math.floor(Math.random() * 1000) * 40;
+    }
+    berry.style.top = randomtop + "px";
+
+    var randomleft = Math.floor(Math.random() * 1000) * 40;
+    while (randomleft > gamewidth - 80) {
+        randomleft = Math.floor(Math.random() * 1000) * 40;
+    }
+    berry.style.left = randomleft + "px";
+}
+
+
+function randomColorGenerator() {
+    var randomColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+    return randomColor;
 }
