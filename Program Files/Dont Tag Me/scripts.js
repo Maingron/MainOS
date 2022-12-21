@@ -1,7 +1,7 @@
 var automa = 0;
 var time = 30;
 
-var key, gameheight, gamewidth;
+var key, gameheight, gamewidth, gameheightminus80, gamewidthminus80, gameheightminus40, gamewidthminus40, gameheightminus40by40, gamewidthminus40by40, randomtop, randomleft;
 
 var config = c = {
     maxPlayers: 6
@@ -38,6 +38,7 @@ function init() {
         counterDiv.appendChild(newCounter);
         counters.push(document.getElementById(`counter${i}`));
 
+        scores.push(0);
 
         document.styleSheets[0].insertRule(`
         #player${i},
@@ -45,6 +46,7 @@ function init() {
         #counter${i} {
             --playercolor: ${randomColorGenerator()};
         }`);
+        onResize();
     }
 
 }
@@ -53,25 +55,23 @@ init();
 
 document.addEventListener('keydown', (event) => {
     key = event.key;
-    gameheight = document.getElementById("field").offsetHeight;
-    gamewidth = document.getElementById("field").offsetWidth;
     if (key == 'ArrowRight' || key == 'd') {
-        if (players[0].offsetLeft >= gamewidth - 80) {} else {
+        if (players[0].offsetLeft >= gamewidthminus80) {} else {
             players[0].style.left = players[0].offsetLeft + 40 + "px";
         }
     }
     if (key == 'ArrowLeft' || key == 'a') {
-        if (players[0].offsetLeft <= 0) {} else {
+        if (players[0].offsetLeft < 1) {} else {
             players[0].style.left = players[0].offsetLeft - 40 + "px";
         }
     }
     if (key == 'ArrowUp' || key == 'w') {
-        if (players[0].offsetTop <= 0) {} else {
+        if (players[0].offsetTop < 1) {} else {
             players[0].style.top = players[0].offsetTop - 40 + "px";
         }
     }
     if (key == 'ArrowDown' || key == 's') {
-        if (players[0].offsetTop >= gameheight - 80) {} else {
+        if (players[0].offsetTop >= gameheightminus80) {} else {
             players[0].style.top = players[0].offsetTop + 40 + "px";
         }
     }
@@ -116,63 +116,53 @@ function automatic() {
 function updatePlayer(playerID) {
     var whichplayer = players[playerID];
     var whichberry = berries[playerID];
-    whichplayer.top = whichplayer.offsetTop;
-    whichplayer.left = whichplayer.offsetLeft;
-    whichberry.top = whichberry.offsetTop;
-    whichberry.left = whichberry.offsetLeft;
 
-    if(automa) {
-        if (whichberry.top < whichplayer.top) {
+    if(automa) { // AI
+        if (whichberry.offsetTop < whichplayer.offsetTop) {
             whichplayer.style.top = whichplayer.offsetTop - 40 + "px";
-        }
-        if (whichberry.top > whichplayer.top) {
+        } else if (whichberry.offsetTop > whichplayer.offsetTop) {
             whichplayer.style.top = whichplayer.offsetTop + 40 + "px";
         }
-        if (whichberry.left < whichplayer.left) {
+        if (whichberry.offsetLeft < whichplayer.offsetLeft) {
             whichplayer.style.left = whichplayer.offsetLeft - 40 + "px";
-        }
-        if (whichberry.left > whichplayer.left) {
+        } else if (whichberry.offsetLeft > whichplayer.offsetLeft) {
             whichplayer.style.left = whichplayer.offsetLeft + 40 + "px";
         }
     }
 
-
-    whichplayer.left = whichplayer.offsetLeft;
-    whichplayer.top = whichplayer.offsetTop;
-
-    if (whichplayer.left == whichberry.left && whichplayer.top == whichberry.top) {
+    if (whichplayer.offsetLeft == whichberry.offsetLeft && whichplayer.offsetTop == whichberry.offsetTop) {
         updateScore(playerID);
     }
 }
 
 function updateScore(playerID) {
-    berry = berries[playerID];
-    score = scores[playerID];
-    counter = counters[playerID];
-
-    if(!scores[playerID]) {
-        scores[playerID] = 0;
-    }
-
     scores[playerID]++;
 
-    counter.innerText = scores[playerID];
+    counters[playerID].innerText = scores[playerID];
 
-    var randomtop = Math.floor(Math.random() * 1000) * 40;
-    while (randomtop > gameheight - 80) {
-        randomtop = Math.floor(Math.random() * 1000) * 40;
-    }
-    berry.style.top = randomtop + "px";
+    randomtop = Math.floor(Math.random() * gameheightminus40by40) * 40;
+    randomleft = Math.floor(Math.random() * gamewidthminus40by40) * 40;
 
-    var randomleft = Math.floor(Math.random() * 1000) * 40;
-    while (randomleft > gamewidth - 80) {
-        randomleft = Math.floor(Math.random() * 1000) * 40;
-    }
-    berry.style.left = randomleft + "px";
+    berries[playerID].style.top = randomtop + "px";
+    berries[playerID].style.left = randomleft + "px";
 }
 
 
 function randomColorGenerator() {
-    var randomColor = '#'+Math.floor(Math.random()*16777215).toString(16);
-    return randomColor;
+    return '#'+Math.floor(Math.random()*16777215).toString(16);
+}
+
+window.addEventListener("resize", function() {
+    onResize();
+});
+
+function onResize() {
+    gameheight = document.getElementById("field").offsetHeight;
+    gamewidth = document.getElementById("field").offsetWidth;
+    gameheightminus80 = gameheight - 80;
+    gamewidthminus80 = gamewidth - 80;
+    gameheightminus40 = gameheight - 40;
+    gamewidthminus40 = gamewidth - 40;
+    gameheightminus40by40 = gameheightminus40 / 40;
+    gamewidthminus40by40 = gamewidthminus40 / 40;
 }
