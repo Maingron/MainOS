@@ -171,6 +171,8 @@ function run(which, iattr, how) { // Run a program
         max(getWindowByMagic(myWindow), "tomax");
     } else if(how == "min" || how == "minimized" || how == "minimised" || how == "background") {
         setWindowMinimized(getWindowByMagic(myWindow));
+    } else if(how == "fullscreen") {
+        windowFullscreen(getWindowByMagic(myWindow));
     }
 
     attr = iattr; // Will get used to pass arguments to programs when starting them // Deprecated - use getProgramArgs(this) instead
