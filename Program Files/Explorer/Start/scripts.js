@@ -62,7 +62,7 @@ function register() {
             let startButton = document.createElement("button");
             startButton.id = "start";
             startButton.className = "has_hover";
-            startButton.setAttribute("onclick", "run('explorer_start')");
+            startButton.setAttribute("onclick", "run('explorer_start','','fullscreen')");
             startButton.innerHTML = `
                 <img src="#iofs:${os.path.sysicons}logo.svg" alt="Start">
             `;
