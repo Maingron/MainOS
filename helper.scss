@@ -15,6 +15,7 @@
     --altbarheight: 22px;
     --altbarcolor: var(--themecolor);
     --border-radius: 2px;
+    --font-size-base: 1rem;
 }
 
 body {
@@ -24,6 +25,7 @@ body {
     padding: 0;
     font-family: var(--font);
     accent-color: var(--themecolor);
+    font-size: var(--font-size-base);
 }
 
 * {

@@ -12,6 +12,8 @@ var settings = [
         {name: "Hover Color", type: "input>color", id: "system.user.settings.hovercolor"},
         {name: "Hover Opacity", type: "input>range", id: "system.user.settings.hoveropacity", min: "0", max: "1", step: "0.01"},
         {name: "Border Radius", type: "input>text", id: "system.user.settings.borderradius"},
+        {name: "Fonts", type: "input>text", id: "system.user.settings.font.fonts"},
+        {name: "Base Font Size", type: "input>text", id: "system.user.settings.font.baseSize"},
         {name: "Preffered Language", type: "select", id: "system.user.settings.language", options: [
             {name: "English", value: "en"},
             {name: "Deutsch", value: "de"},
@@ -29,7 +31,6 @@ var settings = [
     {category: "Themes", id: "themes", disabled: true, settings: []},
     {category: "Advanced Settings", id: "advanced", settings: [
         {name: "Developer Mode", type: "input>checkbox", id: "system.user.settings.developer.enable"},
-        {name: "Fonts", type: "input>text", id: "system.user.settings.font"},
         {name: "Enable Online Repository", type: "input>checkbox", id: "system.user.settings.enableRepository"},
         {name: `Reset ${system.osDetails.name}`, type: "button", id: "dummy.resetos", onclick: "os.formatfs('yes')"},
         {name: "Update through Downgrade", type: "button", id: "dummy.updatethroughdowngrade", onclick: "", disabled: true}

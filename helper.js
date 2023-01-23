@@ -43,7 +43,8 @@ var ismainos;
 function refreshCSSVars() {
     document.documentElement.style.setProperty("--themecolor", system.user.settings.themecolor);
     document.documentElement.style.setProperty("--themecolor2", system.user.settings.themecolor2);
-    document.documentElement.style.setProperty("--font", system.user.settings.font);
+    document.documentElement.style.setProperty("--font", system.user.settings.font.fonts);
+    document.documentElement.style.setProperty("--font-size-base", system.user.settings.font.baseSize);
     document.documentElement.style.setProperty("--border-radius", system.user.settings.borderradius);
     document.documentElement.style.setProperty("--hovercolor", system.user.settings.hovercolor);
     document.documentElement.style.setProperty("--hovercolornontransparent", system.user.settings.hovercolornontransparent);

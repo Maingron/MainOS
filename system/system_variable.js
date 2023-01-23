@@ -104,7 +104,10 @@ function getInitialSettings() {
             enable: false,
             enableAllSettings: false
         },
-        font: "-apple-system, system-ui, 'Tahoma', 'Roboto', 'Arial', sans-serif",
+        font: {
+            fonts: "-apple-system, system-ui, 'Tahoma', 'Roboto', 'Arial', sans-serif",
+            baseSize: "1rem"
+        },
         german_tv: false,
         hovercolor: "#ffaa0077",
         hovercolornontransparent: "#ffaa00",
