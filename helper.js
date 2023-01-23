@@ -41,7 +41,6 @@ if(ismainos != 1 && parent.ismainos == 1) {
 var ismainos;
 
 function refreshCSSVars() {
-    document.documentElement.classList.add("settingTransition");
     document.documentElement.style.setProperty("--themecolor", system.user.settings.themecolor);
     document.documentElement.style.setProperty("--themecolor2", system.user.settings.themecolor2);
     document.documentElement.style.setProperty("--font", system.user.settings.font);
@@ -57,12 +56,6 @@ function refreshCSSVars() {
         document.documentElement.style.setProperty("--black4", "#666");
         document.documentElement.style.setProperty("--black5", "#757575");
     }
-
-    window.setTimeout(function() {
-        document.documentElement.classList.remove("settingTransition");
-    }, 1000);
-
-
 }
 
 refreshCSSVars();

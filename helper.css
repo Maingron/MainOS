@@ -37,10 +37,6 @@ body {
   background-color: var(--hovercolor);
 }
 
-.settingTransition * {
-  transition: 1s;
-}
-
 body button:not([disabled]),
 body input:not([disabled]),
 body select:not([disabled]),
