@@ -19,7 +19,7 @@ function newProcessListEntry(programIdentifier) {
  */
 function run(which, iattr, how) { // Run a program
     let myPid = newProcessListEntry(which);
-    let myProgram = program[which];
+    let myProgram = system.user.programs[which];
     if(!checkMayStillOpen(which)) {
         processList[myPid] = null;
         return;
@@ -199,14 +199,14 @@ function run(which, iattr, how) { // Run a program
 
     // myWindow.frame.contentWindow.window.alert = notification;
     // myWindow.frame.contentWindow.alert = notification;
-    myWindow.frame.contentWindow.document.documentElement.style.setProperty("--font", setting.font);
+    myWindow.frame.contentWindow.document.documentElement.style.setProperty("--font", system.user.settings.font);
 
     refreshTaskList();
     focusWindow(getWindowById(myWindow.id));
 
 
     function checkMayStillOpen(programIdentifier) {
-        let myProgram = program[programIdentifier];
+        let myProgram = system.user.programs[programIdentifier];
         if(!myProgram.maxopen) {
             return true; // No limit
         }
@@ -473,5 +473,5 @@ function getWindowByMagic(which) {
 }
 
 function getProgramByMagic(which) {
-    return program[pid[getWindowByMagic(which).id]].id;
+    return system.user.programs[pid[getWindowByMagic(which).id]].id;
 }

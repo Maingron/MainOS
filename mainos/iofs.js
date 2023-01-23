@@ -91,13 +91,15 @@ function loadfile(path,requestattributes = false) {
     // }
 
   if(myFile != null && myFile != "undefined") { // If file exists
-    if(myFile.indexOf("loadfile(") > -1) {
-      if(myFile.indexOf("loadfile('") > -1) {
-        return(loadfile(myFile.split("loadfile('")[1].split("')")[0].toString()));
-      } else if(myFile.indexOf("loadfile(\"")> -1) {
-        return(loadfile(myFile.split("loadfile(\"")[1].split("\")")[0].toString()));
-      }
-    }
+
+    // TODO: This was probably supposed to be some kind of shortcut loader. It was messing up stuff and now it needs to be checked and reimplemented
+    // if(myFile.indexOf("loadfile(") > -1) {
+    //   if(myFile.indexOf("loadfile('") > -1) {
+    //     return(loadfile(myFile.split("loadfile('")[1].split("')")[0].toString()));
+    //   } else if(myFile.indexOf("loadfile(\"")> -1) {
+    //     return(loadfile(myFile.split("loadfile(\"")[1].split("\")")[0].toString()));
+    //   }
+    // }
 
 
     if(requestattributes == 1) { // Return only file attributes if requested
@@ -243,6 +245,12 @@ function formatfs(sure, reload = true) { // Todo: Update
     }
   }
 }
+
+
+var newScript = document.createElement("script");
+newScript.src = "system/system_variable.js";
+document.head.appendChild(newScript);
+
 
 if (!isfile("C:/mainos/system32/ExpectedVersionnr.txt") || loadfile("C:/mainos/system32/ExpectedVersionnr.txt") < mainos.versionnr) {
   document.write("<script src=\"mainos/createiofs.js\"></script>");

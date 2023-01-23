@@ -10,7 +10,7 @@ function close_startmenu() {
 
 // Spawn icons in all-programs list
 
-const programsinfolder = os.listdir(os.path.user + "programs/");
+const programsinfolder = os.listdir(system.user.paths.programShortcuts);
 const allProgramsContainer = document.getElementById("allprograms");
 
 programsinfolder.forEach((item, index) => {
@@ -20,11 +20,11 @@ programsinfolder.forEach((item, index) => {
         return;
     } // else:
 
-    if(myCurrentProgram.devonly == true && parent.setting.developer == false) {
+    if(myCurrentProgram.devonly == true && system.user.settings.developer.enable == false) {
         return;
     } // else:
 
-    if(myCurrentProgram.germantv == true && parent.setting.german_tv == false) {
+    if(myCurrentProgram.germantv == true && system.user.settings.german_tv == false) {
         return;
     } // else:
 
@@ -62,10 +62,15 @@ function register() {
             let startButton = document.createElement("button");
             startButton.id = "start";
             startButton.className = "has_hover";
-            startButton.setAttribute("onclick", "run('explorer_start','','fullscreen')");
+            startButton.setAttribute("onclick", "run('start_menu','','fullscreen')");
             startButton.innerHTML = `
-                <img src="#iofs:${os.path.sysicons}logo.svg" alt="Start">
+                <img src="#iofs:${system.icons.logo}" alt="Start">
             `;
+            if(system.user.settings.developer.enable) {
+                startButton.innerHTML += `
+                    <span style="color: red; font-weight: bold; position: absolute; top: 0; right: 1px; opacity:.75">🧑‍💻</span>
+                `;
+            }
             os.document.getElementById("taskbar").prepend(startButton);
             close_startmenu(); // Close startmenu after registering
         }

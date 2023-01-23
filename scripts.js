@@ -63,54 +63,31 @@ function setDocumentMeta() { // Overrides some things in the document head
 }
 
 function loadsettings() {
-    setting.username = loadfile("C:/mainos/system32/settings/username.txt");
-    setting.userpath = "C:/users/" + setting.username + "/";
-    setting.userdata = setting.userpath + "Program Data/";
-    setting.settingpath = "C:/users/" + setting.username + "/settings/";
+    // setting.username = loadfile("C:/mainos/system32/settings/username.txt");
+    // setting.userpath = "C:/users/" + setting.username + "/";
+    // setting.userdata = setting.userpath + "Program Data/";
+    // setting.settingpath = "C:/users/" + setting.username + "/settings/";
     setting.time = new Date();
 
-
-    function loadsetting(which) {
-        return loadfile(setting.settingpath + which + ".txt");
-    }
-
-    setting.backgroundimage = loadsetting("backgroundimage");
-    setting.developer = loadsetting("developer");
-    setting.themecolor = loadsetting("themecolor");
-    setting.themecolor2 = loadsetting("themecolor2");
-    setting.notsodarkmode = loadsetting("notsodarkmode");
-    setting.hovercolor = loadsetting("hovercolor");
-    setting.hovercolornontransparent = loadsetting("hovercolornontransparent");
-    setting.borderradius = loadsetting("borderradius") + "px";
-    setting.tts = loadsetting("tts");
-    setting.font = loadsetting("font");
-    setting.repository = loadsetting("repository");
-    setting.big_buttons = loadsetting("big_buttons");
-    setting.default_fullscreen = loadsetting("default_fullscreen");
-    setting.language = loadsetting("language");
-    setting.german_tv = loadsetting("german_tv");
+    // setting.backgroundimage = loadsetting("backgroundimage");
     setting.temp = {};
 
-    document.documentElement.style.setProperty("--themecolor", setting.themecolor);
-    document.documentElement.style.setProperty("--themecolor2", setting.themecolor2);
-    document.documentElement.style.setProperty("--font", setting.font);
+    // document.documentElement.style.setProperty("--themecolor", setting.themecolor);
+    // document.documentElement.style.setProperty("--themecolor2", setting.themecolor2);
+    // document.documentElement.style.setProperty("--font", setting.font);
 
-    document.documentElement.style.setProperty("--hovercolor",setting.hovercolor);
-    document.documentElement.style.setProperty("--hovercolornontransparent",setting.hovercolornontransparent);
+    // document.documentElement.style.setProperty("--hovercolor",setting.hovercolor);
+    // document.documentElement.style.setProperty("--hovercolornontransparent",setting.hovercolornontransparent);
 
-
-
-    if (setting.developer == 1) {
-        document.getElementById("start").children[0].style.color = "#000";
-    }
 
     setDocumentMeta();
 }
 
 
-objects.taskbarlanguage.innerHTML = setting.language; // Show language in taskbar
+objects.taskbarlanguage.innerHTML = system.user.settings.language; // Show language in taskbar
 
-program = JSON.parse(loadfile("C:/mainos/programs.dat"));
+// program = JSON.parse(loadfile("C:/mainos/programs.dat"));
+program = system.user.programs;
 
 if (isfile("C:/mainos/customprograms.txt")) {
     try {
@@ -127,16 +104,16 @@ if (isfile("C:/mainos/customprograms.txt")) {
 }
 
 
-if (setting.repository == 1) { // Load programs from repository if repository is enabled
+if (system.user.settings.enableRepository) { // Load programs from repository if repository is enabled
     try {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", mainos.repository, true); // TODO: Make async
+        xhr.open("GET", system.osDetails.serverrepository, true); // TODO: Make async
         xhr.onload = function() {
             // program = Object.assign(program, ifjsonparse((xhr.responseText)));
             const repoList = ifjsonparse(xhr.responseText);
             setTimeout(function() {
                 for (let i in repoList) {
-                    program[i] = repoList[i];
+                    system.user.programs[i] = repoList[i];
                     loadProgramMetadata(repoList[i]);
                 }
             }, 100)
@@ -150,16 +127,17 @@ if (setting.repository == 1) { // Load programs from repository if repository is
 
 
 // Add / handle programs
-for(var i = 0; i < Object.keys(program).length; i++) {
-    var myProgram = program[Object.keys(program).sort()[i]];
+for(var i = 0; i < Object.keys(system.user.programs).length; i++) {
+    var myProgram = system.user.programs[Object.keys(system.user.programs).sort()[i]];
     loadProgramMetadata(myProgram);
 }
 
 
 function loadProgramMetadata(which) { // Load program metadata from program file and handle some other stuff
     if(typeof(which) == "string") {
-        which = program[which];
+        which = system.user.programs[which];
     }
+
     if(which.src && which.src.includes("//")) { // Don't request metadata from external programs. This would result in access denied.
         addDesktopIcon(which);
         addProgramIconToFolder(which);
@@ -228,12 +206,11 @@ function loadProgramMetadata(which) { // Load program metadata from program file
     xhr.send();
 }
 
-
 function addDesktopIcon(which) {
-    if(which.devonly && !setting.developer) {
+    if(which.devonly && !system.user.settings.developer.enable) {
         return;
     }
-    if(which.germantv && setting.german_tv != 1) {
+    if(which.germantv && system.user.settings.german_tv != 1) {
         return;
     }
 
@@ -254,7 +231,7 @@ function addDesktopIcon(which) {
 }
 
 function addProgramIconToFolder(which) {
-    savefile("C:/users/" + setting.username + "/programs/" + (which.title).replaceAll("'", "&#39;") + ".run", JSON.stringify(which), 1, "run");
+    savefile(system.user.paths.programShortcuts + (which.title).replaceAll("'", "&#39;") + ".run", JSON.stringify(which), 1, "run")
 }
 
 
@@ -413,16 +390,15 @@ if (setting.default_fullscreen == 1) { // Enter fullscreen on start if requested
 }
 
 
-
-document.getElementById("background").style.backgroundImage = "url(" + setting.backgroundimage + ")"; // Load Desktop Background
-
+document.getElementById("background").style.backgroundImage = "url(" + loadfile(system.user.settings.backgroundImage) + ")"; // Load Desktop Background
+document.getElementById("username").innerText = system.user.name; // Display username on desktop
 
 // Check space on disk
 savefile("C:/.diskinfo/size_used.txt", JSON.stringify(localStorage).length / 1000, 1, "t=txt");
 savefile("C:/.diskinfo/size_remaining.txt", loadfile("C:/.diskinfo/size.txt") - loadfile("C:/.diskinfo/size_used.txt"), 1, "t=txt");
 
 // Re-Create program shortcuts; Delete them beforehand
-listdir("C:/users/" + setting.username + "/programs/").forEach((item) => {
+listdir(system.user.paths.programShortcuts).forEach((item) => {
     deletefile(item, 1);
 })
 
@@ -434,15 +410,15 @@ function refreshTaskList() {
     document.getElementById("tasklist").innerHTML = "";
     for(var i = 0; i < pid.length; i++) {
         myProgram = pid[i];
-        if(myProgram != undefined && myProgram != "" && program[myProgram].spawnicon != 0) {
+        if(myProgram != undefined && myProgram != "" && system.user.programs[myProgram].spawnicon != 0) {
             var myNewChildNode1 = document.createElement("button");
             var myNewChildNode2 = document.createElement("img");
-            myNewChildNode2.src = program[myProgram].icon;
+            myNewChildNode2.src = system.user.programs[myProgram].icon;
             myNewChildNode2.alt = "";
             myNewChildNode1.appendChild(myNewChildNode2);
 
             myNewChildNode3 = document.createElement("span");
-            myNewChildNode3.innerHTML = program[myProgram].title;
+            myNewChildNode3.innerHTML = system.user.programs[myProgram].title;
 
             myNewChildNode1.appendChild(myNewChildNode3);
 

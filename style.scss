@@ -321,7 +321,7 @@ body.big_buttons { // Big Buttons
   }
 }
 
-.explorer_start {
+.start_menu {
   &, iframe {
     background-color: transparent !important;
   }
@@ -588,7 +588,7 @@ body.big_buttons { // Big Buttons
   }
 }
 
-.explorer_start {
+.start_menu {
   overflow: visible !important;
   z-index: 99999999 !important;
 
@@ -694,7 +694,7 @@ body.big_buttons { // Big Buttons
     }
   }
 
-  .explorer_start {
+  .start_menu {
     iframe {
       height: calc(200% + 36px);
       background-color: transparent;

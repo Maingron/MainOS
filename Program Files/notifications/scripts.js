@@ -69,9 +69,9 @@ function refreshNotifications() {
         <p>${myNotification.content}</p>
         <p class="meta">${myNotification.time}</p>
         `;
-        if(myNotification.sender && parent.program[myNotification.sender]) {
+        if(myNotification.sender && system.user.programs[myNotification.sender]) {
           notificationElement.innerHTML = `
-          <img src="${parent.program[myNotification.sender].icon}" class="notification_icon" ondblclick="parent.run('${myNotification.sender}')">
+          <img src="${system.user.programs[myNotification.sender].icon}" class="notification_icon" ondblclick="parent.run('${myNotification.sender}')">
         ` + notificationElement.innerHTML;
         }
         notificationContainer.appendChild(notificationElement);

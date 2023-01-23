@@ -2,194 +2,20 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta version="1.2.1">
-  <title>Settings</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="../../helper.css">
-  <script src="../../helper.js"></script>
+    <meta charset="utf-8">
+    <title>Settings</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../helper.css">
+    <script src="../../helper.js"></script>
 </head>
 
 <body>
-  <div id="content">
-    <div id="header">
-      <button onclick="gohome()">&lt;-</button>
+    <div id="content">
+        <div id="sidebar">
+        </div>
+        <div id="categorycontainer">
+        </div>
     </div>
-    <div class="home" id="home">
-      <button onclick="showsettingtab('settingtab1')">Customisation</button>
-      <button onclick="showsettingtab('accessibility')">Ease of Access</button>
-      <button onclick="showsettingtab('themes')">Themes</button>
-      <button onclick="showsettingtab('advanced')">Advanced Settings</button>
-      <script>
-        if (parent.setting.developer == 1) {
-          document.write("<button onclick=\"showsettingtab('developer')\">Developer Options</button>");
-        }
-
-        if (parent.setting.language == "de") {
-          document.write(
-            "<button onclick=\"showsettingtab('settings_for_german_users')\">Einstellungen für deutsche Benutzer</button>"
-            );
-        }
-      </script>
-    </div>
-
-
-    <div class="settings">
-      <div class="settingtab" id="settingtab1">
-        <h1>Customisation</h1>
-
-        <div class="setting">
-          <h3>Theme Color</h3>
-          <input class="settinginput" onchange="setting_send(this, 'themecolor')" title="themecolor" type="color">
-        </div>
-
-        <div class="setting">
-          <h3>Theme Color 2 (Contrast)</h3>
-          <input class="settinginput" onchange="setting_send(this, 'themecolor2')" title="themecolor2" type="color">
-        </div>
-
-        <div class="setting">
-          <h3>Background Image</h3>
-          <input class="settinginput" onchange="setting_send(this, 'backgroundimage')" title="backgroundimage" type="text"><label> enter loadfile(PATH) to access an image via iofs - will automatically load</label>
-        </div>
-
-        <div class="setting">
-          <h3>Darkmode</h3>
-          <select disabled>
-            <option>Automatic</option>
-          </select>
-        </div>
-
-        <div class="setting">
-          <h3>More Settings for the Darkmode</h3>
-          <p>The not so dark-mode</p>
-          <input class="settinginput bool_range" onchange="setting_send(this, 'notsodarkmode');" title="notsodarkmode" type="range" max="1" min="0">
-        </div>
-
-        <div class="setting">
-            <h3>Hover Color</h3>
-            <input class="settinginput" onchange="setting_send(this, 'hovercolor')" title="hovercolor" type="text">
-        </div>
-        <div class="setting">
-            <h3>Hover Color (Non Transparent variant)</h3>
-            <input class="settinginput" onchange="setting_send(this, 'hovercolornontransparent')" title="hovercolornontransparent" type="text">
-        </div>
-
-        <div class="setting">
-          <h3>Border Radius</h3>
-          <input class="settinginput" onchange="setting_send(this, 'borderradius')" title="borderradius" type="number" min="0" max="300">
-        </div>
-
-
-        <div class="setting">
-          <h3>Preferred Language</h3>
-          <select title="language" onclick="setting_send(this, 'language');" onchange="setting_send(this, 'language');">
-            <option value="en">English (Default)</option>
-            <option value="de">German</option>
-          </select>
-          (
-          <script>
-            document.write(parent.setting.language);
-          </script>
-          )
-        </div>
-      </div>
-
-
-      <div class="settingtab" id="accessibility">
-        <h1>Ease of Access</h1>
-        <div class="setting">
-          <h3>Big Buttons</h3>
-          <input class="settinginput bool_range" onchange="setting_send(this, 'big_buttons');" title="big_buttons" type="range" max="1" min="0">
-        </div>
-
-        <div class="setting">
-          <h3>Fullscreen by default</h3>
-          <input class="settinginput bool_range" onchange="setting_send(this, 'default_fullscreen');" title="default_fullscreen" type="range" max="1" min="0">
-        </div>
-
-        <div class="setting">
-          <h3>Text to Speech optimized mode</h3>
-          <input class="settinginput bool_range" onchange="setting_send(this, 'tts');" title="tts" type="range" max="0" min="0" disabled>
-        </div>
-      </div>
-
-
-
-      <div class="settingtab" id="themes">
-        <h1>Themes</h1>
-        <div class="setting">
-          <h3>Theme v1</h3>
-          <select title="theme" onchange="setting_send(this, 'theme');">
-            <option value="Default">Default</option>
-          </select>
-        </div>
-        <div style="display:none;" class="setting">
-          <h3>Theme Builder</h3>
-          <button onclick="parent.run('theme_builder')">Open the Theme Builder</button>
-        </div>
-      </div>
-
-
-      <div class="settingtab" id="settings_for_german_users">
-        <h1>Einstellungen für deutsche Benutzer</h1>
-        <div class="setting">
-          <h3>Deutsche Fernsehsender aktivieren</h3>
-          <input class="settinginput bool_range" onchange="setting_send(this, 'german_tv');" title="german_tv" type="range" max="1" min="0">
-        </div>
-
-      </div>
-
-
-
-
-
-
-
-      <div class="settingtab" id="advanced">
-        <div class="setting">
-          <h3>Developer Mode</h3>
-          <input class="settinginput bool_range" onchange="setting_send(this, 'developer');" title="developer" type="range" max="1" min="0">
-        </div>
-
-        <div class="setting">
-          <h3>Fonts</h3>
-          <input class="settinginput" onchange="setting_send(this, 'font');" title="font" type="text">
-        </div>
-
-        <div class="setting">
-          <h3>Activate Repository?</h3>
-          <input class="settinginput bool_range" onchange="setting_send(this, 'repository');" title="repository" type="range" max="1" min="0">
-        </div>
-
-        <div class="setting">
-          <h3>Force-Upgrade</h3>
-          <button class="settinginput" onclick="parent.savefile('C:/mainos/system32/ExpectedVersionnr.txt', (parent.mainos.version-1),1);parent.window.location.reload()">Upgrade through downgrade</button>
-        </div>
-
-        <div class="setting">
-          <h3>Reset MainOS</h3>
-          <button class="settinginput" onclick="window.parent.formatfs('yes')">Reset MainOS</button>
-        </div>
-      </div>
-
-
-      <div class="settingtab" id="developer">
-        <h2>Warning: Very experimental settings ahead! - They might break your system.</h2>
-
-
-        <div class="setting">
-          <h3>Developer Mode</h3>
-          <input class="settinginput bool_range" onchange="setting_send(this, 'developer');" title="developer" type="range" max="1" min="0">
-        </div>
-
-        <div class="setting">
-          <h3>user/Username</h3>
-          <input class="settinginput" onchange="setting_send(this, 'username');" title="username" type="text">
-        </div>
-      </div>
-    </div>
-  </div>
-  <script src="scripts.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>

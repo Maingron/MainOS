@@ -24,10 +24,10 @@ function refreshTaskList() {
                 tasklist.innerHTML += `
                 <tr>
                     <td class="icon">
-                        <img src="${parent.program[pids[i]].icon}">
+                        <img src="${system.user.programs[pids[i]].icon}">
                     </td>
                     <td>
-                        ${parent.program[pids[i]].title}
+                        ${system.user.programs[pids[i]].title}
                     </td>
                     <td>
                         ${pids[i]}

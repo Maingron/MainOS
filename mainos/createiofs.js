@@ -40,6 +40,9 @@ if (localStorage && !localStorage.getItem('size')) {
 var chgd = "C:/Documents and Settings/Changelogs";
 var icons = "C:/mainos/system32/icons";
 
+
+savedir("C:/system/");
+
 savedir("C:/.diskinfo/");
 
 savedir("C:/");
@@ -229,130 +232,7 @@ savefile("C:/Program Files/kika/icon.png", "data:image/png;base64,iVBORw0KGgoAAA
 
 
 var program = {};
-program.colors = {
- "id": "colors",
- "src": "Program%20Files/colors/exec.html"
-};
 
-program.excel = {
- "id": "excel",
- "src": "Program%20Files/excel/exec.html"
-}
-
-program.explorer = {
- "id": "explorer",
- "title": "Explorer",
- "icon": "iofs:C:/mainos/system32/icons/folder_search.svg",
- "src": "Program%20Files/Explorer/inner/exec.html"
-}
-
-program.notepad = {
- "id": "notepad",
- "title": "Notepad",
- "icon": "iofs:C:/Program Files/notepad/icon.png",
- "src": "Program%20Files/notepad/exec.html"
-}
-
-program.paint = {
- "id": "paint",
- "title": "Paint",
- "icon": "iofs:C:/Program Files/paint/icon.png",
- "src": "Program%20Files/paint/exec.html"
-}
-
-program.paint32x32 = {
- "id": "paint32x32",
- "title": "Paint 32x32",
- "icon": "iofs:C:/Program Files/paint32x32/icon.png",
- "src": "Program%20Files/paint32x32/exec.html"
-}
-
-program.donttagme = {
- "id": "donttagme",
- "src": "Program%20Files/Dont%20Tag%20Me/exec.html"
-}
-
-program.optisocubes = {
- "id": "optisocubes",
- "src": "Program%20Files/optisocubes/exec.html"
-}
-
-program.simple_cookieclicker = {
- "id": "simple_cookieclicker",
- "title": "Simple Cookieclicker",
- "icon": "iofs:C:/Program Files/Simple Cookieclicker/icon.png",
- "src": "Program%20Files/simple%20cookieclicker/exec.html"
-}
-
-program.hype = {
- "id": "hype",
- "title": "Hype Chat",
- "icon": "iofs:C:/Program Files/hype/icon.png",
- "src": "Program%20Files/hype/exec.html"
-}
-
-program.explorer_start = {
- "id": "explorer_start",
- "title": "startmenu",
- "src": "Program%20Files/Explorer/Start/exec.html",
- "noborder": 1,
- "isstartmenu": 1,
- "spawnicon": 0,
- "autostart": "minimized",
- "maxopen": 1
-}
-
-program.cmd = {
- "id": "cmd",
- "src": "Program%20Files/cmd/exec.html"
-}
-
-program.notifications = {
- "id": "notifications",
- "title": "notifications",
- "src": "Program%20Files/notifications/exec.html",
- "autostart": "minimized",
- "noborder": 1,
- "maxopen": 1,
- "spawnicon": 0
-}
-
-program.settings = {
- "id": "settings",
- "title": "Settings",
- "icon": "iofs:C:/Program Files/settings/icon.png",
- "src": "Program%20Files/settings/exec.html",
- "autostart": 0,
- "spawnicon": 1
-}
-
-program.painthd = {
- "id": "painthd",
- "src": "Program%20Files/Paint%20HD/exec.html"
-}
-
-program.taskmanager = {
-    "id": "taskmanager",
-    "src": "Program%20Files/taskmanager/exec.html"
-}
-
-program.germantv_zdf = {
- "id": "germantv_zdf",
- "title": "ZDF",
- "icon": "iofs:C:/Program Files/zdf/icon.png",
- "src": "https://zdf.de",
- "spawnicon": 1,
- "germantv": 1
-}
-
-program.germantv_kika = {
- "id": "germantv_kika",
- "title": "Kinderkanal",
- "icon": "iofs:C:/Program Files/kika/icon.png",
- "src": "https://www.kika.de/kika-live/index.html",
- "spawnicon": 1,
- "germantv": 1
-}
 
 
 

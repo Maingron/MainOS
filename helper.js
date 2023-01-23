@@ -2,6 +2,8 @@ var data = {};
 data.system = {};
 data.system.mouse = {};
 
+var system = window.parent.system;
+
 
 if(ismainos != 1 && parent.ismainos == 1) {
     var setting = window.parent.setting; // Get setting variable from MainOS and make it available the same way as in MainOS itself
@@ -38,24 +40,36 @@ if(ismainos != 1 && parent.ismainos == 1) {
 
 var ismainos;
 
-document.documentElement.style.setProperty("--themecolor", setting.themecolor);
-document.documentElement.style.setProperty("--themecolor2", setting.themecolor2);
-document.documentElement.style.setProperty("--font", setting.font);
-document.documentElement.style.setProperty("--border-radius", setting.borderradius);
-document.documentElement.style.setProperty("--hovercolor", setting.hovercolor);
-document.documentElement.style.setProperty("--hovercolornontransparent", setting.hovercolornontransparent);
+function refreshCSSVars() {
+    document.documentElement.classList.add("settingTransition");
+    document.documentElement.style.setProperty("--themecolor", system.user.settings.themecolor);
+    document.documentElement.style.setProperty("--themecolor2", system.user.settings.themecolor2);
+    document.documentElement.style.setProperty("--font", system.user.settings.font);
+    document.documentElement.style.setProperty("--border-radius", system.user.settings.borderradius);
+    document.documentElement.style.setProperty("--hovercolor", system.user.settings.hovercolor);
+    document.documentElement.style.setProperty("--hovercolornontransparent", system.user.settings.hovercolornontransparent);
+    
+    
+    if (system.user.settings.notsodarkmode == 1) {
+        document.documentElement.style.setProperty("--black", "#151515");
+        document.documentElement.style.setProperty("--black2", "#444");
+        document.documentElement.style.setProperty("--black3", "#555");
+        document.documentElement.style.setProperty("--black4", "#666");
+        document.documentElement.style.setProperty("--black5", "#757575");
+    }
+
+    window.setTimeout(function() {
+        document.documentElement.classList.remove("settingTransition");
+    }, 1000);
 
 
-if (setting.notsodarkmode == 1) {
-    document.documentElement.style.setProperty("--black", "#151515");
-    document.documentElement.style.setProperty("--black2", "#444");
-    document.documentElement.style.setProperty("--black3", "#555");
-    document.documentElement.style.setProperty("--black4", "#666");
-    document.documentElement.style.setProperty("--black5", "#757575");
 }
 
+refreshCSSVars();
+
+
 window.addEventListener("load", function() {
-    if (setting.big_buttons == 1) {
+    if (system.user.settings.big_buttons == 1) {
         document.body.classList.add("big_buttons");
     }
 })
@@ -165,10 +179,10 @@ window.addEventListener("keydown", function (event) {
     if(key['meta'] == true) {
         event.preventDefault();
         event.stopPropagation();
-        if(parent.pid.includes("explorer_start")) {
-            parent.unrun(parent.getWindowByMagic(parent.document.getElementsByClassName("explorer_start")[0].id));
+        if(parent.pid.includes("start_menu")) {
+            parent.unrun(parent.getWindowByMagic(parent.document.getElementsByClassName("start_menu")[0].id));
         } else {
-            parent.run("explorer_start");
+            parent.run("start_menu");
         }
     }
 });

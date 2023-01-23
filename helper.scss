@@ -24,7 +24,6 @@ body {
     padding: 0;
     font-family: var(--font);
     accent-color: var(--themecolor);
-
 }
 
 * {
@@ -33,6 +32,10 @@ body {
     &::selection {
         background-color: var(--hovercolor);
     }
+}
+
+.settingTransition * {
+    transition: 1s;
 }
 
 body {
