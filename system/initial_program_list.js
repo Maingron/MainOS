@@ -91,6 +91,12 @@ function getInitialProgramList() {
             "id": "taskmanager",
             "src": "Program%20Files/taskmanager/exec.html"
         },
+        "calculator": {
+            "id": "calculator",
+            "src": "Program%20Files/evalculator/exec.html",
+            "title": "Calculator (Evalculator)",
+            "icon": "iofs:C:/Program Files/evalculator/icon.png"
+        },
         "germantv_zdf": {
             "id": "germantv_zdf",
             "title": "ZDF",
