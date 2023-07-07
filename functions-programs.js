@@ -446,6 +446,10 @@ function getWindowById(id) {
     return document.getElementById(id);
 }
 
+function getWindowByPid(pid) {
+    return getWindowById(pid);
+}
+
 /**
  * Returns a window by its child elements
  * @param {object} which
