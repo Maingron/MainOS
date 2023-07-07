@@ -6,7 +6,6 @@ objects.content.innerHTML = "<p class=\"cmdoutput\"></p><form autocapitalize='of
 
 objects.cmdinput = document.getElementsByClassName("cmdinput")[0];
 objects.cmdoutput = document.getElementsByClassName("cmdoutput")[0];
-document.documentElement.style.setProperty("--font", window.parent.setting.font);
 
 objects.cmdoutput.innerHTML = loadfile("C:/mainos/temp/cmdhistory.dat");
 savefile("C:/mainos/temp/cmdhistory.dat", "", 1, "t=txt");
