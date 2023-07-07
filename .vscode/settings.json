@@ -1,0 +1,22 @@
+{
+    "workbench.iconTheme": "windows-xp-icons",
+
+    "window.titleBarStyle": "custom",
+    "workbench.colorCustomizations": {
+        "titleBar.activeBackground": "#0055E5",
+        "titleBar.activeForeground": "#ffffff",
+        "titleBar.inactiveBackground": "#7B97E0",
+        "titleBar.inactiveForeground": "#ffffff",
+        "titleBar.border": "#0055E5",
+        "activityBar.background": "#0055E5",
+        "activityBar.foreground": "#ffffff",
+        "activityBar.border": "#0055E5",
+        // "sideBar.background": "#F0EEE4",
+        // "sideBar.foreground": "#000000",
+        "statusBar.background": "#0055E5",
+        "statusBar.foreground": "#ffffff",
+        "statusBar.border": "#0055E5",
+        "statusBarItem.remoteBackground": "#1E941E"
+    }
+
+}
