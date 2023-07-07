@@ -45,7 +45,7 @@ function run(which, iattr, how) { // Run a program
         <button class="max has_hover" onclick="focusWindow(getWindowByMagic(this)); max(getWindowByMagic(this))" href="#" title="(Un-)Maximize">⎚</button>
         <button class="close has_hover" onclick="unrun(getWindowByMagic(this))" href="#" title="Close"><b>x</b></button>
         <button class="minimize" onclick="setWindowMinimized(getWindowByMagic(this))">-</button>
-        <button class="fullscreen has_hover" onclick="windowFullscreen(getWindowByMagic(this))" href="#" title="Toggle Fullscreen">
+        <button class="fullscreen has_hover" onclick="setWindowFullscreen(getWindowByMagic(this))" href="#" title="Toggle Fullscreen">
             <img src="${loadfile("C:/mainos/system32/icons/fullscreen.svg")}" alt="">
         </button>
         <div class="drag"></div>
@@ -382,6 +382,27 @@ function max(which, how) { // Maximize or unmaximize window
 }
 
 
+
+/**
+ * Fullscreens or unfullscreens a window
+ * @param which window
+ * @param {boolean} state fullscreen / unfullscreen (default: auto)
+ */
+function setWindowFullscreen(which, state) {
+    which.style.transition = ".5s";
+    if(state == true) {
+        which.classList.add("fullscreen");
+    } else if(state == false) {
+        which.classList.remove("fullscreen");
+    } else {
+        setWindowFullscreen(which, !which.classList.contains("fullscreen"));
+        return;
+    }
+    window.setTimeout(function() {
+        which.style.transition = "";
+    },500);
+}
+
 /**
  * Minimizes or unminimizes a window
  * @param which window
@@ -414,17 +435,6 @@ function showDesktop() {
     }
 }
 
-/**
- * Toggles a window's fullscreen mode
- * @param which window
- */
-function windowFullscreen(which) {
-    which.style.transition = ".5s";
-    which.classList.toggle("fullscreen");
-    window.setTimeout(function() {
-        which.style.transition = "";
-    },500);
-}
 
 
 /**
