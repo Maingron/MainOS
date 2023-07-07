@@ -229,9 +229,15 @@ function run(which, iattr, how) { // Run a program
 
 /**
  * focusses a window
- * @param which which window to focus
+ * @param which which window to focus (false to unfocus all)
+ * @param {boolean} state if false, will unfocus all windows and return
  */
-function focusWindow(which) {
+function focusWindow(which, state) {
+    if(state == false || which == false) {
+        unfocus();
+        return;
+    }
+
     zindex++;
     which.style.zIndex = zindex;
     which.children[2].focus();
@@ -241,7 +247,7 @@ function focusWindow(which) {
         setWindowMinimized(which, false);
     }
 
-    unfocusWindow();
+    unfocus();
 
     which.classList.add("active");
 
@@ -250,20 +256,28 @@ function focusWindow(which) {
             myTask.classList.add("active");
         }
     }
-}
 
-function unfocusWindow() {
-    for(myWindow of document.getElementsByClassName("program")) {
-        if(myWindow.classList.contains("active")) {
-            myWindow.classList.remove("active");
+    /**
+     * unfocuses all windows
+    */
+
+    function unfocus() {
+        // unfocus window
+        for(myWindow of document.getElementsByClassName("program")) {
+            if(myWindow.classList.contains("active")) {
+                myWindow.classList.remove("active");
+            }
+        }
+
+        // unfocus taskbar entry
+        for(myTask of document.getElementById("tasklist").children) {
+            if(myTask.classList.contains("active")) {
+                myTask.classList.remove("active");
+            }
         }
     }
 
-    for(myTask of document.getElementById("tasklist").children) {
-        if(myTask.classList.contains("active")) {
-            myTask.classList.remove("active");
-        }
-    }
+
 }
 
 /**
@@ -412,7 +426,7 @@ function setWindowMinimized(which, state) {
     if(state == true) {
         which.classList.add("minimized");
         which.getElementsByTagName("iframe")[0].setAttribute("disabled", true);
-        unfocusWindow();
+        focusWindow(false);
     } else if(state == false) {
         which.getElementsByTagName("iframe")[0].removeAttribute("disabled");
         which.classList.remove("minimized");
