@@ -1,11 +1,10 @@
-const startMenuWindow = os.getWindowById(osWindow.pid);
 function run(which) {
     os.run(which);
     close_startmenu();
 }
 
 function close_startmenu() {
-    os.unrun(startMenuWindow);
+    pWindow.close();
 }
 
 // Spawn icons in all-programs list

@@ -11,6 +11,7 @@ function newProcessListEntry(programIdentifier) {
     return(pidmax);
 }
 
+
 /**
  * Runs a program
  * @param {string} which program identifier
@@ -182,24 +183,97 @@ function run(which, iattr, how) { // Run a program
     myWindow.frame.contentWindow.pid = myPid;
     myWindow.frame.contentWindow.os = myWindow.frame.contentWindow.mainos = this.window;
 
-    myWindow.frame.contentWindow.osWindow = {
-        "pid": myPid,
-        "attributes": iattr,
-        "programObject": myProgram,
-        "path": {
-            "folderOfExecutable": myProgram.src.split("/").slice(0, -1).join("/"),
-            "executable": myProgram.src,
-            "folder": path.programFiles + myProgram.id + "/",
-            "data": path.appdata + myProgram.id + "/",
-        },
-        "os": this.window,
-        "mainos": this.window
-    };
+    /**
+     * hands infos to the program window.
+     * This is where the variable "pWindow" originates from.
+     * It will be created for each individual window when the program is started.
+     * 
+     * If you want to interact with the program's window, just use pWindow!
+     */
 
+    function handInfosToWindow() {
+
+        function stylesConstructor() {
+            return {
+                "left": 0,
+                "top": 0,
+                "width": 0,
+                "height": 0,
+                "opacity": 1
+            }
+        }
+
+
+
+        var protectedData = {
+            "pid": myPid,
+            "attributes": iattr,
+            "programObject": myProgram,
+            "path": {
+                "folderOfExecutable": myProgram.src.split("/").slice(0, -1).join("/"),
+                "executable": myProgram.src,
+                "folder": path.programFiles + myProgram.id + "/",
+                "data": path.appdata + myProgram.id + "/",
+            },
+            "styles": stylesConstructor()
+        };
+
+        myWindow.pWindow = myWindow.frame.pWindow = myWindow.frame.contentWindow.pWindow = {
+            "os": this.window,
+            "mainos": this.window,
+            "getWindow": function() {
+                return myWindow;
+            },
+            "close": function() {
+                unrun(myWindow);
+            },
+            "setMinimized": function(state) {
+                // state = true or false, else it will toggle
+                setWindowMinimized(myWindow, state);
+            },
+            "setMaximized": function(state) {
+                // state = true or false, else it will toggle
+                setWindowMaximized(myWindow, state);
+            },
+            "setFullscreen": function(state) {
+                // state = true or false, else it will toggle
+                setWindowFullscreen(myWindow, state);
+            },
+            "focus": function() {
+                focusWindow(myWindow);
+            },
+            "setOpacity": function(opacity) {
+                setWindowOpacity(myWindow, opacity);
+            },
+            "getPid": function() {
+                return protectedData.pid;
+            },
+            "getAttributes": function() {
+                return protectedData.attributes;
+            },
+            "getProgramObject": function() {
+                return protectedData.programObject;
+            },
+            "getPath": function(which) {
+                return protectedData.path[which];
+            },
+            "getPathList": function() {
+                return JSON.parse(JSON.stringify(protectedData.path));
+            },
+            "getStyles": function() {
+                return JSON.parse(JSON.stringify(protectedData.styles));
+            },
+            "setStyleProperty": function(property, value) {
+                protectedData.styles[property] = value;
+            }
+        }
+    }
+
+    handInfosToWindow();
 
     // myWindow.frame.contentWindow.window.alert = notification;
     // myWindow.frame.contentWindow.alert = notification;
-    myWindow.frame.contentWindow.document.documentElement.style.setProperty("--font", system.user.settings.font);
+    myWindow.frame.contentWindow.document.documentElement.style.setProperty("--font", system.user.settings.font.fonts);
 
     refreshTaskList();
     focusWindow(getWindowById(myWindow.id));
@@ -235,7 +309,7 @@ function setWindowOpacity(which, opacity) {
     if(!opacity) {
         opacity = "";
     }
-    which.osWindow.opacity = opacity;
+    which.pWindow.opacity = opacity;
     which.style.opacity = opacity;
 }
 
@@ -504,8 +578,8 @@ function getWindowByMagic(which) {
         result = getWindowByChildElement(which);
     }
     if(result == undefined || result == null || result == "") {
-        if(which?.osWindow?.pid) {
-            result = getWindowById(which.osWindow.pid);
+        if(which?.pWindow?.pid) {
+            result = getWindowById(which.pWindow.pid);
         }
     }
     return result;

@@ -2,8 +2,8 @@ const config = {
   "enableBubble": true
 };
 
-const notificationFilePath = osWindow.path.data + "notifications.txt";
-const notificationWindow = os.getWindowByMagic(this);
+const notificationFilePath = pWindow.getPath("data") + "notifications.txt";
+const notificationWindow = pWindow.getWindow();
 const notificationContainer = document.getElementsByClassName("notifications")[0];
 let notificationBubble;
 let notificationIcon = createNotificationIcon();
@@ -125,19 +125,20 @@ function createNotificationIcon() {
 }
 
 function toggleNotificationWindow(maximize = "undefined") {
+  // toggle
   if(maximize == "undefined") {
     parent.setWindowMinimized(notificationWindow);
-  } else if(maximize==true) {
+  } else  if(maximize == true) {
     if(notificationWindow.classList.contains("minimized")) {
-      parent.max(notificationWindow);
+      pWindow.setMaximized(true);
     } else if(!notificationWindow.classList.contains("active")) {
-      parent.focusWindow(notificationWindow);
+      parent.focusWindow(notificationWindow, true);
     }
-  } else if(maximize==false) {
-    parent.setWindowMinimized(notificationWindow);
+  } else if(maximize == false) {
+    pWindow.setMinimized(true);
   }
   if(!notificationWindow.classList.contains("minimized")) {
-      parent.focusWindow(notificationWindow);
+      pWindow.focus();
   }
 }
 
@@ -161,8 +162,8 @@ function setNotificationBubble() {
 }
 
 function installer() {
-  if(!parent.isfolder(osWindow.path.data) || !parent.isfile(notificationFilePath)) {
-    parent.savefile(osWindow.path.data, "", 0, "t=dir");
+  if(!parent.isfolder(pWindow.path.data) || !parent.isfile(notificationFilePath)) {
+    parent.savefile(pWindow.path.data, "", 0, "t=dir");
     parent.savefile(notificationFilePath, "[{}]", 1, "t=txt");
     sendNotification({
       "title": "Notifications initialized",
