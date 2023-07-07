@@ -226,6 +226,18 @@ function run(which, iattr, how) { // Run a program
     }
 }
 
+/**
+ * changes the opacity of the window
+ * @param {HTMLElement} which the window to change the opacity of
+ * @param {number} opacity the opacity to set
+ */
+function setWindowOpacity(which, opacity) {
+    if(!opacity) {
+        opacity = "";
+    }
+    which.osWindow.opacity = opacity;
+    which.style.opacity = opacity;
+}
 
 /**
  * focusses a window
