@@ -1,9 +1,6 @@
 var objects = {};
 objects.videocall = document.getElementById("videocall");
 
-document.documentElement.style.setProperty("--font",window.parent.setting.font);
-
-
 
 function spawncam() {
   objects.videocall.innerHTML = "<video autoplay=\"true\" id=\"cam\"></video>";
