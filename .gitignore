@@ -14,3 +14,5 @@ prepros-6.config
 .log
 .local
 .local.*
+
+*.map
