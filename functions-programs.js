@@ -42,7 +42,7 @@ function run(which, iattr, how) { // Run a program
     <div class="headbar">
         <img class="progicon" src="${myProgram.icon}" alt="${myProgram.title}">
         <p class="progtitle">${myProgram.title}</p>
-        <button class="max has_hover" onclick="focusWindow(getWindowByMagic(this)); max(getWindowByMagic(this))" href="#" title="(Un-)Maximize">⎚</button>
+        <button class="max has_hover" onclick="focusWindow(getWindowByMagic(this)); setWindowMaximized(getWindowByMagic(this))" href="#" title="(Un-)Maximize">⎚</button>
         <button class="close has_hover" onclick="unrun(getWindowByMagic(this))" href="#" title="Close"><b>x</b></button>
         <button class="minimize" onclick="setWindowMinimized(getWindowByMagic(this))">-</button>
         <button class="fullscreen has_hover" onclick="setWindowFullscreen(getWindowByMagic(this))" href="#" title="Toggle Fullscreen">
@@ -151,7 +151,7 @@ function run(which, iattr, how) { // Run a program
 
     myWindow.drag.addEventListener("dblclick", function() {
         focusWindow(getWindowByMagic(myWindow));
-        max(getWindowByMagic(this));
+        setWindowMaximized(getWindowByMagic(this));
     });
 
 
@@ -168,11 +168,11 @@ function run(which, iattr, how) { // Run a program
     
 
     if (!how) {
-        max(getWindowByMagic(myWindow), "tomax");
+        setWindowMaximized(getWindowByMagic(myWindow), true);
     } else if(how == "min" || how == "minimized" || how == "minimised" || how == "background") {
         setWindowMinimized(getWindowByMagic(myWindow));
     } else if(how == "fullscreen") {
-        windowFullscreen(getWindowByMagic(myWindow));
+        setWindowFullscreen(getWindowByMagic(myWindow));
     }
 
     attr = iattr; // Will get used to pass arguments to programs when starting them // Deprecated - use getProgramArgs(this) instead
@@ -341,36 +341,36 @@ function unrun(which) { // Unrun / close a program
 /**
  * Maximizes or windowes a window
  * @param which window
- * @param how maximize or unmaximize
+ * @param {boolean} state maximize or unmaximize
  */
-function max(which, how) { // Maximize or unmaximize window
-    which.style.transition = ".3s";
-    if (!how) {
-        if (which.classList.contains("maximized")) {
-            how = "tonormal"
-        } else {
-            how = "tomax"
-        }
-    }
-    if (how == "tonormal") {
-        which.classList.remove("maximized");
-        which.classList.add("notmaximized");
-        which.style.top = "15%";
-        which.style.left = "15%";
-        which.style.height = "";
-        which.style.width = "";
 
-    } else {
+function setWindowMaximized(which, state) {
+    which.style.transition = ".3s";
+
+    if(state == true) {
         which.classList.add("maximized");
         which.classList.remove("notmaximized");
         which.style.top = "0";
         which.style.left = "0";
         which.style.height = "";
         which.style.width = "";
+    } else if(state == false) {
+        which.classList.remove("maximized");
+        which.classList.add("notmaximized");
+        which.style.top = "15%";
+        which.style.left = "15%";
+        which.style.height = "";
+        which.style.width = "";
+    } else {
+        setWindowMaximized(which, !which.classList.contains("maximized"));
+        return;
     }
+
 
     clicking = 0;
     clicked = 1;
+
+    // if minimized, unminimize
 
     if(which.classList.contains("minimized")) {
         setWindowMinimized(which, false);
@@ -380,7 +380,6 @@ function max(which, how) { // Maximize or unmaximize window
         which.style.transition = "0s";
     }, 300);
 }
-
 
 
 /**
