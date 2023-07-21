@@ -43,12 +43,15 @@ function run(which, iattr, how) { // Run a program
     <div class="headbar">
         <img class="progicon" src="${myProgram.icon}" alt="${myProgram.title}">
         <p class="progtitle">${myProgram.title}</p>
-        <button class="max has_hover" onclick="focusWindow(getWindowByMagic(this)); setWindowMaximized(getWindowByMagic(this))" href="#" title="(Un-)Maximize">⎚</button>
-        <button class="close has_hover" onclick="unrun(getWindowByMagic(this))" href="#" title="Close"><b>x</b></button>
-        <button class="minimize" onclick="setWindowMinimized(getWindowByMagic(this))">-</button>
-        <button class="fullscreen has_hover" onclick="setWindowFullscreen(getWindowByMagic(this))" href="#" title="Toggle Fullscreen">
-            <img src="${loadfile("C:/mainos/system32/icons/fullscreen.svg")}" alt="">
-        </button>
+        <div class="controls">
+            <button class="pin has_hover" onclick="setWindowAlwaysOnTop(getWindowByMagic(this))" href="#" title="Pin window always to top">📌</button>
+            <button class="max has_hover" onclick="focusWindow(getWindowByMagic(this)); setWindowMaximized(getWindowByMagic(this))" href="#" title="(Un-)Maximize">⎚</button>
+            <button class="close has_hover" onclick="unrun(getWindowByMagic(this))" href="#" title="Close"><b>x</b></button>
+            <button class="minimize" onclick="setWindowMinimized(getWindowByMagic(this))">-</button>
+            <button class="fullscreen has_hover" onclick="setWindowFullscreen(getWindowByMagic(this))" href="#" title="Toggle Fullscreen">
+                <img src="${loadfile("C:/mainos/system32/icons/fullscreen.svg")}" alt="">
+            </button>
+        </div>
         <div class="drag"></div>
     </div>
     <div class="resizers">
@@ -244,6 +247,10 @@ function run(which, iattr, how) { // Run a program
                 // state = true or false, else it will toggle
                 setWindowFullscreen(myWindow, state);
             },
+            "setAlwaysOnTop": function(state) {
+                // state = true or false, else it will toggle
+                setWindowAlwaysOnTop(myWindow, state);
+            },
             "focus": function() {
                 focusWindow(myWindow);
             },
@@ -368,8 +375,17 @@ function focusWindow(which, state) {
             }
         }
     }
+}
 
-
+function setWindowAlwaysOnTop(which, state) {
+    if(state == true) {
+        which.classList.add("alwaysontop");
+    } else if(state == false) {
+        which.classList.remove("alwaysontop");
+    } else {
+        setWindowAlwaysOnTop(which, !which.classList.contains("alwaysontop"));
+        return;
+    }
 }
 
 /**
