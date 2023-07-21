@@ -162,8 +162,8 @@ function setNotificationBubble() {
 }
 
 function installer() {
-  if(!parent.isfolder(pWindow.path.data) || !parent.isfile(notificationFilePath)) {
-    parent.savefile(pWindow.path.data, "", 0, "t=dir");
+  if(!parent.isfolder(pWindow.getPath("data")) || !parent.isfile(notificationFilePath)) {
+    parent.savefile(pWindow.getPath("data"), "", 0, "t=dir");
     parent.savefile(notificationFilePath, "[{}]", 1, "t=txt");
     sendNotification({
       "title": "Notifications initialized",
