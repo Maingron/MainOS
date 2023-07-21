@@ -65,7 +65,6 @@ body {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
@@ -140,7 +139,6 @@ body.big_buttons .resizer2 {
   left: 150%;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   transform: scale(0);
   opacity: 0;
@@ -150,7 +148,6 @@ body.big_buttons .resizer2 {
 .program.minimized iframe {
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   visibility: hidden;
 }
@@ -178,15 +175,13 @@ body.big_buttons .resizer2 {
   width: 50%;
 }
 .program.notmaximized .headbar .drag {
-  cursor: -webkit-grab;
   cursor: grab;
 }
 .program * {
   -webkit-user-select: none;
   -moz-user-select: none;
   -o-user-select: none;
-  -ms-user-select: none;
-      user-select: none;
+  user-select: none;
 }
 .program iframe {
   position: absolute;
@@ -332,7 +327,6 @@ body.big_buttons .resizer2 {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   box-shadow: 0 -1px 0 0px rgba(0, 0, 0, 0.5333333333);
 }
@@ -473,7 +467,6 @@ body.big_buttons .resizer2 {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 #icons button {
@@ -614,7 +607,7 @@ body.big_buttons .resizer2 {
     border: none;
   }
   .program .headbar .max,
-.program .headbar .close {
+  .program .headbar .close {
     height: 12px;
     width: 12px;
     padding: 0;
