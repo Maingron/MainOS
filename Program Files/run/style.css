@@ -1,0 +1,47 @@
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+p {
+  padding: 5px 10px 0 10px;
+  margin-top: 0;
+}
+
+input {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+#box1 {
+  display: flex;
+  flex-direction: column;
+}
+
+#box1a {
+  display: block;
+  padding: 10px 10px 0 10px;
+}
+
+#box1b {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-top: 20px;
+  background-color: var(--bg-3);
+  padding: 10px;
+}
+
+button {
+  margin-left: 6px;
+}

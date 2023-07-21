@@ -91,6 +91,16 @@ function getInitialProgramList() {
             "id": "taskmanager",
             "src": "Program%20Files/taskmanager/exec.html"
         },
+        "run": {
+            "id": "run",
+            "src": "Program%20Files/run/exec.html",
+            "controls": {
+                "fullscreen": false,
+                "maximize": false,
+                "resize": false,
+                "bar-dblclicktomax": false
+            }
+        },
         "calculator": {
             "id": "calculator",
             "src": "Program%20Files/evalculator/exec.html",
