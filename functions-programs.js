@@ -578,14 +578,14 @@ function getWindowsByName(which) {
 function getWindowByMagic(which) {
     var result;
     if(result == undefined || result == null || result == "") {
-        result = getWindowById(which);
+        result = getWindowByPid(which);
     }
     if(result == undefined || result == null || result == "") {
         result = getWindowByChildElement(which);
     }
     if(result == undefined || result == null || result == "") {
-        if(which?.pWindow?.pid) {
-            result = getWindowById(which.pWindow.pid);
+        if(which.pWindow) {
+            result = which.pWindow.getWindow();
         }
     }
     return result;
