@@ -178,20 +178,25 @@ function run(which, iattr, how) { // Run a program
 
     attr = iattr; // Will get used to pass arguments to programs when starting them // Deprecated - use getProgramArgs(this) instead
 
-    myWindow.frame.data = {};
-    myWindow.frame.data.mypid = myPid;
-    myWindow.frame.contentWindow.pid = myPid;
-    myWindow.frame.contentWindow.os = myWindow.frame.contentWindow.mainos = this.window;
 
     /**
      * hands infos to the program window.
      * This is where the variable "pWindow" originates from.
      * It will be created for each individual window when the program is started.
-     * 
+     *
+     * This also contains some styles and other variables
+     *
      * If you want to interact with the program's window, just use pWindow!
      */
 
     function handInfosToWindow() {
+        myWindow.frame.data = {};
+        myWindow.frame.data.mypid = myPid;
+        myWindow.frame.contentWindow.pid = myPid;
+        myWindow.frame.contentWindow.os = myWindow.frame.contentWindow.mainos = this.window;
+
+        myWindow.frame.contentWindow.document.documentElement.style.setProperty("--font", system.user.settings.font.fonts);
+
 
         function stylesConstructor() {
             return {
@@ -269,13 +274,14 @@ function run(which, iattr, how) { // Run a program
         }
     }
 
-    handInfosToWindow();
+    // once the frame's src is fully loaded, we hand infos to the window
+    myWindow.frame.addEventListener("load", function() {
+        handInfosToWindow();
+    }, {"once": true});
 
-    // myWindow.frame.contentWindow.window.alert = notification;
-    // myWindow.frame.contentWindow.alert = notification;
-    myWindow.frame.contentWindow.document.documentElement.style.setProperty("--font", system.user.settings.font.fonts);
 
     refreshTaskList();
+
     focusWindow(getWindowById(myWindow.id));
 
 
