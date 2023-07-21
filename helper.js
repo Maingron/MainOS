@@ -244,3 +244,27 @@ function random(min, max, decimals, runs) {
         }
     }
 }
+
+// Load late-src scripts
+// Useful if you need to access variables that are set by the system (like pWindow) right away.
+// TODO: Find a better way maybe?
+
+document.addEventListener("DOMContentLoaded", function() {
+
+        var scriptTags = document.getElementsByTagName("script");
+        for (var currentTag of scriptTags) {
+            if(currentTag.getAttribute("late-src")) {
+            function loadScriptWhenHelperIsDone() {
+                var currentTag1 = currentTag;
+                var newLoop = window.setInterval(function() {
+                    if(typeof pWindow !== "undefined") {
+                        currentTag1.src = currentTag1.getAttribute("late-src");
+                        // destroy loop
+                        window.clearInterval(newLoop);
+                    }
+                },100);
+            }
+            loadScriptWhenHelperIsDone();
+        }
+    }
+});
