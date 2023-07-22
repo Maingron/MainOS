@@ -45,16 +45,17 @@ function removeNotification(which) {
 
 function updateNotificationWindow() {
   if(document.body.offsetHeight + "px" != notificationWindow.style.height) {
-    notificationWindow.style.bottom = "0";
+    notificationWindow.style.bottom = "35px";
     notificationWindow.style.right = "0";
     notificationWindow.style.top = "";
     notificationWindow.style.left = "";
     notificationWindow.style.width = "30%";
-    notificationWindow.style.height = "100%";
-    // notificationWindow.style.height = document.body.offsetHeight + "px";
-    // notificationWindow.style.maxHeight = "calc(100vh - 35px)";
-    // notificationWindow.getElementsByClassName("proframe")[0].style.height = document.body.offsetHeight + "px";
+    notificationWindow.style.overflow = "hidden";
+    notificationWindow.getElementsByClassName("proframe")[0].style.minHeight = "0";
+    notificationWindow.style.height = "calc(100% - 35px)";
+    notificationWindow.getElementsByClassName("proframe")[0].height = "calc(100% - 35px)";
     // notificationWindow.getElementsByClassName("proframe")[0].style.maxHeight = "100%";
+    notificationWindow.getElementsByClassName("proframe")[0].style.border = "none";
   }
 }
 
@@ -124,21 +125,11 @@ function createNotificationIcon() {
 
 }
 
-function toggleNotificationWindow(maximize = "undefined") {
+function toggleNotificationWindow(minimize = "undefined") {
   // toggle
-  if(maximize == "undefined") {
-    parent.setWindowMinimized(notificationWindow);
-  } else  if(maximize == true) {
-    if(notificationWindow.classList.contains("minimized")) {
-      pWindow.setMaximized(true);
-    } else if(!notificationWindow.classList.contains("active")) {
-      parent.focusWindow(notificationWindow, true);
-    }
-  } else if(maximize == false) {
-    pWindow.setMinimized(true);
-  }
-  if(!notificationWindow.classList.contains("minimized")) {
-      pWindow.focus();
+  pWindow.setMinimized(minimize);
+  if(minimize == false) {
+    pWindow.focus();
   }
 }
 
