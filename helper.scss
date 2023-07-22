@@ -15,7 +15,18 @@
     --altbarheight: 22px;
     --altbarcolor: var(--themecolor);
     --border-radius: 2px;
-    --font-size-base: 1rem;
+    --font-size-base: 1em;
+
+    --bg-1: var(--black);
+    --bg-2: var(--black2);
+    --bg-3: var(--black3);
+    --bg-4: var(--black4);
+    --bg-5: var(--black5);
+}
+
+html {
+    font-size: var(--font-size-base);
+    color-scheme: light;
 }
 
 body {
@@ -25,7 +36,7 @@ body {
     padding: 0;
     font-family: var(--font);
     accent-color: var(--themecolor);
-    font-size: var(--font-size-base);
+    font-size: 1rem;
 }
 
 * {
@@ -72,6 +83,12 @@ button,
 textarea {
     background: var(--beige4);
     color: #000;
+    font-size: 1em;
+    border-radius: var(--border-radius);
+}
+
+button {
+    line-height: 2;
 }
 
 .altbar {
@@ -83,16 +100,19 @@ textarea {
     display:block;
     top:0;
     box-sizing:border-box;
+    button {
+        line-height: revert;
+    }
 }
 
 .toolbar {
     border-bottom:1px solid #555;
-    background:var(--beige2);
+    background:var(--bg-3);
 }
 
 .toolbar2 {
     border-bottom:1px solid #555;
-    background:var(--beige3);
+    background:var(--bg-4);
 }
 
 .contextMenu {
@@ -138,6 +158,10 @@ textarea {
 
 
 @media (prefers-color-scheme: dark) {
+    html {
+        color-scheme: dark;
+    }
+
     body {
         background: transparent;
         color: #fff;
@@ -182,5 +206,16 @@ textarea {
     }
     ::-webkit-scrollbar-corner {
         background:var(--black);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+
+    :root {
+        --bg-1: var(--beige4);
+        --bg-2: var(--beige);
+        --bg-3: var(--beige2);
+        --bg-4: var(--beige3);
+        --bg-5: var(--beige4);
     }
 }

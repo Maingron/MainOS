@@ -157,22 +157,26 @@ body.big_buttons { // Big Buttons
 				.close {
 					display: inline-block;
 				}
+
 				.fullscreen {
 					transform: scale(1);
 				}
 			}
 
-			.max,
-			.close,
-			.minimize {
-				display: none;
+			.controls {
+				button {
+					display: none;
+					&.fullscreen {
+						transform: scale(.8);
+						right: 1.65em;
+						position: absolute;
+						display: inline-block;
+					}
+
+				}
+				
 			}
 
-			.fullscreen {
-				transform: scale(.8);
-				right: 1.65em;
-				position: absolute;
-			}
 		}
 	}
 

@@ -15,7 +15,11 @@
   --altbarheight: 22px;
   --altbarcolor: var(--themecolor);
   --border-radius: 2px;
-  --font-size-base: 1rem;
+  --font-size-base: 1em;
+}
+
+html {
+  font-size: var(--font-size-base);
 }
 
 body {
@@ -25,7 +29,7 @@ body {
   padding: 0;
   font-family: var(--font);
   accent-color: var(--themecolor);
-  font-size: var(--font-size-base);
+  font-size: 1rem;
 }
 
 * {
@@ -83,6 +87,12 @@ button,
 textarea {
   background: var(--beige4);
   color: #000;
+  font-size: 1em;
+  border-radius: var(--border-radius);
+}
+
+button {
+  line-height: 2;
 }
 
 .altbar {
@@ -90,11 +100,13 @@ textarea {
   width: 100%;
   border-bottom: 1px solid #555;
   background: var(--beige);
-  position: -webkit-sticky;
   position: sticky;
   display: block;
   top: 0;
   box-sizing: border-box;
+}
+.altbar button {
+  line-height: revert;
 }
 
 .toolbar {
@@ -145,7 +157,6 @@ textarea {
   cursor: default;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   touch-action: none;
   pointer-events: none;
@@ -165,9 +176,9 @@ textarea {
     transition: 0.1s;
   }
   input,
-select,
-button,
-textarea {
+  select,
+  button,
+  textarea {
     color: #fff;
     background: var(--black2);
     border: 1px solid #444;
