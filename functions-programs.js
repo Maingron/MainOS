@@ -60,6 +60,26 @@ function run(which, iattr, how) { // Run a program
     <iframe class="proframe ${myProgram.id}" src="about:blank" pid="${myPid}" async>${myProgram.src}</iframe>
     `;
 
+
+    // Disable disabled controls
+    // TODO: Improve
+
+    if(myProgram?.controls?.fullscreen == false) {
+        myWindow.getElementsByClassName("fullscreen")[0].setAttribute("disabled", true);
+    }
+    if(myProgram?.controls?.minimize == false) {
+        myWindow.getElementsByClassName("minimize")[0].setAttribute("disabled", true);
+    }
+    if(myProgram?.controls?.maximize == false) {
+        myWindow.getElementsByClassName("max")[0].setAttribute("disabled", true);
+    }
+    if(myProgram?.controls?.close == false) {
+        myWindow.getElementsByClassName("close")[0].setAttribute("disabled", true);
+    }
+    if(myProgram?.controls?.pin == false) {
+        myWindow.getElementsByClassName("pin")[0].setAttribute("disabled", true);
+    }
+
     myWindow.frame = myWindow.children[2];
     myWindow.drag = myWindow.children[0].getElementsByClassName("drag")[0];
     myWindow.resizer2 = myWindow.getElementsByClassName("resizer2")[0];
@@ -174,7 +194,7 @@ function run(which, iattr, how) { // Run a program
     if (!how) {
         setWindowMaximized(getWindowByMagic(myWindow), true);
     } else if(how == "min" || how == "minimized" || how == "minimised" || how == "background") {
-        setWindowMinimized(getWindowByMagic(myWindow));
+        setWindowMinimized(getWindowByMagic(myWindow), true);
     } else if(how == "fullscreen") {
         setWindowFullscreen(getWindowByMagic(myWindow));
     }
@@ -288,8 +308,9 @@ function run(which, iattr, how) { // Run a program
 
 
     refreshTaskList();
-
-    focusWindow(getWindowById(myWindow.id));
+    if(!myWindow?.classList?.contains("minimized")) {
+        focusWindow(getWindowById(myWindow.id));
+    }
 
 
     function checkMayStillOpen(programIdentifier) {

@@ -71,8 +71,17 @@ function getInitialProgramList() {
             "title": "notifications",
             "src": "Program%20Files/notifications/exec.html",
             "autostart": "minimized",
-            "noborder": 1,
             "maxopen": 1,
+            "controls": {
+                "fullscreen": false,
+                "minimize": true,
+                "maximize": false,
+                "close": false,
+                "resize": false,
+                "pin": false,
+                "bar-move": false,
+                "bar-dblclicktomax": false
+            },
             "spawnicon": 0
         },
         "settings": {
