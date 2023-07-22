@@ -44,6 +44,7 @@ function run(which, iattr, how) { // Run a program
         <img class="progicon" src="${myProgram.icon}" alt="${myProgram.title}">
         <p class="progtitle">${myProgram.title}</p>
         <div class="controls">
+            <button class="reload has_hover" onclick="this.parentElement.parentElement.parentElement.getElementsByClassName('proframe')[0].contentWindow.location.reload()" href="#" title="Reload program" disabled="disabled">↻</button>
             <button class="pin has_hover" onclick="setWindowAlwaysOnTop(getWindowByMagic(this))" href="#" title="Pin window always to top">📌</button>
             <button class="max has_hover" onclick="focusWindow(getWindowByMagic(this)); setWindowMaximized(getWindowByMagic(this))" href="#" title="(Un-)Maximize">⎚</button>
             <button class="close has_hover" onclick="unrun(getWindowByMagic(this))" href="#" title="Close"><b>x</b></button>
@@ -78,6 +79,10 @@ function run(which, iattr, how) { // Run a program
     }
     if(myProgram?.controls?.pin == false) {
         myWindow.getElementsByClassName("pin")[0].setAttribute("disabled", true);
+    }
+
+    if(system?.user?.settings?.developer?.enable == true) {
+        myWindow.getElementsByClassName("reload")[0].removeAttribute("disabled");
     }
 
     myWindow.frame = myWindow.children[2];

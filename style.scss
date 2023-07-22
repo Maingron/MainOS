@@ -337,6 +337,11 @@ body.big_buttons { // Big Buttons
 				&.pin {
 					background-color: var(--themecolor2);
 				}
+
+				&.reload {
+					background-color: #ff0;
+					color: #000;
+				}
 			}
 		}
 	}
