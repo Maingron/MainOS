@@ -118,6 +118,23 @@ body.big_buttons { // Big Buttons
 		opacity: .5 !important;
 	}
 
+	&.alwaysontop {
+		z-index: 999999 !important;
+		.controls {
+			.pin {
+				&::after {
+					content: "📍";
+					background: inherit;
+				}
+				&:hover {
+					&::after {
+						opacity: 0;
+					}
+				}
+			}
+		}
+	}
+
 	&.fullscreen {
 		z-index: 100000 !important;
 		top: 0 !important;
@@ -309,6 +326,10 @@ body.big_buttons { // Big Buttons
 
 				&.fullscreen {
 					order: 8500;
+					background-color: var(--themecolor2);
+				}
+
+				&.pin {
 					background-color: var(--themecolor2);
 				}
 			}
