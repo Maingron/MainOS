@@ -26,7 +26,6 @@
 
 html {
     font-size: var(--font-size-base);
-    color-scheme: light;
 }
 
 body {
@@ -37,6 +36,8 @@ body {
     font-family: var(--font);
     accent-color: var(--themecolor);
     font-size: 1rem;
+    color-scheme: light;
+
 }
 
 * {
@@ -158,13 +159,11 @@ button {
 
 
 @media (prefers-color-scheme: dark) {
-    html {
-        color-scheme: dark;
-    }
-
     body {
         background: transparent;
         color: #fff;
+        background-color: var(--bg-1);
+        color-scheme: dark;
     }
 
     * {

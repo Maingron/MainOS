@@ -7,6 +7,10 @@
     --border-width: 2px;
 }
 
+html, body {
+    background-color: transparent !important;
+}
+
 body {
     overflow: hidden;
     background-color: transparent !important;

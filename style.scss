@@ -248,6 +248,7 @@ body.big_buttons { // Big Buttons
 		border: 2px solid var(--themecolor);
 		border-bottom-left-radius: var(--border-radius);
 		border-bottom-right-radius: var(--border-radius);
+		color-scheme: initial !important;
 	}
 
 	.headbar {
