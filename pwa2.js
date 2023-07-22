@@ -13,7 +13,7 @@ self.addEventListener('install', (e) => {
             'style.css',
             'logo.png',
             'helper.js',
-            'helper.css',
+            'helper.min.css',
             'functions-programs.js',
             'mainos/iofs.js',
             'Program Files/Explorer/Start/exec.html',
