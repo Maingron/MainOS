@@ -1,0 +1,19 @@
+body {
+    padding: .4rem;
+    category {
+        display: block;
+        a {
+            display: inline-block;
+            padding: 3px 8px;
+            color: revert;
+            border-radius: var(--border-radius);
+        }
+        img {
+            height: 1.75rem;
+            width: 1.75rem;
+            margin-right: 5px;
+            display: block;
+            margin-bottom:2px;
+        }
+    }
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Browser</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="../../helper.min.css">
+	<link rel="stylesheet" href="style.min.css">
+	<link rel="shortcut icon" href="iofs:C:/Program Files/browser/icon.png">
+	<script src="../../helper.js"></script>
+</head>
+
+<body>
+	<div class="altbar">
+	</div>
+	<div class="toolbar">
+		<div id="websitecontrols1">
+			<div id="websitecontrols">
+				<button id="goback" onclick="webframe.contentWindow.history.back()">←</button>
+				<button id="goforward" onclick="webframe.contentWindow.history.forward()">→</button>
+				<button id="reload" onclick="webframe.contentWindow.location.reload()">⟳</button>
+			</div>
+			<button id="home" onclick="sendRequest(config.homepage)" title="Home">⌂</button>
+		</div>
+
+
+		<div id="adressstuff">
+			<img id="favicon" src="">
+			<input type="url" id="urlbar" placeholder="Enter URL to a website" onkeydown="if (event.keyCode == 13) {sendRequest(urlbar.value)}">
+			<button onclick="sendRequest(urlbar.value)" title="send">↵</button>
+		</div>
+	</div>
+	<iframe id="webframe" sandbox="allow-forms allow-top-navigation allow-scripts allow-same-origin"></iframe>
+
+
+	<script src="script.js"></script>
+</body>
+
+</html>

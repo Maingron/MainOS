@@ -107,6 +107,11 @@ function getInitialProgramList() {
             "title": "Calculator (Evalculator)",
             "icon": "iofs:C:/Program Files/evalculator/icon.png"
         },
+        "browser": {
+            "id": "browser",
+            "src": "Program%20Files/browser/exec.html",
+            "icon": "iofs:C:/Program Files/browser/icon.png"
+        },
         "germantv_zdf": {
             "id": "germantv_zdf",
             "title": "ZDF",
