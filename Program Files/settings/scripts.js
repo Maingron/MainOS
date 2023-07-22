@@ -159,6 +159,7 @@ function parseSystemVariableSettingsPath(path) {
 function settingChanged() {
     os.saveSystemVariable();
     os.refreshCSSVars();
+    refreshCSSVars();
 }
 
 
