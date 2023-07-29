@@ -33,6 +33,7 @@ var settings = [
         {name: "Developer Mode", type: "input>checkbox", id: "system.user.settings.developer.enable"},
         {name: "Enable Online Repository", type: "input>checkbox", id: "system.user.settings.enableRepository"},
         {name: `Reset ${system.osDetails.name}`, type: "button", id: "dummy.resetos", onclick: "os.formatfs('yes')"},
+        {name: `Reset ${system.osDetails.name} and freeze`, type: "button", id: "dummy.resetosandfreeze", onclick: "os.formatfs('yes', false)"},
         {name: "Update through Downgrade", type: "button", id: "dummy.updatethroughdowngrade", onclick: "", disabled: true}
     ]},
     {category: "User settings", id: "user", settings: [
