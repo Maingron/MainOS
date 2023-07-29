@@ -77,3 +77,11 @@ function register() {
 }
 
 register();
+
+// Since the start menu is in autostart and run with every SUCCESSFUL start, we can tell the system once we're booted successfully.
+// This allows us to have emergency buttons that get hidden once the system is booted SUCCESSFULLY. Else the user can use the emergency buttons to fix the boot process.
+// Only do this once
+if(!os.systemRuntime.bootSuccessful) {
+    os.hideEmergencyTools();
+    os.systemRuntime.bootSuccessful = true;
+}

@@ -96,6 +96,94 @@ body.big_buttons { // Big Buttons
 	}
 }
 
+#emergencytools, #emergencytoolsloading { // Emergency Tools
+	display: none;
+	height: 0;
+	z-index: 99999999 !important;
+	background: #000000;
+	color: #ffffff;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: calc(100vh - 35px);
+	padding: 10px;
+	overflow:auto;
+	max-height: 100vh;
+	max-width: 100vw;
+	width: 100vw;
+
+	&:target {
+		display: block;
+		+#emergencytoolsloading {
+			display: none !important;
+		}
+	}
+
+	img {
+		position: fixed;
+		margin: 10px;
+		top: 0;
+		right: 0;
+		height: 6vmin;
+		width: auto;
+	}
+
+	h2 {
+		top: 0;
+		position: sticky;
+		background: #000000;
+		border-bottom: 1px solid #aaccff;
+	}
+
+	* {
+		font-family: monospace, system-ui, -apple-system, sans-serif;
+	}
+
+	textarea {
+		background: #ffffaa;
+		color: #000000;
+		display: block;
+		width: 90%;
+		height: 500px;
+		resize: none;
+	}
+
+	details {
+		a {
+			color: reset;
+		}
+
+		input {
+			display: block;
+			width: 80%;
+		}
+		
+		#emergencyframe {
+			resize: both;
+			height: 600px;
+			max-height: 80vh;
+			width: 80%
+		}
+	}
+}
+
+#emergencytoolsloading {
+	height: auto;
+	width: 100%;
+	background: transparent;
+	position: absolute;
+	bottom: 0px;
+	top: unset;
+	padding: 0;
+	left: 0;
+	progress {
+		width: 100%;
+		background: rgba(255,255,255,.2);
+		border: 0;
+		height: 33px;
+	}
+}
+
 
 .program {
 	position: absolute;

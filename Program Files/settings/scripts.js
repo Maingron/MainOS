@@ -42,7 +42,8 @@ var settings = [
         {name: "Autologin", type: "input>text", id: "system.autologin"}
     ]},
     {category: "Developer Settings", id: "developer", scope: "developer", settings: [
-        {name: "Enable All Settings", type: "input>checkbox", id: "system.user.settings.developer.enableAllSettings"}
+        {name: "Enable All Settings", type: "input>checkbox", id: "system.user.settings.developer.enableAllSettings"},
+        {name: `Brick System Variable`, type: "button", id: "dummy.bricksysvar", onclick: "savefile('C:/system/system_variable.txt', loadfile('C:/system/system_variable.txt',false) + 'bricked', 1)"}
 
     ]}
 ]

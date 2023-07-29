@@ -19,6 +19,70 @@
 
 <body>
     <div class="content">
+        <div id="emergencytools" class="emergencytools">
+            <a id="targetemergencytools" href="#emergencytools"></a>
+            <a id="untargetemergencytools" href="#"></a>
+
+            <script>
+                function hideEmergencyTools() {
+                    clearTimeout(showLoadingForEmergencyTools);
+                    clearTimeout(targetEmergencyToolsTimeout);
+                    document.getElementById("untargetemergencytools").click();
+                    document.getElementById("emergencytools").style.display = "none";
+                    document.getElementById("emergencytools").setAttribute("disabled", "disabled");
+                    document.getElementById("emergencytools").outerHTML = "";
+                    document.getElementById("emergencytoolsloading").outerHTML = "";
+
+                }
+
+                var showLoadingForEmergencyTools = setTimeout(function() {
+                    document.getElementById("emergencytoolsloading").style.display = "block";
+                    var loadingProgress = setInterval(function() {
+                        document.getElementById("emergencytoolsloading").querySelector("progress").value += (100 / 6000) ;
+                    }, 100);
+                }, 2000);
+
+                var targetEmergencyToolsTimeout = setTimeout(function() {
+                    document.getElementById("targetemergencytools").click();
+                    clearInterval(loadingProgress);
+                }, 8000);
+            </script>
+            
+            <h2><img src="img/logo.svg" alt=""><span style="color:lightblue">Main</span><span style="color:red">OS</span> Emergency Tools</h2>
+            <p>If the system didn't boot successfully (Which is probably the case, since you see this box), you can use these tools to try and fix the system.</p>
+            <p><warn>Warning: Using these tools may reset the system!</warn> Also not all options will work</p>
+            <p>After you tried anything, ALWAYS click on reload, since there is no automatic reload. Reloading multiple times might be necessary.</p>
+            <p>Try to: </p>
+            <button onclick="window.location.reload()">Reload</button>
+            <button onclick="hideEmergencyTools()">Close Emergency Tools</button>
+            <br>
+            <button onclick="this.outerHTML = '<p>You can save the contents of your localStorage dump to a file on your device. It contains all IOfs data. <br>LocalStorage Dump:</p></p><textarea readonly>'+JSON.stringify(localStorage)+'</textarea>'">Show localStorage Dump</button>
+            <button onclick="run('run')">Open run box</button>
+            <button onclick="deletefile('C:/mainos/system32/ExpectedVersion.txt'); deletefile('C:/mainos/system32/ExpectedVersionnr.txt');">Upgrade through downgrade (old)</button>
+            <button onclick="" disabled>Upgrade through downgrade (update system variable)</button>
+            <button onclick="deletefile('C:/system/system_variable.txt')">Reset system variable</button>
+            <button onclick="formatfs('yes', false)">Reset system (System function)</button>
+            <button onclick="localStorage.clear()">Reset system (Clear localStorage)</button>
+
+
+            <details>
+                <summary class="has_hover">Emergency Program Frame</summary>
+                <p>Here you can enter the path of a program and try to run it. Programs will behave weird</p>
+                <p>Examples (clickable): </p>
+                <ul>
+                    <li><a class="has_hover" onclick="document.getElementById('emergencyinput').value = this.innerHTML; document.getElementById('emergencyinput').focus()">Program Files/cmd/exec.html</a></li>
+                    <li><a class="has_hover" onclick="document.getElementById('emergencyinput').value = this.innerHTML; document.getElementById('emergencyinput').focus()">Program Files/settings/exec.html</a></li>
+                    <li><a class="has_hover" onclick="document.getElementById('emergencyinput').value = this.innerHTML; document.getElementById('emergencyinput').focus()">Program Files/Explorer/inner/exec.html</a></li>
+                    <li><a class="has_hover" onclick="document.getElementById('emergencyinput').value = this.innerHTML; document.getElementById('emergencyinput').focus()">Program Files/notepad/exec.html</a></li>
+                </ul>
+                <input type="text" id="emergencyinput" placeholder="Program path" onchange="document.getElementById('emergencyframe').src = this.value" onfocus="document.getElementById('emergencyframe').src = this.value">
+
+                <iframe src="about:blank" id="emergencyframe"></iframe>
+            </details>
+        </div>
+        <div id="emergencytoolsloading">
+            <progress></progress>
+        </div>
         <div id="background" class="bgck">
             <p class="aboutthisversion">
                 <b id="username"></b><br>

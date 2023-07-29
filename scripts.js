@@ -9,6 +9,8 @@ var program = {};
 var clicked1 = 0;
 var processList = pid = [];
 var pidmax = 0;
+var systemRuntime = {};
+
 const documentRoot = location.pathname;
 
 loadsettings();
