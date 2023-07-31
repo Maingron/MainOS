@@ -15,8 +15,10 @@ body, input {
   min-height:100vh;
 }
 
-head, head * {
-  display:none;
+head {
+  &,* {
+    display:none;
+  }
 }
 
 * {
@@ -30,7 +32,7 @@ head, head * {
   color:$cmdwhite
 }
 
-p, a, b, input {
+p, a, b, input, .cmdinputcontainer {
   font-size:18px
 }
 
@@ -40,42 +42,49 @@ b {
 }
 
 .helpb {
-  display:block
-}
-
-.helpb b {
-  color:#ff0;
-}
-
-.helpb b b {
-  color:#66f;
-}
-
-.helpb b a {
- display:inline-block;
- color:#6f6;
-}
-
-.helpb br {
   display:block;
-  line-height:0;
+  b {
+    color:#ff0;
+    b {
+      color:#66f;
+    }
+    a {
+      display:inline-block;
+      color:#6f6;
+     }
+  }
+  br {
+    display:block;
+    line-height:0;
+  }
 }
 
-input {
-  border:0;
-  outline:0;
-  position:relative;
-  display:block;
-  top:0;
-  left:0;
-  width:100%;
-  height:auto;
-  min-height:20px;
-  padding:0;
-  border-left:5px solid $cmdwhite;
-  margin-left:-5px;
-}
+.cmdinputcontainer {
+	&::before {
+		content:'> ';
+		position:absolute;
+		left:0;
+		padding:1px 10px;
+		color:#ff0;
+		display: inline !important;
+		z-index:999;
+	}
+	input {
+		border:0;
+		outline:0;
+		position:relative;
+		display:block;
+		top:0;
+		left:0;
+		width:100%;
+		height:auto;
+		min-height:20px;
+		padding:0 0 0 18px;
+		border-left:5px solid $cmdwhite;
+		margin-left:-5px;
 
-input:focus {
-  border-left-color: transparent;
+		&:focus {
+			border-left-color: transparent;
+		}
+	}
 }

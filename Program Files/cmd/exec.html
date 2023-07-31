@@ -2,16 +2,21 @@
 <html dir="ltr">
 
 <head>
-  <meta charset="utf-8">
-  <link rel="shortcut icon" href="iofs:C:/Program Files/cmd/icon.png">
-  <link rel="stylesheet" type="text/css" href="style.min.css">
-  <title>CMD</title>
-  <script src="../../helper.js"></script>
+	<meta charset="utf-8">
+	<link rel="shortcut icon" href="iofs:C:/Program Files/cmd/icon.png">
+	<link rel="stylesheet" type="text/css" href="style.min.css">
+	<title>Terminal</title>
+	<script src="../../helper.js"></script>
 </head>
 
 <body onclick="objects.cmdinput.focus(); objects.cmdinput.select();">
-  <div class="content"></div>
-  <script src="scripts.js"></script>
+	<div class="content">
+		<p class="cmdoutput"></p>
+		<div class="cmdinputcontainer">
+			<input class="cmdinput">
+		</div>
+	</div>
+	<script late-src="scripts.js"></script>
 </body>
 
 </html>

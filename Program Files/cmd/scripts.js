@@ -1,23 +1,34 @@
-var objects = {};
+var objects = {
+	  content: document.getElementsByClassName("content")[0],
+	  cmdinput: document.getElementsByClassName("cmdinput")[0],
+	  cmdoutput: document.getElementsByClassName("cmdoutput")[0]
+};
 var cls = 0;
-objects.content = document.getElementsByClassName("content")[0];
 
-objects.content.innerHTML = "<p class=\"cmdoutput\"></p><form autocapitalize='off' onsubmit=\"cmdsubmit();\"><input class='cmdinput'></input></form>";
-
-objects.cmdinput = document.getElementsByClassName("cmdinput")[0];
-objects.cmdoutput = document.getElementsByClassName("cmdoutput")[0];
-
-objects.cmdoutput.innerHTML = loadfile("C:/mainos/temp/cmdhistory.dat");
-savefile("C:/mainos/temp/cmdhistory.dat", "", 1, "t=txt");
-
-window.scrollTo(0, document.body.scrollHeight);
+window.addEventListener("keydown", function (e) {
+	if (e.keyCode == 13) { // Enter
+		cmdsubmit();
+		updateTerminal();
+	}
+});
 
 objects.cmdinput.focus();
-objects.cmdinput.select();
 
+
+
+function updateTerminal() {
+	objects.cmdoutput.innerHTML = loadfile("C:/mainos/temp/cmdhistory.dat");
+	savefile("C:/mainos/temp/cmdhistory.dat", "", 1, "t=txt");
+
+	window.scrollTo(0, document.body.scrollHeight);
+
+	objects.cmdinput.value = "";
+	objects.cmdinput.focus();
+	objects.cmdinput.select();
+
+}
 
 function cmdsubmit() {
-
   var response = runcmd("cmd:" + objects.cmdinput.value);
 
   if (response == "") {
@@ -25,11 +36,11 @@ function cmdsubmit() {
       savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + escapeHtml(objects.cmdinput.value), 1, "t=txt");
       cls = 0;
     } else {
-      savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + escapeHtml(objects.cmdinput.value) + "<br>", 1, "t=txt");
+      savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + "> " + escapeHtml(objects.cmdinput.value) + "<br>", 1, "t=txt");
     }
 
   } else {
-    savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + escapeHtml(objects.cmdinput.value) + "<br>" + response + "<br>", 1, "t=txt");
+    savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + "> " + escapeHtml(objects.cmdinput.value) + "<br>" + response + "<br>", 1, "t=txt");
   }
 
   objects.cmdoutput.innerHTML = loadfile("C:/mainos/temp/cmdhistory.dat");
@@ -52,6 +63,10 @@ function runcmd(which) {
   }
 
   if (which.indexOf("close") == 4) {
+	// if pid is invalid return error
+	if (!parent.pid[which.split("cmd:close ")[1]]) {
+		return "Error: Invalid PID";
+	}
     parent.unrun(parent.getWindowByMagic(which.split("cmd:close ")[1]));
     return "";
   }
@@ -81,18 +96,27 @@ function runcmd(which) {
     objects.cmdoutput.innerHTML = "";
     objects.cmdinput.value = "";
     savefile("C:/mainos/temp/cmdhistory.dat", "", 1, "t=txt");
-    location.reload();
+    updateTerminal();
     return "";
   }
 
   if (which.indexOf("setting") == 4) {
     which = which.split("cmd:setting ")[1];
     which = which.toLowerCase();
-    savefile(parent.setting.settingpath + which.split(" ")[0] + ".txt", which.split(" ")[1], 1, "t=txt");
+	// if setting is a file
+	if (isfile(system.user.paths.userPath + "settings/" + which.split(" ")[0] + ".txt")) {
+		// if doesnt define value, return value
+		if (!which.split(" ")[1]) {
+			return ("(Ancient variable, use settings menu) <br>" + which + ": " + loadfile(system.user.paths.userPath + "settings/" + which.split(" ")[0] + ".txt"));
+		} else {
+			savefile(system.user.paths.userPath + "settings/" + which.split(" ")[0] + ".txt", which.split(" ")[1], 1, "t=txt");
+			window.parent.loadsettings();
+			return "'(Ancient variable, use settings menu) <br>' + changed setting - a reload may be required";
+		}
+	} else {
+		return "'(Ancient variable, use settings menu) <br>' + Error: Setting not found";
+	}
 
-
-    window.parent.loadsettings();
-    return "changed setting - a reload may be required";
   }
 
   if (which.indexOf("restart") == 4) {
@@ -104,20 +128,21 @@ function runcmd(which) {
   }
 
   if (which.indexOf("version") == 4) {
-    return("MainOS Version: " + parent.mainos.version);
+    return(`${system.osDetails.name} Version: ${system.osDetails.version}`);
   }
 
 
   if (which.indexOf("help") == 4) {
-    return `<b class='helpb' style='font-weight:inherit'><b>cls</b> clears console<br>
+    return /*html*/ `
+    <b class='helpb' style='font-weight:inherit'><b>cls</b> clears console<br>
     <b>echo <a>[Message]</a></b> well, it's echo...<br>
     <b>run <b>[name of program]</b></b> opens a program<br>
     <b>close <b>[pid of program]</b></b> closes a program<br>
     <b>pids </b> lists currently running programs<br><b>exit</b> closes the terminal<br>
-    <b>setting <b> [Name of setting] [value]</b></b> changes a setting<br>
-    <b>restart</b> restarts MainOS<br>
+    <b>setting <b> [Name of setting] [value]</b></b> changes a setting | <b style="color:#f55">deprecated, use settings app</b><br>
+    <b>restart</b> restarts ${system.osDetails.name}<br>
     <b>mkdir <a>[Path]</a></b> Create a directory<br>
-    <b>version</b> Shows MainOS Version<br>
+    <b>version</b> Shows ${system.osDetails.name} Version<br>
     </b>
     <p style='display:block;line-height:18px'>&nbsp;</p>
     <b class='helpb'>devmode commands:<br><b>js <b>js</b></b> executes js<br>`;
@@ -133,9 +158,7 @@ function runcmd(which) {
     objects.cmdoutput.innerHTML = "";
     objects.cmdinput.value = "";
     savefile("C:/mainos/temp/cmdhistory.dat", "", 1, "t=txt");
-    parent.unrun(parent.getWindowByMagic(this));
-    location.reload();
-    return "";
+    pWindow.close();
   }
 
   if (which.indexOf("js ") == 4) {
