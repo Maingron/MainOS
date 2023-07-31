@@ -121,13 +121,8 @@ function loadfile(path,requestattributes = false) {
 
         // - We have to expand the timestamp again, since we removed important parts of it when saving
 
-        var myLoadResultDate = myLoadResult.split("d=")[1].split(",")[0];
-
-        var myLoadResultDateOld = myLoadResultDate;
-
-        myLoadResultDate = +myLoadResultDate + 1000000000;
-        myLoadResultDate = myLoadResultDate + "000";
-        myLoadResultDate = myLoadResultDate;
+        let myLoadResultDate = myLoadResultDateOld = myLoadResult.split("d=")[1].split(",")[0];
+        myLoadResultDate = dateCompression(false, myLoadResultDate);
 
         myLoadResult = myLoadResult.replace(myLoadResultDateOld, myLoadResultDate);
     }
@@ -174,6 +169,28 @@ function isnofile(path) { // Todo: Check if should be depreciated
   } else {
     return true;
   }
+}
+
+/**
+ * Returns the compressed / decompressed date of the input date
+ * @param {boolean} gets compressed if true, decompressed if false
+ * @param {Date} date Date to compress / decompress
+ * @returns {number} Compressed / decompressed date
+ **/
+
+function dateCompression(compress = false, date = new Date()) {
+  if(compress == true) { // apply compression
+    // if not a date, make it one
+    if(typeof date != "object") {
+      date = new Date(date);
+    }
+    date = (date.getTime() - date.getMilliseconds()) / 1000; // Save without milliseconds to save about 3 bytes per file
+    date -= 1000000000; // Remove this value to save up to 1 byte per file. Won't save storage after the year 2033
+  } else { // compress == false -> decompress
+    date = +date + 1000000000;
+    date = date + "000";
+  }
+  return +date;
 }
 
 
