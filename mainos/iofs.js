@@ -259,10 +259,41 @@ function copyFile(source, destination, doOverride = false) {
   }
 }
 
+/**
+ * Returns the size of a file in bytes
+ * @param {String} path Path to file
+ * @param {boolean} requestattributes returns either the size of file attributes or only the size of the file content
+ * @returns {number} File size in bytes
+ */
+function getFileSize(path, requestattributes = false) {
+		return +loadfile(path, requestattributes).length;
+}
+
+
 function moveFile(source, destination) {
   // WIP
 }
 
+/**
+ * Returns the foldername of a path
+ * @param {String} path Path to file or folder
+ * @returns {String} Foldername
+ * @example
+ * // returns "testuser"
+ * getFoldername("C:/users/testuser/test.txt");
+ * @example
+ * // returns "testuser"
+ * getFoldername("C:/users/testuser/");
+ */
+function getFoldername(path) {
+	let result;
+	// add trailing slash if not present and is folder
+	if(path.slice(-1) != "/" && isfolder(path)) {
+		path += "/";
+	}
+	result = path.split("/")[path.split("/").length - 2]; // Return this if is folder
+	return result;
+}
 
 function formatfs(sure, reload = true) { // Todo: Update
   if (sure == "yes") {
