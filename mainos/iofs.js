@@ -16,7 +16,7 @@ var setting = {};
 
 
 
-function listdir(path) { // List directory // Todo!: add depth parameter
+function listdir(path, listChildren = false) { // List directory // Todo!: add depth parameter
 
     if(path.slice(-1) != "/") { // Check for trailing slash and add one if not found
         path += "/";
@@ -78,6 +78,17 @@ function listdir(path) { // List directory // Todo!: add depth parameter
     }
 
     result = result.sort(); // Apply some bit of sorting - better than nothing but definitely space to be improved
+
+    if(listChildren) { // If requested to list children, recursively run listdir on all children. Append their paths to the result array
+        for(var i = 0; i < result.length; i++) {
+            if(isfolder(result[i])) {
+                var myChildren = listdir(result[i], true);
+                for(var j = 0; j < myChildren.length; j++) {
+                    result.push(myChildren[j]);
+                }
+            }
+        }
+    }
 
     return result;
 
@@ -184,18 +195,43 @@ function savefile(path, content, override, attr) {
   }
 }
 
-function savedir(path) {
+function savedir(path, createParentStructure = true) {
   if(isfile(path)) {
   } else {
     if(path.charAt(path.length - 1 ) != "/") {
       path += "/"; // Append trailing slash, if there is none
+    }
+    if(createParentStructure) {
+      var myPathArray = path.split("/");
+      var myPath = "";
+      for(var i = 0; i < myPathArray.length - 1; i++) {
+        myPath += myPathArray[i] + "/";
+        if(!isfolder(myPath)) {
+          savefile(myPath, "", 0, "t=d");
+        }
+      }
+    } else if(!isfolder(path.split("/")[path.split("/").length - 2])) { // If parent folder doesn't exist
+      return "Error: Parent folder doesn't exist";
     }
     savefile(path, "", 0, "t=d");
   }
 }
 
 
-function deletefile(path) { // Delete a file // Todo: improve
+function deletefile(path, includeChildren = false) { // Delete a file or folder
+  // check if file or folder exists, else return error
+  if(!isfile(path) && !isfolder(path)) {
+    return "Error: File or folder doesn't exist";
+  }
+  // if deleting a folder, delete all files in it
+  if(isfolder(path) && includeChildren) {
+    var myDirList = listdir(path, 1);
+    for(var i = 0; i < myDirList.length; i++) {
+      deletefile(myDirList[i], 1);
+    }
+  } else if(isfolder(path) && !includeChildren) {
+    return "Error: Can't delete folder without including children";
+  }
   localStorage.removeItem(path);
 }
 
