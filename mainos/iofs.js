@@ -312,6 +312,46 @@ function getFoldername(path) {
 	return result;
 }
 
+
+/**
+ * Lists attributes of a folder / file in an array
+ * @param {String} path Path to file or folder
+ * @returns {Array} Array of attributes
+ */
+
+function getAttributes(path) {
+  return loadfile(path, true).split(",");
+}
+
+/**
+ * sets attributes of a file / folder
+ * @param {String} path Path to file or folder
+ * @param {String} attribute Attribute to set
+ * @param {String} value Value to set attribute to
+ **/
+
+function setAttribute(path, attribute, value) {
+  var myAttributes = getAttributes(path);
+  var myNewAttributes = "";
+  if(attribute == "d") { // if attribute is date, compress it
+    value = dateCompression(true, value);
+  }
+  for(var i = 0; i < myAttributes.length; i++) {
+    if(myAttributes[i].split("=")[0] == attribute) {
+      myNewAttributes += attribute + "=" + value + ",";
+    } else {
+      myNewAttributes += myAttributes[i] + ",";
+    }
+  }
+  // if attribute doesn't exist, add it
+  if(!myNewAttributes.includes(attribute)) {
+    myNewAttributes += attribute + "=" + value + ",";
+  }
+
+  myNewAttributes = myNewAttributes.slice(0, -1);
+  savefile(path, loadfile(path).split("*")[1], 1, myNewAttributes);
+}
+
 function formatfs(sure, reload = true) { // Todo: Update
   if (sure == "yes") {
     savefile("C:/mainos/system32/exists.dat", "false");
