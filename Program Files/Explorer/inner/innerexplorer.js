@@ -102,8 +102,8 @@ function explorerdofile(path) { // Run if program is clicked
 
 
 
-function deletefileandrefresh(path) {
-    deletefile(path);
+function deletefileandrefresh(path, attributes1) {
+    deletefile(path, attributes1);
     explorerrefresh();
 }
 
@@ -133,7 +133,7 @@ function contextMenu(event) {
         if(!isfolder(event.target.attributes.path.value)) {
             spawnContextMenu([["Rename File", "renameFile('"+event.target.attributes.path.value+"','"+currentPath + "renamed File - something.txt"+"')","disabled"], ["Delete File","deletefileandrefresh('" + event.target.attributes.path.value + "')"], ["<hr>"], ["Properties","","disabled"]]) // ["Backup File","savefile('" + event.target.attributes.path.value + ' - Copy' + "','" + loadfile(event.target.attributes.path.value) + "', 0, 't=txt')"]
         } else {
-            spawnContextMenu([["Properties","","disabled"]])
+            spawnContextMenu([["Delete Folder","deletefileandrefresh('" + event.target.attributes.path.value + "',1)"], ["Properties","","disabled"]])
         }
     } else {
         spawnContextMenu([["Refresh","explorerrefresh()"],["<hr>"],["New File","newFile()"],["<hr>"],["Properties","","disabled"]])
