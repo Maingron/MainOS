@@ -151,6 +151,10 @@ function isfile(path) {
 }
 
 function isfolder(path) {
+	if(!path.endsWith("/")) { // Add trailing slash if not present
+		path += "/";
+	}
+
   const myFile = localStorage.getItem(path)
   if(myFile == null || myFile == "undefined") { // If file or folder doesn't exist
       return false;
