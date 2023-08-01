@@ -240,8 +240,11 @@ function addProgramIconToFolder(which) {
 
 
 
+/**
+ * @deprecated
+ */
 
-function ifjsonparse(which) { // Parse JSON but only if valid
+function ifjsonparse(which) { // Parse JSON but only if valid // deprecated
     try {
         JSON.parse(which);
     } catch (e) {
@@ -249,27 +252,6 @@ function ifjsonparse(which) { // Parse JSON but only if valid
     }
     return JSON.parse(which);
 }
-
-
-
-
-function vari(which) {
-    if (which == "username") {
-        return (setting.username);
-    }
-    if (which.indexOf("path.") > -1) {
-        if (which.indexOf("path.user") > -1) {
-            if (which == "path.user.settings") {
-                return ("C:/users/" + vari("username") + "/settings");
-            }
-        }
-    }
-}
-
-
-
-
-
 
 
 window.addEventListener("mousemove", function(e) {
