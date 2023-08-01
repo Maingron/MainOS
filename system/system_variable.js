@@ -131,6 +131,13 @@ function getInitialSettings() {
 
 
 function loginUser(name) {
+    // only once document.body is loaded - temporary fix - sometimes document.body isn't loaded when browser is in background
+    if(!document.body) {
+        setTimeout(function() {
+            loginUser(name);
+        }, 100);
+        return;
+    }
     system.user = system.users.find(user => user.name == name);
     // create new javascript html element
     var newScript = document.createElement("script");
