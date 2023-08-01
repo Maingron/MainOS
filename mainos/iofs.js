@@ -1,18 +1,19 @@
-var mainos = {};
-mainos.versionnr = 180;
+var mainos = {
+  versionnr: 185,
+  versionlt: "0CC",
+  serverpath: "https://maingron.com",
+  serverroot: "https://maingron.com/projects/MainOS/server",
+  repository: "https://maingron.com/projects/MainOS/server/repository.json",
+  creator: "Maingron",
+  copyright: "Maingron 2018 - 2023"
+};
+
 mainos.versionnrstring = "00" + mainos.versionnr;
 mainos.version = mainos.versionnr;
-mainos.versionlt = "0CC";
-mainos.settings = {};
-mainos.serverpath = "https://maingron.com";
-mainos.serverroot = "https://maingron.com/projects/MainOS/server";
-mainos.repository = "https://maingron.com/projects/MainOS/server/repository.json";
-mainos.creator = "Maingron";
-mainos.copyright = "Maingron 2018 - 2022";
 
 
 var ismainos = 1;
-var setting = {};
+var setting = {}; // deprecated
 
 
 
