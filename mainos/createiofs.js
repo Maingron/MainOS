@@ -96,7 +96,6 @@ savefile(i.ups + "font.txt", "-apple-system, system-ui, 'Tahoma', 'Roboto', 'Ari
 savefile(i.ups + "repository.txt", 1, 0, "t=txt");
 savefile(i.ups + "big_buttons.txt", 0, 0, "t=txt");
 savefile(i.ups + "default_fullscreen.txt", 0, 0, "t=txt");
-savefile(i.ups + "german_tv.txt", 0, 0, "t=txt");
 
 
 // Dynamic settings (import from user's machine)

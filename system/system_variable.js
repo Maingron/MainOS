@@ -111,7 +111,6 @@ function getInitialSettings() {
             fonts: "-apple-system, system-ui, 'Tahoma', 'Roboto', 'Arial', sans-serif",
             baseSize: "1em"
         },
-        german_tv: false,
         hovercolor: "#ffaa0077",
         hovercolornontransparent: "#ffaa00",
         hoveropacity: .5,

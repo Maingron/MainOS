@@ -120,22 +120,6 @@ function getInitialProgramList() {
             "id": "browser",
             "src": "Program%20Files/browser/exec.html",
             "icon": "iofs:C:/Program Files/browser/icon.png"
-        },
-        "germantv_zdf": {
-            "id": "germantv_zdf",
-            "title": "ZDF",
-            "icon": "iofs:C:/Program Files/zdf/icon.png",
-            "src": "https://zdf.de",
-            "spawnicon": 1,
-            "germantv": 1
-        },
-        "germantv_kika": {
-            "id": "germantv_kika",
-            "title": "Kinderkanal",
-            "icon": "iofs:C:/Program Files/kika/icon.png",
-            "src": "https://www.kika.de/kika-live/index.html",
-            "spawnicon": 1,
-            "germantv": 1
         }
     }
 }

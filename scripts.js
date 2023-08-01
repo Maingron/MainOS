@@ -204,9 +204,6 @@ function addDesktopIcon(which) {
     if(which.devonly && !system.user.settings.developer.enable) {
         return;
     }
-    if(which.germantv && system.user.settings.german_tv != 1) {
-        return;
-    }
 
     if(which.spawnicon != 0) {
         var newProgIcon = document.createElement("button");

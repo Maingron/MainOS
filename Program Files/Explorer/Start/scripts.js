@@ -23,10 +23,6 @@ programsinfolder.forEach((item, index) => {
         return;
     } // else:
 
-    if(myCurrentProgram.germantv == true && system.user.settings.german_tv == false) {
-        return;
-    } // else:
-
     let myNewChildNode1 = document.createElement("a");
     let myNewChildNode2 = document.createElement("img");
     let myNewChildNode3 = document.createElement("span");
