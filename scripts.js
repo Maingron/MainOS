@@ -385,8 +385,8 @@ function enterFullscreen(element) { // Toggle MainOS Fullscreen
 }
 
 
-if (setting.default_fullscreen == 1) { // Enter fullscreen on start if requested by setting
-    window.addEventListener("click", function() {
+if (system.user.settings.default_fullscreen == 1) { // Enter fullscreen on start if requested by setting
+    document.body.getElementsByClassName("content")[0].addEventListener("click", function() {
         enterFullscreen(document.body);
     }, {"once": true});
 }
