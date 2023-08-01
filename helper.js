@@ -26,16 +26,17 @@ if(ismainos != 1 && parent.ismainos == 1) {
 
     data.programmeta = {};
 
-    for(var i = 0; i < document.getElementsByTagName("meta").length; i++) { // deprecated
-        if(document.getElementsByTagName("meta")[i] && document.getElementsByTagName("meta")[i].getAttribute("version")) {
-            data.programmeta.version = document.getElementsByTagName("meta")[i].getAttribute("version");
-        }
-    }
+    // // Get Version
+    // for(var i = 0; i < document.getElementsByTagName("meta").length; i++) { // deprecated
+    //     if(document.getElementsByTagName("meta")[i] && document.getElementsByTagName("meta")[i].getAttribute("version")) {
+    //         data.programmeta.version = document.getElementsByTagName("meta")[i].getAttribute("version");
+    //     }
+    // }
 
-    if(!data.programmeta.version) {
-        data.programmeta.version = 0;
-        console.warn("Program " + parent.thisprogram.title + " doesn't have a program version in meta tags. Please add a <meta version=xx> to your <head>.");
-    }
+    // if(!data.programmeta.version) {
+    //     data.programmeta.version = 0;
+    //     console.warn("Program " + parent.thisprogram.title + " doesn't have a program version in meta tags. Please add a <meta version=xx> to your <head>.");
+    // }
 }
 
 var ismainos;
