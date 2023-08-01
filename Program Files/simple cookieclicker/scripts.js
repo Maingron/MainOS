@@ -2,10 +2,10 @@ let cookies = 0;
 let machines = [];
 let objects = {};
 let cps = 0;
-const storagePath = "C:/Program Files/Simple Cookieclicker/";
+const storagePath = pWindow.getPath("data");
 
 // Translations
-if(parent.setting.language == "de") { // German
+if(system.user.settings.language == "de") { // German
   var lang = {
     "price": "Preis",
     "Price": "Preis",
