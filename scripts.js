@@ -60,8 +60,8 @@ function jsoncombine(which1, which2) {
 
 
 function setDocumentMeta() { // Overrides some things in the document head
-    document.head.getElementsByTagName("meta").namedItem("theme-color").content = setting.themecolor;
-    document.head.getElementsByTagName("meta").namedItem("msapplication-TileColor").content = setting.themecolor;
+    document.head.getElementsByTagName("meta").namedItem("theme-color").content = system.user.settings.themecolor;
+    document.head.getElementsByTagName("meta").namedItem("msapplication-TileColor").content = system.user.settings.themecolor;
 }
 
 function loadsettings() {

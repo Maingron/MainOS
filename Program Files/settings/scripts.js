@@ -162,6 +162,7 @@ function settingChanged() {
     os.saveSystemVariable();
     os.refreshCSSVars();
     refreshCSSVars();
+    os.loadsettings();
 }
 
 
