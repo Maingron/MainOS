@@ -133,74 +133,77 @@ function spawnContextMenu(content) { // TODO: Make async
 
 
 
-var key = [];
+// var key = [];
 
-window.addEventListener("keydown", function (event) {
+// window.addEventListener("keydown", function (event) {
 
-    key["current"] = event.key.toLowerCase();
-    if (key["current"] == "control") {
-        key["control"] = true;
-    } else if (key["current"] == "shift") {
-        key["shift"] = true;
-    } else if (key["current"] == "alt") {
-        key["alt"] = true;
-    } else if (key["current"] == "meta" || key["current"] == "os") {
-        key["meta"] = true;
-    } else if (key["current"] == " ") {
-        key["space"] = true;
-    }
+//     key["current"] = event.key.toLowerCase();
+//     if (key["current"] == "control") {
+//         key["control"] = true;
+//     } else if (key["current"] == "shift") {
+//         key["shift"] = true;
+//     } else if (key["current"] == "alt") {
+//         key["alt"] = true;
+//     } else if (key["current"] == "meta" || key["current"] == "os") {
+//         key["meta"] = true;
+//     } else if (key["current"] == " ") {
+//         key["space"] = true;
+//     }
 
-    //   if(key['control'] && key['shift'] || key["current"] == "f12") {
-    // } else {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    // }
+//     //   if(key['control'] && key['shift'] || key["current"] == "f12") {
+//     // } else {
+//     //   event.preventDefault();
+//     //   event.stopPropagation();
+//     // }
 
-    if(key['control'] == true) {
-    }
+//     if(key['control'] == true) {
+//     }
 
-    if(key['shift'] && key['space']) {
-        // if(key['current'] == "w") {
-        //     if(!ismainos) {
-        //         parent.unrun(data.mypid);
-        //     }
-        // }
-    }
+//     if(key['shift'] && key['space']) {
+//         // if(key['current'] == "w") {
+//         //     if(!ismainos) {
+//         //         parent.unrun(data.mypid);
+//         //     }
+//         // }
+//     }
 
-    if(key['alt'] == true) {
-    }
+//     if(key['alt'] == true) {
+//     }
 
-    if(key['meta'] == true) {
-        event.preventDefault();
-        event.stopPropagation();
-        if(parent.pid.includes("start_menu")) {
-            parent.unrun(parent.getWindowByMagic(parent.document.getElementsByClassName("start_menu")[0].id));
-        } else {
-            parent.run("start_menu");
-        }
-    }
-});
+//     if(key['meta'] == true) {
+//         event.preventDefault();
+//         event.stopPropagation();
+//         if(parent.pid.includes("start_menu")) {
+//             parent.unrun(parent.getWindowByMagic(parent.document.getElementsByClassName("start_menu")[0].id));
+//         } else {
+//             parent.run("start_menu");
+//         }
+//     }
+// });
 
 
-window.addEventListener("keyup", function (event) {
-    key["current"] = event.key.toLowerCase();
-    if (key["current"] == "control") {
-        key["control"] = false;
-    } else if (key["current"] == "shift") {
-        key["shift"] = false;
-    } else if (key["current"] == "alt") {
-        key["alt"] = false;
-    } else if (key["current"] == "meta" || key["current"] == "os") {
-        key["meta"] = false;
-    } else if (key["current"] == " ") {
-        key["space"] = false;
-    }
-});
+// window.addEventListener("keyup", function (event) {
+//     key["current"] = event.key.toLowerCase();
+//     if (key["current"] == "control") {
+//         key["control"] = false;
+//     } else if (key["current"] == "shift") {
+//         key["shift"] = false;
+//     } else if (key["current"] == "alt") {
+//         key["alt"] = false;
+//     } else if (key["current"] == "meta" || key["current"] == "os") {
+//         key["meta"] = false;
+//     } else if (key["current"] == " ") {
+//         key["space"] = false;
+//     }
+// });
 
 
 // Maths
 
-function random(min, max, decimals, runs) {
+/**
+ * @deprecated
+ */
+function random(min, max, decimals, runs) { // Deprecated
     // Todo: Fix following limits:
     // min has to be at least 0 (no negative possible)
     // limited to digits of Math.random(), other digits will be 0
