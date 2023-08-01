@@ -14,11 +14,23 @@ window.addEventListener("keydown", function (e) {
 
 objects.cmdinput.focus();
 
+const historyFile = pWindow.getPath("data") + "temp/cmdhistory.dat";
+
+// create temp folder in pWindow.getPath("data") if it doesn't exist
+if (!isfolder(pWindow.getPath("data") + "temp/")) {
+  savedir(pWindow.getPath("data") + "temp/");
+}
+
+// create cmdhistory.dat if it doesn't exist
+if (!isfile(historyFile)) {
+  savefile(historyFile, "", 1, "t=txt");
+}
+
 
 
 function updateTerminal() {
-	objects.cmdoutput.innerHTML = loadfile("C:/mainos/temp/cmdhistory.dat");
-	savefile("C:/mainos/temp/cmdhistory.dat", "", 1, "t=txt");
+	objects.cmdoutput.innerHTML = loadfile(historyFile);
+	savefile(historyFile, "", 1, "t=txt");
 
 	window.scrollTo(0, document.body.scrollHeight);
 
@@ -33,17 +45,17 @@ function cmdsubmit() {
 
   if (response == "") {
     if (cls == 1) {
-      savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + escapeHtml(objects.cmdinput.value), 1, "t=txt");
+      savefile(historyFile, objects.cmdoutput.innerHTML + escapeHtml(objects.cmdinput.value), 1, "t=txt");
       cls = 0;
     } else {
-      savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + "> " + escapeHtml(objects.cmdinput.value) + "<br>", 1, "t=txt");
+      savefile(historyFile, objects.cmdoutput.innerHTML + "> " + escapeHtml(objects.cmdinput.value) + "<br>", 1, "t=txt");
     }
 
   } else {
-    savefile("C:/mainos/temp/cmdhistory.dat", objects.cmdoutput.innerHTML + "> " + escapeHtml(objects.cmdinput.value) + "<br>" + response + "<br>", 1, "t=txt");
+    savefile(historyFile, objects.cmdoutput.innerHTML + "> " + escapeHtml(objects.cmdinput.value) + "<br>" + response + "<br>", 1, "t=txt");
   }
 
-  objects.cmdoutput.innerHTML = loadfile("C:/mainos/temp/cmdhistory.dat");
+  objects.cmdoutput.innerHTML = loadfile(historyFile);
 }
 
 function runcmd(which) {
@@ -95,7 +107,7 @@ function runcmd(which) {
     cls = 1;
     objects.cmdoutput.innerHTML = "";
     objects.cmdinput.value = "";
-    savefile("C:/mainos/temp/cmdhistory.dat", "", 1, "t=txt");
+    savefile(historyFile, "", 1, "t=txt");
     updateTerminal();
     return "";
   }
@@ -157,13 +169,13 @@ function runcmd(which) {
   if (which.indexOf("exit") == 4) {
     objects.cmdoutput.innerHTML = "";
     objects.cmdinput.value = "";
-    savefile("C:/mainos/temp/cmdhistory.dat", "", 1, "t=txt");
+    savefile(historyFile, "", 1, "t=txt");
     pWindow.close();
   }
 
   if (which.indexOf("js ") == 4) {
     if (window.parent.setting.developer = 1) {
-      savefile("C:/mainos/temp/cmdhistory.dat", "", 1, "t=txt");
+      savefile(historyFile, "", 1, "t=txt");
       if (which.indexOf("js ") == 4) {
         eval(which.split("cmd:js ")[1]);
         return "Ran JS Command";
