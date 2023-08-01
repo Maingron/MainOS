@@ -67,7 +67,6 @@ savefile("C:/mainos/system32/exists.dat", "true", 1, "t=txt");
 savefile("C:/mainos/system32/FirstVersion.txt", mainos.version, 0, "t=txt");
 savefile("C:/mainos/system32/FirstVersionnr.txt", mainos.versionnr, 0, "t=txt");
 savedir("C:/Documents and Settings/");
-savedir("C:/Documents and Settings/appdata/");
 
 savedir("C:/Program Files/");
 

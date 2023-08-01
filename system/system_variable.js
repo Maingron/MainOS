@@ -19,9 +19,11 @@ function initializeSystemVariable() {
         system.users[0].paths = {};
         system.users[0].paths.userPath = system.paths.userRoot + system.users[0].name + "/";
         system.users[0].paths.programShortcuts = system.users[0].paths.userPath + "programs/";
+        system.users[0].paths.appdata = system.users[0].paths.userPath + "appdata/";
 
         savedir(system.users[0].paths.userPath);
         savedir(system.users[0].paths.programShortcuts);
+        savedir(system.users[0].paths.appdata);
 
         saveSystemVariable();
     }
@@ -50,6 +52,7 @@ function returnNewSystemVariable() {
             systemDrive: "C:/",
             systemRoot: "C:/" + "mainos/",
             userRoot: "C:/" + "users/",
+            programs: "C:/Program Files/", // will change to C:/programs/ in the future
             icons: {
                 system: "C:/mainos/system32/icons/",
             }
@@ -167,11 +170,13 @@ function createNewUser(name) {
     newUser.name = name;
     newUser.paths = {
         userPath: system.paths.userRoot + newUser.name + "/",
-        programShortcuts: system.paths.userRoot + newUser.name + "/programs/"
+        programShortcuts: system.paths.userRoot + newUser.name + "/programs/",
+        appdata: system.paths.userRoot + newUser.name + "/appdata/"
     };
     
     savedir(newUser.paths.userPath);
     savedir(newUser.paths.programShortcuts);
+    savedir(newUser.paths.appdata);
 
     system.users.push(newUser);
     saveSystemVariable();

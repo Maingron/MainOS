@@ -47,7 +47,7 @@ programsinfolder.forEach((item, index) => {
 
 
 // Set username- and icon
-document.getElementById("usericon").src = "#iofs:" + os.path.sysicons + "usericons/flower.png";
+document.getElementById("usericon").src = "#iofs:" + system.paths.icons.system + "usericons/flower.png";
 
 window.addEventListener("keydown", function (event) {
     if(event.key.toLowerCase == "escape" || event.which == 27 ) {

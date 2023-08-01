@@ -245,8 +245,8 @@ function run(which, iattr, how) { // Run a program
             "path": {
                 "folderOfExecutable": myProgram.src.split("/").slice(0, -1).join("/"),
                 "executable": myProgram.src,
-                "folder": path.programFiles + myProgram.id + "/",
-                "data": path.appdata + myProgram.id + "/",
+                "folder": system.paths.programs + myProgram.id + "/",
+                "data": system.user.paths.appdata + myProgram.id + "/",
             },
             "styles": stylesConstructor()
         };

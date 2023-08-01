@@ -363,13 +363,20 @@ function formatfs(sure, reload = true) { // Todo: Update
       savedir = undefined;
       loadfile = undefined;
       document.title += " - Frozen (Formatted; Waiting)";
-      document.body.innerHTML = "<center><br><br><h1>MainOS Formatted; Frozen until restart</h1></center>";
-      document.body.innerHTML += "<center><button onclick=\"formatfs('yes', true); window.location.reload();\">Restart</button></center>";
+      document.body.innerHTML = /*html*/`
+      <center>
+        <br>
+        <br>
+        <h1>${system.osDetails.name} formatted; Frozen until restart</h1>
+        <br>
+        <button onclick="window.location.reload();">Restart</button>
+      </center>
+      `;
       Object.freeze(mainos = undefined);
       Object.freeze(setting = undefined);
       Object.freeze(program = undefined);
       Object.freeze(appdata = undefined);
-      Object.freeze(path = undefined);
+      Object.freeze(system = undefined);
     }
   }
 }

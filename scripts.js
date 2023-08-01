@@ -20,15 +20,6 @@ var systemRuntime = {
 
 loadsettings();
 
-var path = {
-    "system": "C:/mainos/",
-    "sysicons": "C:/mainos/system32/icons/",
-    "user": "C:/users/User/",
-    "programFiles": "C:/Program Files/",
-    "appdata": "C:/users/"+setting.username+"/appdata/"
-}
-var appdata = path.appdata; // deprecated
-
 
 var objs, result, iattr, attr;
 
@@ -37,7 +28,6 @@ if(!mainos) {
     var mainos = {};
 }
 
-mainos.timeOfBoot = new Date().getTime(); // Log time of boot
 
 objects.content = document.getElementsByClassName("content")[0];
 objects.progicons = document.getElementsByClassName("icons")[0];
