@@ -1,17 +1,22 @@
 var objects = {};
-var pos = {};
-pos.mouse = {};
-pos.relative = {};
-var zindex = 10;
 var register = [];
-var timer1;
 var program = {};
-var clicked1 = 0;
 var processList = pid = [];
-var pidmax = 0;
-var systemRuntime = {};
 
-const documentRoot = location.pathname;
+var systemRuntime = {
+    "pidmax": 0,
+    "zindex": 10,
+    "pos": {
+        "mouseX": 0,
+        "mouseY": 0
+    },
+    "clicking": 0,
+    "clicked": 0,
+    "timeOfBoot": new Date().getTime(), // Log time of boot
+    "processList": pid,
+    "pid": pid,
+    "documentRoot": location.pathname
+};
 
 loadsettings();
 
@@ -24,9 +29,6 @@ var path = {
 }
 var appdata = path.appdata; // deprecated
 
-
-var clicking = 0;
-var clicked = 0;
 
 var objs, result, iattr, attr;
 
@@ -271,28 +273,26 @@ function vari(which) {
 
 
 window.addEventListener("mousemove", function(e) {
-    pos.mouse.x = e.clientX;
-    pos.mouse.y = e.clientY;
+    systemRuntime.pos.mouseX = e.clientX;
+    systemRuntime.pos.mouseY = e.clientY;
 });
 
 window.addEventListener("touchmove", function(e) {
-    pos.mouse.x = e.targetTouches[0].pageX;
-    pos.mouse.y = e.targetTouches[0].pageY;
+    systemRuntime.pos.mouseX = e.targetTouches[0].pageX;
+    systemRuntime.pos.mouseY = e.targetTouches[0].pageY;
 });
 
 window.addEventListener("touchstart", function(e) {
-    pos.mouse.x = e.targetTouches[0].pageX;
-    pos.mouse.y = e.targetTouches[0].pageY;
+    systemRuntime.pos.mouseX = e.targetTouches[0].pageX;
+    systemRuntime.pos.mouseY = e.targetTouches[0].pageY;
 });
 
 window.addEventListener("mouseup", function() {
-    clearInterval(timer1);
-    clicking = 0;
+    systemRuntime.clicking = 0;
 });
 
 window.addEventListener("touchend", function() {
-    clearInterval(timer1);
-    clicking = 0;
+    systemRuntime.clicking = 0;
 });
 
 

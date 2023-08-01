@@ -7,8 +7,8 @@ function newProcessListEntry(programIdentifier) {
         processList.push(null);
     }
     processList.push(programIdentifier);
-    pidmax = processList.length - 1;
-    return(pidmax);
+    systemRuntime.pidmax = processList.length - 1;
+    return(systemRuntime.pidmax);
 }
 
 
@@ -103,16 +103,16 @@ function run(which, iattr, how) { // Run a program
 
 
     myWindow.drag.addEventListener("mousemove", function(event) {
-        if(clicking == 1 && !myWindow.classList.contains("maximized")) {
+        if(systemRuntime.clicking == 1 && !myWindow.classList.contains("maximized")) {
             overlayDragBar(this, true);
-            dragWindow(getWindowByMagic(myWindow), pos.mouse.x , pos.mouse.y, (myWindow.offsetLeft + event.clientX), (myWindow.offsetTop + event.clientY));
+            dragWindow(getWindowByMagic(myWindow), systemRuntime.pos.mouseX , systemRuntime.pos.mouseY, (myWindow.offsetLeft + event.clientX), (myWindow.offsetTop + event.clientY));
         } else {
             overlayDragBar(this, false);
         }
     });
 
     myWindow.resizer2.addEventListener("mousemove", function(event) {
-        if(clicking == 1) {
+        if(systemRuntime.clicking == 1) {
             overlayResizer(this, true);
             resizeWindow(getWindowByMagic(myWindow), event.clientX - myWindow.offsetLeft, event.clientY - myWindow.offsetTop);
         } else {
@@ -121,36 +121,36 @@ function run(which, iattr, how) { // Run a program
     });
 
     myWindow.drag.addEventListener("mousedown", function() {
-        clicking = 1;
+        systemRuntime.clicking = 1;
         focusWindow(getWindowByMagic(myWindow));
         overlayDragBar(this, true);
         this.addEventListener("mouseup", function() {
-            clicking = 0;
+            systemRuntime.clicking = 0;
             overlayDragBar(this, false);
         }, {"once": true})
     });
 
     myWindow.resizer2.addEventListener("mousedown", function() {
-        clicking = 1;
+        systemRuntime.clicking = 1;
         focusWindow(getWindowByMagic(myWindow));
         overlayResizer(this, true);
         this.addEventListener("mouseup", function() {
-            clicking = 0;
+            systemRuntime.clicking = 0;
             overlayResizer(this, false);
         }, {"once": true})
     });
 
     myWindow.drag.addEventListener("touchmove", function(event) {
-        if(clicking == 1 && !myWindow.classList.contains("maximized")) {
+        if(systemRuntime.clicking == 1 && !myWindow.classList.contains("maximized")) {
             overlayDragBar(this, true);
-            dragWindow(getWindowByMagic(myWindow), pos.mouse.x , pos.mouse.y, (myWindow.offsetLeft + event.targetTouches[0].clientX), (myWindow.offsetTop + event.targetTouches[0].clientY));
+            dragWindow(getWindowByMagic(myWindow), systemRuntime.pos.mouseX , systemRuntime.pos.mouseY, (myWindow.offsetLeft + event.targetTouches[0].clientX), (myWindow.offsetTop + event.targetTouches[0].clientY));
         } else {
             overlayDragBar(this, false);
         }
     });
 
     myWindow.resizer2.addEventListener("touchmove", function(event) {
-        if(clicking == 1) {
+        if(systemRuntime.clicking == 1) {
             overlayResizer(this, true);
             resizeWindow(getWindowByMagic(myWindow), event.targetTouches[0].clientX - myWindow.offsetLeft, event.targetTouches[0].clientY - myWindow.offsetTop);
         } else {
@@ -159,20 +159,20 @@ function run(which, iattr, how) { // Run a program
     });
 
     myWindow.drag.addEventListener("touchstart", function() {
-        clicking = 1;
+        systemRuntime.clicking = 1;
         focusWindow(getWindowByMagic(myWindow));
         overlayDragBar(this, true);
         this.addEventListener("touchend", function() {
-            clicking = 0;
+            systemRuntime.clicking = 0;
             overlayDragBar(this, false);
         }, {"once": true})
     });
 
     myWindow.resizer2.addEventListener("touchstart", function() {
-        clicking = 1;
+        systemRuntime.clicking = 1;
         focusWindow(getWindowByMagic(myWindow));
         this.addEventListener("touchend", function() {
-            clicking = 0;
+            systemRuntime.clicking = 0;
             overlayResizer(this, false);
         }, {"once": true})
     });
@@ -363,8 +363,8 @@ function focusWindow(which, state) {
         return;
     }
 
-    zindex++;
-    which.style.zIndex = zindex;
+    systemRuntime.zindex++;
+    which.style.zIndex = systemRuntime.zindex;
     which.children[2].focus();
 
 
@@ -515,8 +515,8 @@ function setWindowMaximized(which, state) {
     }
 
 
-    clicking = 0;
-    clicked = 1;
+    systemRuntime.clicking = 0;
+    systemRuntime.clicked = 1;
 
     // if minimized, unminimize
 
