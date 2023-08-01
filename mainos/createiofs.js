@@ -266,6 +266,12 @@ savefile(i.i + "fullscreen.svg","data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lI
 savefile(i.i + "folder_search.svg","data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTBtbSIgaGVpZ2h0PSIxMG1tIiB2aWV3Qm94PSIwIDAgMTAgMTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbD0iI2E4MCIgZD0iTTEgMmg1djJIMXoiLz48cGF0aCBmaWxsPSIjZDRhYTAwIiBkPSJNMSAzLjQ3MWg4djVIMXoiLz48cGF0aCBmaWxsPSIjZDRhYTAwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik01IDIuNWg0djFINXoiLz48ZyB0cmFuc2Zvcm09InJvdGF0ZSg5MCAyLjMzNSA1KSBzY2FsZSguNjExMTEpIj48Y2lyY2xlIGN4PSIzLjUiIGN5PSIzLjUiIHI9IjMiLz48Y2lyY2xlIGN4PSIzLjUiIGN5PSIzLjUiIHI9IjIuNSIgZmlsbD0iIzBmZiIvPjxwYXRoIGQ9Ik01LjYyIDVMOS41IDguODhsLS42Mi42Mkw1IDUuNjJ6Ii8+PC9nPjwvc3ZnPg==", 0, "t=svg");
 
 
+// cleanup
+if(isfolder("C:/users/undefined/")) {
+    deletefile("C:/users/undefined/",1)
+}
+
+
 setTimeout(function() {
  location.reload();
 }, 60);
