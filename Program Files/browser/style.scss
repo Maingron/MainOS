@@ -28,6 +28,11 @@ html {
                     z-index: 10;
                     position: absolute;
                     aspect-ratio: 1/1;
+                    @supports not (aspect-ratio: 1/1) {
+                        width: 1.5rem;
+                        height: 1.5rem;
+                    }
+
                     left: 10px;
                 }
 
@@ -43,6 +48,9 @@ html {
                 }
                 button {
                     aspect-ratio: 1/1;
+                    @supports not (aspect-ratio: 1/1) {
+                        width: 2rem;
+                    }
                 }
             }
             button {
@@ -63,6 +71,10 @@ html {
 
                 button {
                     aspect-ratio: 1/1;
+                    @supports not (aspect-ratio: 1/1) {
+                        width: 2rem;
+                    }
+
                     padding: 0;
                     font-size: 1rem;
                     height: 100%;

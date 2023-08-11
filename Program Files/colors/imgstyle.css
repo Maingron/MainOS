@@ -19,7 +19,7 @@
     float: left;
     /* border: none; */
     object-fit: cover;
-    aspect-ratio: 1/1;
+    padding-bottom: 10%;
 }
 
 #imgs div:hover::before {
