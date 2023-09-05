@@ -2,7 +2,12 @@ var data = {};
 data.system = {};
 data.system.mouse = {};
 
-var system = window.parent.system;
+if(ismainos) {
+    var system = window.system;
+} else {
+    var system = window.parent.system;
+}
+
 
 
 if(ismainos != 1 && parent.ismainos == 1) {
