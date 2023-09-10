@@ -77,20 +77,46 @@ window.addEventListener("load", function() {
 // Load iofs:*-paths that are found in HTML Elements
 async function loadIOfsLinks() {
     for(const item of document.getElementsByTagName("*")) { // TODO: Possible performance improvement by checking for Array[img, script, ...] instead of the entire page
-        if(item?.src?.includes("iofs:")) {
-            item.src = loadfile(item.src.split("iofs:")[1]);
-        }
-        if(item?.href?.includes("iofs:")) {
-            item.href = loadfile(item.href.split("iofs:")[1]);
-        }
+        loadIOfsLink(item);
     }
 }
 
-// loadIOfsLinks();
+function loadIOfsLink(element) {
+    if(element?.src?.includes("iofs:")) {
+        element.src = loadfile(element.src.split("iofs:")[1]);
+    }
+    if(element?.href?.includes("iofs:")) {
+        element.href = loadfile(element.href.split("iofs:")[1]);
+    }
+}
 
-window.setInterval(async function() {
+
+// observe document and run when changes detected
+IOfsObserver = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        var allIncludingChildren = Array.from(mutation.target.getElementsByTagName("*"));
+        allIncludingChildren.push(mutation.target);
+
+        allIncludingChildren.forEach(function(element) {
+            loadIOfsLink(element);
+        });
+    });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    IOfsObserver.observe(document, {
+        attributes: true,
+        childList: true,
+        characterData: true,
+        subtree: true,
+        attributeOldValue: true,
+        characterDataOldValue: true
+    });
+
     loadIOfsLinks();
-},20)
+});
+
 
 document.addEventListener("contextmenu", function (event) {
     console.log(event);
@@ -254,12 +280,22 @@ function random(min, max, decimals, runs) { // Deprecated
     }
 }
 
+if(ismainos) {
+    IOfsObserver.observe(document, {
+        attributes: true,
+        childList: true,
+        characterData: true,
+        subtree: true,
+        attributeOldValue: true,
+        characterDataOldValue: true
+    });
+}
+
 // Load late-src scripts
 // Useful if you need to access variables that are set by the system (like pWindow) right away.
 // TODO: Find a better way maybe?
 
 document.addEventListener("DOMContentLoaded", function() {
-
         var scriptTags = document.getElementsByTagName("script");
         for (var currentTag of scriptTags) {
             if(currentTag.getAttribute("late-src")) {
