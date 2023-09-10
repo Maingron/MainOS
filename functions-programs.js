@@ -247,6 +247,8 @@ function run(which, iattr, how) { // Run a program
                 "executable": myProgram.src,
                 "folder": system.paths.programs + myProgram.id + "/",
                 "data": system.user.paths.appdata + myProgram.id + "/",
+                "logs": system.user.paths.logs + myProgram.id + "/",
+                "temp": system.user.paths.temp + myProgram.id + "/"
             },
             "styles": stylesConstructor()
         };

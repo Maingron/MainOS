@@ -20,6 +20,9 @@ function initializeSystemVariable() {
         system.users[0].paths.userPath = system.paths.userRoot + system.users[0].name + "/";
         system.users[0].paths.programShortcuts = system.users[0].paths.userPath + "programs/";
         system.users[0].paths.appdata = system.users[0].paths.userPath + "appdata/";
+        system.users[0].paths.logs = system.users[0].paths.userPath + "logs/";
+        system.users[0].paths.temp = system.users[0].paths.userPath + "temp/";
+
 
         savedir(system.users[0].paths.userPath);
         savedir(system.users[0].paths.programShortcuts);
