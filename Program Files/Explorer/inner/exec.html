@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta version="1.4.1">
     <title>Explorer</title>
     <link rel="stylesheet" href="../../../helper.min.css">
     <link rel="stylesheet" type="text/css" href="explorerstyle.min.css">
@@ -28,17 +27,9 @@
     <div id="content_files"></div>
 
 
-    <div id="spaceinfo" tabindex="-1">
-        <span>Space used:</span>
-        <script>
-            document.write("<span>~" + loadfile("C:/.diskinfo/size_used.txt") + "KB / ~" + loadfile("C:/.diskinfo/size.txt") + "KB</span>");
-            document.write("<br>");
-            document.write("<meter value='" + loadfile("C:/.diskinfo/size_used.txt") + "' min='0' max='" + loadfile("C:/.diskinfo/size.txt") + "'>&nbsp;</meter>");
-        </script>
-    </div>
-
-
     <script src="innerexplorer.js"></script>
+    <script src="modules/bottom_info.js"></script>
+    <script src="modules/load_icons.js"></script>
 </body>
 
 </html>
