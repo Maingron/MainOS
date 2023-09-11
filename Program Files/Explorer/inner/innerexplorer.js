@@ -74,12 +74,17 @@ function explorerdofile(path, action) { // Run if program is clicked
 }
 
 
+/**
+ * 
+ * @param {*} path 
+ * @param {*} attributes1 
+ */
 
-
-
-function deletefileandrefresh(path, attributes1) {
+function explorer_deletefile(path, attributes1) {
+    var deleteFileHTMLElement = document.querySelector("[path='" + path + "']");
+    deleteFileHTMLElement.setAttribute("disabled", "disabled");
     deletefile(path, attributes1);
-    explorerrefresh();
+    deleteFileHTMLElement.remove();
 }
 
 function explorerrefresh() {
@@ -98,17 +103,17 @@ function renameFile(source, target) {
     if(isfile(source)) {
         savefile(target, loadfile(source,0), 0); // TODO: Copy attributes
         // TODO!: Verify file is copied correctly!
-        deletefileandrefresh(source);
+        explorer_deletefile(source);
+        explorerrefresh();
     }
 }
 
 function contextMenu(event) {
     if(event.target.attributes.path) {
-        console.log(isfolder(event.target.attributes.path.value));
         if(!isfolder(event.target.attributes.path.value)) {
-            spawnContextMenu([["Edit as Text", "explorerdo('" + event.target.attributes.path.value + "', 'edit_text')"],["<hr>"],["Rename File", "renameFile('"+event.target.attributes.path.value+"','"+currentPath + "renamed File - something.txt"+"')","disabled"], ["Delete File","deletefileandrefresh('" + event.target.attributes.path.value + "')"], ["<hr>"], ["Properties","","disabled"]]) // ["Backup File","savefile('" + event.target.attributes.path.value + ' - Copy' + "','" + loadfile(event.target.attributes.path.value) + "', 0, 't=txt')"]
+            spawnContextMenu([["Edit as Text", "explorerdo('" + event.target.attributes.path.value + "', 'edit_text')"],["<hr>"],["Rename File", "renameFile('"+event.target.attributes.path.value+"','"+currentPath + "renamed File - something.txt"+"')","disabled"], ["Delete File","explorer_deletefile('" + event.target.attributes.path.value + "')"], ["<hr>"], ["Properties","","disabled"]]) // ["Backup File","savefile('" + event.target.attributes.path.value + ' - Copy' + "','" + loadfile(event.target.attributes.path.value) + "', 0, 't=txt')"]
         } else {
-            spawnContextMenu([["Delete Folder","deletefileandrefresh('" + event.target.attributes.path.value + "',1)"], ["Properties","","disabled"]])
+            spawnContextMenu([["Delete Folder","explorer_deletefile('" + event.target.attributes.path.value + "',1)"], ["Properties","","disabled"]])
         }
     } else {
         spawnContextMenu([["Refresh","explorerrefresh()"],["<hr>"],["New File","newFile()"],["<hr>"],["Properties","","disabled"]])
@@ -116,7 +121,6 @@ function contextMenu(event) {
 }
 
 var attachedModules = [];
-
 function runModules(event) {
     // Run modules
     for(var i = 0; i < attachedModules.length; i++) {

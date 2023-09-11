@@ -5,24 +5,16 @@ function initLoadIcons() {
 }
 
 function loadIcons() {
-	var fileElements = document.getElementById("content_files").children;
-
-	for (var i = 0; i < fileElements.length; i++) {
-		var fileElement = fileElements[i];
-
+	for(fileElement of document.getElementById("content_files").children) {
 		var newIconElement = document.createElement("img");
-		newIconElement.setAttribute("id", "animg");
+		newIconElement.classList.add("icon");
 		newIconElement.setAttribute("src", returnPathForFileIcon(fileElement.attributes.path.value));
-		
 		fileElement.insertBefore(newIconElement, fileElement.firstChild);
 	}
-
 }
 
 function returnPathForFileIcon(path) {
 	var fileending = path.slice(path.lastIndexOf("."));
-
-	console.log(path);
 
 	if(isfolder(path)) {
 		if(path.slice(-2) == ":/") {
