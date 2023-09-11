@@ -76,31 +76,31 @@ window.addEventListener("load", function() {
 
 // Load iofs:*-paths that are found in HTML Elements
 async function loadIOfsLinks() {
-    for(const item of document.getElementsByTagName("*")) { // TODO: Possible performance improvement by checking for Array[img, script, ...] instead of the entire page
+    var allElements = document.querySelectorAll("[src*='iofs:'], [href*='iofs:']");
+    for(item of allElements) {
         loadIOfsLink(item);
     }
 }
 
-function loadIOfsLink(element) {
-    if(element?.src?.includes("iofs:")) {
-        element.src = loadfile(element.src.split("iofs:")[1]);
-    }
-    if(element?.href?.includes("iofs:")) {
-        element.href = loadfile(element.href.split("iofs:")[1]);
-    }
+async function loadIOfsLink(element) {
+    window.setTimeout(function() {
+        if(element?.src?.includes("iofs:")) {
+            element.src = loadfile(element.src.split("iofs:")[1]);
+        }
+        if(element?.href?.includes("iofs:")) {
+            element.href = loadfile(element.href.split("iofs:")[1]);
+        }
+    }, 0);
 }
 
 
 // observe document and run when changes detected
 IOfsObserver = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-        var allIncludingChildren = Array.from(mutation.target.getElementsByTagName("*"));
-        allIncludingChildren.push(mutation.target);
-
-        allIncludingChildren.forEach(function(element) {
-            loadIOfsLink(element);
-        });
-    });
+    if(mutations[0].type == "childList") {
+        loadIOfsLinks();
+    } else {
+        return;
+    }
 });
 
 
@@ -108,10 +108,10 @@ document.addEventListener("DOMContentLoaded", function() {
     IOfsObserver.observe(document, {
         attributes: true,
         childList: true,
-        characterData: true,
+        characterData: false,
         subtree: true,
-        attributeOldValue: true,
-        characterDataOldValue: true
+        attributeOldValue: false,
+        characterDataOldValue: false
     });
 
     loadIOfsLinks();
@@ -284,10 +284,10 @@ if(ismainos) {
     IOfsObserver.observe(document, {
         attributes: true,
         childList: true,
-        characterData: true,
+        characterData: false,
         subtree: true,
-        attributeOldValue: true,
-        characterDataOldValue: true
+        attributeOldValue: false,
+        characterDataOldValue: false
     });
 }
 
