@@ -151,10 +151,18 @@ body {
     padding: 20px;
     box-sizing: border-box;
     border-top: 1px solid var(--themecolor);
+    display: block;
 
     meter {
         width: 290px;
         max-width: 100%;
+    }
+
+    div.icon {
+        display: inline-block;
+        float: left;
+        margin-right: 20px;
+        transform: scale(1.5)
     }
 }
 

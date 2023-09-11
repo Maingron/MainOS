@@ -17,17 +17,27 @@ function initBottomInfo() {
 
 function updateBottomInfo() {
 	if(currentPath == "/") {
-		bottomInfoElement.style.display = "block";
+		bottomInfoElement.innerHTML = `
+		Space used:
+		~ ${loadfile("C:/.diskinfo/size_used.txt")} KB / ~ ${loadfile("C:/.diskinfo/size.txt")} KB
+		<br>
+		<meter value='${loadfile("C:/.diskinfo/size_used.txt")}' min='0' max='${loadfile("C:/.diskinfo/size.txt")}'> </meter>
+		`;
 	} else {
-		bottomInfoElement.style.display = "none";
-		return;
+		bottomInfoElement.innerHTML = `
+		<div class="icon">
+			<img src="${returnPathForFileIcon(currentPath)}" class="icon">
+		</div>
+		<path>${currentPath}</path>
+		<br>
+		<div title="Items">
+			Folders: ${filesListed.filter(isfolder).length}
+			Files: ${filesListed.length - filesListed.filter(isfolder).length}
+			<span>|</span>
+			Total: ${filesListed.length}
+		</div>
+		`;
 	}
-	bottomInfoElement.innerHTML = `
-	Space used:
-	~ ${loadfile("C:/.diskinfo/size_used.txt")} KB / ~ ${loadfile("C:/.diskinfo/size.txt")} KB
-	<br>
-	<meter value='${loadfile("C:/.diskinfo/size_used.txt")}' min='0' max='${loadfile("C:/.diskinfo/size.txt")}'> </meter>
-	`;
 }
 
 document.addEventListener("DOMContentLoaded", function() {
