@@ -527,7 +527,7 @@ function setWindowMaximized(which, state) {
     }
 
     setTimeout(function() {
-        which.style.transition = "0s";
+        which.style.transition = "";
     }, 300);
 }
 
@@ -576,11 +576,17 @@ function setWindowMinimized(which, state) {
 /**
  * Minimizes all windows
  */
-function showDesktop() {
-    for(let i = 0; i < pid.length; i++) {
-        if(pid[i] != "" && pid[i] != undefined) {
-            setWindowMinimized(getWindowById(i), true);
+function showDesktop(state = "toggle") {
+    if(state == "toggle") {
+        for(let i = 0; i < pid.length; i++) {
+            if(pid[i] != "" && pid[i] != undefined) {
+                setWindowMinimized(getWindowById(i), true);
+            }
         }
+    } else if(state == "peek") {
+        document.getElementsByClassName("programs")[0].classList.add("peek");
+    } else if(state == "unpeek") {
+        document.getElementsByClassName("programs")[0].classList.remove("peek");
     }
 }
 

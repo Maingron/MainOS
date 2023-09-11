@@ -23,6 +23,31 @@ body {
 	left: 0;
 	height: 100%;
 	width: 100%;
+	.programs {
+		display: block;
+		height: 100%;
+		width: 100%;
+		&.peek {
+			>div {
+				backdrop-filter: blur(1px);
+				outline: 1px solid var(--themecolor);
+				>* {
+					opacity: .05 !important;
+					&.headbar {
+						opacity: 1 !important;
+						background-color: transparent;
+						* {
+							opacity: 0;
+						}
+						.progicon, .progtitle {
+							opacity: 1;
+							background-color: var(--themecolor);
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 .speak {
@@ -192,6 +217,9 @@ body.big_buttons { // Big Buttons
 	min-height: 50px;
 	background-color: transparent;
 	border-radius: var(--border-radius);
+	&,* {
+		transition: opacity .5s, backdrop-filter .5s;
+	}
 
 	&:not(.active) {
 		.close {
