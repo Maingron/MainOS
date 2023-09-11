@@ -355,7 +355,6 @@ function setAttribute(path, attribute, value) {
 
 function formatfs(sure, reload = true) { // Todo: Update
   if (sure == "yes") {
-    savefile("C:/mainos/system32/exists.dat", "false");
     localStorage.clear();
     if(reload) {
       window.location.reload();
