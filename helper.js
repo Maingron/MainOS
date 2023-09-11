@@ -22,6 +22,8 @@ if(ismainos != 1 && parent.ismainos == 1) {
     window.isfolder = parent.isfolder;
     window.listdir = parent.listdir;
     window.getFilename = parent.getFilename;
+    window.getAttributes = parent.getAttributes;
+    window.getAttribute = parent.getAttribute;
     
     /* TODO:
     window.close

@@ -325,6 +325,23 @@ function getAttributes(path) {
 }
 
 /**
+ * Returns the value of an attribute of a file / folder
+ * @param {String} path Path to file or folder
+ * @param {String} attribute Attribute to get
+ * @returns {String} Value of attribute
+  */
+
+function getAttribute(path, attribute) {
+  var myAttributes = getAttributes(path);
+  for(iAttribute of myAttributes) {
+    if(iAttribute.split("=")[0] == attribute) {
+      return iAttribute.split("=")[1];
+    }
+  }
+  return false;
+}
+
+/**
  * sets attributes of a file / folder
  * @param {String} path Path to file or folder
  * @param {String} attribute Attribute to set
