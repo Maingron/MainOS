@@ -41,8 +41,10 @@ function explorerdo(path, action = "default") { // Shows directory or does stuff
         // display folders first
         if(isfolder(filesInPath[i])) {
             newChild.style.order = 1;
+            newChild.setAttribute("tabindex", "1");
         } else {
             newChild.style.order = 2;
+            newChild.setAttribute("tabindex", "2");
         }
 
 
