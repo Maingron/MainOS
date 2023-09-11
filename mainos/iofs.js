@@ -291,6 +291,33 @@ function copyFile(source, destination, doOverride = false) {
   }
 }
 
+ /**
+ * Copies an folder and its contents to destination
+ * @param {String} source 
+ * @param {String} destination 
+ * @param {boolean} doOverride 
+ * @param {boolean} doCopyAttributes 
+ * @returns {boolean} Returns true if successful, false if not
+ */
+
+function copyFolder(source, destination, doOverride = false, doCopyAttributes = true) {
+    if(isfolder(destination) && !doOverride) {
+      return false;
+    }
+    var directoryList = listdir(source, true);
+    savedir(destination, false, loadfile(source, true)); // Copy source folder itself and its attributes
+    for(entry of directoryList) {
+        if(isfolder(entry)) {
+            console.log(destination, loadfile(entry, true));
+            savedir(destination + entry.split(source)[1], false, loadfile(entry, true));
+        } else {
+            copyFile(entry, destination + entry.split(source)[1], doOverride);
+        }
+    }
+    return true;
+}
+
+
 /**
  * Returns the size of a file in bytes
  * @param {String} path Path to file
