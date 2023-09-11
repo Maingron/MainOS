@@ -196,47 +196,61 @@ function dateCompression(compress = false, date = new Date()) {
 
 
 function savefile(path, content, override, attr) {
-  if (!attr || attr.includes("d=") == false) {
-    var mySaveDate = new Date();
-    mySaveDate = (mySaveDate.getTime() - mySaveDate.getMilliseconds()) / 1000; // Save without milliseconds to save about 3 bytes per file
-    mySaveDate -= 1000000000; // Remove this value to save up to 1 byte per file. Won't save storage after the year 2033
-    attr = "d=" + mySaveDate + "," + attr; // Todo: Make the date footprint as small as possible
-  } else if(attr && attr.includes("t=dir")) {
-    if(path.slice(-1) != "/") { // Check for trailing slash
-      console.warn("Directories are supposed to have a trailing slash. Saving: " + path + ".");
-      path += "/";
-    }
-  }
+	if (!attr || attr.includes("d=") == false) {
+		var mySaveDate = new Date();
+		mySaveDate = (mySaveDate.getTime() - mySaveDate.getMilliseconds()) / 1000; // Save without milliseconds to save about 3 bytes per file
+		mySaveDate -= 1000000000; // Remove this value to save up to 1 byte per file. Won't save storage after the year 2033
+		attr = "d=" + mySaveDate + "," + attr; // Todo: Make the date footprint as small as possible
+	} else if(attr && attr.includes("t=dir")) {
+		if(path.slice(-1) != "/") { // Check for trailing slash
+			console.warn("Directories are supposed to have a trailing slash. Saving: " + path + ".");
+			path += "/";
+		}
+	}
 
-  if (override == "undefined" || override == "null") {
-    override = 0;
-  }
+	if (override == "undefined" || override == "null") {
+		override = 0;
+	}
 
-  if (!override && isfile(path)) {} else {
-    localStorage.setItem(path, attr + "*" + content);
-  }
+	if (!override && isfile(path)) {
+		return false;
+	} else {
+		localStorage.setItem(path, attr + "*" + content);
+	}
+
+	return true;
 }
 
-function savedir(path, createParentStructure = true) {
-  if(isfile(path)) {
-  } else {
-    if(path.charAt(path.length - 1 ) != "/") {
-      path += "/"; // Append trailing slash, if there is none
-    }
-    if(createParentStructure) {
-      var myPathArray = path.split("/");
-      var myPath = "";
-      for(var i = 0; i < myPathArray.length - 1; i++) {
-        myPath += myPathArray[i] + "/";
-        if(!isfolder(myPath)) {
-          savefile(myPath, "", 0, "t=d");
-        }
-      }
-    } else if(!isfolder(path.split("/")[path.split("/").length - 2])) { // If parent folder doesn't exist
-      return "Error: Parent folder doesn't exist";
-    }
-    savefile(path, "", 0, "t=d");
-  }
+function savedir(path, createParentStructure = true, attributes = "t=d") {
+	if(path.charAt(path.length - 1) != "/") {
+		path += "/"; // Append trailing slash, if there is none
+	}
+
+	if(isfile(path)) { return false; } // If file exists, return false
+
+	// if attributes don't include type, add it
+	if(!attributes.includes("t=d")) {
+		attributes += ",t=d";
+	}
+
+
+	var myPathArray = path.split("/");
+	var fullParentFolderPath = path.split(myPathArray[myPathArray.length - 2])[0]; // Get full path of parent folder
+
+
+	if(createParentStructure) {
+		var myPath = "";
+		for(var i = 0; i < myPathArray.length - 1; i++) {
+			myPath += myPathArray[i] + "/";
+			if(!isfolder(myPath)) {
+				savefile(myPath, "", 0, attributes);
+			}
+		}
+	} else if(!isfolder(fullParentFolderPath)) { // If parent folder doesn't exist
+		return "Error: Parent folder doesn't exist";
+	}
+
+	return savefile(path, "", 0, attributes);
 }
 
 
