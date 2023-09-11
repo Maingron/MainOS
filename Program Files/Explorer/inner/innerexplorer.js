@@ -38,7 +38,15 @@ function explorerdo(path, action = "default") { // Shows directory or does stuff
         newChild.setAttribute("class","has_hover");
         newChild.href = "javascript:explorerdo('"+filesInPath[i]+"')"; // Open folder or file onclick
 
-        newChild.innerHTML += getFilename(filesInPath[i]); // Add text while removing full path and trailing slash
+        // display folders first
+        if(isfolder(filesInPath[i])) {
+            newChild.style.order = 1;
+        } else {
+            newChild.style.order = 2;
+        }
+
+
+        newChild.innerText = getFilename(filesInPath[i]); // Add text while removing full path and trailing slash
 
         document.getElementById("content_files").appendChild(newChild);
         filesListed.push(filesInPath[i]); // Add to filesListed
