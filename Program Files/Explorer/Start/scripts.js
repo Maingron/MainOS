@@ -41,6 +41,7 @@ programsinfolder.forEach((item, index) => {
 
     myNewChildNode1.setAttribute("onclick", "run('" + myCurrentProgram.id + "')");
     myNewChildNode1.setAttribute("href", "#");
+    myNewChildNode1.classList.add("has_hover");
 
     myNewChildNode2.setAttribute("src", myCurrentProgram.icon);
     myNewChildNode2.setAttribute("alt", "");
