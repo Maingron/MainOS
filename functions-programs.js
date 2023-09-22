@@ -37,7 +37,7 @@ function run(which, iattr, how) { // Run a program
 
     let myWindow = newWindow;
 
-    if(!myProgram.icon) {myProgram.icon = "#iofs:C:/mainos/system32/icons/transparent.png"}; // Set default icon
+    if(!myProgram.icon) {myProgram.icon = "#iofs:C:/system/icons/transparent.png"}; // Set default icon
 
     myWindow.innerHTML = `
     <div class="headbar">
@@ -50,7 +50,7 @@ function run(which, iattr, how) { // Run a program
             <button class="close has_hover" onclick="unrun(getWindowByMagic(this))" href="#" title="Close"><b>x</b></button>
             <button class="minimize" onclick="setWindowMinimized(getWindowByMagic(this))">-</button>
             <button class="fullscreen has_hover" onclick="setWindowFullscreen(getWindowByMagic(this))" href="#" title="Toggle Fullscreen">
-                <img src="${loadfile("C:/mainos/system32/icons/fullscreen.svg")}" alt="">
+                <img src="${loadfile("C:/system/icons/fullscreen.svg")}" alt="">
             </button>
         </div>
         <div class="drag"></div>

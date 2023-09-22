@@ -57,7 +57,7 @@ function returnNewSystemVariable() {
             userRoot: "C:/" + "users/",
             programs: "C:/Program Files/", // will change to C:/programs/ in the future
             icons: {
-                system: "C:/mainos/system32/icons/",
+                system: "C:/system/icons/",
             }
         },
         icons: {},
@@ -123,7 +123,7 @@ function getInitialSettings() {
         themecolor: "#994400",
         themecolor2: "#dd6600",
         prefersDarkMode: system.hostOS.prefersDarkMode,
-        backgroundImage: "C:/Documents and Settings/Images/fluent.jpg",
+        backgroundImage: "C:/users/public/Images/fluent.jpg",
         accessibility: {
             tts: {
                 enabled: false

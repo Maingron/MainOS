@@ -18,9 +18,9 @@ function returnPathForFileIcon(path) {
 
 	if(isfolder(path)) {
 		if(path.slice(-2) == ":/") {
-			return "iofs:C:/mainos/system32/icons/mainos_folder.svg";
+			return "iofs:C:/system/icons/mainos_folder.svg";
 		} else {
-			return "iofs:C:/mainos/system32/icons/folder.svg";
+			return "iofs:C:/system/icons/folder.svg";
 		}
 	}
 
@@ -33,7 +33,7 @@ function returnPathForFileIcon(path) {
 	}
 
 	// Default icon
-	return "iofs:C:/mainos/system32/icons/unknown_file.svg";
+	return "iofs:C:/system/icons/unknown_file.svg";
 }
 
 document.addEventListener("DOMContentLoaded", function() {

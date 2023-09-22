@@ -11,7 +11,7 @@ function getInitialProgramList() {
         "explorer": {
             "id": "explorer",
             "title": "Explorer",
-            "icon": "iofs:C:/mainos/system32/icons/folder_search.svg",
+            "icon": "iofs:C:/system/icons/folder_search.svg",
             "src": "Program%20Files/Explorer/inner/exec.html"
         },
         "notepad": {
