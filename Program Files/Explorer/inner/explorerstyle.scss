@@ -1,7 +1,3 @@
-:root {
-    font: sans-serif;
-}
-
 body {
     margin: 0;
     overflow: hidden;
@@ -22,8 +18,6 @@ body {
 }
 
 * {
-    font-family: var(--font);
-    font-size: .99em;
 }
 
 #headbar2 {
@@ -112,13 +106,90 @@ body {
         user-select: none;
         word-break: break-word;
         display: inline-block;
+        position: relative;
         font-size: .85em;
         text-decoration: none;
+        border-radius: var(--border-radius) !important;
 
         &:hover,
         &:focus-visible {
             overflow: visible;
             z-index: 20;
+        }
+
+        &.hidden {
+            opacity: .5;
+        }
+
+        &.system_file {
+
+        }
+
+        &.outdated_file {
+            
+        }
+
+
+        .color_dot_div {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50px;
+            line-height: 0;
+            width: 80%;
+            user-select: none;
+            pointer-events: none;
+            .color_dot {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                border: 1px solid #77777799;
+                background-color: #777777aa;
+                margin: 1px;
+                padding: 0;
+                display: inline-block;
+                position: relative;
+                background-repeat: no-repeat;
+                top: 0;
+                right: 0;
+                // filter: drop-shadow(-1px -1px 0 #777777aa) drop-shadow(1px -1px 0 #777777aa) drop-shadow(-1px 1px 0 #777777aa) drop-shadow(1px 1px 0 #777777aa);
+                &_A {
+                    background-color: red;
+                }
+                &_B {
+                    background-color: orange;
+                }
+                &_C {
+                    background-color: yellow;
+                }
+                &_D {
+                    background-color: green;
+                }
+                &_E {
+                    background-color: blue;
+                }
+                &_F {
+                    background-color: purple;
+                }
+                &_0 {
+                    // system file
+                    background-image: url("../../../logo.png");
+                    background-size: 100%;
+                    border-radius: 25%;
+                }
+                &_outdated {
+                    // files to be removed by dev
+                    background-color: #ff0000aa;
+                    border-radius: 25%;
+                    width: 5px;
+                    &::after {
+                        content: "!";
+                        line-height: .8;
+                        display: table-cell;
+                    }
+                }
+            }
         }
 
         img {
