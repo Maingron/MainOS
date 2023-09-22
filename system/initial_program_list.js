@@ -59,8 +59,7 @@ function getInitialProgramList() {
             "noborder": 1,
             "isstartmenu": 1,
             "spawnicon": 0,
-            "autostart": "minimized",
-            "maxopen": 1
+            "autostart": "minimized"
         },
         "terminal": {
             "id": "terminal",

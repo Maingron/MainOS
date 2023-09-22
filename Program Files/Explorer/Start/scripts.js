@@ -1,3 +1,15 @@
+// if is already running, close both instances
+if(parent.processList.includes("start_menu") && pWindow.getPid() != parent.processList.indexOf("start_menu")) {
+    // hide this window
+    pWindow.setMinimized(1);
+    // get index number
+    let index = parent.processList.indexOf("start_menu");
+    parent.unrun(parent.getWindowById(index));
+    close_startmenu();
+} else {
+    pWindow.setMaximized(1);
+}
+
 function run(which) {
     os.run(which);
     close_startmenu();
@@ -57,7 +69,7 @@ function register() {
             let startButton = document.createElement("button");
             startButton.id = "start";
             startButton.className = "has_hover";
-            startButton.setAttribute("onclick", "run('start_menu','','fullscreen')");
+            startButton.setAttribute("onclick", "run('start_menu','','min')");
             startButton.innerHTML = `
                 <img src="#iofs:${system.icons.logo}" alt="Start">
             `;
