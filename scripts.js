@@ -327,36 +327,34 @@ window.setInterval(function() {
 }, 250);
 
 
-function enterFullscreen(element) { // Toggle MainOS Fullscreen
-    if(document.fullscreenElement == null || document.fullscreenElement == undefined) {
-        if (element.requestFullscreen) {
-            element.requestFullscreen();
-        } else if (element.mozRequestFullScreen) {
-            element.mozRequestFullScreen();
-        } else if (element.msRequestFullscreen) {
-            element.msRequestFullscreen();
-        } else if (element.webkitRequestFullscreen) {
-            element.webkitRequestFullscreen();
+/**
+ * Fullscreen system or element
+ * @param {HTMLElement} element
+ * @param {boolean} state
+ */
+
+function enterFullscreen(element = document.body, state = !document.fullscreenElement) {
+    window.setTimeout(function() {
+        if(document.fullscreenElement == null || document.fullscreenElement == undefined || state == true) {
+            if (element.requestFullscreen) { element.requestFullscreen(); }
+            else if (element.mozRequestFullScreen) { element.mozRequestFullScreen(); }
+            else if (element.msRequestFullscreen) { element.msRequestFullscreen(); }
+            else if (element.webkitRequestFullscreen) { element.webkitRequestFullscreen(); }
+            else if (element.requestFullscreen) { element.requestFullscreen(); }
         } else {
-            element.requestFullscreen();
+            if (document.exitFullscreen) { document.exitFullscreen(); }
+            else if (document.msExitFullscreen) { document.msExitFullscreen(); }
+            else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }
+            else if (document.exitFullscreen) { document.exitFullscreen(); }
         }
-    } else {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.msExitFullscreen) {
-            document.msExitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-        } else {
-            document.exitFullscreen();
-        }
-    }
+    }, 0);
 }
+
 
 
 if (system.user.settings.default_fullscreen == 1) { // Enter fullscreen on start if requested by setting
     document.body.getElementsByClassName("content")[0].addEventListener("click", function() {
-        enterFullscreen(document.body);
+        enterFullscreen();
     }, {"once": true});
 }
 
@@ -378,6 +376,7 @@ listdir(system.user.paths.programShortcuts).forEach((item) => {
 
 // Task List
 function refreshTaskList() {
+    // TODO #72 only remove or add elements that are necessary
     document.getElementById("tasklist").innerHTML = "";
     for(var i = 0; i < pid.length; i++) {
         myProgram = pid[i];
