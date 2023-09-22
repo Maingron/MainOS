@@ -48,7 +48,7 @@ function run(which, iattr, how) { // Run a program
             <button class="pin has_hover" onclick="setWindowAlwaysOnTop(getWindowByMagic(this))" href="#" title="Pin window always to top">📌</button>
             <button class="max has_hover" onclick="focusWindow(getWindowByMagic(this)); setWindowMaximized(getWindowByMagic(this))" href="#" title="(Un-)Maximize">⎚</button>
             <button class="close has_hover" onclick="unrun(getWindowByMagic(this))" href="#" title="Close"><b>x</b></button>
-            <button class="minimize" onclick="setWindowMinimized(getWindowByMagic(this))">-</button>
+            <button class="minimize has_hover" onclick="setWindowMinimized(getWindowByMagic(this))">-</button>
             <button class="fullscreen has_hover" onclick="setWindowFullscreen(getWindowByMagic(this))" href="#" title="Toggle Fullscreen">
                 <img src="${loadfile("C:/system/icons/fullscreen.svg")}" alt="">
             </button>

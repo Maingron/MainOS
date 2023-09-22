@@ -1,14 +1,16 @@
 @import "helper.min.css";
 
+html,
 body {
 	margin: 0;
 	background-color: #853;
 	overflow: hidden !important;
-	position: fixed;
+	position: relative;
 	top: 0;
 	left: 0;
 	height: 100%;
 	width: 100%;
+
 }
 
 * {
@@ -19,14 +21,24 @@ body {
 
 .content {
 	position: absolute;
+	display: flex;
+	flex-direction: column;
 	top: 0;
 	left: 0;
 	height: 100%;
 	width: 100%;
 	.programs {
-		display: block;
+		display: inline-block;
+		// allow click-through but still allow interaction with child elements, so we can interact with the desktop
+		pointer-events: none;
+		position: relative;
+		top: 0;
+		left: 0;
 		height: 100%;
 		width: 100%;
+		* {
+			pointer-events: auto;
+		}
 		&.peek {
 			>div {
 				backdrop-filter: blur(1px);
@@ -62,7 +74,7 @@ body {
 	display: none !important;
 }
 
-.noborder {
+.program.noborder {
 	border-radius: 0 !important;
 
 	iframe {
@@ -70,6 +82,7 @@ body {
 		border: 0 !important;
 		background-color: transparent !important;
 		border-radius: 0 !important;
+		height: 100%;
 	}
 
 	.headbar,
@@ -215,10 +228,15 @@ body.big_buttons { // Big Buttons
 	display: none;
 	min-width: 100px;
 	min-height: 50px;
+	top: 0;
+	left: 0;
+	transform: scale(1) translate(1);
+	transform-origin: bottom left;
 	background-color: transparent;
 	border-radius: var(--border-radius);
 	&,* {
-		transition: opacity .5s, backdrop-filter .5s;
+		transition: opacity .2s, backdrop-filter .3s, transform .3s, margin .3s;
+	}
 	}
 
 	&:not(.active) {
@@ -240,7 +258,7 @@ body.big_buttons { // Big Buttons
 			.pin {
 				&::after {
 					content: "📍";
-					background: inherit;
+					background: #000000;
 				}
 				&:hover {
 					&::after {
@@ -297,22 +315,28 @@ body.big_buttons { // Big Buttons
 	}
 
 	&.minimized {
-		top: 150%;
-		left: 150%;
 		user-select: none;
-		transform: scale(0);
 		opacity: 0;
 		z-index: -100;
-		visibility: hidden;
+		// visibility: hidden;
+		margin-left: -70vw;
+		margin-top: 100vh;
+		transform: scale(0);
+		&,* {
+			pointer-events: none;
+		}
+
 
 		iframe {
+			transform: scaleY(0);
+			pointer-events: none;
 			user-select: none;
-			visibility: hidden;
+			// visibility: hidden;
 		}
 	}
 
 	&.maximized {
-		height: calc(100% - 35px);
+		height: 100%;
 		width: 100%;
 		max-height: 100vh;
 		max-width: 100vw;
@@ -359,9 +383,10 @@ body.big_buttons { // Big Buttons
 		left: 0;
 		height: calc(100% - 30px);
 		width: 100%;
-		background-color: #fff;
+		// background-color: #fff;
 		overflow: hidden;
-		border: 2px solid var(--themecolor);
+		border: 1px solid var(--themecolor);
+		border-top: 0;
 		border-bottom-left-radius: var(--border-radius);
 		border-bottom-right-radius: var(--border-radius);
 		color-scheme: initial !important;
@@ -402,7 +427,7 @@ body.big_buttons { // Big Buttons
 
 			button {
 				height: 100%;
-				aspect-ratio: 1/1;
+				aspect-ratio: 1.2/1;
 				@supports not (aspect-ratio: 1/1) {
 					width: 30px;
 				}
@@ -419,12 +444,16 @@ body.big_buttons { // Big Buttons
 				text-align: center;
 				justify-content: center;
 				object-fit: contain;
+				border-radius: 0;
+				background:transparent;
 
 				img {
 					height: 100%;
-					width: 100%;
-					padding: 20%;
+					// width: 100%;
+					max-width: 100%;
+					padding: 15%;
 					font-size: 0;
+					aspect-ratio: 1/1;
 				}
 
 				&[disabled],
@@ -435,30 +464,32 @@ body.big_buttons { // Big Buttons
 
 				&.close {
 					order: 10000;
-					background-color: #f00;
+					&:hover {
+						background-color: #f00 !important;
+					}
 				}
 
 				&.max {
 					order: 9500;
-					background-color: var(--themecolor2);
+					// background-color: var(--themecolor2);
 				}
 
 				&.minimize {
 					order: 9000;
-					background-color: var(--themecolor2);
+					// background-color: var(--themecolor2);
 				}
 
 				&.fullscreen {
 					order: 8500;
-					background-color: var(--themecolor2);
+					// background-color: var(--themecolor2);
 				}
 
 				&.pin {
-					background-color: var(--themecolor2);
+					// background-color: var(--themecolor2);
 				}
 
 				&.reload {
-					background-color: #ff0;
+					// background-color: #ff0;
 					color: #000;
 				}
 			}
@@ -471,10 +502,21 @@ body.big_buttons { // Big Buttons
 			height: 10px;
 			width: 10px;
 			position: absolute;
+			transform:scale(1);
 			&:active {
 				z-index: 9999;
 				transition: 0s;
 				cursor: se-resize;
+			}
+			&:hover {
+				// if not active
+				&:not(:active) {
+					border-radius: 50%;
+					backdrop-filter: blur(10px);
+					transform: scale(1.5);
+					outline: 1px solid var(--themecolor);
+				}
+
 			}
 		}
 		.resizer2 {
@@ -520,14 +562,15 @@ body.big_buttons { // Big Buttons
 }
 
 #taskbar {
-	background-color: var(--themecolor);
-	position: absolute;
+	background-color: var(--glassyElementBackground);
+	position: relative;
+	order: 200;
 	display: flex;
 	justify-content: space-between;
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	height: 35px;
+	height: var(--taskbarheight);
 	overflow: visible;
 	z-index: 99999;
 	-webkit-touch-callout: none;
@@ -536,10 +579,13 @@ body.big_buttons { // Big Buttons
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	box-shadow: 0 -1px 0 0px #00000088;
+	flex-grow: 0;
+	flex-shrink: 0;
+	// box-shadow: 0 -1px 0 0px #00000088;
+	backdrop-filter: blur(var(--glassyElementBlur));
 
 	#start {
-		background-color: #4a0;
+		background-color: transparent;
 		position: relative;
 		float: left;
 		height: 100%;
@@ -577,89 +623,96 @@ body.big_buttons { // Big Buttons
 
 	#tasklist {
 		height: 100%;
-		width: 100%;
+		width: auto;
 		position: relative;
 		display: flex;
+		flex-grow: 99;
+
 		button {
 			height: 100%;
+			border-radius: var(--border-radius);
 			display: inline-flex;
 			border: 0;
-			background: #77777755;
+			background: #77777711;
 			padding: 2px 5px;
 			margin: 0 2px;
+			box-sizing: border-box;
 			&.active {
-				background: #777777cc;
-				border-bottom: 2px solid var(--themecolor2);
+				background: #7777774f;
+				border: 2px solid var(--themecolor2);
 			}
 			img {
 				height: 100%;
-				margin-right: 10px;
+				margin-right: 0;
+				aspect-ratio: 1/1;
+				object-fit: scale-down;
 			}
 			span {
 				margin: auto;
 				line-height: 1;
+				display: none;
 			}
 		}
 	}
 
 	#taskbarright {
 		position: relative;
-		display: inline-flex;
+		display: flex;
 		flex-direction: row;
 		right: 0;
 		top: 0;
 		height: 100%;
-		width: 180px;
-		background-color: var(--themecolor2);
-		border-left: 2px solid #420;
-		max-width: 28%;
+		width: auto;
+		// background-color: #00000033;
+		// border-left: 2px solid #420;
+		max-width: 60%;
 		color: #fff;
-		min-width: 100px;
+		min-width: 50px;
+		// background-color: var(--glassyElementBackground);
 
-		#taskbarrighticons {
-			display: inline;
-			a {
-				display: inline-block;
-			}
+		a {
+			display: inline-block;
+			position: relative;
+			padding: 5px;
+			border-radius: var(--border-radius);
+			margin: 0 2px;
+
 		}
 
-		img {
-			height: 30px;
-			margin: 3px;
+		#taskbarrighticons {
+			height: 100%;
 			width: auto;
 		}
 
-		#taskbartime {
-			position: relative;
-			float: right;
-			top: 6px;
-			margin: 0;
-			margin-left: 7px;
-			width: 60px;
-			height: 18px;
-			font-size: 18px;
-			color: #fff;
+		img {
+			height: 100%;
+			margin: 3px;
+			width: auto;
+			aspect-ratio: 1/1;
 		}
 
+		#taskbartime,
 		.taskbarlanguage {
-			position: relative;
-			top: 7px;
-			margin: 0;
-			padding: 1px 3px;
-			margin-left: 9px;
-			width: 60px;
-			height: 18px;
-			font-size: 16px;
-			color: #fff;
+			height: auto;
+			background: transparent;
+			display: table-cell;
+			padding: 5px;
+			vertical-align: middle;
 		}
 
 		.show-desktop {
-			width: 4px;
+			width: 6px;
+			padding: 0;
 			background: var(--themecolor);
+			opacity:.9;
 			height: 100%;
-			position: absolute;
+			position: relative;
+			display: inline-block;
+			order: 9999;
 			right: 0;
 			top: 0;
+			border-radius: 0;
+			margin-right: 0;
 		}
 	}
 }
@@ -899,7 +952,7 @@ body.big_buttons { // Big Buttons
 @media (prefers-color-scheme:dark) {
 	.program {
 		iframe {
-			background-color: var(--black);
+			// background-color: var(--black);
 		}
 	}
 }

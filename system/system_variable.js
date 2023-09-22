@@ -103,7 +103,7 @@ function returnNewSysacc() {
 function getInitialSettings() {
     return {
         big_buttons: false,
-        borderradius: "2px",
+        borderradius: "4px",
         default_fullscreen: false,
         developer: {
             enable: false,

@@ -17,11 +17,20 @@
     --border-radius: 2px;
     --font-size-base: 1em;
 
+    --taskbarheight: 45px; // maybe deprecated in this file
+    --glassyElementSpacing: 15px; // deprecated in this file
+    --glassyElementBlur: 25px;
+    --glassyElementBackground: rgba(25,25,25,.4);
+
     --bg-1: var(--black);
     --bg-2: var(--black2);
     --bg-3: var(--black3);
     --bg-4: var(--black4);
     --bg-5: var(--black5);
+}
+
+html, body {
+    background-color: transparent;
 }
 
 html {
@@ -70,7 +79,10 @@ body {
         &:not([disabled]) {
             transition: background-color .1s, filter .1s !important;
             &:hover, &:focus-visible {
-                background-color: var(--hovercolor) !important;
+                outline: 1px solid var(--themecolor);
+                outline-offset: -1px;
+                background-color: #555555cc !important;
+                // background-color: var(--hovercolor) !important;
                 filter: brightness(1.2) !important;
             }
         }
