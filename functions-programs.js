@@ -647,3 +647,14 @@ function getWindowByMagic(which) {
 function getProgramByMagic(which) {
     return system.user.programs[pid[getWindowByMagic(which).id]].id;
 }
+
+function peekProgram(which, state) {
+    console.log(which);
+    if(state == true) {
+        which.classList.add("peeking");
+    } else if(state == false) {
+        which.classList.remove("peeking");
+    } else {
+        peekProgram(which, !which.classList.contains("peek"));
+    }
+}

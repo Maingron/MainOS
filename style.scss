@@ -237,7 +237,46 @@ body.big_buttons { // Big Buttons
 	&,* {
 		transition: opacity .2s, backdrop-filter .3s, transform .3s, margin .3s;
 	}
-	}
+
+
+	&.peeking:not(.active) {
+		// &:not(.maximized:not(.minimized)) {
+			&,* {
+				z-index:99999 !important;
+				transform: scale(1);
+				opacity: 1;
+				visibility: visible;
+				transition: 0s;
+			}
+			iframe {
+				transform: scaleY(1) !important;
+				border-radius: var(--border-radius) !important;
+				overflow: hidden;
+			}
+			transform: scale(.25) !important;
+			transform-origin: bottom left !important;
+			margin: 0 !important;
+			top: unset !important;
+			bottom: 20px !important;
+			left: 20px !important;
+			outline: 40px solid rgba(0,0,0,.6);
+			border-radius: var(--border-radius);
+
+		}
+		// &.maximized {
+		// 	&,* {
+		// 		z-index:99999 !important;
+		// 	}
+		// 	transform: scale(.95);
+		// 	border-radius: var(--border-radius);
+		// 	outline: 40px solid rgba(0,0,0,.6);
+		// 	left:40px !important;
+		// 	top:unset;
+		// 	bottom:20px !important;
+
+		// }
+	// }
+
 
 	&:not(.active) {
 		.close {

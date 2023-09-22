@@ -385,7 +385,7 @@ function refreshTaskList() {
             var myNewChildNode1 = document.createElement("button");
             var myNewChildNode2 = document.createElement("img");
             myNewChildNode2.src = system.user.programs[myProgram].icon;
-            myNewChildNode2.alt = "";
+            myNewChildNode2.alt = system.user.programs[myProgram].title;
             myNewChildNode1.appendChild(myNewChildNode2);
 
             myNewChildNode3 = document.createElement("span");
@@ -394,6 +394,8 @@ function refreshTaskList() {
             myNewChildNode1.appendChild(myNewChildNode3);
 
             myNewChildNode1.setAttribute("pid", i)
+            myNewChildNode1.classList.add("has_hover");
+            myNewChildNode1.title = system.user.programs[myProgram].title;
 
             myNewChildNode1.addEventListener("click", function() {
                 
@@ -403,14 +405,29 @@ function refreshTaskList() {
                     setWindowMinimized(getWindowByMagic(this.getAttribute("pid")), false);
                     focusWindow(getWindowByMagic(this.getAttribute("pid")));
                 }
-                
             });
 
-            // myNewChildNode1.addEventListener("mouse", function() {
-            //     focusWindow(document.getElementById(this.getAttribute("pid")));
-            // });
+            myNewChildNode1.addEventListener("mouseover", function() {
+                // peek
+                peekProgram(getWindowByMagic(this.getAttribute("pid")), true);
+            });
 
-            // myNewChildNode1.onclick = focusWindow(i);
+            myNewChildNode1.addEventListener("mouseout", function() {
+                // unpeek
+                peekProgram(getWindowByMagic(this.getAttribute("pid")), false);
+            });
+
+            // clone process with middle click
+            myNewChildNode1.addEventListener("auxclick", function(event) {
+                if(event.which == 2) {
+                    run(system.user.programs[pid[this.getAttribute("pid")]].id);
+                }
+            });
+
+            // myNewChildNode1.addEventListener("contextmenu", function(event) {
+            //     event.preventDefault();
+            //     event.stopPropagation();
+            // });
 
             document.getElementById("tasklist").appendChild(myNewChildNode1);
         }
