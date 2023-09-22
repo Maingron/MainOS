@@ -92,6 +92,23 @@ button {
     line-height: 2;
 }
 
+meter {
+    box-sizing: border-box;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 8px;
+    border:0;
+
+    &::-webkit-meter-optimum-value {
+        background: var(--themecolor);
+    }
+
+    &::-moz-meter-bar {
+        background: var(--themecolor);
+    }
+}
+
 .altbar {
     height:var(--altbarheight);
     width:100%;
