@@ -175,10 +175,6 @@ function loadProgramMetadata(which) { // Load program metadata from program file
                     // Icon
                     which.icon = myMeta.split("href=\"")[1].split("\"")[0];
                 }
-                if(myMeta.includes("version=")) {
-                    // Version
-                    which.version = myMeta.split("version=\"")[1].split("\"")[0];
-                }
             }
             which.metaloaded = true;
         } else {
