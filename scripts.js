@@ -371,60 +371,76 @@ listdir(system.user.paths.programShortcuts).forEach((item) => {
 
 
 // Task List
-function refreshTaskList() {
-    // TODO #72 only remove or add elements that are necessary
-    document.getElementById("tasklist").innerHTML = "";
-    for(var i = 0; i < pid.length; i++) {
-        myProgram = pid[i];
-        if(myProgram != undefined && myProgram != "" && system.user.programs[myProgram].spawnicon != 0) {
-            var myNewChildNode1 = document.createElement("button");
-            var myNewChildNode2 = document.createElement("img");
-            myNewChildNode2.src = system.user.programs[myProgram].icon;
-            myNewChildNode2.alt = system.user.programs[myProgram].title;
-            myNewChildNode1.appendChild(myNewChildNode2);
+var tasklist = {
+    "htmlElement": document.getElementById("tasklist"),
 
-            myNewChildNode3 = document.createElement("span");
-            myNewChildNode3.innerHTML = system.user.programs[myProgram].title;
-
-            myNewChildNode1.appendChild(myNewChildNode3);
-
-            myNewChildNode1.setAttribute("pid", i)
-            myNewChildNode1.classList.add("has_hover");
-            myNewChildNode1.title = system.user.programs[myProgram].title;
-
-            myNewChildNode1.addEventListener("click", function() {
-                
-                if(this.classList.contains("active")) {
-                    setWindowMinimized(getWindowByMagic(this.getAttribute("pid")));
-                } else {
-                    setWindowMinimized(getWindowByMagic(this.getAttribute("pid")), false);
-                    focusWindow(getWindowByMagic(this.getAttribute("pid")));
-                }
-            });
-
-            myNewChildNode1.addEventListener("mouseover", function() {
-                // peek
-                peekProgram(getWindowByMagic(this.getAttribute("pid")), true);
-            });
-
-            myNewChildNode1.addEventListener("mouseout", function() {
-                // unpeek
-                peekProgram(getWindowByMagic(this.getAttribute("pid")), false);
-            });
-
-            // clone process with middle click
-            myNewChildNode1.addEventListener("auxclick", function(event) {
-                if(event.which == 2) {
-                    run(system.user.programs[pid[this.getAttribute("pid")]].id);
-                }
-            });
-
-            // myNewChildNode1.addEventListener("contextmenu", function(event) {
-            //     event.preventDefault();
-            //     event.stopPropagation();
-            // });
-
-            document.getElementById("tasklist").appendChild(myNewChildNode1);
+    "addItem": function(myWindow, myProgram) {
+        if(myProgram == undefined || myProgram == "" || myProgram.spawnicon == 0) {
+            return;
         }
+
+        var newItemElement = document.createElement("button");
+        newItemElement.innerHTML = `
+            <img src="${myProgram.icon}" alt="">
+            <span>${myWindow.title}</span>
+        `;
+        newItemElement.classList.add("has_hover");
+        newItemElement.title = myProgram.title;
+        newItemElement.setAttribute("pid", myWindow.getAttribute("pid"));
+
+        newItemElement.addEventListener("click", function() {
+                
+            if(this.classList.contains("active")) {
+                setWindowMinimized(getWindowByMagic(this.getAttribute("pid")));
+            } else {
+                setWindowMinimized(getWindowByMagic(this.getAttribute("pid")), false);
+                focusWindow(getWindowByMagic(this.getAttribute("pid")));
+            }
+        });
+
+        newItemElement.addEventListener("mouseover", function() {
+            // peek
+            peekProgram(getWindowByMagic(this.getAttribute("pid")), true);
+        });
+
+        newItemElement.addEventListener("mouseout", function() {
+            // unpeek
+            peekProgram(getWindowByMagic(this.getAttribute("pid")), false);
+        });
+
+        // clone process with middle click
+        newItemElement.addEventListener("auxclick", function(event) {
+            if(event.which == 2) {
+                run(system.user.programs[pid[this.getAttribute("pid")]].id);
+            }
+        });
+
+        tasklist.htmlElement.appendChild(newItemElement);
+    },
+
+    "removeItem": function(which) {
+        let itemElement = tasklist.htmlElement.querySelector(`[pid="${which.id}"]`);
+        // make sure the child exists
+        if(!itemElement) {
+            return;
+        }
+        tasklist.htmlElement.removeChild(itemElement);
+    },
+
+    "focusItem": function(which) {
+        let itemElement = tasklist.htmlElement.querySelector(`[pid="${which.id}"]`);
+        // make sure the child exists
+        if(!itemElement) {
+            return;
+        }
+        itemElement.classList.add("active");
+    },
+
+    "unfocusAll": function() {
+        tasklist.htmlElement.querySelectorAll(".active").forEach((item) => {
+            item.classList.remove("active");
+        });
     }
 }
+
+

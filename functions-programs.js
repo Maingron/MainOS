@@ -29,6 +29,7 @@ function run(which, iattr, how) { // Run a program
     let newWindow = document.createElement("div");
     newWindow.classList.add("program");
     newWindow.id = myPid;
+    newWindow.setAttribute("pid", myPid);
     if(myProgram.noborder) {
         newWindow.classList.add("noborder");
     }
@@ -36,6 +37,8 @@ function run(which, iattr, how) { // Run a program
     objects.programs.appendChild(newWindow);
 
     let myWindow = newWindow;
+
+    tasklist.addItem(myWindow, myProgram);
 
     if(!myProgram.icon) {myProgram.icon = "#iofs:C:/system/icons/transparent.png"}; // Set default icon
 
@@ -60,6 +63,7 @@ function run(which, iattr, how) { // Run a program
     </div>
     <iframe class="proframe ${myProgram.id}" src="about:blank" pid="${myPid}" async>${myProgram.src}</iframe>
     `;
+
 
 
     // Disable disabled controls
@@ -316,8 +320,6 @@ function run(which, iattr, how) { // Run a program
         handInfosToWindow();
     }, {"once": true});
 
-
-    refreshTaskList();
     if(!myWindow?.classList?.contains("minimized")) {
         focusWindow(getWindowById(myWindow.id));
     }
@@ -381,11 +383,7 @@ function focusWindow(which, state) {
 
     which.classList.add("active");
 
-    for(myTask of document.getElementById("tasklist").children) {
-        if(myTask.getAttribute("pid") == which.id) {
-            myTask.classList.add("active");
-        }
-    }
+    tasklist.focusItem(which);
 
     /**
      * unfocuses all windows
@@ -400,11 +398,7 @@ function focusWindow(which, state) {
         }
 
         // unfocus taskbar entry
-        for(myTask of document.getElementById("tasklist").children) {
-            if(myTask.classList.contains("active")) {
-                myTask.classList.remove("active");
-            }
-        }
+        tasklist.unfocusAll();
     }
 }
 
@@ -479,6 +473,7 @@ function overlayResizer(which, onoff) {
  */
 function unrun(which) { // Unrun / close a program
     which.classList.add("closing");
+    tasklist.removeItem(which);
 
     setTimeout(function() {
         which.style.zIndex = "0";
@@ -486,8 +481,6 @@ function unrun(which) { // Unrun / close a program
         which.children[2].src = "about:blank";
         which.outerHTML = "";
         processList[+which.id] = null;
-        refreshTaskList();
-
     }, 250);
 }
 
