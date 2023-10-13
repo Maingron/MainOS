@@ -2,11 +2,18 @@ var data = {};
 data.system = {};
 data.system.mouse = {};
 
+
 if(ismainos) {
     var system = window.system;
 } else {
     var system = window.parent.system;
 }
+
+
+// import mos-elements from /system/mos-elements/mos-elements.js
+var newScript = document.createElement("script");
+newScript.src = system.osDetails.documentRoot + "system/mos-elements/mos-elements.js";
+document.head.appendChild(newScript);
 
 
 
