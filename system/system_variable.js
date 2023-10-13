@@ -6,6 +6,8 @@ if(loadfile("C:/system/system_variable.txt", false)) {
     initializeSystemVariable();
 }
 
+system.osDetails.documentRoot = document.getElementById("documentRoot").href;
+
 function initializeSystemVariable() {
 
     var newScript = document.createElement("script");
@@ -31,8 +33,6 @@ function initializeSystemVariable() {
         saveSystemVariable();
     }
     document.head.prepend(newScript);
-
-
 }
 
 function returnNewSystemVariable() {
