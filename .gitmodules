@@ -1,0 +1,3 @@
+[submodule "system/mos-elements"]
+	path = system/mos-elements
+	url = https://github.com/Maingron/MOS-Elements
