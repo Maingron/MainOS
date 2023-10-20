@@ -86,7 +86,6 @@ function getInitialProgramList() {
         "settings": {
             "id": "settings",
             "title": "Settings",
-            "icon": "iofs:C:/Program Files/settings/icon.png",
             "src": "Program%20Files/settings/exec.html",
             "autostart": 0,
             "spawnicon": 1
