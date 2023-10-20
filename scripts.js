@@ -210,7 +210,10 @@ function addDesktopIcon(which) {
             <p>${which.title}</p>
         `;
         newProgIcon.addEventListener("click", function() {
-            run(this.id);
+            (async() => {
+                run(this.id);
+            })();
+
         });
 
         objects.progicons.appendChild(newProgIcon);
