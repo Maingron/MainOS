@@ -168,7 +168,7 @@ savefilefromurl("C:/Program Files/pixels/icon.svg", "Program Files/pixels/icon.s
 
 
 savedir("C:/Program Files/Dont Tag Me/");
-savefilefromurl("C:/Program Files/Dont Tag Me/icon.png", "Program Files/Dont Tag Me/icon.png", 0, "t=png");
+savefilefromurl("C:/Program Files/Dont Tag Me/icon.svg", "Program Files/Dont Tag Me/icon.svg", 0, "t=svg");
 
 savedir("C:/Program Files/Optisocubes/");
 savefilefromurl("C:/Program Files/Optisocubes/icon.svg", "Program Files/Optisocubes/icon.svg", 0, "t=svg");
