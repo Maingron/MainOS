@@ -1,9 +1,7 @@
 document.title = "MainOS: Updating...";
-document.write("<div id='iinfo' style='position:fixed; display:inline-block; top:0; left:0; height:100%; width:100%; background-color:var(--themecolor); z-index:123456789; transition:.4s;'><center><h1 style='display:inline-block;'>Updating...</h1></center></div>");
+document.write("<div id='iinfo' style='position:fixed; display:inline-block; top:0; left:0; height:100%; width:100%; background-color:var(--themecolor); z-index:123456789; transition:.4s;'><center><h1 style='display:inline-block;'>Updating...</h1><div id='waitingfor'></div></center></div>");
 
-
-
-
+var throughIOfs = false;
 
 function fixfs() {
     for(myEntry of Object.keys(localStorage)) {
@@ -19,6 +17,38 @@ function fixfs() {
     }
 }
 
+var openAsyncFiles = [];
+
+function savefilefromurl(path, url, override, fileAttributes) {
+    openAsyncFiles.push(path);
+    reportOpenAsyncFiles();
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.responseType = "blob";
+    xhr.onload = function(e) {
+      if (this.status == 200) {
+        var file = new FileReader();
+        file.onload = function(event) {
+            savefile(path, event.target.result, override, fileAttributes);
+            openAsyncFiles.splice(openAsyncFiles.indexOf(path), 1);
+            reportOpenAsyncFiles();
+        }
+        file.readAsDataURL(this.response);
+      }
+    };
+    xhr.send();
+  }
+  
+function reportOpenAsyncFiles() {
+    // list all files
+    var files = "";
+    for (var i = 0; i < openAsyncFiles.length; i++) {
+        files += openAsyncFiles[i] + "<br>";
+    }
+    document.getElementById("waitingfor").innerHTML = "Waiting for " + openAsyncFiles.length + " Files: <br>" + files;
+
+    maybeReload();
+}
 
 
 window.onload = function(){
@@ -254,8 +284,16 @@ if(isfolder("C:/users/undefined/")) {
 }
 
 
-setTimeout(function() {
- location.reload();
-}, 60);
+// setTimeout(function() {
+//  location.reload();
+// }, 60);
+
+throughIOfs = true;
 
 };
+
+function maybeReload() {
+    if (throughIOfs && openAsyncFiles.length == 0) {
+        location.reload();
+    }
+}
