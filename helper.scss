@@ -12,7 +12,7 @@
     --beige2: #cca;
     --beige3: #bb7;
     --beige4: #fdfdfa;
-    --altbarheight: 22px;
+    --altbarheight: 30px;
     --altbarcolor: var(--themecolor);
     --border-radius: 2px;
     --font-size-base: 1em;
@@ -127,11 +127,18 @@ meter {
     border-bottom:1px solid #555;
     background:var(--beige);
     position:sticky;
-    display:block;
+    display:flex;
+    flex-direction:row;
     top:0;
     box-sizing:border-box;
+    padding: 1px;
     button {
         line-height: revert;
+        background: transparent;
+        border: 0;
+        padding: 0 .4em;
+        height: 100%;
+        border-radius: 1px;
     }
 }
 
