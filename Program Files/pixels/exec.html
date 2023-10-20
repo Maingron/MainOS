@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Pixels</title>
+	<link rel="shortcut icon" href="iofs:C:/Program Files/pixels/icon.svg">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="../../helper.min.css">
+	<script src="../../helper.js"></script>
+</head>
+
+<body>
+	<div class="altbar">
+		<div id="sizeselect">
+			<button onclick="createPaintfieldIfDifferent(4)">4x4</button>
+			<button onclick="createPaintfieldIfDifferent(8)">8x8</button>
+			<button onclick="createPaintfieldIfDifferent(16)">16x16</button>
+			<button onclick="createPaintfieldIfDifferent(32)">32x32</button>
+			<button onclick="createPaintfieldIfDifferent(64)">64x64</button>
+		</div>
+	</div>
+
+	<div id="colorselect">
+		<div id="currentcolor" title="Selected Color"></div>
+	</div>
+	<div id="imagep">
+	</div>
+	<script src="script.js"></script>
+</body>
+
+</html>

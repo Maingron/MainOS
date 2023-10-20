@@ -77,7 +77,7 @@ function explorerdofile(path, action) { // Run if program is clicked
         if (fileending == ".txt" || fileending == ".log") {
             window.parent.run('notepad', path);
         } else if (fileending == ".png" || fileending == ".jpg" || fileending == ".jpeg") {
-            window.parent.run('painthd', path);
+            window.parent.run('paint', path);
         } else if (fileending == ".run") {
             window.parent.run(JSON.parse(loadfile(path)).id);
         }

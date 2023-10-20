@@ -20,17 +20,10 @@ function getInitialProgramList() {
             "icon": "iofs:C:/Program Files/notepad/icon.png",
             "src": "Program%20Files/notepad/exec.html"
         },
-        "paint": {
-            "id": "paint",
-            "title": "Paint",
-            "icon": "iofs:C:/Program Files/paint/icon.png",
-            "src": "Program%20Files/paint/exec.html"
-        },
-        "paint32x32": {
-            "id": "paint32x32",
-            "title": "Paint 32x32",
-            "icon": "iofs:C:/Program Files/paint32x32/icon.png",
-            "src": "Program%20Files/paint32x32/exec.html"
+        "pixels": {
+            "id": "pixels",
+            "title": "Pixels",
+            "src": "Program%20Files/pixels/exec.html"
         },
         "donttagme": {
             "id": "donttagme",
@@ -90,9 +83,9 @@ function getInitialProgramList() {
             "autostart": 0,
             "spawnicon": 1
         },
-        "painthd": {
-            "id": "painthd",
-            "src": "Program%20Files/Paint%20HD/exec.html"
+        "paint": {
+            "id": "paint",
+            "src": "Program%20Files/paint/exec.html"
         },
         "taskmanager": {
             "id": "taskmanager",

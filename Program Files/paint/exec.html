@@ -1,38 +1,61 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>Paint (16x16)</title>
-	<link rel="shortcut icon" href="iofs:C:/Program Files/paint/icon.png">
-	<link rel="stylesheet" href="paint.css">
-	<link rel="stylesheet" href="../../helper.min.css">
-	<script src="../../helper.js"></script>
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<title>Paint</title>
+		<link rel="shortcut icon" href="iofs:C:/Program Files/paint/icon.svg">
+		<link rel="stylesheet" href="paint.min.css">
+		<link rel="stylesheet" href="../../helper.min.css">
+		<script src="../../helper.js"></script>
+	</head>
+	<body>
 
-<body>
-	<div class="altbar"></div>
-	<div id="colorselect">
-		<div id="currentcolor"></div>
-		<button onclick="clr('#00f')" id="blue"></button>
-		<button onclick="clr('#07f')" id="blue2"></button>
-		<button onclick="clr('#ff0')" id="yellow"></button>
-		<button onclick="clr('#0f0')" id="green"></button>
-		<button onclick="clr('#7a1')" id="green2"></button>
-		<button onclick="clr('#f00')" id="red"></button>
-		<button onclick="clr('#f70')" id="orange"></button>
-		<button onclick="clr('#f0f')" id="pink"></button>
-		<button onclick="clr('#7c3e15')" id="brown"></button>
-		<button onclick="clr('#555')" id="gray1"></button>
-		<button onclick="clr('#bbb')" id="gray2"></button>
-		<button onclick="clr('#fff')" id="white"></button>
-		<button onclick="clr('#000')" id="black"></button>
+		<img id="canvascopy" crossorigin="anonymous">
+		<img id="loadcanvas">
 
+
+	<div class="altbar">
+		<a id="savebutton" onclick="savefile()">Save as </a> <input type="text" id="filename1" placeholder="Filename" />
+		<select onchange="setfileformat(this.value)" id="fileformat">
+			<option onselect="setfileformat('png')">PNG</option>
+			<option onselect="setfileformat('jpg')">JPG</option>
+		</select>
+
+		<button onclick="undo()">Undo</button>
+		<!-- <button onclick="redo()" disabled>Redo</button> -->
+
+		<button onclick="setRenderInterval(20)">20ms</button>
+		<button onclick="setRenderInterval(50)">50ms</button>
+		<button onclick="setRenderInterval(100)">100ms</button>
 	</div>
+
 	<div id="imagep">
-		<div id="image">
-		</div>
+		<canvas id="canvas"></canvas>
 	</div>
-	<script src="script.js"></script>
-</body>
 
+	<input type="range" id="zoom" min=10 max=3200 value=100 step=10 onmousemove="canvas.style.transform = 'scale('+(this.value / 100)+')'" onchange="canvas.style.transform = 'scale('+(this.value / 100)+')'">
+
+		<div class="bottomcontrols">
+			<div class="flex col">
+				<input type="range" title="width" min=1 max=200 value=1 style="width:200px;" id="width">
+				<input type="color" id="color" value="#777777">
+			</div>
+			<div class="flex row">
+				<button onclick="tooltype = 'pen'">pen</button>
+				<button onclick="tooltype = 'rectangle'">rectangle</button>
+			</div>
+			<div class="flex col">
+				<div>
+					<input type="number" min=2 max=2048 value=512 name="imgwidth" id="imgwidth" onchange="canvas.width=this.value"><label for="imgwidth">Width</label>
+				</div>
+				<div>
+					<input type="number" min=2 max=2048 value=512 name="imgheight" id="imgheight" onchange="canvas.height=this.value"><label for="imgheight">Height</label>
+				</div>
+			</div>
+
+		</div>
+
+		<script src="script.js"></script>
+
+	</body>
 </html>
