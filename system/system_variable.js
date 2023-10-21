@@ -77,8 +77,8 @@ function returnIconPaths() {
         logo: ipath + "logo.svg",
         logoff: ipath + "logoff.png",
         mainos_folder: ipath + "mainos_folder.svg",
-        restart: ipath + "restart.png",
-        shutdown: ipath + "shutdown.png",
+        restart: ipath + "restart.svg",
+        shutdown: ipath + "shutdown.svg",
         transparent: ipath + "transparent.png",
         unknown_file: ipath + "unknown_file.svg"
     }

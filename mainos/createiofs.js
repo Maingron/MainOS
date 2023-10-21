@@ -228,9 +228,9 @@ savefilefromurl(i.i + "unknown_file.svg", "system/icons/unknown_file.svg", 0, "t
 
 savefilefromurl(i.i + "transparent.png", "img/transparent.png", 1, "t=png");
 
-savefilefromurl(i.i + "shutdown.png", "system/icons/shutdown.png", 0, "t=png");
+savefilefromurl(i.i + "shutdown.svg", "system/icons/shutdown.svg", 0, "t=svg");
 
-savefilefromurl(i.i + "restart.png", "system/icons/restart.png", 0, "t=png");
+savefilefromurl(i.i + "restart.svg", "system/icons/restart.svg", 0, "t=svg");
 
 savefilefromurl(i.i + "logoff.png", "system/icons/logoff.png", 0, "t=png");
 
@@ -240,7 +240,7 @@ savefilefromurl(i.i + "all programs.svg", "system/icons/all programs.svg", 0, "t
 
 savedir(i.iu);
 
-savefilefromurl(i.iu + "flower.png", "system/icons/usericons/flower.png", 0, "t=png");
+savefilefromurl(i.iu + "guest.svg", "system/icons/usericons/guest.svg", 0, "t=svg");
 
 savefilefromurl(i.i + "arrow1.svg", "system/icons/arrow1.svg", 0, "t=svg");
 
