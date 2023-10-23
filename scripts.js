@@ -15,6 +15,7 @@ var systemRuntime = {
     "timeOfBoot": new Date().getTime(), // Log time of boot
     "processList": pid,
     "pid": pid,
+    "documentRoot": location.pathname,
     "time": function() {
         // TODO: Add potential offset
         var result = new Date();
