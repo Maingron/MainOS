@@ -192,6 +192,10 @@ meter {
     pointer-events: none;
 }
 
+.hidden {
+    display: none !important;
+}
+
 
 
 @media (prefers-color-scheme: dark) {
