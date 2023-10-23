@@ -610,6 +610,7 @@ body.big_buttons { // Big Buttons
 	left: 0;
 	width: 100%;
 	height: var(--taskbarheight);
+	max-height: 40vh;
 	overflow: visible;
 	z-index: 99999;
 	-webkit-touch-callout: none;
@@ -666,6 +667,11 @@ body.big_buttons { // Big Buttons
 		position: relative;
 		display: flex;
 		flex-grow: 99;
+		&.showprogramtitle {
+			span {
+				display: unset;
+			}
+		}
 
 		button {
 			height: 100%;

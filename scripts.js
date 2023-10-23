@@ -15,7 +15,31 @@ var systemRuntime = {
     "timeOfBoot": new Date().getTime(), // Log time of boot
     "processList": pid,
     "pid": pid,
-    "documentRoot": location.pathname
+    "time": function() {
+        // TODO: Add potential offset
+        var result = new Date();
+
+        var toDoubleDigit = function(which) {
+            while (which.toString().length <= 1) {
+                which = "0" + which;
+            }
+            return which;
+        }
+
+        result.whatTime = function() {
+            return toDoubleDigit(this.getHours()) + ":" + toDoubleDigit(this.getMinutes());
+        }
+
+        result.whatTimeAndSeconds = function() {
+            return this.whatTime() + ":" + toDoubleDigit(this.getSeconds());
+        }
+
+        result.whatDate = function() {
+            return this.getFullYear() + "-" + toDoubleDigit(this.getMonth() + 1) + "-" + toDoubleDigit(this.getDate());
+        }
+
+        return result;
+    }
 };
 
 loadsettings();
@@ -32,7 +56,6 @@ if(!mainos) {
 objects.content = document.getElementsByClassName("content")[0];
 objects.progicons = document.getElementsByClassName("icons")[0];
 objects.programs = document.getElementsByClassName("programs")[0];
-objects.taskbarlanguage = document.getElementsByClassName("taskbarlanguage")[0];
 
 
 function jsoncombine(which1, which2) {
@@ -73,12 +96,16 @@ function loadsettings() {
     // document.documentElement.style.setProperty("--hovercolor",setting.hovercolor);
     // document.documentElement.style.setProperty("--hovercolornontransparent",setting.hovercolornontransparent);
 
+    if(taskbar) {
+        taskbar.updateSettings(taskbar);
+    }
+
+    document.documentElement.style.setProperty("--taskbarheight", system.user.settings.taskbar.height + "px");
+
 
     setDocumentMeta();
 }
 
-
-objects.taskbarlanguage.innerHTML = system.user.settings.language; // Show language in taskbar
 
 // program = JSON.parse(loadfile("C:/mainos/programs.dat"));
 program = system.user.programs;
@@ -289,8 +316,6 @@ function wait(time) { //deprecated
 
 
 
-objects.taskbartime = document.getElementById("taskbartime");
-
 window.setInterval(function() {
     setting.time = new Date();
     setting.time = {
@@ -322,7 +347,6 @@ window.setInterval(function() {
     setting.time.time = setting.time.hour + ":" + setting.time.minute;
     setting.time.full = setting.time.date + " " + setting.time.time;
     /* Automatically update these time displays: */
-    objects.taskbartime.innerHTML = setting.time.hour + ":" + setting.time.minute;
 }, 250);
 
 
@@ -369,81 +393,3 @@ savefile("C:/.diskinfo/size_remaining.txt", loadfile("C:/.diskinfo/size.txt") - 
 listdir(system.user.paths.programShortcuts).forEach((item) => {
     deletefile(item, 1);
 })
-
-
-
-
-// Task List
-var tasklist = {
-    "htmlElement": document.getElementById("tasklist"),
-
-    "addItem": function(myWindow, myProgram) {
-        if(myProgram == undefined || myProgram == "" || myProgram.spawnicon == 0) {
-            return;
-        }
-
-        var newItemElement = document.createElement("button");
-        newItemElement.innerHTML = `
-            <img src="${myProgram.icon}" alt="">
-            <span>${myWindow.title}</span>
-        `;
-        newItemElement.classList.add("has_hover");
-        newItemElement.title = myProgram.title;
-        newItemElement.setAttribute("pid", myWindow.getAttribute("pid"));
-
-        newItemElement.addEventListener("click", function() {
-                
-            if(this.classList.contains("active")) {
-                setWindowMinimized(getWindowByMagic(this.getAttribute("pid")));
-            } else {
-                setWindowMinimized(getWindowByMagic(this.getAttribute("pid")), false);
-                focusWindow(getWindowByMagic(this.getAttribute("pid")));
-            }
-        });
-
-        newItemElement.addEventListener("mouseover", function() {
-            // peek
-            peekProgram(getWindowByMagic(this.getAttribute("pid")), true);
-        });
-
-        newItemElement.addEventListener("mouseout", function() {
-            // unpeek
-            peekProgram(getWindowByMagic(this.getAttribute("pid")), false);
-        });
-
-        // clone process with middle click
-        newItemElement.addEventListener("auxclick", function(event) {
-            if(event.which == 2) {
-                run(system.user.programs[pid[this.getAttribute("pid")]].id);
-            }
-        });
-
-        tasklist.htmlElement.appendChild(newItemElement);
-    },
-
-    "removeItem": function(which) {
-        let itemElement = tasklist.htmlElement.querySelector(`[pid="${which.id}"]`);
-        // make sure the child exists
-        if(!itemElement) {
-            return;
-        }
-        tasklist.htmlElement.removeChild(itemElement);
-    },
-
-    "focusItem": function(which) {
-        let itemElement = tasklist.htmlElement.querySelector(`[pid="${which.id}"]`);
-        // make sure the child exists
-        if(!itemElement) {
-            return;
-        }
-        itemElement.classList.add("active");
-    },
-
-    "unfocusAll": function() {
-        tasklist.htmlElement.querySelectorAll(".active").forEach((item) => {
-            item.classList.remove("active");
-        });
-    }
-}
-
-

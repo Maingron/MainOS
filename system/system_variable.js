@@ -129,6 +129,15 @@ function getInitialSettings() {
                 enabled: false
             },
             scaling: 1
+        },
+        taskbar: {
+            showLang: true,
+            showClock: true,
+            showShowDesktop: true,
+            showProgramTitle: false,
+            height: 45, // px
+            // wip
+            position: "bottom"
         }
     }
 }
@@ -144,7 +153,13 @@ function loginUser(name) {
     }
     system.user = system.users.find(user => user.name == name);
     // create new javascript html element
-    var newScript = document.createElement("script");
+
+    taskbar = new Taskbar();
+
+    var newScript;
+
+    // load script files / load scripts (system/)
+    newScript = document.createElement("script");
     newScript.src = "scripts.js";
     document.body.appendChild(newScript);
 

@@ -21,7 +21,13 @@ var settings = [
             {name: "Español", value: "es"},
             {name: "Italiano", value: "it"},
             {name: "Nederlands", value: "nl"}
-        ], disabled: true}
+        ], disabled: true},
+        {name: "Taskbar settings:", type: "h>2"},
+        {name: "Show Language", type: "input>checkbox", id: "system.user.settings.taskbar.showLang"},
+        {name: "Show Clock", type: "input>checkbox", id: "system.user.settings.taskbar.showClock"},
+        {name: "Show Show Desktop Button", type: "input>checkbox", id: "system.user.settings.taskbar.showShowDesktop"},
+        {name: "Show Program Titles", type: "input>checkbox", id: "system.user.settings.taskbar.showProgramTitle"},
+        {name: "Height in pixels", type: "input>number", id: "system.user.settings.taskbar.height", min: "0", max: "500", step: "1"},
     ]},
     {category: "Ease of access", id: "accessibility", settings: [
         {name: "Bigger Buttons", type: "input>checkbox", id: "system.user.settings.big_buttons"},
@@ -121,6 +127,17 @@ function applySettingsToCategory(categoryName) {
             var settingInput = document.createElement("button");
             settingInput.innerHTML = setting.name;
             settingInput.setAttribute("onclick", setting.onclick);
+        } else if(setting.type?.split(">")[0] == "h") {
+            var settingInput;
+            switch (setting.type.split(">")[1]) {
+                case("1"):
+                    settingInput = document.createElement("h1");
+                    break;
+                    case("2"):
+                    settingInput = document.createElement("h2");
+                    break;
+                }
+            settingInput.innerHTML = setting.name;
         }
 
         settingInput.className = "settinginput";
