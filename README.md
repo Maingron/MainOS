@@ -1,6 +1,8 @@
 # MainOS
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/9d58a482a614229a0f83/maintainability)](https://codeclimate.com/github/Maingron/MainOS/maintainability)
+![CodeQL](https://github.com/Maingron/MainOS/actions/workflows/codeql-analysis.yml/badge.svg)
+![OSSAR](https://github.com/Maingron/MainOS/actions/workflows/ossar-analysis.yml/badge.svg)
 
 ## About MainOS
 
