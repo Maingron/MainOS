@@ -95,10 +95,24 @@ var iofs = {
 
 	getPath: function(path) {
 		path = this.sanitizePath(path);
+		var goUpCount = 0;
 
-		pathArray = path.split("/");
+		let pathArray = path.split("/");
+
+		if(pathArray.includes("..")) {
+			for(let item of pathArray) {
+				if(item == "..") {
+					goUpCount += 2;
+				}
+			}
+			goUpCount -= 1;
+		}
 
 		pathArray = pathArray.slice(0, -1);
+
+		for(goUpCount; goUpCount--; goUpCount>0) {
+			pathArray = pathArray.slice(0, -1);
+		}
 
 		path = pathArray.join("/");
 
