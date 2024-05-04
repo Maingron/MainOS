@@ -6,7 +6,7 @@ function applyFileAttributesToAll() {
 	for(fileElement of document.getElementById("content_files").children) {
 		// if file name starts with ., add class hidden
 		if(fileElement.innerText.startsWith(".")) {
-			fileElement.classList.add("hidden");
+			fileElement.classList.add("fattr-hidden");
 		}
 		var fileAttributes = getAttributes(fileElement.getAttribute("path"));
 		// find entry starting with A=
@@ -27,10 +27,10 @@ function applyFileAttributesToAll() {
 							fileElement.classList.add("system_file");
 						}
 					} else if(["a"].includes(a_attribute)) {
-						fileElement.classList.add("hidden");
+						fileElement.classList.add("fattr-hidden");
 					} else if(["!"].includes(a_attribute)) {
-						fileElement.classList.add("system_file");
-						fileElement.classList.add("outdated_file");
+						fileElement.classList.add("fattr-system_file");
+						fileElement.classList.add("fattr-outdated_file");
 						addColorDot(newColorDotDiv, "outdated");
 					}
 				}

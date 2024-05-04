@@ -117,15 +117,15 @@ body {
             z-index: 20;
         }
 
-        &.hidden {
-            opacity: .5;
+        &.fattr-hidden {
+            opacity: .7;
         }
 
-        &.system_file {
+        &.fattr-system_file {
 
         }
 
-        &.outdated_file {
+        &.fattr-outdated_file {
             
         }
 
