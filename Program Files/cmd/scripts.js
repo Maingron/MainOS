@@ -14,23 +14,21 @@ window.addEventListener("keydown", function (e) {
 
 objects.cmdinput.focus();
 
-const historyFile = pWindow.getPath("data") + "temp/cmdhistory.dat";
+const historyFile = pWindow.getPath("temp") + "cmdhistory.dat";
 
 // create temp folder in pWindow.getPath("data") if it doesn't exist
-if (!isfolder(pWindow.getPath("data") + "temp/")) {
-  savedir(pWindow.getPath("data") + "temp/");
-}
+iofs.save(pWindow.getPath("temp"),"","t=dir",0);
 
 // create cmdhistory.dat if it doesn't exist
-if (!isfile(historyFile)) {
-  savefile(historyFile, "", 1, "t=txt");
+if (!iofs.exists(historyFile)) {
+  iofs.save(historyFile, "", "t=txt", 1);
 }
 
 
 
 function updateTerminal() {
-	objects.cmdoutput.innerHTML = loadfile(historyFile);
-	savefile(historyFile, "", 1, "t=txt");
+	objects.cmdoutput.innerHTML = iofs.load(historyFile);
+	iofs.save(historyFile, "", "t=txt", 1);
 
 	window.scrollTo(0, document.body.scrollHeight);
 
@@ -45,17 +43,17 @@ function cmdsubmit() {
 
   if (response == "") {
     if (cls == 1) {
-      savefile(historyFile, objects.cmdoutput.innerHTML + escapeHtml(objects.cmdinput.value), 1, "t=txt");
+      iofs.save(historyFile, objects.cmdoutput.innerHTML + escapeHtml(objects.cmdinput.value), "t=txt", 1);
       cls = 0;
     } else {
-      savefile(historyFile, objects.cmdoutput.innerHTML + "> " + escapeHtml(objects.cmdinput.value) + "<br>", 1, "t=txt");
+      iofs.save(historyFile, objects.cmdoutput.innerHTML + "> " + escapeHtml(objects.cmdinput.value) + "<br>", "t=txt", 1);
     }
 
   } else {
-    savefile(historyFile, objects.cmdoutput.innerHTML + "> " + escapeHtml(objects.cmdinput.value) + "<br>" + response + "<br>", 1, "t=txt");
+    iofs.save(historyFile, objects.cmdoutput.innerHTML + "> " + escapeHtml(objects.cmdinput.value) + "<br>" + response + "<br>", "t=txt", 1);
   }
 
-  objects.cmdoutput.innerHTML = loadfile(historyFile);
+  objects.cmdoutput.innerHTML = iofs.load(historyFile);
 }
 
 function runcmd(which) {
@@ -94,10 +92,10 @@ function runcmd(which) {
   }
 
   if (which.indexOf("mkdir") == 4) {
-    if(isfile(which.split("cmd:mkdir")[1])) {
+    if(iofs.exists(which.split("cmd:mkdir")[1])) {
       return "Error: Folder already exists";
     } else {
-      savedir(which.split("cmd:mkdir")[1]);
+      iofs.save(which.split("cmd:mkdir")[1], "", "t=dir", 0);
       return "Created folder";
     }
   }
@@ -107,7 +105,7 @@ function runcmd(which) {
     cls = 1;
     objects.cmdoutput.innerHTML = "";
     objects.cmdinput.value = "";
-    savefile(historyFile, "", 1, "t=txt");
+    iofs.save(historyFile, "", "t=txt", 1);
     updateTerminal();
     return "";
   }
@@ -116,12 +114,12 @@ function runcmd(which) {
     which = which.split("cmd:setting ")[1];
     which = which.toLowerCase();
 	// if setting is a file
-	if (isfile(system.user.paths.userPath + "settings/" + which.split(" ")[0] + ".txt")) {
+	if (iofs.exists(system.user.paths.userPath + "settings/" + which.split(" ")[0] + ".txt")) {
 		// if doesnt define value, return value
 		if (!which.split(" ")[1]) {
-			return ("(Ancient variable, use settings menu) <br>" + which + ": " + loadfile(system.user.paths.userPath + "settings/" + which.split(" ")[0] + ".txt"));
+			return ("(Ancient variable, use settings menu) <br>" + which + ": " + iofs.load(system.user.paths.userPath + "settings/" + which.split(" ")[0] + ".txt"));
 		} else {
-			savefile(system.user.paths.userPath + "settings/" + which.split(" ")[0] + ".txt", which.split(" ")[1], 1, "t=txt");
+			iofs.save(system.user.paths.userPath + "settings/" + which.split(" ")[0] + ".txt", which.split(" ")[1], "t=txt", 1);
 			window.parent.loadsettings();
 			return "'(Ancient variable, use settings menu) <br>' + changed setting - a reload may be required";
 		}
@@ -169,13 +167,13 @@ function runcmd(which) {
   if (which.indexOf("exit") == 4) {
     objects.cmdoutput.innerHTML = "";
     objects.cmdinput.value = "";
-    savefile(historyFile, "", 1, "t=txt");
+    iofs.save(historyFile, "", "t=txt", 1);
     pWindow.close();
   }
 
   if (which.indexOf("js ") == 4) {
     if (window.parent.setting.developer = 1) {
-      savefile(historyFile, "", 1, "t=txt");
+      iofs.save(historyFile, "", "t=txt", 1);
       if (which.indexOf("js ") == 4) {
         eval(which.split("cmd:js ")[1]);
         return "Ran JS Command";

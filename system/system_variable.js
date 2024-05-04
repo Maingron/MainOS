@@ -1,24 +1,23 @@
 var system = {};
 
-if(loadfile("C:/system/system_variable.txt", false)) {
-    system = JSON.parse(loadfile("C:/system/system_variable.txt", false));
+if(iofs.load("/C:/system/system_variable.txt", false)) {
+    system = JSON.parse(iofs.load("C:/system/system_variable.txt", false));
 } else {
     initializeSystemVariable();
 }
 
-system.osDetails.documentRoot = document.getElementById("documentRoot").href;
-
 function initializeSystemVariable() {
 
     var newScript = document.createElement("script");
-    newScript.src = "system/initial_program_list.js";
-    newScript.onload = function() {
+        
+    // newScript.src = "system/initial_program_list.js";
+    // newScript.onload = function() {
         system = returnNewSystemVariable();
         system.icons = returnIconPaths();
         system.users = [];
         system.users[0] = returnNewSysacc();
 
-        system.users[0].paths = {};
+        system.users[0].paths = JSON.parse(iofs.load("C:/system/initial_program_list.json"));
         system.users[0].paths.userPath = system.paths.userRoot + system.users[0].name + "/";
         system.users[0].paths.programShortcuts = system.users[0].paths.userPath + "programs/";
         system.users[0].paths.appdata = system.users[0].paths.userPath + "appdata/";
@@ -26,12 +25,12 @@ function initializeSystemVariable() {
         system.users[0].paths.temp = system.users[0].paths.userPath + "temp/";
 
 
-        savedir(system.users[0].paths.userPath);
-        savedir(system.users[0].paths.programShortcuts);
-        savedir(system.users[0].paths.appdata);
+        iofs.save(system.users[0].paths.userPath, "", "t=dir", 0);
+        iofs.save(system.users[0].paths.programShortcuts, "", "t=dir", 0);
+        iofs.save(system.users[0].paths.appdata, "", "t=dir", 0);
 
         saveSystemVariable();
-    }
+    // }
     document.head.prepend(newScript);
 }
 
@@ -93,8 +92,8 @@ function returnNewSysacc() {
             dateOfBirth: undefined,
             gender: undefined
         },
-        programs: getInitialProgramList(),
-        programsUntouched: getInitialProgramList(),
+        programs: JSON.parse(iofs.load("C:/system/initial_program_list.json")),
+        programsUntouched: JSON.parse(iofs.load("C:/system/initial_program_list.json")),
         settings: getInitialSettings()
     }
 }
@@ -123,7 +122,7 @@ function getInitialSettings() {
         themecolor: "#994400",
         themecolor2: "#dd6600",
         prefersDarkMode: system.hostOS.prefersDarkMode,
-        backgroundImage: "C:/users/public/Images/fluent.jpg",
+        backgroundImage: "C:/users/public/photos/fluent.jpg",
         accessibility: {
             tts: {
                 enabled: false
@@ -161,6 +160,9 @@ function loginUser(name) {
     // load script files / load scripts (system/)
     newScript = document.createElement("script");
     newScript.src = "scripts.js";
+    newScript.onload = function() {
+        system.runtime = systemRuntime;
+    }
     document.body.appendChild(newScript);
 
     newScript = document.createElement("script");
@@ -170,6 +172,7 @@ function loginUser(name) {
     newScript = document.createElement("script");
     newScript.src = "helper.js";
     document.body.appendChild(newScript);
+
 
 }
 
@@ -190,9 +193,9 @@ function createNewUser(name) {
         appdata: system.paths.userRoot + newUser.name + "/appdata/"
     };
     
-    savedir(newUser.paths.userPath);
-    savedir(newUser.paths.programShortcuts);
-    savedir(newUser.paths.appdata);
+    iofs.save(newUser.paths.userPath, "", "t=dir", 0);
+    iofs.save(newUser.paths.programShortcuts, "", "t=dir", 0);
+    iofs.save(newUser.paths.appdata, "", "t=dir", 0);
 
     system.users.push(newUser);
     saveSystemVariable();
@@ -201,13 +204,14 @@ function createNewUser(name) {
 function saveSystemVariable() {
     var modifiedSystemVariable = JSON.parse(JSON.stringify(system));
     modifiedSystemVariable.user = undefined;
+    modifiedSystemVariable.runtime = undefined;
     for(var i = 0; i < modifiedSystemVariable.users.length; i++) {
         modifiedSystemVariable.users[i].programs = modifiedSystemVariable.users[i].programsUntouched;
     }
     // todo: add external programs file
 
 
-    savefile("C:/system/system_variable.txt", JSON.stringify(modifiedSystemVariable), 1, "d=0000,t=txt");
+    iofs.save("C:/system/system_variable.txt", JSON.stringify(modifiedSystemVariable), "d=0000,t=txt", 1);
 }
 
 if(system.autologin) {

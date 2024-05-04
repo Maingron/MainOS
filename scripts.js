@@ -3,7 +3,7 @@ var register = [];
 var program = {};
 var processList = pid = [];
 
-var systemRuntime = {
+var systemRuntime = system.runtime = {
     "pidmax": 0,
     "zindex": 10,
     "pos": {
@@ -16,6 +16,8 @@ var systemRuntime = {
     "processList": pid,
     "pid": pid,
     "documentRoot": location.pathname,
+    "documentHost": document.getElementById("documentRoot").href,
+
     "time": function() {
         // TODO: Add potential offset
         var result = new Date();
@@ -108,14 +110,13 @@ function loadsettings() {
 }
 
 
-// program = JSON.parse(loadfile("C:/mainos/programs.dat"));
 program = system.user.programs;
 
-if (isfile("C:/mainos/customprograms.txt")) {
+if (iofs.exists("C:/mainos/customprograms.txt")) {
     try {
-        program = Object.assign(program, ifjsonparse(loadfile("C:/mainos/customprograms.txt")));
+        program = Object.assign(program, ifjsonparse(iofs.load("C:/mainos/customprograms.txt")));
     } catch (e) {
-        objs = [program, ifjsonparse(loadfile("C:/mainos/customprograms.txt"))];
+        objs = [program, ifjsonparse(iofs.load("C:/mainos/customprograms.txt"))];
         result = objs.reduce(function(r, o) {
             Object.keys(o).forEach(function(k) {
                 r[k] = o[k];
@@ -249,7 +250,7 @@ function addDesktopIcon(which) {
 }
 
 function addProgramIconToFolder(which) {
-    savefile(system.user.paths.programShortcuts + (which.title).replaceAll("'", "&#39;") + ".run", JSON.stringify(which), 1, "run")
+    iofs.save(system.user.paths.programShortcuts + (which.title).replaceAll("'", "&#39;") + ".run", JSON.stringify(which), "run", 1)
 }
 
 
@@ -383,14 +384,14 @@ if (system.user.settings.default_fullscreen == 1) { // Enter fullscreen on start
 }
 
 
-document.getElementById("background").style.backgroundImage = "url(" + loadfile(system.user.settings.backgroundImage) + ")"; // Load Desktop Background
+document.getElementById("background").style.backgroundImage = "url(" + iofs.load(system.user.settings.backgroundImage) + ")"; // Load Desktop Background
 document.getElementById("username").innerText = system.user.name; // Display username on desktop
 
 // Check space on disk
-savefile("C:/.diskinfo/size_used.txt", JSON.stringify(localStorage).length / 1000, 1, "t=txt");
-savefile("C:/.diskinfo/size_remaining.txt", loadfile("C:/.diskinfo/size.txt") - loadfile("C:/.diskinfo/size_used.txt"), 1, "t=txt");
+iofs.save("C:/.diskinfo/size_used.txt", JSON.stringify(localStorage).length / 1000, "t=txt");
+iofs.save("C:/.diskinfo/size_remaining.txt", iofs.load("C:/.diskinfo/size.txt") - iofs.load("C:/.diskinfo/size_used.txt"), "t=txt");
 
 // Re-Create program shortcuts; Delete them beforehand
-listdir(system.user.paths.programShortcuts).forEach((item) => {
-    deletefile(item, 1);
+iofs.listdir(system.user.paths.programShortcuts).forEach((item) => {
+    iofs.delete(item, 1);
 })

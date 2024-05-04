@@ -53,7 +53,7 @@ function run(which, iattr, how) { // Run a program
             <button class="close has_hover" onclick="unrun(getWindowByMagic(this))" href="#" title="Close"><b>x</b></button>
             <button class="minimize has_hover" onclick="setWindowMinimized(getWindowByMagic(this))">-</button>
             <button class="fullscreen has_hover" onclick="setWindowFullscreen(getWindowByMagic(this))" href="#" title="Toggle Fullscreen">
-                <img src="${loadfile("C:/system/icons/fullscreen.svg")}" alt="">
+                <img src="${iofs.load("C:/system/icons/fullscreen.svg")}" alt="">
             </button>
         </div>
         <div class="drag"></div>
@@ -311,7 +311,8 @@ function run(which, iattr, how) { // Run a program
             },
             "setStyleProperty": function(property, value) {
                 protectedData.styles[property] = value;
-            }
+            },
+            "settings": protectedData.programObject["settings"] || {},
         }
     }
 

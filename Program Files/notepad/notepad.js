@@ -6,7 +6,7 @@ object.textcontent = document.getElementById("textcontent");
 var objects = object;
 
 if (path) {
-    object.textcontent.value = loadfile(path);
+    object.textcontent.value = iofs.load(path);
     object.savebutton.innerHTML = "Save as " + path;
     object.filename1.style.display = "none";
 } else {
@@ -15,9 +15,9 @@ if (path) {
 
 function savetextfile() {
     if (object.filename1.style.display == "none") {
-        savefile(path, object.textcontent.value, 1);
+        iofs.save(path, object.textcontent.value, "t=txt", 1);
     } else {
-        savefile(filename1.value, object.textcontent.value, 1);
+        iofs.save(filename1.value, object.textcontent.value, "t=txt", 1);
     }
 }
 

@@ -3,43 +3,36 @@ var filesListed = [];
 
 function explorerdo(path, action = "default") { // Shows directory or does stuff asigned to files / file types
     if(path == "..") { // If want to go up a directory
-        path = currentPath.slice(0, currentPath.slice(0,-1).lastIndexOf("/")) + "/";
+        path = iofs.getPath(currentPath);
 
         if(currentPath.slice(-2) == ":/") { // Make sure to be able to display rootdir again
             path = "/";
         }
     }
 
-    if(path.slice(-1) != "/" && isfolder(path)) { // Make sure we're using a trailing slash for folders but not for files
-        path += "/";
-    }
-
-    if(!isfile(path) && path != "/") { // Go back to currentPath if path is not valid - Used for path input bar, for example; Only if not requesting rootdir (/)
+    if(!iofs.exists(path) && path != "/") {
         explorerdo(currentPath, action);
     }
 
-    if(!isfolder(path) && path != "/") { // explorerdofile() instead if is file but only if not requesting rootdir (/)
+    if(iofs.exists(path) && iofs.typeof(path) == "file" && path != "/") { // explorerdofile() instead if is file but only if not requesting rootdir (/)
         explorerdofile(path, action);
         return;
     }
 
 
-    var filesInPath = window.parent.listdir(path); // List files
+    var filesInPath = iofs.listdir(path, 0); // List files
 
     document.getElementById("content_files").innerHTML = ""; // Clear listed files
     filesListed = []; // Clear filesListed
 
-
-    var newChild;
-    for(var i = 0; i < filesInPath.length; i++) {
-
+    let newChild;
+    for(let file of filesInPath) {
         newChild = document.createElement("a");
-        newChild.setAttribute("path", filesInPath[i]); // Todo: maybe chack for onclick in #content_files and then do explorerdo() with this instead of using href=javascript:*
-        newChild.setAttribute("class","has_hover");
-        newChild.href = "javascript:explorerdo('"+filesInPath[i]+"')"; // Open folder or file onclick
+        newChild.setAttribute("path", file);
+        newChild.classList.add("has_hover");
+        newChild.href = "javascript:explorerdo('" + file + "')";
 
-        // display folders first
-        if(isfolder(filesInPath[i])) {
+        if(iofs.typeof(file) == "dir") {
             newChild.style.order = 1;
             newChild.setAttribute("tabindex", "1");
         } else {
@@ -47,11 +40,11 @@ function explorerdo(path, action = "default") { // Shows directory or does stuff
             newChild.setAttribute("tabindex", "2");
         }
 
-
-        newChild.innerText = getFilename(filesInPath[i]); // Add text while removing full path and trailing slash
+        newChild.innerText = iofs.getName(file); // Add text while removing full path and trailing slash
 
         document.getElementById("content_files").appendChild(newChild);
-        filesListed.push(filesInPath[i]); // Add to filesListed
+        filesListed.push(file); // Add to filesListed
+
     }
 
 
@@ -67,33 +60,32 @@ function explorerdo(path, action = "default") { // Shows directory or does stuff
 
 
 function explorerdofile(path, action) { // Run if program is clicked
-    var fileending = path.slice(path.lastIndexOf("."));
+    let filename = iofs.getName(path);
+    var fileending = filename.slice(filename.lastIndexOf("."));
 
     if(action == "edit_text") {
         window.parent.run('notepad', path);
         return;
     }
 
-        if (fileending == ".txt" || fileending == ".log") {
+        if (fileending == ".txt" || fileending == ".log" || fileending == ".json") {
             window.parent.run('notepad', path);
         } else if (fileending == ".png" || fileending == ".jpg" || fileending == ".jpeg") {
             window.parent.run('paint', path);
         } else if (fileending == ".run") {
-            window.parent.run(JSON.parse(loadfile(path)).id);
+            window.parent.run(JSON.parse(iofs.load(path)).id);
         }
 }
-
 
 /**
  * 
  * @param {*} path 
- * @param {*} attributes1 
  */
 
-function explorer_deletefile(path, attributes1) {
+function explorer_deletefile(path) {
     var deleteFileHTMLElement = document.querySelector("[path='" + path + "']");
     deleteFileHTMLElement.setAttribute("disabled", "disabled");
-    deletefile(path, attributes1);
+    iofs.delete(path, true);
     deleteFileHTMLElement.remove();
 }
 
@@ -102,26 +94,24 @@ function explorerrefresh() {
 }
 
 function newFile(fileName = "New File.txt") {
-    if(isfolder(currentPath)) {
-        savefile(currentPath + fileName,"",0);
+    if(iofs.exists(currentPath) && iofs.typeof(currentPath) == "dir") {
+        iofs.save(currentPath + "/" + fileName, "", false);
         explorerrefresh();
     }
 }
 
 function renameFile(source, target) {
     // TODO: Add input field so we can actually rename
-    if(isfile(source)) {
-        savefile(target, loadfile(source,0), 0); // TODO: Copy attributes
-        // TODO!: Verify file is copied correctly!
-        explorer_deletefile(source);
+    if(iofs.exists(source)) {
+        iofs.move(source, target, false);
         explorerrefresh();
     }
 }
 
 function contextMenu(event) {
     if(event.target.attributes.path) {
-        if(!isfolder(event.target.attributes.path.value)) {
-            spawnContextMenu([["Edit as Text", "explorerdo('" + event.target.attributes.path.value + "', 'edit_text')"],["<hr>"],["Rename File", "renameFile('"+event.target.attributes.path.value+"','"+currentPath + "renamed File - something.txt"+"')","disabled"], ["Delete File","explorer_deletefile('" + event.target.attributes.path.value + "')"], ["<hr>"], ["Properties","","disabled"]]) // ["Backup File","savefile('" + event.target.attributes.path.value + ' - Copy' + "','" + loadfile(event.target.attributes.path.value) + "', 0, 't=txt')"]
+        if(!iofs.typeof(event.target.attributes.path.value)) {
+            spawnContextMenu([["Edit as Text", "explorerdo('" + event.target.attributes.path.value + "', 'edit_text')"],["<hr>"],["Rename File", "renameFile('"+event.target.attributes.path.value+"','"+currentPath + "renamed File - something.txt"+"')","disabled"], ["Delete File","explorer_deletefile('" + event.target.attributes.path.value + "')"], ["<hr>"], ["Properties","","disabled"]]) // ["Backup File","savefile('" + event.target.attributes.path.value + ' - Copy' + "','" + iofs.load(event.target.attributes.path.value) + "', 0, 't=txt')"]
         } else {
             spawnContextMenu([["Delete Folder","explorer_deletefile('" + event.target.attributes.path.value + "',1)"], ["Properties","","disabled"]])
         }

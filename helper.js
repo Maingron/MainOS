@@ -12,7 +12,7 @@ if(ismainos) {
 
 // import mos-elements from /system/mos-elements/mos-elements.js
 var newScript = document.createElement("script");
-newScript.src = system.osDetails.documentRoot + "system/mos-elements/mos-elements.js";
+newScript.src = system.runtime.documentRoot + "system/mos-elements/mos-elements.js";
 document.head.appendChild(newScript);
 
 
@@ -21,6 +21,9 @@ if(ismainos != 1 && parent.ismainos == 1) {
     var setting = window.parent.setting; // Get setting variable from MainOS and make it available the same way as in MainOS itself
 
     // IOfs
+    window.iofs = parent.iofs;
+
+
     window.loadfile = parent.loadfile;
     window.savefile = parent.savefile;
     window.isfile = parent.isfile;
@@ -83,10 +86,10 @@ async function loadIOfsLinks() {
 async function loadIOfsLink(element) {
     window.setTimeout(function() {
         if(element?.src?.includes("iofs:")) {
-            element.src = loadfile(element.src.split("iofs:")[1]);
+            element.src = iofs.load(element.src.split("iofs:")[1]);
         }
         if(element?.href?.includes("iofs:")) {
-            element.href = loadfile(element.href.split("iofs:")[1]);
+            element.href = iofs.load(element.href.split("iofs:")[1]);
         }
     }, 0);
 }

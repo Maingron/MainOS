@@ -26,7 +26,7 @@ function sendNotification(content) {
   content.sender = getSender(content.sender); // Get the sender of the notification; We will override any custom value to prevent spoofing
   notifications.push(content);
   refreshNotifications();
-  parent.savefile(notificationFilePath, JSON.stringify(notifications), 1, "t=txt");
+  iofs.save(notificationFilePath, JSON.stringify(notifications), "t=txt", 1);
   toggleNotificationWindow(true);
   // Example:
   // sendNotification({
@@ -40,20 +40,20 @@ function sendNotification(content) {
 function removeNotification(which) {
   notifications.splice(which, 1);
   refreshNotifications();
-  parent.savefile(notificationFilePath, JSON.stringify(notifications), 1, "t=txt");
+  iofs.save(notificationFilePath, JSON.stringify(notifications), "t=txt", 1);
 }
 
 function updateNotificationWindow() {
   if(document.body.offsetHeight + "px" != notificationWindow.style.height) {
-    notificationWindow.style.bottom = "35px";
-    notificationWindow.style.right = "0";
-    notificationWindow.style.top = "";
+    notificationWindow.style.bottom = "15px";
+    notificationWindow.style.right = "15px";
+    notificationWindow.style.top = "15px";
     notificationWindow.style.left = "";
     notificationWindow.style.width = "30%";
     notificationWindow.style.overflow = "hidden";
     notificationWindow.getElementsByClassName("proframe")[0].style.minHeight = "0";
-    notificationWindow.style.height = "calc(100% - 35px)";
-    notificationWindow.getElementsByClassName("proframe")[0].height = "calc(100% - 35px)";
+    notificationWindow.style.height = "calc(100% - 30px)";
+    notificationWindow.getElementsByClassName("proframe")[0].height = "calc(100% - 30px)";
     // notificationWindow.getElementsByClassName("proframe")[0].style.maxHeight = "100%";
     notificationWindow.getElementsByClassName("proframe")[0].style.border = "none";
   }
@@ -94,7 +94,7 @@ updateNotificationWindow();
 setInterval(updateNotificationWindow, 100);
 
 function init() {
-  notifications = JSON.parse(parent.loadfile(notificationFilePath, 0));
+  notifications = JSON.parse(iofs.load(notificationFilePath, 0));
 }
 
 function createNotificationIcon() {
@@ -153,9 +153,9 @@ function setNotificationBubble() {
 }
 
 function installer() {
-  if(!parent.isfolder(pWindow.getPath("data")) || !parent.isfile(notificationFilePath)) {
-    parent.savefile(pWindow.getPath("data"), "", 0, "t=dir");
-    parent.savefile(notificationFilePath, "[{}]", 1, "t=txt");
+  if(!iofs.exists(pWindow.getPath("data")) || !iofs.exists(notificationFilePath)) {
+    iofs.save(pWindow.getPath("data"), "", "t=dir", 0,);
+    iofs.save(notificationFilePath, "[{}]", "t=txt", 1);
     sendNotification({
       "title": "Notifications initialized",
       "content": "The notifications app has been successfully initialized.",

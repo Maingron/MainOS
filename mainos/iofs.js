@@ -18,6 +18,7 @@ var setting = {}; // deprecated
 
 
 function listdir(path, listChildren = false) { // List directory // Todo!: add depth parameter
+  console.warn("IOFS1: listdir(", path , ")");
 
     if(path.slice(-1) != "/") { // Check for trailing slash and add one if not found
         path += "/";
@@ -97,6 +98,8 @@ function listdir(path, listChildren = false) { // List directory // Todo!: add d
 
 
 function loadfile(path,requestattributes = false) {
+  console.warn("IOFS1: loadfile(", path, requestattributes , ")");
+
   const myFile = localStorage.getItem(path);
     // if (localStorage.getItem(path).length < 2 || localStorage.getItem(path).indexOf("*") < 5) { // TODO: Check what this save thing does - probably can be removed
     //   savefile(path, localStorage.getItem(path));
@@ -138,6 +141,8 @@ function loadfile(path,requestattributes = false) {
 }
 
 function isfile(path) {
+  console.warn("IOFS1: isfile(", path , ")");
+
   const myFile = localStorage.getItem(path)
   if (myFile == null || myFile == "undefined") {
     return false;
@@ -147,6 +152,8 @@ function isfile(path) {
 }
 
 function isfolder(path) {
+  console.warn("IOFS1: isfolder(", path , ")");
+
 	if(!path.endsWith("/")) { // Add trailing slash if not present
 		path += "/";
 	}
@@ -165,6 +172,8 @@ function isfolder(path) {
 
 
 function isnofile(path) { // Todo: Check if should be depreciated
+  console.warn("IOFS1: isnofile(", path , ")");
+
   if (isfile(path)) {
     return false;
   } else {
@@ -180,6 +189,8 @@ function isnofile(path) { // Todo: Check if should be depreciated
  **/
 
 function dateCompression(compress = false, date = new Date()) {
+  console.warn("IOFS1: dateCompression(", compress, date , ")");
+
   if(compress == true) { // apply compression
     // if not a date, make it one
     if(typeof date != "object") {
@@ -196,6 +207,8 @@ function dateCompression(compress = false, date = new Date()) {
 
 
 function savefile(path, content, override, attr) {
+  console.warn("IOFS1: savefile(", path, content, override, attr , ")");
+
 	if (!attr || attr.includes("d=") == false) {
 		var mySaveDate = new Date();
 		mySaveDate = (mySaveDate.getTime() - mySaveDate.getMilliseconds()) / 1000; // Save without milliseconds to save about 3 bytes per file
@@ -222,6 +235,8 @@ function savefile(path, content, override, attr) {
 }
 
 function savedir(path, createParentStructure = true, attributes = "t=d") {
+  console.warn("IOFS1: savedir(", path, createParentStructure, attributes , ")");
+
 	if(path.charAt(path.length - 1) != "/") {
 		path += "/"; // Append trailing slash, if there is none
 	}
@@ -255,6 +270,8 @@ function savedir(path, createParentStructure = true, attributes = "t=d") {
 
 
 function deletefile(path, includeChildren = false) { // Delete a file or folder
+  console.warn("IOFS1: deletefile(", path, includeChildren , ")");
+
   // check if file or folder exists, else return error
   if(!isfile(path) && !isfolder(path)) {
     return "Error: File or folder doesn't exist";
@@ -272,6 +289,8 @@ function deletefile(path, includeChildren = false) { // Delete a file or folder
 }
 
 function getFilename(path) { // This returns the filename and removes the full path ("C:/users/testuser/test.txt" -> "test.txt")
+  console.warn("IOFS1: getFilename(", path , ")");
+
   var myResult;
   if(isfolder(path)) {
     myResult = path.split("/")[path.split("/").length - 2]; // Return this if is folder
@@ -282,6 +301,8 @@ function getFilename(path) { // This returns the filename and removes the full p
 }
 
 function copyFile(source, destination, doOverride = false) {
+  console.warn("IOFS1: copyFile(", source, destination, doOverride , ")");
+
   // WIP
   if(isfile(source) && !isfolder(source)) { // If source file does exist and is NOT a folder (for now)
     savefile(destination, loadfile(source), doOverride, loadfile(source, true));
@@ -301,6 +322,8 @@ function copyFile(source, destination, doOverride = false) {
  */
 
 function copyFolder(source, destination, doOverride = false, doCopyAttributes = true) {
+  console.warn("IOFS1: copyFolder(", source, destination, doOverride, doCopyAttributes , ")");
+
     if(isfolder(destination) && !doOverride) {
       return false;
     }
@@ -308,7 +331,6 @@ function copyFolder(source, destination, doOverride = false, doCopyAttributes = 
     savedir(destination, false, loadfile(source, true)); // Copy source folder itself and its attributes
     for(entry of directoryList) {
         if(isfolder(entry)) {
-            console.log(destination, loadfile(entry, true));
             savedir(destination + entry.split(source)[1], false, loadfile(entry, true));
         } else {
             copyFile(entry, destination + entry.split(source)[1], doOverride);
@@ -325,11 +347,15 @@ function copyFolder(source, destination, doOverride = false, doCopyAttributes = 
  * @returns {number} File size in bytes
  */
 function getFileSize(path, requestattributes = false) {
+  console.warn("IOFS1: getFileSize(", path, requestattributes , ")");
+
 		return +loadfile(path, requestattributes).length;
 }
 
 
 function moveFile(source, destination) {
+  console.warn("IOFS1: moveFile(", source, destination , ")");
+
   // WIP
 }
 
@@ -345,6 +371,8 @@ function moveFile(source, destination) {
  * getFoldername("C:/users/testuser/");
  */
 function getFoldername(path) {
+  console.warn("IOFS1: getFoldername(", path , ")");
+
 	let result;
 	// add trailing slash if not present and is folder
 	if(path.slice(-1) != "/" && isfolder(path)) {
@@ -362,6 +390,8 @@ function getFoldername(path) {
  */
 
 function getAttributes(path) {
+  console.warn("IOFS1: getAttributes(", path , ")");
+
   return loadfile(path, true).split(",");
 }
 
@@ -373,6 +403,8 @@ function getAttributes(path) {
   */
 
 function getAttribute(path, attribute) {
+  console.warn("IOFS1: getAttribute(", path, attribute , ")");
+
   var myAttributes = getAttributes(path);
   for(iAttribute of myAttributes) {
     if(iAttribute.split("=")[0] == attribute) {
@@ -390,6 +422,8 @@ function getAttribute(path, attribute) {
  **/
 
 function setAttribute(path, attribute, value) {
+  console.warn("IOFS1: setAttribute(", path, attribute, value , ")");
+
   var myAttributes = getAttributes(path);
   var myNewAttributes = "";
   if(attribute == "d") { // if attribute is date, compress it
@@ -412,6 +446,8 @@ function setAttribute(path, attribute, value) {
 }
 
 function formatfs(sure, reload = true) { // Todo: Update
+  console.warn("IOFS1: formatfs(", sure, reload , ")");
+
   if (sure == "yes") {
     localStorage.clear();
     if(reload) {
@@ -440,11 +476,6 @@ function formatfs(sure, reload = true) { // Todo: Update
 }
 
 
-var newScript = document.createElement("script");
-newScript.src = "system/system_variable.js";
-document.head.appendChild(newScript);
-
-
-if (!isfile("C:/mainos/system32/ExpectedVersionnr.txt") || loadfile("C:/mainos/system32/ExpectedVersionnr.txt") < mainos.versionnr) {
+if (!iofs.exists("C:/mainos/system32/ExpectedVersionnr.txt") || iofs.load("C:/mainos/system32/ExpectedVersionnr.txt") < mainos.versionnr) {
   document.write("<script src=\"mainos/createiofs.js\"></script>");
 }

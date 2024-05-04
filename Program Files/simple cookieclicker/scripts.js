@@ -75,7 +75,7 @@ for(let i = 0; machineList.length > i; i++) {
 
 install();
 
-machines = loadfile(storagePath+"machines.txt"); // Load file
+machines = iofs.load(storagePath+"machines.txt"); // Load file
 machines = JSON.parse(machines); // Convert file into JSON / Array
 
 
@@ -89,7 +89,7 @@ function clicked() {
 }
 
 setInterval(function () {
-  savefile(storagePath+"cookies.txt", cookies, 1);
+  iofs.save(storagePath+"cookies.txt", cookies, "", 1);
 }, 1000);
 
 
@@ -109,7 +109,7 @@ function buy(which) { // Buy automatic cookies
     machines[which - 1] += 1;
   }
   updateCookieCounter();
-  savefile(storagePath+"machines.txt", JSON.stringify(machines), 1);
+  iofs.save(storagePath+"machines.txt", JSON.stringify(machines), "", 1);
 }
 
 function updateCookieCounter() {
@@ -122,20 +122,20 @@ function updateCookieCounter() {
 
 function install() {
   if(!isfolder(storagePath)) {
-    savedir(storagePath);
+    iofs.save(storagePath, "", "t=dir", 0);
   }
   
   
-  if (isfile(storagePath+"cookies.txt")) {
-    cookies = +loadfile(storagePath+"cookies.txt");
+  if (iofs.exists(storagePath+"cookies.txt")) {
+    cookies = +iofs.load(storagePath+"cookies.txt");
   } else {
-    savefile(storagePath+"cookies.txt", cookies, 1);
+    iofs.save(storagePath+"cookies.txt", cookies, "", 1);
   }
   
-  if (!isfile(storagePath+"machines.txt")) {
+  if (!iofs.exists(storagePath+"machines.txt")) {
     for(let k = 0; machineList.length > k; k++) {
       machines[k] = 0;
     }
-    savefile(storagePath+"machines.txt", JSON.stringify(machines), 1);
+    iofs.save(storagePath+"machines.txt", JSON.stringify(machines), "", 1);
   }
 }

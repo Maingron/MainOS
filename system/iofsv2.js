@@ -2,15 +2,17 @@ var iofs = {
 	forbiddenCharsInPath: ['*', '?', '#', '$', '\'', '"', '`', '\\', '§', ','],
 
 	save: function(path, content, attributes = false, override = false, recursive = false) {
+		path = this.sanitizePath(path);
+
 		if(!this.isAllowedPath(path)) {
 			return false;
 		}
 
-		path = this.sanitizePath(path);
-
 		if(attributes == false) {
 			attributes = this.load(path, true) || "";
 		}
+
+		attributes = "" + attributes;
 
 		if(attributes.indexOf("t=d") >= 0) {
 			var isFolder = true;
@@ -129,8 +131,11 @@ var iofs = {
 			path = path.slice(0, -1);
 		}
 
+		if(path.indexOf("/") != 0) {
+			path = "/" + path;
+		}
+
 		if(!this.isAllowedPath(path)) {
-			
 			for(let char of this.forbiddenCharsInPath) {
 				path = path.replaceAll(char, "_");
 			}
@@ -151,7 +156,10 @@ var iofs = {
 
 	listdir: function(path, recurseDepth = 0) {
 		path = this.sanitizePath(path);
-		
+		if(path == "/") {
+			path = "";
+		}
+
 		var result = Object.keys(localStorage).filter(key => key !== path);
 		var addToResult = [];
 
@@ -248,3 +256,8 @@ var iofs = {
 		return false;
 	}
 }
+
+
+var newScript = document.createElement("script");
+newScript.src = "system/system_variable.js";
+document.head.appendChild(newScript);

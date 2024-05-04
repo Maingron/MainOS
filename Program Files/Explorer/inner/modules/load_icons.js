@@ -14,9 +14,10 @@ function loadIcons() {
 }
 
 function returnPathForFileIcon(path) {
-	var fileending = path.slice(path.lastIndexOf("."));
+	let filename = iofs.getName(path);
+	var fileending = filename.slice(filename.lastIndexOf("."));
 
-	if(isfolder(path)) {
+	if(iofs.typeof(path) == "dir") {
 		if(path.slice(-2) == ":/") {
 			return "iofs:C:/system/icons/mainos_folder.svg";
 		} else {
@@ -29,7 +30,7 @@ function returnPathForFileIcon(path) {
 	} else if ([".png", ".jpg", ".jpeg", ".svg"].includes(fileending)) {
 		return "iofs:" + path;
 	} else if (fileending == ".run") {
-		return JSON.parse(loadfile(path)).icon;
+		return JSON.parse(iofs.load(path)).icon;
 	}
 
 	// Default icon

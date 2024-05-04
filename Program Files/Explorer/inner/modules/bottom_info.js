@@ -19,9 +19,9 @@ function updateBottomInfo() {
 	if(currentPath == "/") {
 		bottomInfoElement.innerHTML = `
 		Space used:
-		~ ${loadfile("C:/.diskinfo/size_used.txt")} KB / ~ ${loadfile("C:/.diskinfo/size.txt")} KB
+		~ ${iofs.load("C:/.diskinfo/size_used.txt")} KB / ~ ${iofs.load("C:/.diskinfo/size.txt")} KB
 		<br>
-		<meter value='${loadfile("C:/.diskinfo/size_used.txt")}' min='0' max='${loadfile("C:/.diskinfo/size.txt")}'> </meter>
+		<meter value='${iofs.load("C:/.diskinfo/size_used.txt")}' min='0' max='${iofs.load("C:/.diskinfo/size.txt")}'> </meter>
 		`;
 	} else {
 		bottomInfoElement.innerHTML = `

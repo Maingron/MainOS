@@ -16,9 +16,9 @@ canvas.width = 512;
 
 if (path) {
     var canvasbgimage = new Image();
-    canvasbgimage.src = window.parent.loadfile(path);
+    canvasbgimage.src = iofs.load(path);
     document.getElementById("filename1").value = path;
-    document.getElementById("loadcanvas").src = window.parent.loadfile(path);
+    document.getElementById("loadcanvas").src = iofs.load(path);
     window.setTimeout(function() {
         canvas.height = document.getElementById("loadcanvas").offsetHeight;
         canvas.width = document.getElementById("loadcanvas").offsetWidth;

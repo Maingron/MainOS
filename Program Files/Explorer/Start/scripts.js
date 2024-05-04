@@ -21,11 +21,11 @@ function close_startmenu() {
 
 // Spawn icons in all-programs list
 
-const programsinfolder = os.listdir(system.user.paths.programShortcuts);
+const programsinfolder = iofs.listdir(system.user.paths.programShortcuts);
 const allProgramsContainer = document.getElementById("allprograms");
 
 programsinfolder.forEach((item, index) => {
-    let myCurrentProgram = JSON.parse(loadfile(item));
+    let myCurrentProgram = JSON.parse(iofs.load(item));
 
     if(myCurrentProgram.spawnicon == !1) {
         return;
