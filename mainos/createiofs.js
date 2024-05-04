@@ -2,6 +2,7 @@ document.title = "MainOS: Updating...";
 document.write("<div id='iinfo' style='position:fixed; display:inline-block; top:0; left:0; height:100%; width:100%; background-color:var(--themecolor); z-index:123456789; transition:.4s;'><center><h1 style='display:inline-block;'>Updating...</h1><div id='waitingfor'></div></center></div>");
 
 var throughIOfs = false;
+var userFolderCopied = false;
 
 function fixfs() {
     for(myEntry of Object.keys(localStorage)) {
@@ -26,7 +27,7 @@ function savefilefromurl(path, url, override, fileAttributes) {
     xhr.open("GET", url, true);
     xhr.responseType = "blob";
     xhr.onload = function(e) {
-      if (this.status == 200) {
+    if (this.status == 200) {
         var file = new FileReader();
         file.onload = function(event) {
             savefile(path, event.target.result, override, fileAttributes);
@@ -34,11 +35,11 @@ function savefilefromurl(path, url, override, fileAttributes) {
             reportOpenAsyncFiles();
         }
         file.readAsDataURL(this.response);
-      }
+        }
     };
     xhr.send();
-  }
-  
+}
+
 function reportOpenAsyncFiles() {
     // list all files
     var files = "";
@@ -105,6 +106,8 @@ savedir("C:/mainos/system32/settings/",1,"A=!");
 //     savefile("C:/mainos/system32/settings/username.txt", "User", 0, "t=txt");
 //     setting.username = "User";
 // }
+
+savedir("C:/users/");
 
 savedir("C:/users/default/");
 
@@ -260,9 +263,25 @@ savefilefromurl(i.i + "fullscreen.svg", "system/icons/fullscreen.svg", 0, "t=svg
 
 
 // copy some directories
-copyFolder("C:/users/default/", "C:/users/public/");
-copyFolder("C:/users/default/", i.up, 1);
 
+
+copyUserFolderOnceEverythingWritten();
+
+
+function copyUserFolderOnceEverythingWritten() {
+    if(openAsyncFiles.length == 0) {
+        copyFolder("C:/users/default/", "C:/users/public/");
+        copyFolder("C:/users/default/", i.up, 1);
+        setAttribute("C:/users/public/", "A", "");
+        setAttribute(i.up, "A", "");
+        userFolderCopied = true;
+        reportOpenAsyncFiles();
+    } else {
+        window.setTimeout(function() {
+            copyUserFolderOnceEverythingWritten();
+        },500);
+    }
+}
 
 // Dynamic settings (import from user's machine)
 if(navigator.language == "en") {
@@ -292,7 +311,7 @@ throughIOfs = true;
 };
 
 function maybeReload() {
-    if (throughIOfs && openAsyncFiles.length == 0) {
+    if (throughIOfs && openAsyncFiles.length == 0 && userFolderCopied == true) {
         location.reload();
     }
 }
