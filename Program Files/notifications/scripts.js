@@ -157,8 +157,8 @@ function installer() {
     iofs.save(pWindow.getPath("data"), "", "t=dir", 0,);
     iofs.save(notificationFilePath, "[{}]", "t=txt", 1);
     sendNotification({
-      "title": "Notifications initialized",
-      "content": "The notifications app has been successfully initialized.",
+      "title": "Welcome!",
+      "content": "Your notifications will appear here.",
       "sender": this,
       "time": new Date(),
       "type": "success"
