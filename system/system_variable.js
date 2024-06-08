@@ -141,6 +141,9 @@ function getInitialSettings() {
     }
 }
 
+var taskbar;
+
+
 
 function loginUser(name) {
     // only once document.body is loaded - temporary fix - sometimes document.body isn't loaded when browser is in background
@@ -153,27 +156,33 @@ function loginUser(name) {
     system.user = system.users.find(user => user.name == name);
     // create new javascript html element
 
-    taskbar = new Taskbar();
 
-    var newScript;
+    var taskbarScript;
 
-    // load script files / load scripts (system/)
-    newScript = document.createElement("script");
-    newScript.src = "scripts.js";
-    newScript.onload = function() {
-        system.runtime = systemRuntime;
+    taskbarScript = document.createElement("script");
+    taskbarScript.src = "system/taskbar.js";
+    taskbarScript.onload = function() {
+
+        taskbar = new Taskbar();
+
+        // load script files / load scripts (system/)
+        newScript = document.createElement("script");
+        newScript.src = "scripts.js";
+        newScript.onload = function() {
+            system.runtime = systemRuntime;
+
+            var newScriptFunctionsPrograms = document.createElement("script");
+            newScriptFunctionsPrograms.src = "functions-programs.js";
+            document.body.appendChild(newScriptFunctionsPrograms);
+    
+            var newScriptHelperjs = document.createElement("script");
+            newScriptHelperjs.src = "helper.js";
+            document.body.appendChild(newScriptHelperjs);
+
+        }
+        document.body.appendChild(newScript);
     }
-    document.body.appendChild(newScript);
-
-    newScript = document.createElement("script");
-    newScript.src = "functions-programs.js";
-    document.body.appendChild(newScript);
-
-    newScript = document.createElement("script");
-    newScript.src = "helper.js";
-    document.body.appendChild(newScript);
-
-
+    document.body.appendChild(taskbarScript);
 }
 
 function getUser(name) {
