@@ -8,7 +8,7 @@ function applyFileAttributesToAll() {
 		if(fileElement.innerText.startsWith(".")) {
 			fileElement.classList.add("fattr-hidden");
 		}
-		var fileAttributes = getAttributes(fileElement.getAttribute("path"));
+		var fileAttributes = iofs.getInfos(fileElement.getAttribute("path")).attributes;
 		// find entry starting with A=
 		for(attribute of fileAttributes) {
 			if(attribute.startsWith("A=")) {
