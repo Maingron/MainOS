@@ -18,28 +18,16 @@ document.head.appendChild(newScript);
 
 
 if(ismainos != 1 && parent.ismainos == 1) {
-    var setting = window.parent.setting; // Get setting variable from MainOS and make it available the same way as in MainOS itself
+    // TODO: Deprecate setting. Use system.user.settings instead.
+    var setting = system.user.settings; // Get setting variable from MainOS and make it available the same way as in MainOS itself
 
     // IOfs
     window.iofs = parent.iofs;
-
-
-    window.loadfile = parent.loadfile;
-    window.savefile = parent.savefile;
-    window.isfile = parent.isfile;
-    window.deletefile = parent.deletefile;
-    window.savedir = parent.savedir;
-    window.isfolder = parent.isfolder;
-    window.listdir = parent.listdir;
-    window.getFilename = parent.getFilename;
-    window.getAttributes = parent.getAttributes;
-    window.getAttribute = parent.getAttribute;
     
     /* TODO:
     window.close
     window.maximize
     window.minimize */
-
 
     data.programmeta = {};
 
