@@ -368,6 +368,10 @@ var iofs = {
 			return false;
 		}
 
+		if(!this.exists(source)) {
+			return false;
+		}
+
 		source = this.sanitizePath(source);
 		destination = this.sanitizePath(destination);
 
@@ -375,12 +379,12 @@ var iofs = {
 			return false;
 		}
 
-		let file = this.load(source, false);
-		let fileAttributes = this.load(source, true);
+		let file = this.load(source);
+		let fileInfos = this.getInfos(source);
 
-		this.save(destination, file, fileAttributes, override);
+		this.save(destination, file, fileInfos.attributes, override);
 
-		if(this.typeof(source) == "dir") {
+		if(fileInfos.type == "dir") {
 			for(item of this.listdir(source, 0)) {
 				let newDestination = destination;
 				newDestination = destination + "/" + this.getName(item);
