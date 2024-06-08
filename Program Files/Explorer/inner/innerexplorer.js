@@ -60,21 +60,22 @@ function explorerdo(path, action = "default") { // Shows directory or does stuff
 
 
 function explorerdofile(path, action) { // Run if program is clicked
-    let filename = iofs.getName(path);
-    var fileending = filename.slice(filename.lastIndexOf("."));
+    var fileinfos = iofs.getInfos(path);
+    let filename = fileinfos.name;
+    var fileending = fileinfos.ending;
 
     if(action == "edit_text") {
         window.parent.run('notepad', path);
         return;
     }
 
-        if (fileending == ".txt" || fileending == ".log" || fileending == ".json") {
-            window.parent.run('notepad', path);
-        } else if (fileending == ".png" || fileending == ".jpg" || fileending == ".jpeg") {
-            window.parent.run('paint', path);
-        } else if (fileending == ".run") {
-            window.parent.run(JSON.parse(iofs.load(path)).id);
-        }
+    if(fileinfos.mime.category == "text") {
+        window.parent.run("notepad", path);
+    } else if(fileinfos.mime.category == "image") {
+        window.parent.run("paint", path);
+    } else if(fileending == "run") {
+        window.parent.run(JSON.parse(iofs.load(path)).id);
+    }
 }
 
 /**
