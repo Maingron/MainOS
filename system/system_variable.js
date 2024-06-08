@@ -38,9 +38,9 @@ function returnNewSystemVariable() {
     return {
         osDetails: {
             name: "MainOS",
-            version: 180,
+            version: 190,
             creator: "Maingron",
-            copyright: "Maingron 2018 - 2023",
+            copyright: "Maingron 2018 - 2024",
             license: "",
             serverpath: "https://maingron.com",
             serverroot: "https://maingron.com/projects/MainOS/server",
