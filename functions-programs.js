@@ -53,7 +53,7 @@ function run(which, iattr, how) { // Run a program
             <button class="close has_hover" onclick="unrun(getWindowByMagic(this))" href="#" title="Close"><b>x</b></button>
             <button class="minimize has_hover" onclick="setWindowMinimized(getWindowByMagic(this))">-</button>
             <button class="fullscreen has_hover" onclick="setWindowFullscreen(getWindowByMagic(this))" href="#" title="Toggle Fullscreen">
-                <img src="${iofs.load("C:/system/icons/fullscreen.svg")}" alt="">
+                <img src="#iofs:C:/system/icons/fullscreen.svg" alt="">
             </button>
         </div>
         <div class="drag"></div>
