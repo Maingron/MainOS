@@ -8,6 +8,10 @@ var iofs = {
 			return false;
 		}
 
+		if(!override && this.exists(path)) {
+			return false;
+		}
+
 		if(attributes == false) {
 			attributes = this.load(path, true) || "";
 		}
