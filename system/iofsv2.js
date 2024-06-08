@@ -1,3 +1,5 @@
+var ismainos = 1;
+
 var iofs = {
 	forbiddenCharsInPath: ['*', '?', '#', '$', '\'', '"', '`', '\\', '§', ','],
 
