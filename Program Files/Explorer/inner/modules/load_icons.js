@@ -19,22 +19,22 @@ function returnPathForFileIcon(path) {
 
 	if(iofs.typeof(path) == "dir") {
 		if(path.slice(-2) == ":/") {
-			return "iofs:C:/system/icons/mainos_folder.svg";
+			return "#iofs:C:/system/icons/mainos_folder.svg";
 		} else {
-			return "iofs:C:/system/icons/folder.svg";
+			return "#iofs:C:/system/icons/folder.svg";
 		}
 	}
 
 	if ([".txt", ".log"].includes(fileending)) {
-		return "iofs:C:/Program Files/notepad/icon.png";
+		return "#iofs:C:/Program Files/notepad/icon.png";
 	} else if ([".png", ".jpg", ".jpeg", ".svg"].includes(fileending)) {
-		return "iofs:" + path;
+		return "#iofs:" + path;
 	} else if (fileending == ".run") {
 		return JSON.parse(iofs.load(path)).icon;
 	}
 
 	// Default icon
-	return "iofs:C:/system/icons/unknown_file.svg";
+	return "#iofs:C:/system/icons/unknown_file.svg";
 }
 
 document.addEventListener("DOMContentLoaded", function() {
