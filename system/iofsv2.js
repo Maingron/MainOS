@@ -69,6 +69,155 @@ var iofs = {
 		return requestedContent;
 	},
 
+	getInfos(path) {
+		if(!this.isAllowedPath(path)) {
+			return null;
+		}
+
+		path = this.sanitizePath(path);
+
+		if(!this.exists(path)) {
+			return null;
+		}
+
+		const mime = {
+			text: {
+				__: {
+					desc: "Text File",
+					prb64: false,
+					end: []
+				},
+				plain: {
+					end: ["txt"],
+					desc: "Plain Text File"
+				},
+				javascript: {
+					end: ["js"]
+				},
+				html: {
+					end: ["html", "htm", "shtml"]
+				},
+				xml: {
+					end: ["xml"]
+				},
+				csv: {
+					end: ["csv"]
+				},
+				css: {
+					end: ["css"]
+				},
+				markdown: {
+					end: ["md", "markdown"]
+				}
+			},
+			image: {
+				__: {
+					desc: "Image",
+					prb64: true,
+					end: []
+				},
+				bmp: {
+					end: ["bmp"]
+				},
+				jpg: {
+					end: ["jpg", "jpeg", "jpe"]
+				},
+				png: {
+					end: ["png"]
+				},
+				webp: {
+					end: ["webp"]
+				},
+				gif: {
+					end: ["gif"]
+				},
+				ico: {
+					mime: "x-icon",
+					end: ["ico"]
+				},
+				svg: {
+					mime: "svg+xml",
+					end: ["svg"]
+				}
+			},
+			video: {
+			},
+			audio: {
+				__: {
+					desc: "Music",
+					end: []
+				},
+				wav: {
+					end: ["wav"]
+				},
+				mpeg: {
+					end: ["mp3"]
+				}
+			},
+			application: {
+				__: {
+					desc: "",
+					end: []
+				},
+				zip: {
+					desc: "Zip Archive",
+					end: ["zip"]
+				},
+				pdf: {
+					desc: "PDF Document",
+					end: ["pdf"]
+				}
+			}
+		}
+
+		var result = {
+			name: this.getName(path),
+			ending: undefined,
+			mime: {
+				category: undefined,
+				type: undefined,
+				actualType: undefined,
+				base64prefix: undefined,
+				description: undefined
+			},
+			probablyWantRaw: true,
+			attributes: localStorage.getItem(path).split("*")[0].split(","),
+			type: this.typeof(path)
+		}
+
+		result.ending = result.name.split(".").pop();
+
+		if(result.type == "dir") {
+			result.ending = "/";
+			return result;
+		}
+
+		for(let category of Object.keys(mime)) {
+			for(let fileType of Object.keys(mime[category])) {
+				if(mime[category][fileType].end.includes(result.ending)) {
+					result.mime.category = category;
+					result.mime.type = fileType;
+					result.mime.actualType = mime[category][fileType].mime ?? result.mime.type;
+					result.mime.description = mime[category][fileType].desc ?? mime[category].__.desc ?? "";
+					result.mime.base64prefix = "data:" + result.mime.category + "/" + result.mime.actualType + ";base64,";
+
+					if(typeof(mime[category][fileType].prb64) != "undefined") {
+						result.probablyWantRaw = !mime[category][fileType].prb64;
+					} else if(typeof(mime[category].__.prb64) != "undefined") {
+						result.probablyWantRaw = !mime[category].__.prb64;
+					} else {
+						result.probablyWantRaw = true;
+					}
+
+					return result;
+				}
+			}
+		}
+
+		return result;
+	},
+
+
 	exists: function(path) {
 		path = this.sanitizePath(path);
 
