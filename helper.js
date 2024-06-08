@@ -77,21 +77,44 @@ window.addEventListener("load", function() {
 
 // Load iofs:*-paths that are found in HTML Elements
 async function loadIOfsLinks() {
-    var allElements = document.querySelectorAll("[src*='iofs:'], [href*='iofs:']");
+    var allElements = document.querySelectorAll("[src*=iofs\\:], [href*=iofs\\:],  [src*=\\#\\:], [href*=\\#\\:],  [src*=\\#iofs\\:], [href*=\\#iofs\\:]");
+    
     for(item of allElements) {
         loadIOfsLink(item);
     }
 }
 
 async function loadIOfsLink(element) {
-    window.setTimeout(function() {
-        if(element?.src?.includes("iofs:")) {
-            element.src = iofs.load(element.src.split("iofs:")[1]);
+    const validPrefixes = ["iofs:", "#:", "#iofs:"];
+    let usedSrcAttribute;
+    let link;
+
+    for(validSrcAttribute of ["src", "href"]) {
+        if(element.getAttribute(validSrcAttribute) !== null) {
+            usedSrcAttribute = validSrcAttribute;
+            link = element.getAttribute(usedSrcAttribute);
+            break;
         }
-        if(element?.href?.includes("iofs:")) {
-            element.href = iofs.load(element.href.split("iofs:")[1]);
+    }
+
+    for(validPrefix of validPrefixes) {
+        if(link.indexOf(validPrefix) === 0) {
+            linkNoPrefix = link.split(validPrefix)[1];
+            break;
         }
-    }, 0);
+    }
+
+    if(!usedSrcAttribute || !linkNoPrefix) {
+        return false;
+    }
+
+    let getRaw = iofs.getInfos(linkNoPrefix).probablyWantRaw;
+    let base64Prefix = "";
+    if(!getRaw) {
+        base64Prefix = iofs.getInfos(linkNoPrefix).mime.base64prefix;
+    }
+
+    element[usedSrcAttribute] = iofs.load(linkNoPrefix, getRaw);
 }
 
 
