@@ -3,7 +3,7 @@ var ismainos = 1;
 var iofs = {
 	forbiddenCharsInPath: ['*', '?', '#', '$', '\'', '"', '`', '\\', '§', ','],
 
-	save: function(path, content, attributes = false, override = false, recursive = false) {
+	save: function(path, content, attributes = false, override = false, recursive = false, isRaw = true) {
 		path = this.sanitizePath(path);
 
 		if(!this.isAllowedPath(path)) {
@@ -14,14 +14,28 @@ var iofs = {
 			return false;
 		}
 
-		if(attributes == false) {
-			attributes = this.load(path, true) || "";
+		if(attributes == false && this.exists(path)) {
+			attributes = this.getInfos(path).attributes || "";
+		}
+
+		if(typeof(attributes) == "object") {
+			let attributeArray = attributes;
+			attributes = Object.values(attributes).join(",");
 		}
 
 		attributes = "" + attributes;
 
 		if(attributes.indexOf("t=d") >= 0) {
 			var isFolder = true;
+		}
+
+		if(isRaw) {
+			content = btoa(content);
+		} else {
+			if(content.includes(";base64,")) {
+				// Automatically remove base64 prefix to avoid issues
+				content = content.split(";base64,")[1];
+			}
 		}
 
 		// TODO: Add time / change time
@@ -35,7 +49,7 @@ var iofs = {
 		return true;
 	},
 
-	load: function(path, attributesInstead = false) {
+	load: function(path, raw = 1) {
 		if(!this.isAllowedPath(path)) {
 			return null;
 		}
@@ -55,15 +69,36 @@ var iofs = {
 		}
 
 		var requestedContent = "";
+		requestedContent = fullFileContent.split("*")[1];
 
-		if(attributesInstead) {
-			requestedContent = fullFileContent.split("*")[0];
-		} else {
-			requestedContent = fullFileContent.split("*")[1];
-			
 			if(this.typeof(path) == "dir") {
 				requestedContent = JSON.parse(requestedContent);
 			}
+
+		if(this.typeof(path) == "dir") {
+			if(raw && typeof(requestedContent) == "object") {
+				requestedContent = JSON.stringify(requestedContent);
+			} else if(!raw && typeof(requestedContent) != "object") {
+				requestedContent = JSON.parse(requestedContent);
+			}
+		}
+
+		switch (raw) {
+			case -1:
+				// requestedContent = requestedContent;
+				break;
+
+			case 0:
+			case false:
+				requestedContent = this.getInfos(path).mime.base64prefix + requestedContent;
+				break;
+
+			case 1:
+			case true:
+				if(this.typeof(path) != "dir") {
+					requestedContent = atob(requestedContent)
+				}
+				break;
 		}
 
 		return requestedContent;

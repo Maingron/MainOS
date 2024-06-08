@@ -16,9 +16,9 @@ canvas.width = 512;
 
 if (path) {
     var canvasbgimage = new Image();
-    canvasbgimage.src = iofs.load(path);
+    canvasbgimage.src = iofs.load(path, false);
     document.getElementById("filename1").value = path;
-    document.getElementById("loadcanvas").src = iofs.load(path);
+    document.getElementById("loadcanvas").src = iofs.load(path, false);
     window.setTimeout(function() {
         canvas.height = document.getElementById("loadcanvas").offsetHeight;
         canvas.width = document.getElementById("loadcanvas").offsetWidth;
@@ -203,7 +203,8 @@ setRenderInterval(20);
 
 
 function savefile(type) {
-    window.parent.savefile(document.getElementById("filename1").value, canvas.toDataURL('image/'+fileformat), 1);
+    console.log(canvas.toDataURL('image/'+fileformat));
+    iofs.save(document.getElementById("filename1").value, canvas.toDataURL('image/'+fileformat), [], 1, 0, false);
     parent.sendNotification({"title": "Image saved", "content": "Saved image as: " + document.getElementById("filename1").value + ".", "type": "success", "sender": this});
 }
 

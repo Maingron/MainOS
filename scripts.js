@@ -384,7 +384,7 @@ if (system.user.settings.default_fullscreen == 1) { // Enter fullscreen on start
 }
 
 
-document.getElementById("background").style.backgroundImage = "url(" + iofs.load(system.user.settings.backgroundImage) + ")"; // Load Desktop Background
+document.getElementById("background").style.backgroundImage = "url(" + iofs.load(system.user.settings.backgroundImage, false) + ")"; // Load Desktop Background
 document.getElementById("username").innerText = system.user.name; // Display username on desktop
 
 // Check space on disk

@@ -94,7 +94,7 @@ updateNotificationWindow();
 setInterval(updateNotificationWindow, 100);
 
 function init() {
-  notifications = JSON.parse(iofs.load(notificationFilePath, 0));
+  notifications = JSON.parse(iofs.load(notificationFilePath));
 }
 
 function createNotificationIcon() {
