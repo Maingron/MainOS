@@ -107,7 +107,7 @@ function createNotificationIcon() {
       notificationIconTemp.addEventListener("click", function() {
         toggleNotificationWindow();
       });
-      notificationIconTemp.innerHTML = "<img src='iofs:C:/Program Files/notifications/icon.png' class='icon'>";
+      notificationIconTemp.innerHTML = "<img src='#iofs:C:/Program Files/notifications/icon.png' class='icon'>";
       parent.document.getElementById("taskbarrighticons").appendChild(notificationIconTemp);
 
       if(config.enableBubble) {

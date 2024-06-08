@@ -10,13 +10,13 @@
     "explorer": {
         "id": "explorer",
         "title": "Explorer",
-        "icon": "iofs:C:/system/icons/folder_search.svg",
+        "icon": "#iofs:C:/system/icons/folder_search.svg",
         "src": "Program%20Files/Explorer/inner/exec.html"
     },
     "notepad": {
         "id": "notepad",
         "title": "Notepad",
-        "icon": "iofs:C:/Program Files/notepad/icon.png",
+        "icon": "#iofs:C:/Program Files/notepad/icon.png",
         "src": "Program%20Files/notepad/exec.html"
     },
     "pixels": {
@@ -35,13 +35,13 @@
     "simple_cookieclicker": {
         "id": "simple_cookieclicker",
         "title": "Simple Cookieclicker",
-        "icon": "iofs:C:/Program Files/Simple Cookieclicker/icon.png",
+        "icon": "#iofs:C:/Program Files/Simple Cookieclicker/icon.png",
         "src": "Program%20Files/simple%20cookieclicker/exec.html"
     },
     "hype": {
         "id": "hype",
         "title": "Hype Chat",
-        "icon": "iofs:C:/Program Files/hype/icon.png",
+        "icon": "#iofs:C:/Program Files/hype/icon.png",
         "src": "Program%20Files/hype/exec.html"
     },
     "start_menu": {
@@ -104,11 +104,11 @@
         "id": "calculator",
         "src": "Program%20Files/evalculator/exec.html",
         "title": "Calculator (Evalculator)",
-        "icon": "iofs:C:/Program Files/evalculator/icon.png"
+        "icon": "#iofs:C:/Program Files/evalculator/icon.png"
     },
     "browser": {
         "id": "browser",
         "src": "Program%20Files/browser/exec.html",
-        "icon": "iofs:C:/Program Files/browser/icon.png"
+        "icon": "#iofs:C:/Program Files/browser/icon.png"
     }
 }
