@@ -16,6 +16,19 @@ function initBottomInfo() {
 }
 
 function updateBottomInfo() {
+	let amountFiles = 0;
+	let amountDirs = 0;
+
+	for(let file of filesListed) {
+		let thisType = iofs.getInfos(file).type;
+
+		if(thisType == "dir") {
+			amountDirs++;
+		} else if(thisType == "file") {
+			amountFiles++;
+		}
+	}
+
 	if(currentPath == "/") {
 		bottomInfoElement.innerHTML = `
 		Space used:
@@ -31,8 +44,8 @@ function updateBottomInfo() {
 		<path>${currentPath}</path>
 		<br>
 		<div title="Items">
-			Folders: ${filesListed.filter(isfolder).length}
-			Files: ${filesListed.length - filesListed.filter(isfolder).length}
+			Folders: ${amountDirs}
+			Files: ${amountFiles}
 			<span>|</span>
 			Total: ${filesListed.length}
 		</div>
