@@ -121,11 +121,10 @@ function updateCookieCounter() {
 }
 
 function install() {
-  if(!isfolder(storagePath)) {
-    iofs.save(storagePath, "", "t=dir", 0);
+  if(!iofs.exists(storagePath)) {
+    iofs.save(storagePath, "", "t=dir", 0, 1);
   }
-  
-  
+
   if (iofs.exists(storagePath+"cookies.txt")) {
     cookies = +iofs.load(storagePath+"cookies.txt");
   } else {
