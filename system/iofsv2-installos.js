@@ -14,7 +14,7 @@ function reportOpenAsyncFiles() {
     }
     document.getElementById("waitingfor").innerHTML = "Waiting for " + openAsyncFiles.length + " Files: <br>" + files;
 
-    // maybeReload();
+    maybeReload();
 }
 
 function savefilefromurl(path, url, override, fileAttributes) {
@@ -176,7 +176,16 @@ const bulkFilesExt = [
 ];
 
 for(let file of bulkFilesExt) {
-    savefilefromurl(file[0], (file[1] || ""), (file[2] || ""), (file[3] || 0));
+    openAsyncFiles.push(file[0]);
+    reportOpenAsyncFiles();
+    iofs.loadExternal(file[1], function(content = undefined, attributes = file[2], path = file[0], override = file[3] ?? false) {installExtCallback(path, content, attributes, override, false, true)});
+}
+
+
+function installExtCallback(path, content, attributes, override, recursive, isRaw) {
+    iofs.save(path, content, attributes, override, recursive, isRaw)
+    openAsyncFiles.splice(openAsyncFiles.indexOf(path), 1);
+    reportOpenAsyncFiles();
 }
 
 function copyWhenDone() {
@@ -185,20 +194,19 @@ function copyWhenDone() {
             copyWhenDone();
         }, 500);
     } else {
+        initializeSystemVariable();
         iofs.copy("C:/users/default", "C:/users/public", 1);
         iofs.copy("C:/users/default", "C:/users/sysacc", 0);
+        userFolderCopied = true;
+        throughIOfs = true;
+        maybeReload();
     }
 }
 
 copyWhenDone();
 
-reportOpenAsyncFiles();
-
-
 var program = JSON.parse(iofs.load("C:/system/initial_program_list.json"));
 var programs = JSON.parse(iofs.load("C:/system/initial_program_list.json"));
-
-// var program = {};
 
 // Dynamic settings (import from user's machine)
 if(navigator.language == "en") {
@@ -212,23 +220,10 @@ if(navigator.language == "en") {
 
 // Append some attributes
 // setAttribute("C:/users/default/", "A", getAttribute("C:/users/default/", "A") + "0a");
-
-// cleanup
-// if(isfolder("C:/users/undefined/")) {
-//     deletefile("C:/users/undefined/",1)
-// }
-
-
-// setTimeout(function() {
-//  location.reload();
-// }, 60);
-
-// throughIOfs = true;
-
 };
 
-// function maybeReload() {
-//     if (throughIOfs && openAsyncFiles.length == 0 && userFolderCopied == true) {
-//         location.reload();
-//     }
-// }
+function maybeReload() {
+    if (throughIOfs && openAsyncFiles.length == 0 && userFolderCopied == true) {
+        location.reload();
+    }
+}

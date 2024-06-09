@@ -470,6 +470,23 @@ var iofs = {
 }
 
 
+
+if(!iofs.exists("C:/system/system_variable.txt")) {
+	document.write("<script src=\"system/iofsv2-installos.js\"></script>");
+}
+// } else {
+	// var installedVersion = JSON.parse(iofs.load("C:/system/registry"))["system"]["installedVersion"];
+
+// if(installedVersion < )
+// }
+
+// if (!iofs.exists("C:/mainos/system32/ExpectedVersionnr.txt") || iofs.load("C:/mainos/system32/ExpectedVersionnr.txt") < mainos.versionnr) {
+// }
+
+
+
+
+
 var newScript = document.createElement("script");
 newScript.src = "system/system_variable.js";
 document.head.appendChild(newScript);

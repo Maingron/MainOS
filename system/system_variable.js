@@ -2,8 +2,6 @@ var system = {};
 
 if(iofs.load("/C:/system/system_variable.txt")) {
     system = JSON.parse(iofs.load("C:/system/system_variable.txt", true));
-} else {
-    initializeSystemVariable();
 }
 
 function initializeSystemVariable() {
