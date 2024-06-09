@@ -171,12 +171,27 @@ function loginUser(name) {
 
             var newScriptFunctionsPrograms = document.createElement("script");
             newScriptFunctionsPrograms.src = "functions-programs.js";
-            document.body.appendChild(newScriptFunctionsPrograms);
-    
-            var newScriptHelperjs = document.createElement("script");
-            newScriptHelperjs.src = "helper.js";
-            document.body.appendChild(newScriptHelperjs);
+            newScriptFunctionsPrograms.onload = function() {
 
+                var newScriptHelperjs = document.createElement("script");
+                newScriptHelperjs.src = "helper.js";
+                newScriptHelperjs.onload = async function() {
+                    let delay = 0;
+                    if(!system.user.autorun) {
+                        delay = 100;
+                    }
+
+                    window.setTimeout(function() {
+                        for(let autorun of system.user.autorun) {
+                            run(autorun[0], autorun[1], autorun[2]);
+                        }
+                    }, delay);
+
+                }
+
+                document.body.appendChild(newScriptHelperjs);
+            }
+            document.body.appendChild(newScriptFunctionsPrograms);
         }
         document.body.appendChild(newScript);
     }

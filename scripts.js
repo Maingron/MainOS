@@ -216,9 +216,10 @@ function loadProgramMetadata(which) { // Load program metadata from program file
 
         if(which.autostart) { // TODO: Make it work for external programs
             // Autostart
-            (async() => {
-                run(which.id,[],which.autostart);
-            })();
+            if(!system.user.autorun) {
+                system.user.autorun = [];
+            }
+            system.user.autorun.push([which.id,[],which.autostart]);
         }
 
     }
