@@ -176,6 +176,9 @@ const bulkFilesExt = [
 ];
 
 for(let file of bulkFilesExt) {
+    if(iofs.exists(file[0]) && !file[3]) {
+        continue;
+    }
     openAsyncFiles.push(file[0]);
     reportOpenAsyncFiles();
     iofs.loadExternal(file[1], function(content = undefined, attributes = file[2], path = file[0], override = file[3] ?? false) {installExtCallback(path, content, attributes, override, false, true)});
