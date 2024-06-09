@@ -38,7 +38,7 @@ var settings = [
     {category: "Advanced Settings", id: "advanced", settings: [
         {name: "Developer Mode", type: "input>checkbox", id: "system.user.settings.developer.enable"},
         {name: "Enable Online Repository", type: "input>checkbox", id: "system.user.settings.enableRepository"},
-        {name: `Reset ${system.osDetails.name}`, type: "button", id: "dummy.resetos", onclick: "parent.localStorage.clear(); top.window.location.reload();"},
+        {name: `Reset ${system.osDetails.name}`, type: "button", id: "dummy.resetos", onclick: "parent.localStorage.clear(); parent.window.location.reload();"},
         // {name: "Update through Downgrade", type: "button", id: "dummy.updatethroughdowngrade", onclick: "", disabled: true}
     ]},
     {category: "User settings", id: "user", settings: [
