@@ -10,13 +10,6 @@ if(ismainos) {
 }
 
 
-// import mos-elements from /system/mos-elements/mos-elements.js
-var newScript = document.createElement("script");
-newScript.src = system.runtime.documentRoot + "system/mos-elements/mos-elements.js";
-document.head.appendChild(newScript);
-
-
-
 if(ismainos != 1 && parent.ismainos == 1) {
     // TODO: Deprecate setting. Use system.user.settings instead.
     var setting = system.user.settings; // Get setting variable from MainOS and make it available the same way as in MainOS itself
