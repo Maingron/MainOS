@@ -41,7 +41,7 @@ var iofs = {
 		// TODO: Add time / change time
 
 		if(isFolder) {
-			localStorage.setItem(path, "t=d");
+			localStorage.setItem(path, attributes);
 		} else {
 			localStorage.setItem(path, attributes + "*" + content);
 		}
