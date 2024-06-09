@@ -13,7 +13,7 @@ function initializeSystemVariable() {
         system = returnNewSystemVariable();
         system.icons = returnIconPaths();
         system.users = [];
-        system.users[0] = returnNewSysacc();
+        system.users[0] = returnNewDefaultacc();
 
         system.users[0].paths = JSON.parse(iofs.load("C:/system/initial_program_list.json"));
         system.users[0].paths.userPath = system.paths.userRoot + system.users[0].name + "/";
@@ -82,9 +82,9 @@ function returnIconPaths() {
 }
 
 
-function returnNewSysacc() {
+function returnNewDefaultacc() {
     return {
-        name: "sysacc",
+        name: "default",
         person: {
             fullName: undefined,
             dateOfBirth: undefined,
@@ -218,6 +218,7 @@ function createNewUser(name) {
     iofs.save(newUser.paths.userPath, "", "t=dir", 0);
     iofs.save(newUser.paths.programShortcuts, "", "t=dir", 0);
     iofs.save(newUser.paths.appdata, "", "t=dir", 0);
+    iofs.copy(system.users[0].paths.userPath,newUser.paths.userPath,1);
 
     system.users.push(newUser);
     saveSystemVariable();
@@ -239,5 +240,3 @@ function saveSystemVariable() {
 if(system.autologin) {
     loginUser(system.autologin);
 }
-
-// loginUser("sysacc");

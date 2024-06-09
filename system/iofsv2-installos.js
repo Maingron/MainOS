@@ -64,9 +64,9 @@ if (localStorage && !localStorage.getItem('size')) {
 
 
 const i = { // installation vars
-    "un": "sysacc", // username
-    "up": "C:/users/" + "sysacc" + "/", // user path of current user
-    "ups": "C:/users/" + "sysacc" + "/settings/", // user path / settings
+    "un": "default", // username
+    "up": "C:/users/" + "default" + "/", // user path of current user
+    "ups": "C:/users/" + "default" + "/settings/", // user path / settings
     "i": "C:/system/icons/", // icon path
     "iu": "C:/system/icons/usericons/" // usericons
 }
@@ -195,9 +195,11 @@ function copyWhenDone() {
         }, 500);
     } else {
         initializeSystemVariable();
-        iofs.copy("C:/users/default", "C:/users/public", 1);
-        iofs.copy("C:/users/default", "C:/users/sysacc", 0);
+        createNewUser("public");
+        createNewUser("sysacc");
         userFolderCopied = true;
+
+        iofs.save("C:/users/default", "", "t=dir,A=a",true);
         throughIOfs = true;
         maybeReload();
     }
