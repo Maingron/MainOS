@@ -37,9 +37,9 @@ function returnNewSystemVariable() {
             creator: "Maingron",
             copyright: "Maingron 2018 - 2024",
             license: "",
-            serverpath: "https://maingron.com",
-            serverroot: "https://maingron.com/projects/MainOS/server",
-            serverrepository: "https://maingron.com/projects/MainOS/server/repository.json",
+            serverpath: "https://mainos.maingron.com",
+            serverroot: "https://mainos.maingron.com/repo",
+            serverrepository: "https://mainos.maingron.com/repo/repository.json",
         },
         hostOS: {
             languages: navigator.languages,
