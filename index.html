@@ -23,7 +23,7 @@
         <a id="targetemergencytools" href="#emergencytools"></a>
         <a id="untargetemergencytools" href="#"></a>
 
-        <!-- <script>
+        <script>
             function hideEmergencyTools() {
                 clearTimeout(showLoadingForEmergencyTools);
                 clearTimeout(targetEmergencyToolsTimeout);
@@ -46,7 +46,7 @@
                 document.getElementById("targetemergencytools").click();
                 clearInterval(loadingProgress);
             }, 8000);
-        </script> -->
+        </script>
         
         <h2><img src="img/logo.svg" alt=""><span style="color:lightblue">Main</span><span style="color:red">OS</span> Emergency Tools</h2>
         <p>If the system didn't boot successfully (Which is probably the case, since you see this box), you can use these tools to try and fix the system.</p>
@@ -58,10 +58,9 @@
         <br>
         <button onclick="this.outerHTML = '<p>You can save the contents of your localStorage dump to a file on your device. It contains all IOfs data. <br>LocalStorage Dump:</p></p><textarea readonly>'+JSON.stringify(localStorage)+'</textarea>'">Show localStorage Dump</button>
         <button onclick="run('run')">Open run box</button>
-        <button onclick="deletefile('C:/mainos/system32/ExpectedVersion.txt'); deletefile('C:/mainos/system32/ExpectedVersionnr.txt');">Upgrade through downgrade (old)</button>
+        <button onclick="iofs.delete('C:/mainos/system32/ExpectedVersion.txt'); deletefile('C:/mainos/system32/ExpectedVersionnr.txt');">Upgrade through downgrade (old)</button>
         <button onclick="" disabled>Upgrade through downgrade (update system variable)</button>
-        <button onclick="deletefile('C:/system/system_variable.txt')">Reset system variable</button>
-        <button onclick="formatfs('yes', false)">Reset system (System function)</button>
+        <button onclick="iofs.delete('C:/system/system_variable.txt')">Reset system variable</button>
         <button onclick="localStorage.clear()">Reset system (Clear localStorage)</button>
 
 
@@ -82,7 +81,7 @@
     </div>
 
     <div id="emergencytoolsloading">
-        <progress></progress>
+        <progress value="0"></progress>
     </div>
 
     <div class="content">
