@@ -21,7 +21,7 @@ function newProcessListEntry(programIdentifier) {
 function run(which, iattr, how) { // Run a program
     let myPid = newProcessListEntry(which);
     let myProgram = system.user.programs[which];
-    if(!checkMayStillOpen(which)) {
+    if(!checkMayStillOpen(which) || myProgram.disabled) {
         processList[myPid] = null;
         return;
     }
@@ -473,8 +473,10 @@ function overlayResizer(which, onoff) {
  * @param which program
  */
 function unrun(which) { // Unrun / close a program
-    which.classList.add("closing");
-    tasklist.removeItem(which);
+    setTimeout(function() {
+        which.classList.add("closing");
+        tasklist.removeItem(which);
+    },0);
 
     setTimeout(function() {
         which.style.zIndex = "0";

@@ -140,6 +140,14 @@ if (system.user.settings.enableRepository) { // Load programs from repository if
             setTimeout(function() {
                 for (let i in repoList) {
                     system.user.programs[i] = repoList[i];
+                    if(repoList[i].disabled) {
+                        system.user.programs[i] = [];
+                        system.user.programs[i].maxopen = "0";
+                        system.user.programs[i].disabled = true;
+                        system.user.programs[i].spawnicon = false;
+                        system.user.programs[i].src = "about:blank";
+                        continue;
+                    }
                     loadProgramMetadata(repoList[i]);
                 }
             }, 100)
@@ -155,6 +163,9 @@ if (system.user.settings.enableRepository) { // Load programs from repository if
 // Add / handle programs
 for(var i = 0; i < Object.keys(system.user.programs).length; i++) {
     var myProgram = system.user.programs[Object.keys(system.user.programs).sort()[i]];
+    if(myProgram.disabled) {
+        continue;
+    }
     loadProgramMetadata(myProgram);
 }
 
