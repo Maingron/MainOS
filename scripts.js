@@ -2,6 +2,9 @@ var objects = {};
 var register = [];
 var program = {};
 var processList = pid = [];
+if(typeof(setting) != "object") {
+    var setting = {};
+}
 
 var systemRuntime = system.runtime = {
     "pidmax": 0,
@@ -83,9 +86,6 @@ function setDocumentMeta() { // Overrides some things in the document head
 }
 
 function loadsettings() {
-    if(typeof(setting) != "object") {
-        var setting = {};
-    }
     // setting.username = loadfile("C:/mainos/system32/settings/username.txt");
     // setting.userpath = "C:/users/" + setting.username + "/";
     // setting.userdata = setting.userpath + "Program Data/";
