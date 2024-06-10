@@ -1,3 +1,0 @@
-- Changed Settingpath to C:/users/USERNAME/settings. The setting username is still at C:/mainos/system32/settings, but it shouldn't be changed. Any other value than 'User' would result in errors, because there's no user generation yet.
-- Added Settings App (beta)
-- Fixed Settingpath in cmd

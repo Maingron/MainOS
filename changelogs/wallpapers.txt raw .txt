@@ -1,8 +1,0 @@
-Links to wallpapers to use as background image for MainOS
-
-Wallpapers made by Michael Gillett (https://twitter.com/MichaelGillett):
-  https://maingron.de/things/wp/michael_gillett/fluent.jpg
-  https://maingron.de/things/wp/michael_gillett/andromeda.jpg
-  https://maingron.de/things/wp/michael_gillett/bliss-night.jpg
-  https://maingron.de/things/wp/michael_gillett/clippy-x-rex.jpg (modified by Maingron)
-  https://maingron.de/things/wp/michael_gillett/polaris.jpg

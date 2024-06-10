@@ -1,8 +1,0 @@
-### Core / Various
-    - Fix context Menu
-    - Move some images to iofs
-    - Add functionality to open images
-    - Add loadfile(loadfile(PATH)) functionality
-
-### Paint2
-    - Add Paint2

@@ -1,7 +1,0 @@
-- Updated Paint and made it more compatible
-- Added Paint 32x32, which is Paint, but with more pixels
-- Updated Explorer and made it more compatible
-- Added Event Listener 'click' to close- and maxbuttons to make them more compatible
-- Added command 'pids' to cmd which lists the currently running programs.
-- Further image compression improvements to .pngs
-- Bugfixes

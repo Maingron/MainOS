@@ -1,2 +1,0 @@
-### Core / Various
-    - Fix version numbers and rollback some things. Might contain stuff from v00124 and v00125
