@@ -22,10 +22,7 @@ function initializeSystemVariable() {
         system.users[0].paths.logs = system.users[0].paths.userPath + "logs/";
         system.users[0].paths.temp = system.users[0].paths.userPath + "temp/";
 
-
-        iofs.save(system.users[0].paths.userPath, "", "t=dir", 0);
-        iofs.save(system.users[0].paths.programShortcuts, "", "t=dir", 0);
-        iofs.save(system.users[0].paths.appdata, "", "t=dir", 0);
+        createNewUser("default");
 
         saveSystemVariable();
     // }
@@ -212,13 +209,25 @@ function createNewUser(name) {
     newUser.paths = {
         userPath: system.paths.userRoot + newUser.name + "/",
         programShortcuts: system.paths.userRoot + newUser.name + "/programs/",
-        appdata: system.paths.userRoot + newUser.name + "/appdata/"
+        appdata: system.paths.userRoot + newUser.name + "/appdata/",
+        logs: system.paths.userRoot + newUser.name + "/logs/",
+        temp: system.paths.userRoot + newUser.name + "/temp/"
     };
     
     iofs.save(newUser.paths.userPath, "", "t=dir", 0);
     iofs.save(newUser.paths.programShortcuts, "", "t=dir", 0);
     iofs.save(newUser.paths.appdata, "", "t=dir", 0);
+    iofs.save(newUser.paths.logs, "", "t=dir", 0);
+    iofs.save(newUser.paths.temp, "", "t=dir", 0);
     iofs.copy(system.users[0].paths.userPath,newUser.paths.userPath,1);
+
+    for(let user of system.users) {
+        if(user.name == name) {
+            user = newUser;
+            saveSystemVariable();
+            return;
+        }
+    }
 
     system.users.push(newUser);
     saveSystemVariable();
