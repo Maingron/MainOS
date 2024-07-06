@@ -111,7 +111,7 @@ async function render(event) {
             } else if(step[5] == "rect") {
                 paintDraw.rectangle(lastPosition[0], lastPosition[1], step[1], step[2], step[3]);
             } else if(step[5] == "spherebrush") {
-                paintDraw.spherebrush(lastPosition[0], lastPosition[1], step[1], step[2], step[3]);
+                paintDraw.spherebrush(lastPosition[0], lastPosition[1], step[1], step[2], step[3], step[4]);
             } else if(step[5] == "circle") {
                 paintDraw.circle(lastPosition[0], lastPosition[1], step[1], step[2], step[3]);
             }
@@ -234,12 +234,13 @@ var paintDraw = {
         ctx.stroke();
     },
 
-    spherebrush: function(x, y, x2, y2, color) {
+    spherebrush: function(x, y, x2, y2, color, width) {
         const radius = Math.sqrt(Math.pow(x2 - x, 2) + Math.pow(y2 - y, 2)) / 2;
 
         ctx.fillStyle = color;
         ctx.strokeStyle = color;
-    
+        ctx.lineWidth = width / 4;
+
         ctx.beginPath();
         ctx.arc(x, y, radius, 0, 2 * Math.PI);
         ctx.fill();
