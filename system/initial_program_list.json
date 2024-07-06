@@ -110,5 +110,11 @@
         "id": "browser",
         "src": "Program%20Files/browser/exec.html",
         "icon": "#iofs:C:/Program Files/browser/icon.png"
+    },
+
+    "photo-viewer": {
+        "id": "photo-viewer",
+        "src": "Program%20Files/photo-viewer/exec.html",
+        "icon": "#iofs:C:/Program Files/photo-viewer/icon.svg"
     }
 }

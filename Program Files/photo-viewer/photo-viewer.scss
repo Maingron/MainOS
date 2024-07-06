@@ -1,0 +1,24 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	height: 100vh;
+
+	main {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		height: 100%;
+		width: 100%;
+		text-align: center;
+
+		img {
+			margin: auto;
+			max-height: 100%;
+			max-width: 100%;
+			object-fit: contain;
+			border: 1px solid gray;
+		}
+	}
+}

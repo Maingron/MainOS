@@ -157,6 +157,7 @@ const bulkFilesExt = [
     ["C:/Program Files/evalculator/icon.png", "Program Files/evalculator/icon.png", "t=png"],
     ["C:/Program Files/browser/icon.png", "Program Files/browser/icon.png", "t=png"],
     ["C:/Program Files/run/icon.png", "Program Files/run/icon.png", "t=png"],
+    ["C:/Program Files/photo-viewer/icon.svg", "Program Files/photo-viewer/icon.svg", "t=svg"],
     ["C:/system/initial_program_list.json", "system/initial_program_list.json", "t=txt"],
     ["C:/system/icons/usericons/guest.svg", "system/icons/usericons/guest.svg", "t=svg"],
     ["C:/system/icons/logo.svg", "img/logo.svg", "t=svg,A=0", 1],

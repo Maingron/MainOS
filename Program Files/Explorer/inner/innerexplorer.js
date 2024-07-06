@@ -67,6 +67,12 @@ function explorerdofile(path, action) { // Run if program is clicked
     if(action == "edit_text") {
         window.parent.run('notepad', path);
         return;
+    } else if(action == "view_image") {
+        window.parent.run('photo-viewer', path);
+        return;
+    } else if(action == "paint") {
+        window.parent.run('paint', path);
+        return;
     }
 
     if(fileinfos.mime.category == "text") {
@@ -112,7 +118,16 @@ function renameFile(source, target) {
 function contextMenu(event) {
     if(event.target.attributes.path) {
         if(iofs.typeof(event.target.attributes.path.value) != "dir") {
-            spawnContextMenu([["Edit as Text", "explorerdo('" + event.target.attributes.path.value + "', 'edit_text')"],["<hr>"],["Rename File", "renameFile('"+event.target.attributes.path.value+"','"+currentPath + "renamed File - something.txt"+"')","disabled"], ["Delete File","explorer_deletefile('" + event.target.attributes.path.value + "')"], ["<hr>"], ["Properties","","disabled"]]) // ["Backup File","savefile('" + event.target.attributes.path.value + ' - Copy' + "','" + iofs.load(event.target.attributes.path.value) + "', 0, 't=txt')"]
+            spawnContextMenu([
+                ["Open in Notepad", "explorerdo('" + event.target.attributes.path.value + "', 'edit_text')"],
+                ["Open in Photo Viewer", "explorerdo('" + event.target.attributes.path.value + "', 'view_image')"],
+                ["Open in Paint", "explorerdo('" + event.target.attributes.path.value + "', 'paint')"],
+                ["<hr>"],
+                ["Rename File", "renameFile('"+event.target.attributes.path.value+"','"+currentPath + "renamed File - something.txt"+"')","disabled"],
+                ["Delete File","explorer_deletefile('" + event.target.attributes.path.value + "')"],
+                ["<hr>"],
+                ["Properties","","disabled"]]
+            ) // ["Backup File","savefile('" + event.target.attributes.path.value + ' - Copy' + "','" + iofs.load(event.target.attributes.path.value) + "', 0, 't=txt')"]
         } else {
             spawnContextMenu([["Delete Folder","explorer_deletefile('" + event.target.attributes.path.value + "',1)"], ["Properties","","disabled"]])
         }
