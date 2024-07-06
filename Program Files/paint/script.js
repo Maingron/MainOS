@@ -5,7 +5,11 @@ var ctx = canvas.getContext("2d");
 
 
 var steps = [[0,0,0,0,0,0]]; // Mousedown, x, y, color, stroke width, tooltype
-canvas.mousedown = 0;
+
+var lastRenderComplete = true;
+var fileformat = "png";
+
+canvas.mousedown = false;
 
 setCanvasSize(512, 512);
 
@@ -29,8 +33,7 @@ ctx.color = "#ff0000";
 
 var tooltype = "pen";
 
-var rectangling = 0;
-
+var lastPosition = [0,0,0];
 
 
 canvas.addEventListener("mousemove", function(e) {
@@ -45,54 +48,38 @@ async function doThisOnMouseMove(e) {
     ctx.mouseX = +((e.clientX - boundingClientRect.left) * (canvas.width / boundingClientRect.width)).toFixed(0);
     ctx.mouseY = +((e.clientY - boundingClientRect.top) * (canvas.height / boundingClientRect.height)).toFixed(0);
 
+    if(!canvas.mousedown && !lastPosition[2]) {
+        steps.pop();
+    }
 
-
-        ctx.beginPath();
-
-        ctx.moveTo(steps[steps.length - 1][1],steps[steps.length - 1][2]);
-
-        ctx.fillStyle=color;
-        ctx.strokeStyle=color;
-        ctx.lineWidth=+document.getElementById("width").value;
-
-
-        if(rectangling == 1) {
-            if(canvas.mousedown == 0) {
-                rectangling = 0;
-                steps.push([canvas.mousedown,ctx.mouseX,ctx.mouseY,color,+document.getElementById("width").value,tooltype]);
-
+    if(canvas.mousedown) {
+        if(tooltype == "pen") {
+            paintDraw.line(lastPosition[0], lastPosition[1], ctx.mouseX, ctx.mouseY, color, +document.getElementById("width").value, lastPosition[2]);
+        } else if(tooltype == "rectangle") {
+            if(steps[steps.length - 1][5] == "rectangle" && steps[steps.length - 1][0]) {
+                render();
+                steps.pop();
             }
-
-        } else {
-            if(tooltype == "rectangle") {
-                if(canvas.mousedown == 1) {
-                    rectangling = 1;
-                } else if(canvas.mousedown == 0) {
-                    rectangling = 0;
-                }
-            }
-            steps.push([canvas.mousedown,ctx.mouseX,ctx.mouseY,color,+document.getElementById("width").value,tooltype]);
         }
+    }
 
-        ctx.lineTo(ctx.mouseX,ctx.mouseY);
+    steps.push([canvas.mousedown,ctx.mouseX,ctx.mouseY,color,+document.getElementById("width").value,tooltype]);
 
-        if(canvas.mousedown) {
-            ctx.stroke();
-        }
+    lastPosition = [ctx.mouseX, ctx.mouseY, canvas.mousedown];
 }
 
 
 canvas.onmousedown = function() {
-    canvas.mousedown = 1;
+    canvas.mousedown = true;
 }
 
 canvas.onmouseup = function() {
-    canvas.mousedown = 0;
+    canvas.mousedown = false;
     render();
 }
 
 
-var lastRenderComplete = true;
+
 
 
 async function render(event) {
@@ -113,34 +100,20 @@ async function render(event) {
 
     ctx.moveTo(steps[0][1],steps[0][2]);
 
-    for(var i = 0; steps.length > i; i++) {
-
-        if(steps[i][0]) {
-            ctx.fillStyle=steps[i][3];
-            ctx.strokeStyle=steps[i][3];
-            ctx.lineWidth=steps[i][4];
-
-            if(steps[i][5] == "pen") {
-                ctx.lineTo(steps[i][1],steps[i][2]);
-            } else if(steps[i][5] == "rectangle") {
-                if(steps[i + 1]) {
-                    ctx.fillRect(steps[i][1],steps[i][2],(steps[i + 1][1] - steps[i][1]),(steps[i + 1][2] - steps[i][2]));
-                } else {
-                    ctx.fillRect(steps[i][1],steps[i][2],(ctx.mouseX - steps[i][1]),(ctx.mouseY - steps[i][2]))
-                }
+    for(let step of steps) {
+        if(step[0]) { // If mousedown
+            if(step[5] == "pen") {
+                paintDraw.line(lastPosition[0], lastPosition[1], step[1], step[2], step[3], step[4], lastPosition[2]);
+            } else if(step[5] == "rectangle") {
+                paintDraw.rectangle(lastPosition[0], lastPosition[1], step[1], step[2], step[3]);
             }
-
-        } else {
-            ctx.moveTo(steps[i][1],steps[i][2]);
-            ctx.beginPath();
         }
 
-        ctx.stroke();
-
+        // ctx.moveTo(step[1], step[2]);
+        lastPosition = [step[1], step[2], step[0]];
     }
 
     lastRenderComplete = true;
-
 
     window.requestAnimationFrame(async function() {
         document.getElementById("canvascopy").src = canvas.toDataURL('image/png');
@@ -173,7 +146,6 @@ function savefile(type) {
     parent.sendNotification({"title": "Image saved", "content": "Saved image as: " + document.getElementById("filename1").value + ".", "type": "success", "sender": this});
 }
 
-var fileformat = "png";
 
 function setfileformat(which) {
     if(which.toLowerCase() == "jpg") {
@@ -205,3 +177,34 @@ function setCanvasSize(width, height) {
 }
 
 render();
+
+var paintDraw = {
+    line: function(x, y, x2, y2, color, width, continueLineInstead = false) {
+        if(!continueLineInstead) {
+            ctx.beginPath();
+            ctx.fillStyle = color;
+            ctx.strokeStyle = color;
+            ctx.lineWidth = width;
+
+            ctx.moveTo(x, y);
+        }
+
+
+        ctx.lineTo(x2, y2);
+
+        ctx.stroke();
+
+    },
+    rectangle: function(x, y, x2, y2, color) {
+        x2 = x2-x;
+        y2 = y2-y;
+        ctx.beginPath();
+        ctx.fillStyle = color;
+        ctx.strokeStyle = color;
+
+        ctx.moveTo(x, y);
+        ctx.fillRect(x, y, x2, y2);
+        ctx.stroke();
+
+    }
+}
