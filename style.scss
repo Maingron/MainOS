@@ -3,14 +3,15 @@
 html,
 body {
 	margin: 0;
+	padding: 0;
 	background-color: #853;
-	overflow: hidden !important;
+	overflow: clip;
+	overscroll-behavior: none;
 	position: relative;
 	top: 0;
 	left: 0;
 	height: 100%;
 	width: 100%;
-
 }
 
 * {
@@ -26,7 +27,9 @@ body {
 	top: 0;
 	left: 0;
 	height: 100%;
+	overflow: clip;
 	width: 100%;
+
 	.programs {
 		display: inline-block;
 		// allow click-through but still allow interaction with child elements, so we can interact with the desktop
@@ -36,6 +39,7 @@ body {
 		left: 0;
 		height: 100%;
 		width: 100%;
+		overflow: visible;
 		* {
 			pointer-events: auto;
 		}
