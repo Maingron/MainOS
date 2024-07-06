@@ -1,8 +1,5 @@
 var path = window.parent.attr;
 
-
-
-
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
@@ -10,8 +7,7 @@ var ctx = canvas.getContext("2d");
 var steps = [[0,0,0,0,0,0]]; // Mousedown, x, y, color, stroke width, tooltype
 canvas.mousedown = 0;
 
-canvas.height = 512;
-canvas.width = 512;
+setCanvasSize(512, 512);
 
 
 if (path) {
@@ -20,21 +16,20 @@ if (path) {
     document.getElementById("filename1").value = path;
     document.getElementById("loadcanvas").src = iofs.load(path, false);
     window.setTimeout(function() {
-        canvas.height = document.getElementById("loadcanvas").offsetHeight;
-        canvas.width = document.getElementById("loadcanvas").offsetWidth;
+        setCanvasSize(document.getElementById("loadcanvas").offsetWidth, document.getElementById("loadcanvas").offsetHeight);
         document.getElementById("imgwidth").value = canvas.width;
         document.getElementById("imgheight").value = canvas.height;
+
+        render();
     },50);
 }
 
 
-ctx.color = "#777777";
+ctx.color = "#ff0000";
 
 var tooltype = "pen";
 
 var rectangling = 0;
-
-
 
 
 
@@ -49,11 +44,6 @@ async function doThisOnMouseMove(e) {
     let color = document.getElementById("color").value;
     ctx.mouseX = +((e.clientX - boundingClientRect.left) * (canvas.width / boundingClientRect.width)).toFixed(0);
     ctx.mouseY = +((e.clientY - boundingClientRect.top) * (canvas.height / boundingClientRect.height)).toFixed(0);
-
-
-        // if(steps[0].toString() == "0,0,0,0,0,0") {
-        //     steps.pop();
-        // }
 
 
 
@@ -83,17 +73,13 @@ async function doThisOnMouseMove(e) {
             }
             steps.push([canvas.mousedown,ctx.mouseX,ctx.mouseY,color,+document.getElementById("width").value,tooltype]);
         }
+
         ctx.lineTo(ctx.mouseX,ctx.mouseY);
-        ctx.stroke()
+
+        if(canvas.mousedown) {
+            ctx.stroke();
+        }
 }
-
-
-// steps.push([1,20,0,"red"]);
-// steps.push([1,20,300,"red"]);
-
-// steps.push([0,50,0,"lime"]);
-// steps.push([1,50,300,"lime"]);
-
 
 
 canvas.onmousedown = function() {
@@ -102,31 +88,26 @@ canvas.onmousedown = function() {
 
 canvas.onmouseup = function() {
     canvas.mousedown = 0;
+    render();
 }
 
-// var spritesheet = new Image();
-// spritesheet.src="sprites.webp";
+
+var lastRenderComplete = true;
 
 
-async function render() {
-
-    if(canvas.mousedown == 1) {
-        return;
+async function render(event) {
+    if(!lastRenderComplete) {
+        return false;
     }
 
-
+    lastRenderComplete = false;
+    
     ctx.clearRect(0,0,canvas.clientWidth,canvas.height);
 
     if(canvasbgimage) {
         ctx.drawImage(canvasbgimage,0,0,document.getElementById("loadcanvas").offsetWidth,document.getElementById("loadcanvas").offsetHeight);
     }
 
-
-    // ctx.fillStyle="#000";
-    // ctx.fillRect(0,0,canvas.width,canvas.height);
-
-    // ctx.fillStyle="#fff";
-    // ctx.fillRect(1,1,canvas.width - 2,canvas.height - 2);
 
     ctx.beginPath();
 
@@ -158,15 +139,14 @@ async function render() {
 
     }
 
+    lastRenderComplete = true;
 
 
-    // parent.savefile(parent.setting.settingpath + "backgroundimage.txt", canvas.toDataURL('image/png'), 1, "t=txt");
+    window.requestAnimationFrame(async function() {
+        document.getElementById("canvascopy").src = canvas.toDataURL('image/png');
+    });
 
 }
-
-// setInterval(async function() {
-//     document.getElementById("canvascopy").src = canvas.toDataURL('image/png');
-// },10)
 
 
 
@@ -179,27 +159,12 @@ function undo() {
             was1 = 1;
 
         } else if(steps[i - 1][0] == 0 && was1 == 1) {
+            render();
             return;
         }
-
     }
+    render();
 }
-
-var renderInterval;
-
-function setRenderInterval(time) {
-    if(renderInterval) {
-        window.clearInterval(renderInterval);
-    }
-
-    // render in different thread
-    
-    renderInterval = window.setInterval(async function() {
-        render();
-    },time);
-}
-
-setRenderInterval(20);
 
 
 function savefile(type) {
@@ -220,11 +185,23 @@ function setfileformat(which) {
 
 function contextMenu(event) {
     spawnContextMenu([["Pen","tooltype='pen'"],["Rectangle","tooltype='rectangle'"],["<hr>"],
-    ["Undo","undo()"],["Redo","redo()","disabled"],["<hr>"],
-    ["Time between Frames: 20ms","setRenderInterval(20)"],
-    ["Time between Frames: 50ms","setRenderInterval(50)"],
-    ["Time between Frames: 100ms","setRenderInterval(100)"],
-    ["Time between Frames: 200ms","setRenderInterval(200)"]
+    ["Undo","undo()"],["Redo","redo()","disabled"],
 
 ]);
 }
+
+function setCanvasSize(width, height) {
+    if(!width) {
+        width = canvas.width;
+    }
+    if(!height) {
+        height = canvas.height;
+    }
+
+    canvas.width = width;
+    canvas.height = height;
+
+    render();
+}
+
+render();

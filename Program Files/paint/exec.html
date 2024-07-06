@@ -23,10 +23,6 @@
 
 		<button onclick="undo()">Undo</button>
 		<!-- <button onclick="redo()" disabled>Redo</button> -->
-
-		<button onclick="setRenderInterval(20)">20ms</button>
-		<button onclick="setRenderInterval(50)">50ms</button>
-		<button onclick="setRenderInterval(100)">100ms</button>
 	</div>
 
 	<div id="imagep">
@@ -38,7 +34,7 @@
 		<div class="bottomcontrols">
 			<div class="flex col">
 				<input type="range" title="width" min=1 max=200 value=1 style="width:200px;" id="width">
-				<input type="color" id="color" value="#777777">
+				<input type="color" id="color" value="#ff0000">
 			</div>
 			<div class="flex row">
 				<button onclick="tooltype = 'pen'">pen</button>
@@ -46,10 +42,10 @@
 			</div>
 			<div class="flex col">
 				<div>
-					<input type="number" min=2 max=2048 value=512 name="imgwidth" id="imgwidth" onchange="canvas.width=this.value"><label for="imgwidth">Width</label>
+					<input type="number" min=2 max=2048 value=512 name="imgwidth" id="imgwidth" onchange="setCanvasSize(this.value, undefined)"><label for="imgwidth">Width</label>
 				</div>
 				<div>
-					<input type="number" min=2 max=2048 value=512 name="imgheight" id="imgheight" onchange="canvas.height=this.value"><label for="imgheight">Height</label>
+					<input type="number" min=2 max=2048 value=512 name="imgheight" id="imgheight" onchange="setCanvasSize(undefined,this.value)"><label for="imgheight">Height</label>
 				</div>
 			</div>
 
