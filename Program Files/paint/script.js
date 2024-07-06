@@ -62,6 +62,11 @@ async function doThisOnMouseMove(e) {
                 render();
                 steps.pop();
             }
+        } else if(tool == "circle-o") {
+            if(steps[steps.length - 1][5] == "circle-o" && steps[steps.length - 1][0]) {
+                render();
+                steps.pop();
+            }
         } else {
             render();
         }
@@ -110,10 +115,14 @@ async function render(event) {
                 paintDraw.line(lastPosition[0], lastPosition[1], step[1], step[2], step[3], step[4], lastPosition[2]);
             } else if(step[5] == "rect") {
                 paintDraw.rectangle(lastPosition[0], lastPosition[1], step[1], step[2], step[3]);
-            } else if(step[5] == "spherebrush") {
+            }else if(step[5] == "spherebrush") {
                 paintDraw.spherebrush(lastPosition[0], lastPosition[1], step[1], step[2], step[3], step[4]);
+            } else if(step[5] == "spherebrush-o") {
+                paintDraw.spherebrush(lastPosition[0], lastPosition[1], step[1], step[2], step[3], step[4], true);
             } else if(step[5] == "circle") {
-                paintDraw.circle(lastPosition[0], lastPosition[1], step[1], step[2], step[3]);
+                paintDraw.circle(lastPosition[0], lastPosition[1], step[1], step[2], step[3], step[4], false);
+            }else if(step[5] == "circle-o") {
+                paintDraw.circle(lastPosition[0], lastPosition[1], step[1], step[2], step[3], step[4], true);
             }
         }
 
@@ -234,7 +243,7 @@ var paintDraw = {
         ctx.stroke();
     },
 
-    spherebrush: function(x, y, x2, y2, color, width) {
+    spherebrush: function(x, y, x2, y2, color, width, outlineOnly = false) {
         const radius = Math.sqrt(Math.pow(x2 - x, 2) + Math.pow(y2 - y, 2)) / 2;
 
         ctx.fillStyle = color;
@@ -243,7 +252,10 @@ var paintDraw = {
 
         ctx.beginPath();
         ctx.arc(x, y, radius, 0, 2 * Math.PI);
-        ctx.fill();
+        if(!outlineOnly) {
+            ctx.fill();
+        }
+
         ctx.stroke();
     },
 
@@ -281,7 +293,9 @@ var props = (function() {
             "pen": 1,
             "rect": 2,
             "spherebrush": 3,
-            "circle": 4
+            "circle": 4,
+            "circle-o": 6,
+            "spherebrush-o": 7
         },
         color: "#ff0000"
     }
