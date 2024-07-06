@@ -3,9 +3,55 @@ body {
 	background-color:var(--beige2) !important;
 	overflow:hidden;
 
-	label,
-	input {
-		display:inline-block;
+	.leftmenu,
+	.rightmenu {
+		z-index: 999;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
+		position: absolute;
+		justify-content: space-between;
+		height: auto;
+		max-height:calc(100% - var(--altbarheight));
+		overflow: hidden;
+		border: 1px solid var(--themecolor);
+		overflow: scroll;
+		border-radius: var(--border-radius);
+		background:var(--black3);
+		padding: .2rem;
+
+		h3 {
+			margin: 0;
+			display: block;
+			width: 100%;
+			padding: 0 .25rem .25rem .25rem;
+		}
+		
+		button {
+			height: 2.5rem;
+			width: 2.5rem;
+			line-height: 0;
+			margin:.1rem;
+			padding:.1rem;
+			font-size: 1.25rem;
+
+			&.active {
+				background: var(--hovercolor);
+			}
+		}
+	}
+
+	.leftmenu {
+		right: 5px;
+		top: calc(var(--altbarheight) + 5px);
+		width: 5.5rem;
+	}
+
+	.rightmenu {
+		width: 9rem;
+		right: 5px;
+		bottom: 5px;
 	}
 
 	.altbar {
@@ -39,11 +85,11 @@ body {
 
 	#imagep {
 		position: relative;
-		display: flex;
+		display: inline-block;
 		top: 0;
 		left: 0;
-		height: calc(100% - var(--altbarheight) - max(10vh, 60px));
-		max-height:calc(100% - var(--altbarheight) + max(10vh, 60px));
+		height: calc(100% - var(--altbarheight));
+		max-height:calc(100% - var(--altbarheight));
 		width: 100%;
 		justify-content: center;
 		align-items: center;
@@ -56,53 +102,19 @@ body {
 			padding: 0;
 			border: 1px solid #000;
 			transform:scale(1);
+			transform-origin: top left;
 			position:relative;
 			image-rendering: pixelated;
 			backdrop-filter: blur(10px);
+			background: url('checkerboard.png');
+			box-shadow: 0 0 4px 4px #fff;
+
 		}
-	}
-
-	#zoom {
-		width:20vw;
-		position:absolute;
-		right:0;
-		bottom: max(10vh, 60px);
-		margin-bottom: 10px;
-	}
-
-	.bottomcontrols {
-		display:flex;
-		position:relative;
-		background:var(--beige3);
-		height:10vh;
-		min-height:60px;
-		border-top:1px solid #000;
-	}
-
-	.flex {
-		display:flex;
-	}
-
-	.row {
-		flex-direction: row;
-	}
-
-	.col {
-		flex-direction: column;
 	}
 }
 
 @media (prefers-color-scheme:dark) {
 	body {
 		background:var(--black) !important;
-
-		#imagep canvas {
-			border:2px solid var(--themecolor);
-		}
-	
-		.bottomcontrols {
-			border-top:1px solid var(--themecolor);
-			background:var(--themecolor);
-		}
 	}
 }

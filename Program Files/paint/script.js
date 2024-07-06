@@ -11,7 +11,6 @@ var fileformat = "png";
 
 canvas.mousedown = false;
 
-setCanvasSize(512, 512);
 
 
 if (path) {
@@ -26,12 +25,10 @@ if (path) {
 
         render();
     },50);
+} else {
+    setCanvasSize(512, 512);
 }
 
-
-ctx.color = "#ff0000";
-
-var tooltype = "pen";
 
 var lastPosition = [0,0,0];
 
@@ -44,7 +41,6 @@ canvas.addEventListener("mousemove", function(e) {
 
 async function doThisOnMouseMove(e) {
     let boundingClientRect = canvas.getBoundingClientRect()
-    let color = document.getElementById("color").value;
     ctx.mouseX = +((e.clientX - boundingClientRect.left) * (canvas.width / boundingClientRect.width)).toFixed(0);
     ctx.mouseY = +((e.clientY - boundingClientRect.top) * (canvas.height / boundingClientRect.height)).toFixed(0);
 
@@ -53,17 +49,18 @@ async function doThisOnMouseMove(e) {
     }
 
     if(canvas.mousedown) {
-        if(tooltype == "pen") {
-            paintDraw.line(lastPosition[0], lastPosition[1], ctx.mouseX, ctx.mouseY, color, +document.getElementById("width").value, lastPosition[2]);
-        } else if(tooltype == "rectangle") {
-            if(steps[steps.length - 1][5] == "rectangle" && steps[steps.length - 1][0]) {
+        let tool = props.getTool();
+        if(tool == "pen") {
+            paintDraw.line(lastPosition[0], lastPosition[1], ctx.mouseX, ctx.mouseY, props.getColor(), +document.getElementById("width").value, lastPosition[2]);
+        } else if(tool == "rect") {
+            if(steps[steps.length - 1][5] == "rect" && steps[steps.length - 1][0]) {
                 render();
                 steps.pop();
             }
         }
     }
 
-    steps.push([canvas.mousedown,ctx.mouseX,ctx.mouseY,color,+document.getElementById("width").value,tooltype]);
+    steps.push([canvas.mousedown,ctx.mouseX,ctx.mouseY,props.getColor(),+document.getElementById("width").value, props.getTool()]);
 
     lastPosition = [ctx.mouseX, ctx.mouseY, canvas.mousedown];
 }
@@ -104,7 +101,7 @@ async function render(event) {
         if(step[0]) { // If mousedown
             if(step[5] == "pen") {
                 paintDraw.line(lastPosition[0], lastPosition[1], step[1], step[2], step[3], step[4], lastPosition[2]);
-            } else if(step[5] == "rectangle") {
+            } else if(step[5] == "rect") {
                 paintDraw.rectangle(lastPosition[0], lastPosition[1], step[1], step[2], step[3]);
             }
         }
@@ -156,7 +153,7 @@ function setfileformat(which) {
 }
 
 function contextMenu(event) {
-    spawnContextMenu([["Pen","tooltype='pen'"],["Rectangle","tooltype='rectangle'"],["<hr>"],
+    spawnContextMenu([["Pen","props.setTool('pen')"],["Rectangle","props.setTool('rect')"],["<hr>"],
     ["Undo","undo()"],["Redo","redo()","disabled"],
 
 ]);
@@ -173,10 +170,29 @@ function setCanvasSize(width, height) {
     canvas.width = width;
     canvas.height = height;
 
+    document.getElementById("canvas-width").value = width;
+    document.getElementById("canvas-height").value = height;
+
     render();
 }
 
 render();
+
+function setCanvasScale(scale) {
+    if(scale < .1 || scale > 999) {
+        return false;
+    }
+
+    canvas.style.transform = `scale(${scale})`;
+
+    document.getElementById("zoom").value = scale;
+
+    return true;
+}
+
+function getCanvasScale() {
+    return canvas.style.transform.split("(")[1].split(")")[0];
+}
 
 var paintDraw = {
     line: function(x, y, x2, y2, color, width, continueLineInstead = false) {
@@ -208,3 +224,58 @@ var paintDraw = {
 
     }
 }
+
+var props = (function() {
+    var _ = {
+        tool: 0,
+        toolMap: {
+            "pen": 1,
+            "rect": 2
+        },
+        color: "#ff0000"
+    }
+
+    return {
+        setTool: function(selectTool, event) {
+            if(_.toolMap[selectTool]) {
+                _.tool = _.toolMap[selectTool];
+
+                if(event) {
+                    for(let myElement of document.querySelectorAll(".tool.active")) {
+                        myElement.classList.remove("active");
+                    }
+    
+                    event.classList.add("active");
+                }
+
+                return true;
+            }
+
+            return false;
+        },
+
+        getTool: function() {
+            return Object.keys(_.toolMap).find(key => _.toolMap[key] === _.tool);
+        },
+
+        setColor: function(color, event) {
+            _.color = color;
+
+            if(event) {
+                event.value = color;
+            }
+
+            return true;
+        },
+
+        getColor: function() {
+            return _.color;
+        }
+    }
+}());
+
+// Init:
+props.setTool('pen', document.querySelector('.tool--pen'));
+props.setColor('#00ff00', document.querySelector('.color'));
+
+setCanvasScale(1);

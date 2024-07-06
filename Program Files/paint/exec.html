@@ -25,31 +25,32 @@
 		<!-- <button onclick="redo()" disabled>Redo</button> -->
 	</div>
 
+	<div class="leftmenu">
+		<h3>Tool: </h3>
+		<button title="pen" class="tool tool--pen" onclick="props.setTool('pen', this)">✏️</button>
+		<button title="rectangle" class="tool tool--rect" onclick="props.setTool('rect', this)">🟧</button>
+		<h3>Color:</h3>
+		<input type="color" class="color" value="#ff0000" size="5" onchange="props.setColor(this.value)">
+		<h3>Pen Size</h3>
+		<input type="number" min="1" max="999" value="1" size="5" id="width">
+	</div>
+
+	<div class="rightmenu">
+		<h3></h3>
+		<label for="">Zoom</label>
+		<input type="number" name="zoom" id="zoom" size="5" onchange="setCanvasScale(this.value)" min=".1" max="999" step=".1">
+
+		<h3></h3>
+		<label for="">Width</label>
+		<input type="number" min="1" id="canvas-width" max="9999" size="5" onchange="setCanvasSize(this.value, undefined)">
+		<h3></h3>
+		<label for="">Height</label>
+		<input type="number" min="1" id="canvas-height" max="9999" size="5" onchange="setCanvasSize(undefined, this.value)">
+	</div>
+
 	<div id="imagep">
 		<canvas id="canvas"></canvas>
 	</div>
-
-	<input type="range" id="zoom" min=10 max=3200 value=100 step=10 onmousemove="canvas.style.transform = 'scale('+(this.value / 100)+')'" onchange="canvas.style.transform = 'scale('+(this.value / 100)+')'">
-
-		<div class="bottomcontrols">
-			<div class="flex col">
-				<input type="range" title="width" min=1 max=200 value=1 style="width:200px;" id="width">
-				<input type="color" id="color" value="#ff0000">
-			</div>
-			<div class="flex row">
-				<button onclick="tooltype = 'pen'">pen</button>
-				<button onclick="tooltype = 'rectangle'">rectangle</button>
-			</div>
-			<div class="flex col">
-				<div>
-					<input type="number" min=2 max=2048 value=512 name="imgwidth" id="imgwidth" onchange="setCanvasSize(this.value, undefined)"><label for="imgwidth">Width</label>
-				</div>
-				<div>
-					<input type="number" min=2 max=2048 value=512 name="imgheight" id="imgheight" onchange="setCanvasSize(undefined,this.value)"><label for="imgheight">Height</label>
-				</div>
-			</div>
-
-		</div>
 
 		<script src="script.js"></script>
 
