@@ -1,105 +1,105 @@
 body {
-    height:100vh;
-    background-color:var(--beige2) !important;
-    overflow:hidden;
+	height:100vh;
+	background-color:var(--beige2) !important;
+	overflow:hidden;
 
-    label,
-    input {
-        display:inline-block;
-    }
+	label,
+	input {
+		display:inline-block;
+	}
 
-    .altbar {
-        a:hover {
-            background-color: var(--hovercolor);
-        }
+	.altbar {
+		a:hover {
+			background-color: var(--hovercolor);
+		}
 
-        a:active {
-            background-color: lime;
-        }
-    }
+		a:active {
+			background-color: lime;
+		}
+	}
 
-    #canvascopy {
-        position:absolute;
-        top:0;
-        left:0;
-        filter:blur(16px);
-        opacity:.6;
-        z-index:-1;
-        height:100%;
-        width:100%;
-    }
+	#canvascopy {
+		position:absolute;
+		top:0;
+		left:0;
+		filter:blur(16px);
+		opacity:.6;
+		z-index:-1;
+		height:100%;
+		width:100%;
+	}
 
-    #loadcanvas {
-        position:absolute;
-        opacity:0;
-        display:inline;
-        visibility: hidden;
-    }
+	#loadcanvas {
+		position:absolute;
+		opacity:0;
+		display:inline;
+		visibility: hidden;
+	}
 
-    #imagep {
-        position: relative;
-        display: flex;
-        top: 0;
-        left: 0;
-        height: calc(100% - var(--altbarheight) - 10vh);
-        max-height:calc(100% - var(--altbarheight) + 60px);
-        width: 100%;
-        justify-content: center;
-        align-items: center;
-        overflow:hidden;
-        box-sizing: border-box;
+	#imagep {
+		position: relative;
+		display: flex;
+		top: 0;
+		left: 0;
+		height: calc(100% - var(--altbarheight) - 10vh);
+		max-height:calc(100% - var(--altbarheight) + 60px);
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+		overflow:hidden;
+		box-sizing: border-box;
 
-        canvas {
-            cursor:crosshair;
-            border:1px solid #000;
-            transform:scale(1);
-            position:relative;
-            margin:0;
-            padding:0;
-            image-rendering: pixelated;
-        }
-    }
+		canvas {
+			cursor:crosshair;
+			border:1px solid #000;
+			transform:scale(1);
+			position:relative;
+			margin:0;
+			padding:0;
+			image-rendering: pixelated;
+		}
+	}
 
-    #zoom {
-        width:20vw;
-        position:absolute;
-        right:0;
-        bottom:11vh;
-    }
+	#zoom {
+		width:20vw;
+		position:absolute;
+		right:0;
+		bottom:11vh;
+	}
 
-    .bottomcontrols {
-        display:flex;
-        position:relative;
-        background:var(--beige3);
-        height:10vh;
-        min-height:60px;
-        border-top:1px solid #000;
-    }
+	.bottomcontrols {
+		display:flex;
+		position:relative;
+		background:var(--beige3);
+		height:10vh;
+		min-height:60px;
+		border-top:1px solid #000;
+	}
 
-    .flex {
-        display:flex;
-    }
+	.flex {
+		display:flex;
+	}
 
-    .row {
-        flex-direction: row;
-    }
+	.row {
+		flex-direction: row;
+	}
 
-    .col {
-        flex-direction: column;
-    }
+	.col {
+		flex-direction: column;
+	}
 }
 
 @media (prefers-color-scheme:dark) {
-    body {
-        background:var(--black) !important;
+	body {
+		background:var(--black) !important;
 
-        #imagep canvas {
-            border:2px solid var(--themecolor);
-        }
-    
-        .bottomcontrols {
-            border-top:1px solid var(--themecolor);
-            background:var(--themecolor);
-        }
-    }
+		#imagep canvas {
+			border:2px solid var(--themecolor);
+		}
+	
+		.bottomcontrols {
+			border-top:1px solid var(--themecolor);
+			background:var(--themecolor);
+		}
+	}
 }
