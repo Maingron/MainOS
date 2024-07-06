@@ -57,6 +57,13 @@ async function doThisOnMouseMove(e) {
                 render();
                 steps.pop();
             }
+        } else if(tool == "circle") {
+            if(steps[steps.length - 1][5] == "circle" && steps[steps.length - 1][0]) {
+                render();
+                steps.pop();
+            }
+        } else {
+            render();
         }
     }
 
@@ -103,6 +110,10 @@ async function render(event) {
                 paintDraw.line(lastPosition[0], lastPosition[1], step[1], step[2], step[3], step[4], lastPosition[2]);
             } else if(step[5] == "rect") {
                 paintDraw.rectangle(lastPosition[0], lastPosition[1], step[1], step[2], step[3]);
+            } else if(step[5] == "spherebrush") {
+                paintDraw.spherebrush(lastPosition[0], lastPosition[1], step[1], step[2], step[3]);
+            } else if(step[5] == "circle") {
+                paintDraw.circle(lastPosition[0], lastPosition[1], step[1], step[2], step[3]);
             }
         }
 
@@ -221,8 +232,45 @@ var paintDraw = {
         ctx.moveTo(x, y);
         ctx.fillRect(x, y, x2, y2);
         ctx.stroke();
+    },
 
+    spherebrush: function(x, y, x2, y2, color) {
+        const radius = Math.sqrt(Math.pow(x2 - x, 2) + Math.pow(y2 - y, 2)) / 2;
+
+        ctx.fillStyle = color;
+        ctx.strokeStyle = color;
+    
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.stroke();
+    },
+
+    circle: function(x, y, x2, y2, color, width, outlineOnly = false) {
+        const centerX = (x + x2) / 2;
+        const centerY = (y + y2) / 2;
+    
+        // Calculate the radius of the circle
+        const radius = Math.sqrt(Math.pow(x2 - x, 2) + Math.pow(y2 - y, 2)) / 2;
+    
+        ctx.lineWidth = 0;
+        // Set the fill style and stroke style
+        ctx.fillStyle = color;
+    
+        // Draw the circle
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI); // Full circle
+        if(!outlineOnly) {
+            ctx.strokeStyle = "transparent";
+            ctx.fill();
+        }
+
+        if(outlineOnly) {
+            ctx.strokeStyle = color;
+            ctx.stroke();
+        }
     }
+
 }
 
 var props = (function() {
@@ -230,7 +278,9 @@ var props = (function() {
         tool: 0,
         toolMap: {
             "pen": 1,
-            "rect": 2
+            "rect": 2,
+            "spherebrush": 3,
+            "circle": 4
         },
         color: "#ff0000"
     }

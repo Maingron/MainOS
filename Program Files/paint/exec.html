@@ -27,8 +27,10 @@
 
 	<div class="leftmenu">
 		<h3>Tool: </h3>
-		<button title="pen" class="tool tool--pen" onclick="props.setTool('pen', this)">✏️</button>
-		<button title="rectangle" class="tool tool--rect" onclick="props.setTool('rect', this)">🟧</button>
+		<button title="Pen" class="tool tool--pen" onclick="props.setTool('pen', this)">✏️</button>
+		<button title="Rectangle" class="tool tool--rect" onclick="props.setTool('rect', this)">🟧</button>
+		<button title="spherebrush" class="tool tool--spherebrush" onclick="props.setTool('spherebrush', this)">🟡</button>
+		<button title="circle" class="tool tool--circle" onclick="props.setTool('circle', this)">⭕</button>
 		<h3>Color:</h3>
 		<input type="color" class="color" value="#ff0000" size="5" onchange="props.setColor(this.value)">
 		<h3>Pen Size</h3>
