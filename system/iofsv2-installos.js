@@ -139,7 +139,7 @@ for(let file of bulkFiles) {
 }
 
 const bulkFilesExt = [
-    ["C:/users/default/photos/fluent.jpg", "users/default/photos/fluent.jpg","t=jpg"],
+    ["C:/users/default/photos/fluent.svg", "users/default/photos/fluent.svg","t=svg"],
     ["C:/users/default/photos/Maingron 1024x.png", "users/default/photos/Maingron 1024x.png", "t=png"],
     ["C:/Program Files/cmd/icon.png", "Program Files/cmd/icon.png", "t=png"],
     ["C:/Program Files/colors/icon.svg", "Program Files/colors/icon.svg", "t=svg"],

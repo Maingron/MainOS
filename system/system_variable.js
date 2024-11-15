@@ -117,7 +117,7 @@ function getInitialSettings() {
         themecolor: "#994400",
         themecolor2: "#dd6600",
         prefersDarkMode: system.hostOS.prefersDarkMode,
-        backgroundImage: "C:/users/public/photos/fluent.jpg",
+        backgroundImage: "C:/users/public/photos/fluent.svg",
         accessibility: {
             tts: {
                 enabled: false
