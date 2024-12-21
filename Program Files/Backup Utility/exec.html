@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Backup Utility</title>
+		<meta charset="UTF-8">
+		<link rel="shortcut icon" href="#iofs:C:/Program Files/Backup Utility/icon.png">
+		<link rel="stylesheet" href="style.min.css">
+		<link rel="stylesheet" href="../../helper.min.css">
+		<script src="../../helper.js"></script>
+		<script src="scripts.js"></script>
+	</head>
+	<body>
+		<main style="padding: 0 10px;">
+			<h2>Export</h2>
+			<div style="padding-left: 10px;">
+				<a target="_blank" id="link1" disabled>(Loading...) Download IOfs image to PC</a>
+			</div>
+
+			<h2>Import</h2>
+			<div style="padding-left: 10px">
+					
+				<input type="file" id="link2" accept="application/json">
+				<input type="button" value="Start import" onclick="startImport()">
+				<p>
+					<b>Note</b>: Once you click on import, your current IOfs will be overridden!
+				</p>
+			</div>
+
+		</main>
+	</body>
+</html>

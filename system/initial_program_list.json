@@ -116,5 +116,11 @@
         "id": "photo-viewer",
         "src": "Program%20Files/photo-viewer/exec.html",
         "icon": "#iofs:C:/Program Files/photo-viewer/icon.svg"
+    },
+    "backup_utility": {
+        "id": "backup_utility",
+        "src": "Program%20Files/Backup Utility/exec.html",
+        "icon": "#iofs:C:/Program Files/Backup Utility/icon.png",
+        "devonly": true
     }
 }
