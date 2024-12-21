@@ -466,6 +466,27 @@ var iofs = {
 		}
 
 		return false;
+	},
+
+	exportImage: function() {
+		let fsImage = JSON.stringify(localStorage);
+		
+		return fsImage;
+	},
+
+	importImage: function(iofsJSON, sure = false) {
+		if(!sure) {
+			return false;
+		}
+
+		iofsJSON = JSON.parse(iofsJSON);
+
+		localStorage.clear();
+
+		for(let fileName of Object.keys(iofsJSON)) {
+			let file = iofsJSON[fileName];
+			localStorage.setItem(fileName, file);
+		}
 	}
 }
 
