@@ -10,18 +10,18 @@
 	</head>
 
 	<body>
-		<div class="content">
+		<form class="content" action="javascript:submit();">
 			<p>Type the name of a program to run:</p>
 			<div id="box1">
 				<div id="box1a">
-					<input id="input" type="text" placeholder="Type a program name" autofocus onkeydown="if (event.keyCode == 13) {submit(this.value)}">
+					<input id="input" type="text" placeholder="Type a program name" autofocus>
 				</div>
 				<div id="box1b">
-					<button id="run" onclick="submit(document.getElementById('input').value)">Run</button>
-					<button id="cancel" onclick="pWindow.close()">Cancel</button>
+					<button id="run" type="submit">Run</button>
+					<button id="cancel" onclick="pWindow.close()" type="reset">Cancel</button>
 				</div>
 			</div>
-		</div>
+		</form>
 		<script late-src="script.js"></script>
 	</body>
 </html>
