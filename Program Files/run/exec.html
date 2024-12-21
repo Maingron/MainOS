@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<title>Run</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../../helper.min.css">
+		<link rel="stylesheet" href="style.css">
+		<link rel="shortcut icon" href="#iofs:C:/Program Files/run/icon.png">
+		<script src="../../helper.js"></script>
+	</head>
 
-<head>
-  <title>Run</title>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="../../helper.min.css">
-  <link rel="stylesheet" href="style.css">
-  <link rel="shortcut icon" href="#iofs:C:/Program Files/run/icon.png">
-  <script src="../../helper.js"></script>
-</head>
-
-<body>
-  <div class="content">
-    <p>Type the name of a program to run:</p>
-    <div id="box1">
-      <div id="box1a">
-        <input id="input" type="text" placeholder="Type a program name" autofocus onkeydown="if (event.keyCode == 13) {submit(this.value)}">
-      </div>
-      <div id="box1b">
-        <button id="run" onclick="submit(document.getElementById('input').value)">Run</button>
-        <button id="cancel" onclick="pWindow.close()">Cancel</button>
-      </div>
-    </div>
-  </div>
-  <script late-src="script.js"></script>
-</body>
-
+	<body>
+		<div class="content">
+			<p>Type the name of a program to run:</p>
+			<div id="box1">
+				<div id="box1a">
+					<input id="input" type="text" placeholder="Type a program name" autofocus onkeydown="if (event.keyCode == 13) {submit(this.value)}">
+				</div>
+				<div id="box1b">
+					<button id="run" onclick="submit(document.getElementById('input').value)">Run</button>
+					<button id="cancel" onclick="pWindow.close()">Cancel</button>
+				</div>
+			</div>
+		</div>
+		<script late-src="script.js"></script>
+	</body>
 </html>
