@@ -62,12 +62,11 @@
         "title": "notifications",
         "src": "Program%20Files/notifications/exec.html",
         "autostart": "minimized",
-        "maxopen": 1,
         "controls": {
             "fullscreen": false,
             "minimize": true,
             "maximize": false,
-            "close": false,
+            "close": true,
             "resize": false,
             "pin": false,
             "bar-move": false,
