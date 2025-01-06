@@ -399,6 +399,8 @@ var iofs = {
 
 		result = result.concat(addToResult);
 
+		result.sort();
+
 		return result;
 	},
 
