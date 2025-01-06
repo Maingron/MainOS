@@ -19,8 +19,11 @@ var iofs = {
 		}
 
 		if(typeof(attributes) == "object") {
-			let attributeArray = attributes;
-			attributes = Object.values(attributes).join(",");
+			let newAttributes = [];
+			for(let attributePart of Object.keys(attributes)) {
+				newAttributes.push(attributePart + "=" + attributes[attributePart]);
+			}
+			attributes = newAttributes.join(",");
 		}
 
 		attributes = "" + attributes;
@@ -216,8 +219,15 @@ var iofs = {
 				description: undefined
 			},
 			probablyWantRaw: true,
-			attributes: localStorage.getItem(path).split("*")[0].split(","),
+			attributes: {},
+			attributesRaw: localStorage.getItem(path).split("*")[0].split(","),
 			type: this.typeof(path)
+		}
+
+		for(let attribute of result.attributesRaw) {
+			if(attribute && attribute.split("=")[0] && attribute.split("=")[1]) {
+				result.attributes[attribute.split("=")[0]] = attribute.split("=")[1];
+			}
 		}
 
 		result.ending = result.name.split(".").pop();

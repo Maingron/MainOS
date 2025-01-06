@@ -172,6 +172,24 @@ body {
                 &_F {
                     background-color: purple;
                 }
+                &_f {
+                    // Favorites
+                    background-color: transparent;
+                    border: 0px transparent;
+                    padding: 0;
+                    
+                    &::before {
+                        content: "★";
+                        line-height: 1;
+                        position: absolute;
+                        display: inline-block;
+                        color: #ff0;
+                        font-size: 12px;
+                        line-height: 12px;
+                        left: 0;
+                        text-shadow: 0 0 1px #77777799;
+                    }
+                }
                 &_0 {
                     // system file
                     background-image: url("../../../logo.png");
