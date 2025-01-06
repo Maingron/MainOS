@@ -21,11 +21,13 @@ function explorerdo(path, action = "default") { // Shows directory or does stuff
 
 
     var filesInPath = iofs.listdir(path, 0); // List files
+    filesInPath.sort();
 
     document.getElementById("content_files").innerHTML = ""; // Clear listed files
     filesListed = []; // Clear filesListed
 
     let newChild;
+
     for(let file of filesInPath) {
         newChild = document.createElement("a");
         newChild.setAttribute("path", file);
