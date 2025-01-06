@@ -33,11 +33,11 @@ function explorerdo(path, action = "default") { // Shows directory or does stuff
         newChild.href = "javascript:explorerdo('" + file + "')";
 
         if(iofs.typeof(file) == "dir") {
-            newChild.style.order = 1;
-            newChild.setAttribute("tabindex", "1");
+            newChild.style.order = 5;
+            newChild.setAttribute("tabindex", "5");
         } else {
-            newChild.style.order = 2;
-            newChild.setAttribute("tabindex", "2");
+            newChild.style.order = 6;
+            newChild.setAttribute("tabindex", "6");
         }
 
         newChild.innerText = iofs.getName(file); // Add text while removing full path and trailing slash

@@ -22,6 +22,10 @@ function applyFileAttributesToAll() {
 					if(a_attribute == "0") {
 						fileElement.classList.add("system_file");
 					}
+					if(a_attribute == "f") {
+						fileElement.classList.add("fattr-favorite_file");
+						fileElement.style.order -=50;
+					}
 				} else if(["a"].includes(a_attribute)) {
 					fileElement.classList.add("fattr-hidden");
 				} else if(["!"].includes(a_attribute)) {
