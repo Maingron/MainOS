@@ -115,6 +115,25 @@ function renameFile(source, target) {
     }
 }
 
+function toggleFileAttribute(fullFilePath, attribute) {
+    if(iofs.exists(fullFilePath)) {
+        let sourceFile = iofs.load(fullFilePath);
+        let sourceFileAttr = iofs.getInfos(fullFilePath);
+        if(sourceFileAttr.attributes && sourceFileAttr.attributes["A"]) {
+            if(sourceFileAttr.attributes["A"].indexOf(attribute)>-1) {
+                sourceFileAttr.attributes["A"] = sourceFileAttr.attributes["A"].replace(attribute,"");
+            } else {
+                sourceFileAttr.attributes["A"] += attribute;
+            }
+        } else {
+            sourceFileAttr.attributes["A"] = attribute;
+        }
+        iofs.save(fullFilePath, sourceFile, sourceFileAttr.attributes, true);
+    }
+
+    explorerrefresh();
+}
+
 function contextMenu(event) {
     if(event.target.attributes.path) {
         if(iofs.typeof(event.target.attributes.path.value) != "dir") {
@@ -123,13 +142,33 @@ function contextMenu(event) {
                 ["Open in Photo Viewer", "explorerdo('" + event.target.attributes.path.value + "', 'view_image')"],
                 ["Open in Paint", "explorerdo('" + event.target.attributes.path.value + "', 'paint')"],
                 ["<hr>"],
+                ["Toggle Favorite", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'f')"],
+                ["Toggle Dot A", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'A')"],
+                ["Toggle Dot B", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'B')"],
+                ["Toggle Dot C", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'C')"],
+                ["Toggle Dot D", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'D')"],
+                ["Toggle Dot E", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'E')"],
+                ["Toggle Dot F", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'F')"],
+                ["<hr>"],
                 ["Rename File", "renameFile('"+event.target.attributes.path.value+"','"+currentPath + "renamed File - something.txt"+"')","disabled"],
                 ["Delete File","explorer_deletefile('" + event.target.attributes.path.value + "')"],
                 ["<hr>"],
                 ["Properties","","disabled"]]
             ) // ["Backup File","savefile('" + event.target.attributes.path.value + ' - Copy' + "','" + iofs.load(event.target.attributes.path.value) + "', 0, 't=txt')"]
         } else {
-            spawnContextMenu([["Delete Folder","explorer_deletefile('" + event.target.attributes.path.value + "',1)"], ["Properties","","disabled"]])
+            spawnContextMenu([
+                ["Toggle Favorite", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'f')"],
+                ["Toggle Dot A", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'A')"],
+                ["Toggle Dot B", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'B')"],
+                ["Toggle Dot C", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'C')"],
+                ["Toggle Dot D", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'D')"],
+                ["Toggle Dot E", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'E')"],
+                ["Toggle Dot F", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'F')"],
+                ["<hr>"],
+                ["Delete Folder","explorer_deletefile('" + event.target.attributes.path.value + "',1)"],
+                ["<hr>"],
+                ["Properties","","disabled"]
+            ]);
         }
     } else {
         spawnContextMenu([["Refresh","explorerrefresh()"],["<hr>"],["New File","newFile()"],["<hr>"],["Properties","","disabled"]])
