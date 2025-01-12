@@ -314,6 +314,9 @@ function run(which, iattr, how) { // Run a program
             },
             "settings": protectedData.programObject["settings"] || {},
         }
+
+        // send message to program when pWindow is ready
+        myWindow.frame.contentWindow.postMessage('pWindowReady', '*');
     }
 
     // once the frame's src is fully loaded, we hand infos to the window
