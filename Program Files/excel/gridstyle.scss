@@ -1,52 +1,113 @@
-* {
-	transition: .2s;
-	font-size: 1em;
+body {
+	background-color: #f8f9fa; // Light background color for the page
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-family: var(--font);
 }
 
-#gridcontainercontainer {
+#status-bar-top {
+	width: 100%;
+	background: var(--themecolor);
+	color: #fff;
+	padding: 5px;
+	text-align: left;
+	box-sizing: border-box;
+}
+
+#status-bar-bottom {
+	width: 100%;
+	background: var(--themecolor);
+	color: #fff;
+	padding: 5px;
+	text-align: right;
+	box-sizing: border-box;
 	display: flex;
-	justify-content: center;
+	justify-content: flex-end;
 	align-items: center;
 }
 
-#gridcontainer {
-	display: inline-grid;
-	width: 100%;
-	overflow: hidden;
-	grid-template-columns: repeat(7, 1fr);
-	box-sizing: border-box;
-
-	.cell {
-		transition: 0s;
-		overflow: hidden;
-		text-align: left;
-		background-color: #fff;
-		width: 100%;
-		line-height: 1.25em;
-		height: 1.25em;
-		padding: 0;
-		overflow: hidden;
-		border: 0px solid transparent !important;
-		outline: .5px solid #777777aa;
-		resize: none;
-		border-radius: 0;
-		box-sizing: border-box;
-		appearance: none;
-
-		&:hover {
-			cursor: cell;
-			background-color: var(--hovercolor);
-		}
-
-		&:focus {
-			cursor: text;
-			background-color: var(--hovercolor);
-		}
-	}
+#zoom-slider {
+	margin-left: 10px;
 }
 
-@media (prefers-color-scheme:dark) {
-	body #gridcontainer .cell {
-		background-color: var(--black);
-	}
+#grid-container {
+	width: 100%;
+	height: calc(100% - 60px); // Adjust height to leave space for status bars
+	overflow: hidden; // Prevent actual scrolling
+	position: relative;
+	background-color: #ffffff; // White background for the grid container
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); // Light shadow for better visibility
+}
+
+#grid {
+	display: grid;
+	grid-template-rows: repeat(auto-fill, 30px); // Adjusted to match rowHeight
+	grid-template-columns: repeat(auto-fill, 100px); // Adjusted to match colWidth
+	height: 100%; // Ensure the grid takes full height
+	width: 100%; // Ensure the grid takes full width
+}
+
+.row {
+	display: contents;
+}
+
+.cell {
+	border: 1px solid #ccc;
+	padding: 4px; // Adjusted padding for smaller cells
+	box-sizing: border-box;
+	outline: none; // Remove outline on focus
+	font-family: var(--font);
+}
+
+.cell:focus {
+	border-color: var(--themecolor2); // Highlight border on focus
+}
+
+.cell.sticky-row {
+	position: sticky;
+	top: 0;
+	background: var(--hovercolornontransparent);
+	z-index: 1;
+}
+
+.cell.sticky-col {
+	position: sticky;
+	left: 0;
+	background: var(--hovercolornontransparent);
+	z-index: 1;
+}
+
+#scroll-indicator {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	padding: 5px;
+	z-index: 1000;
+}
+
+#vertical-scroll-bar {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 10px;
+	background: var(--hovercolor);
+	z-index: 1000;
+	cursor: pointer;
+}
+
+#horizontal-scroll-bar {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 10px;
+	background: var(--hovercolor);
+	z-index: 1000;
+	cursor: pointer;
 }
