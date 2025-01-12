@@ -265,10 +265,8 @@ function addDesktopIcon(which) {
 }
 
 function addProgramIconToFolder(which) {
-    iofs.save(system.user.paths.programShortcuts + (which.title).replaceAll("'", "&#39;") + ".run", JSON.stringify(which), "run", 1)
+    iofs.save(system.user.paths.programShortcuts + which.title.trim() + ".run", JSON.stringify(which), "run", 1);
 }
-
-
 
 /**
  * @deprecated
