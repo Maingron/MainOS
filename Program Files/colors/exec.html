@@ -3,82 +3,13 @@
 <head>
 	<meta charset="utf-8">
 	<script src="../../helper.js"></script>
-	<link rel="shortcut icon" href="#iofs:C:/Program Files/colors/icon.svg">
+	<script src="scripts.js"></script>
+	<link rel="shortcut icon" href="#iofs:C:/Program Files/colors/icon.svg" type="image/svg+xml">
 	<link rel="stylesheet" href="imgstyle.css">
 	<link rel="stylesheet" href="../../helper.min.css">
 	<title>Colors</title>
 </head>
 <body>
 	<div id="imgs"></div>
-
-	<script>
-		// add a hashCode method to String prototype
-		String.prototype.hashCode = function() {
-			let hash = 0, i, chr;
-			for (i = 0; i < this.length; i++) {
-				chr = this.charCodeAt(i);
-				hash = ((hash << 5) - hash) + chr;
-				hash |= 0; // Convert to 32bit integer
-			}
-			return hash;
-		};
-
-		 // hardcoded seed for generating random colors
-		const seed = 'maingron';
-		let colors = Array.from({ length: 400 }, (_, i) => randomColor(seed + i));
-		let isScrolling = false;
-
-		// generate a random color using a seed
-		function randomColor(seed) {
-			const x = Math.abs(Math.sin(seed.hashCode()) * 16777215) % 16777215;
-			const r = (x >> 16) & 255;
-			const g = (x >> 8) & 255;
-			const b = x & 255;
-			return `rgb(${r}, ${g}, ${b})`;
-		}
-
-		// create squares with the random colors
-		function createSquares(colors) {
-			const fragment = document.createDocumentFragment();
-			colors.forEach(color => {
-				const square = document.createElement("div");
-				square.style.backgroundColor = color;
-				square.onclick = () => copyToClipboard(square.style.backgroundColor);
-				fragment.appendChild(square);
-			});
-			document.getElementById("imgs").appendChild(fragment);
-		}
-
-		// copy the color code to the clipboard
-		function copyToClipboard(text) {
-			const input = document.createElement("input");
-			input.value = text;
-			document.body.appendChild(input);
-			input.select();
-			document.execCommand("copy");
-			document.body.removeChild(input);
-		}
-
-		// load more colors when reaching the end of the page
-		function handleScroll() {
-			if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
-				const newColors = Array.from({ length: 100 }, (_, i) => randomColor(seed + (colors.length + i)));
-				colors = colors.concat(newColors);
-				createSquares(newColors);
-			}
-			isScrolling = false;
-		}
-
-		// debounce scroll event
-		window.onscroll = function() {
-			if (!isScrolling) {
-				isScrolling = true;
-				requestAnimationFrame(handleScroll);
-			}
-		};
-
-		// initial load
-		createSquares(colors);
-	</script>
 </body>
 </html>
