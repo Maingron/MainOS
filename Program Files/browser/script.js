@@ -1,3 +1,5 @@
+"use strict";
+
 const webframe = document.getElementById('webframe');
 const urlbar = document.getElementById('urlbar');
 const favicon = document.getElementById('favicon');
@@ -8,15 +10,62 @@ var config = {
 
 var currentURL;
 
+navigator.serviceWorker.register('service-worker.js').then(function(registration) {
+	initializeBrowser();
+});
+
+function initializeBrowser() {
+	navigator.serviceWorker.ready.then(function() {
+		sendRequest(config.homepage);
+
+		webframe.addEventListener('load', function(e) {
+			if(checkFunctionalityAndReturnUrl() != currentURL) {
+				sendRequest(checkFunctionalityAndReturnUrl());
+			}
+		});
+
+		webframe.addEventListener('load', function(e) {
+			var links = webframe.contentWindow.document.getElementsByTagName('a');
+			for(var i = 0; i < links.length; i++) {
+				links[i].addEventListener('click', function(e) {
+					e.preventDefault();
+					const href = e.target.closest('a').href;
+					sendRequest(href);
+				}, true); // Use capturing instead of bubbling
+			}
+		});
+
+		navigator.serviceWorker.addEventListener('message', function(event) {
+			if (event.data.type === 'siteLoaded') {
+				webframe.src = event.data.url;
+			}
+
+			if (event.data.type === 'faviconLoaded') {
+				favicon.src = event.data.url;
+			}
+		});
+	});
+}
+
 function loadSite() {
-	webframe.src = currentURL;
+	navigator.serviceWorker.controller.postMessage({
+		type: 'loadSite',
+		url: currentURL
+	});
 }
 
 function loadFavicon() {
-	favicon.src = 'https://www.google.com/s2/favicons?sz=64&domain_url=' + currentURL;
+	navigator.serviceWorker.controller.postMessage({
+		type: 'loadFavicon',
+		url: currentURL
+	});
 }
 
 function parseURL(url) {
+	if (typeof url !== 'string') {
+		return '';
+	}
+
 	var resultingUrl = url;
 
 	if(url.startsWith('websites/')) {
@@ -56,31 +105,3 @@ function toggleControls(status) {
 		document.getElementById('websitecontrols').setAttribute('disabled', true);
 	}
 }
-
-// constantly check if the loaded website is still the same as the one in the urlbar
-// setInterval(function() {
-// 	if(checkFunctionalityAndReturnUrl() != currentURL) {
-// 		sendRequest(checkFunctionalityAndReturnUrl());
-// 	}
-// }, 500);
-
-
-sendRequest(config.homepage);
-
-// when webframe loaded
-webframe.addEventListener('load', function(e) {
-	if(checkFunctionalityAndReturnUrl() != currentURL) {
-		sendRequest(checkFunctionalityAndReturnUrl());
-	}
-});
-
-// try to hijack links in the webframe and replace them with sendRequest(url)
-webframe.addEventListener('load', function(e) {
-	var links = webframe.contentWindow.document.getElementsByTagName('a');
-	for(var i = 0; i < links.length; i++) {
-		links[i].addEventListener('click', function(e) {
-			e.preventDefault();
-			sendRequest(e.target.href);
-		});
-	}
-});
