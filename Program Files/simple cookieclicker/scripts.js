@@ -1,8 +1,8 @@
-let cookies = 0;
-let machines = [];
-let objects = {};
-let cps = 0;
-const storagePath = pWindow.getPath("data");
+var cookies = 0;
+var machines = [];
+var objects = {};
+var cps = 0;
+var storagePath;
 
 // Translations
 if(system.user.settings.language == "de") { // German
@@ -39,7 +39,6 @@ if(system.user.settings.language == "de") { // German
 	}
 }
 
-document.getElementById("lang.store").innerHTML = lang.Store;
 
 const machineList = [
 	// ["Name", Cost, CpS],
@@ -66,34 +65,11 @@ function generateStoreItem(a) {
 	return result;
 }
 
-for(let i = 0; machineList.length > i; i++) {
-	document.getElementById("storenav").innerHTML += generateStoreItem(i);
-}
-
-install();
-
-machines = iofs.load(storagePath+"machines.txt"); // Load file
-machines = JSON.parse(machines); // Convert file into JSON / Array
-
-objects.cookiecount = document.getElementsByClassName("cookiecount")[0];
-updateCookieCounter();
 
 function clicked() {
 	cookies++;
 	updateCookieCounter();
 }
-
-setInterval(function () {
-	iofs.save(storagePath+"cookies.txt", cookies, "", 1);
-}, 1000);
-
-// Automatic cookies
-setInterval(function () {
-	for(let j = 0; machines.length > j; j++) {
-		cookies += +machines[j] * +machineList[j][2];
-	}
-	updateCookieCounter();
-}, 1000);
 
 function buy(which) { // Buy automatic cookies
 	if(cookies >= machineList[which - 1][1]) {
@@ -101,6 +77,7 @@ function buy(which) { // Buy automatic cookies
 		machines[which - 1] += 1;
 	}
 	updateCookieCounter();
+
 	iofs.save(storagePath+"machines.txt", JSON.stringify(machines), "", 1);
 }
 
@@ -112,7 +89,7 @@ function updateCookieCounter() {
 	objects.cookiecount.innerHTML = cookies + "<sub>" + cps + "/s</sub>";
 }
 
-function install() {
+function install(storagePath) {
 	if(!iofs.exists(storagePath)) {
 		iofs.save(storagePath, "", "t=dir", 0, 1);
 	}
@@ -129,4 +106,43 @@ function install() {
 		}
 		iofs.save(storagePath+"machines.txt", JSON.stringify(machines), "", 1);
 	}
+}
+
+window.addEventListener('message', function(event) {
+	if (event.data === 'pWindowReady') {
+		storagePath = pWindow.getPath("data");
+
+		install(storagePath);
+
+		buildHtml();
+
+		machines = iofs.load(storagePath+"machines.txt"); // Load file
+		machines = JSON.parse(machines); // Convert file into JSON / Array
+
+		objects.cookiecount = document.getElementsByClassName("cookiecount")[0];
+		updateCookieCounter();
+
+		setInterval(function () {
+			iofs.save(storagePath+"cookies.txt", cookies, "", 1);
+		}, 1000);
+
+		// Automatic cookies
+		setInterval(function () {
+			for(let j = 0; machines.length > j; j++) {
+				cookies += +machines[j] * +machineList[j][2];
+			}
+			updateCookieCounter();
+		}, 1000);
+	}
+});
+
+function buildHtml() {
+
+	for(let i = 0; machineList.length > i; i++) {
+		document.getElementById("storenav").innerHTML += generateStoreItem(i);
+	}
+	
+	document.getElementById("lang.store").innerHTML = lang.Store;
+
+	document.querySelector("#cookie").addEventListener("click", clicked);
 }
