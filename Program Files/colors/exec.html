@@ -1,54 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <script src="../../helper.js"></script>
-    <link rel="shortcut icon" href="#iofs:C:/Program Files/colors/icon.svg" >
-    <link rel="stylesheet" href="imgstyle.css">
-    <link rel="stylesheet" href="../../helper.min.css">
-    <title>Colors</title>
+	<meta charset="utf-8">
+	<script src="../../helper.js"></script>
+	<link rel="shortcut icon" href="#iofs:C:/Program Files/colors/icon.svg">
+	<link rel="stylesheet" href="imgstyle.css">
+	<link rel="stylesheet" href="../../helper.min.css">
+	<title>Colors</title>
 </head>
 <body>
-    <div id="imgs">
-    </div>
+	<div id="imgs"></div>
 
+	<script>
+		// generate a variable with random colors
+		const colors = Array.from({ length: 600 }, randomColor);
 
-    <script>
+		// generate a random color
+		function randomColor() {
+			const r = Math.floor(Math.random() * 256);
+			const g = Math.floor(Math.random() * 256);
+			const b = Math.floor(Math.random() * 256);
+			return `rgb(${r}, ${g}, ${b})`;
+		}
 
-            // generate a variable with random colors
-            let colors = [];
-            for (let i = 0; i < 600; i++) {
-                colors.push(randomColor());
-            }
+		// create squares with the random colors
+		colors.forEach(color => {
+			const square = document.createElement("div");
+			square.style.backgroundColor = color;
+			square.onclick = () => copyToClipboard(square.style.backgroundColor);
+			document.getElementById("imgs").appendChild(square);
+		});
 
-            // generate a random color
-            function randomColor() {
-                let r = Math.floor(Math.random() * 256);
-                let g = Math.floor(Math.random() * 256);
-                let b = Math.floor(Math.random() * 256);
-                return "rgb(" + r + ", " + g + ", " + b + ")";
-            }
-
-            // create 20 squares with the random colors
-            for (let i = 0; i < colors.length; i++) {
-                let square = document.createElement("div");
-                square.style.backgroundColor = colors[i];
-                square.onclick = function() {
-                    copyToClipboard(this.style.backgroundColor);
-                }
-                document.getElementById("imgs").appendChild(square);
-            }
-
-            // copy the colorcode to the clipboard
-            function copyToClipboard(text) {
-                let input = document.createElement("input");
-                input.setAttribute("value", text);
-                document.body.appendChild(input);
-                input.select();
-                document.execCommand("copy");
-                document.body.removeChild(input);
-            }
-    </script>
-
+		// copy the color code to the clipboard
+		function copyToClipboard(text) {
+			const input = document.createElement("input");
+			input.value = text;
+			document.body.appendChild(input);
+			input.select();
+			document.execCommand("copy");
+			document.body.removeChild(input);
+		}
+	</script>
 </body>
 </html>
