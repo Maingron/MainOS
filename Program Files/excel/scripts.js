@@ -5,8 +5,7 @@ let props = {
 	visibleCols: 0, // Number of visible columns
 	rowHeight: 30, // Height of each row in pixels
 	colWidth: 100, // Width of each column in pixels
-	startRow: 0,
-	startCol: 0,
+	coords: { startRow: 0, startCol: 0 },
 	zoomLevel: 100 // Initial zoom level
 };
 
@@ -93,10 +92,18 @@ function updateScrollBars() {
 	const totalCols = Object.keys(celldata).reduce((max, key) => Math.max(max, key.replace(/\d/g, '').split('').reduce((sum, char) => sum * 26 + char.charCodeAt(0) - 64, 0)), 0) + 10; // Add extra columns for overscroll
 
 	verticalScrollBar.style.height = `${(props.visibleRows / totalRows) * 100}%`;
-	verticalScrollBar.style.top = `${(props.startRow / totalRows) * 100}%`;
+	verticalScrollBar.style.top = `${(props.coords.startRow / totalRows) * 100}%`;
 
 	horizontalScrollBar.style.width = `${(props.visibleCols / totalCols) * 100}%`;
-	horizontalScrollBar.style.left = `${(props.startCol / totalCols) * 100}%`;
+	horizontalScrollBar.style.left = `${(props.coords.startCol / totalCols) * 100}%`;
+}
+
+function updatePosition(newRow, newCol) {
+	props.coords.startRow = newRow;
+	props.coords.startCol = newCol;
+	updateGrid(props.coords.startRow, props.coords.startCol);
+	updateScrollBars();
+	document.getElementById('scroll-indicator').innerText = `Row: ${props.coords.startRow}, Col: ${props.coords.startCol}`;
 }
 
 function onWheel(event) {
@@ -104,21 +111,22 @@ function onWheel(event) {
 	const deltaY = event.deltaY;
 	const deltaX = event.deltaX;
 
+	let newRow = props.coords.startRow;
+	let newCol = props.coords.startCol;
+
 	if (deltaY > 0) {
-		props.startRow++;
-	} else if (deltaY < 0 && props.startRow > 0) {
-		props.startRow--;
+		newRow++;
+	} else if (deltaY < 0 && newRow > 0) {
+		newRow--;
 	}
 
 	if (deltaX > 0) {
-		props.startCol++;
-	} else if (deltaX < 0 && props.startCol > 0) {
-		props.startCol--;
+		newCol++;
+	} else if (deltaX < 0 && newCol > 0) {
+		newCol--;
 	}
 
-	updateGrid(props.startRow, props.startCol);
-	updateScrollBars();
-	document.getElementById('scroll-indicator').innerText = `Row: ${props.startRow}, Col: ${props.startCol}`;
+	updatePosition(newRow, newCol);
 }
 
 function onVerticalScrollBarMouseDown(event) {
@@ -131,10 +139,8 @@ function onVerticalScrollBarMouseDown(event) {
 		const totalRows = Object.keys(celldata).reduce((max, key) => Math.max(max, parseInt(key.match(/\d+/)[0])), 0) + 10; // Add extra rows for overscroll
 		const maxTop = 100 - (props.visibleRows / totalRows) * 100;
 		if (newTop >= 0 && newTop <= maxTop) {
-			props.startRow = Math.floor((newTop / 100) * totalRows);
-			updateGrid(props.startRow, props.startCol);
-			updateScrollBars();
-			document.getElementById('scroll-indicator').innerText = `Row: ${props.startRow}, Col: ${props.startCol}`;
+			const newRow = Math.floor((newTop / 100) * totalRows);
+			updatePosition(newRow, props.coords.startCol);
 		}
 	}
 
@@ -157,10 +163,8 @@ function onHorizontalScrollBarMouseDown(event) {
 		const totalCols = Object.keys(celldata).reduce((max, key) => Math.max(max, key.replace(/\d/g, '').split('').reduce((sum, char) => sum * 26 + char.charCodeAt(0) - 64, 0)), 0) + 10; // Add extra columns for overscroll
 		const maxLeft = 100 - (props.visibleCols / totalCols) * 100;
 		if (newLeft >= 0 && newLeft <= maxLeft) {
-			props.startCol = Math.floor((newLeft / 100) * totalCols);
-			updateGrid(props.startRow, props.startCol);
-			updateScrollBars();
-			document.getElementById('scroll-indicator').innerText = `Row: ${props.startRow}, Col: ${props.startCol}`;
+			const newCol = Math.floor((newLeft / 100) * totalCols);
+			updatePosition(props.coords.startRow, newCol);
 		}
 	}
 
@@ -192,9 +196,7 @@ function onZoomChange(event) {
 
 window.addEventListener('resize', () => {
 	calculateVisibleRowsCols();
-	createGrid();
-	updateGrid(props.startRow, props.startCol);
-	updateScrollBars();
+	updatePosition(props.coords.startRow, props.coords.startCol);
 });
 
 document.getElementById('grid-container').addEventListener('wheel', onWheel);
