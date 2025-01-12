@@ -12,7 +12,6 @@ function submit(inputcontent = document.querySelector("#input").value) {
 				"isAlert": true
 			});
 		}
-
 	} else {
 		pWindow.os.sendNotification({
 			"title": "Error in Run",
@@ -24,10 +23,14 @@ function submit(inputcontent = document.querySelector("#input").value) {
 	}
 }
 
-pWindow.setMaximized(false);
-parent.resizeWindow(pWindow.getWindow(), 360, 220);
-pWindow.focus();
+window.addEventListener('message', function(event) {
+	if (event.data === 'pWindowReady') {
+		pWindow.setMaximized(false);
+		parent.resizeWindow(pWindow.getWindow(), 360, 220);
+		pWindow.focus();
 
-window.setTimeout(function() {
-	document.querySelector("#input").focus();
-}, 10);
+		window.setTimeout(function() {
+			document.querySelector("#input").focus();
+		}, 200);
+	}
+});
