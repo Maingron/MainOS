@@ -13,7 +13,7 @@
 
 	<script>
 		// generate a variable with random colors
-		const colors = Array.from({ length: 600 }, randomColor);
+		let colors = Array.from({ length: 400 }, randomColor);
 
 		// generate a random color
 		function randomColor() {
@@ -24,12 +24,14 @@
 		}
 
 		// create squares with the random colors
-		colors.forEach(color => {
-			const square = document.createElement("div");
-			square.style.backgroundColor = color;
-			square.onclick = () => copyToClipboard(square.style.backgroundColor);
-			document.getElementById("imgs").appendChild(square);
-		});
+		function createSquares(colors) {
+			colors.forEach(color => {
+				const square = document.createElement("div");
+				square.style.backgroundColor = color;
+				square.onclick = () => copyToClipboard(square.style.backgroundColor);
+				document.getElementById("imgs").appendChild(square);
+			});
+		}
 
 		// copy the color code to the clipboard
 		function copyToClipboard(text) {
@@ -40,6 +42,18 @@
 			document.execCommand("copy");
 			document.body.removeChild(input);
 		}
+
+		// load more colors when reaching the end of the page
+		window.onscroll = function() {
+			if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
+				const newColors = Array.from({ length: 100 }, randomColor);
+				colors = colors.concat(newColors);
+				createSquares(newColors);
+			}
+		};
+
+		// initial load
+		createSquares(colors);
 	</script>
 </body>
 </html>
