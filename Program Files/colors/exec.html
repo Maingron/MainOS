@@ -12,25 +12,41 @@
 	<div id="imgs"></div>
 
 	<script>
-		// generate a variable with random colors
-		let colors = Array.from({ length: 400 }, randomColor);
+		// add a hashCode method to String prototype
+		String.prototype.hashCode = function() {
+			let hash = 0, i, chr;
+			for (i = 0; i < this.length; i++) {
+				chr = this.charCodeAt(i);
+				hash = ((hash << 5) - hash) + chr;
+				hash |= 0; // Convert to 32bit integer
+			}
+			return hash;
+		};
 
-		// generate a random color
-		function randomColor() {
-			const r = Math.floor(Math.random() * 256);
-			const g = Math.floor(Math.random() * 256);
-			const b = Math.floor(Math.random() * 256);
+		 // hardcoded seed for generating random colors
+		const seed = 'maingron';
+		let colors = Array.from({ length: 400 }, (_, i) => randomColor(seed + i));
+		let isScrolling = false;
+
+		// generate a random color using a seed
+		function randomColor(seed) {
+			const x = Math.abs(Math.sin(seed.hashCode()) * 16777215) % 16777215;
+			const r = (x >> 16) & 255;
+			const g = (x >> 8) & 255;
+			const b = x & 255;
 			return `rgb(${r}, ${g}, ${b})`;
 		}
 
 		// create squares with the random colors
 		function createSquares(colors) {
+			const fragment = document.createDocumentFragment();
 			colors.forEach(color => {
 				const square = document.createElement("div");
 				square.style.backgroundColor = color;
 				square.onclick = () => copyToClipboard(square.style.backgroundColor);
-				document.getElementById("imgs").appendChild(square);
+				fragment.appendChild(square);
 			});
+			document.getElementById("imgs").appendChild(fragment);
 		}
 
 		// copy the color code to the clipboard
@@ -44,11 +60,20 @@
 		}
 
 		// load more colors when reaching the end of the page
-		window.onscroll = function() {
+		function handleScroll() {
 			if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
-				const newColors = Array.from({ length: 100 }, randomColor);
+				const newColors = Array.from({ length: 100 }, (_, i) => randomColor(seed + (colors.length + i)));
 				colors = colors.concat(newColors);
 				createSquares(newColors);
+			}
+			isScrolling = false;
+		}
+
+		// debounce scroll event
+		window.onscroll = function() {
+			if (!isScrolling) {
+				isScrolling = true;
+				requestAnimationFrame(handleScroll);
 			}
 		};
 
