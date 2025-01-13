@@ -1,73 +1,89 @@
 <html>
 <head>
-    <title>Online Games</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="../../../../helper.min.css">
-    <link rel="stylesheet" href="style.min.css">
+	<title>Online Games</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="../../../../helper.min.css">
+	<link rel="stylesheet" href="style.min.css">
 </head>
 <body>
-    <div>
-        <h1>Flash games</h1>
-        <div>
-            <category id="games-list">
-                <h2>From onlinegames.io</h2>
-            </category>
-        </div>
-    </div>
-<script>
-    const gamesArray = [
-        ['Egg Car Racing', 'cloud.onlinegames.io/games/2024/construct/289/egg-car-racing/index-og.html', 'www.onlinegames.io/media/posts/910/responsive/egg-car-racing-xs'],
-        ['Drift King', 'www.onlinegames.io/games/2024/unity/drift-king/index.html', 'www.onlinegames.io/media/posts/729/responsive/Drift-King-xs'],
-        ['Highway Traffic', 'www.onlinegames.io/games/2022/unity/highway-traffic/index.html', 'www.onlinegames.io/media/posts/32/responsive/Highway-Traffic-2-xs'],
-        ['Love Tester', 'www.onlinegames.io/games/2021/3/love-tester/index.html', 'www.onlinegames.io/media/posts/152/responsive/love-tester-xs'],
-        ['GTA Simulator', 'www.onlinegames.io/games/2023/unity2/gta-simulator/index.html', 'www.onlinegames.io/media/posts/416/responsive/GTA-Simulator-xs'],
-        ['Masked Special Forces', 'www.onlinegames.io/games/2022/unity2/masked-special-forces/index.html', 'www.onlinegames.io/media/posts/310/responsive/Masked-Special-Forces-FPS-xs'],
-        ['Real Flight Simulator', 'www.onlinegames.io/games/2023/unity/real-flight-simulator/index.html', 'www.onlinegames.io/media/posts/342/responsive/Real-Flight-Simulator-2-xs'],
-        ['Stickman GTA City', 'cloud.onlinegames.io/games/2024/unity3/stickman-gta-city/index-og.html', 'www.onlinegames.io/media/posts/900/responsive/stickman-gta-city-free-xs'],
-        ['Stickman Parkour', 'cloud.onlinegames.io/games/2024/construct/219/stickman-parkour/index-og.html', 'www.onlinegames.io/media/posts/871/responsive/stickman-parkour-OG-xs'],
-        ['Stack Fire Ball', 'www.onlinegames.io/games/2021/unity/stack-fire-ball/index.html', 'www.onlinegames.io/media/posts/184/responsive/Stack-Fire-Ball-Game-xs'],
-        ['Drift Hunters Pro', 'www.onlinegames.io/games/2023/unity/drift-hunters-pro/index.html', 'www.onlinegames.io/media/posts/397/responsive/Drift-Hunters-Pro-xs'],
-        ['Block Blast', 'cloud.onlinegames.io/games/2024/unity3/block-blast/index-og.html', 'www.onlinegames.io/media/posts/876/responsive/block-blast-xs'],
-        ['Madalin Stunt Cars Pro', 'www.onlinegames.io/games/2023/unity/madalin-stunt-cars-pro/index.html', 'www.onlinegames.io/media/posts/401/responsive/Madalin-Stunt-Cars-Pro-Game-xs'],
-        ['Capybara Clicker Pro', 'www.onlinegames.io/games/2023/q2/capybara-clicker-pro/index.html', 'www.onlinegames.io/media/posts/554/responsive/Capybara-Clicker-Pro-xs'],
-        ['Police Chase Drifter', 'www.onlinegames.io/games/2021/3/police-chase-drifter/index.html', 'www.onlinegames.io/media/posts/155/responsive/Police-Chase-Drifter-Online-xs'],
-        ['Super Car Driving', 'cloud.onlinegames.io/games/2024/unity2/super-car-driving/index-og.html', 'www.onlinegames.io/media/posts/854/responsive/supercardriving-2-xs'],
-        ['Burnout City', 'cloud.onlinegames.io/games/2024/unity/burnout-city/index-og.html', 'www.onlinegames.io/media/posts/861/responsive/burnoutcity-xs'],
-        ['Get On Top', 'www.onlinegames.io/games/2024/code/6/get-on-top/index.html', 'www.onlinegames.io/media/posts/697/responsive/Get-on-Top-xs'],
-        ['Basket Hoop', 'cloud.onlinegames.io/games/2024/construct/311/basket-hoop/index-og.html', 'www.onlinegames.io/media/posts/843/responsive/Basket-Hoop-xs'],
-        ['Stickman Destruction', 'www.onlinegames.io/games/2021/unity3/stickman-destruction/index.html', 'www.onlinegames.io/media/posts/233/responsive/Stickman-Destruction-xs'],
-        ['Edys Car Simulator', 'www.onlinegames.io/games/2022/unity/edys-car-simulator/index.html', 'www.onlinegames.io/media/posts/238/responsive/Edys-Car-Simulator-Online-xs'],
-        ['Survival Karts', 'cloud.onlinegames.io/games/2024/unity3/survival-karts/index-og.html', 'www.onlinegames.io/media/posts/887/responsive/survival-karts-play-xs'],
-        ['WarStrike', 'cloud.onlinegames.io/games/2024/unity3/warstrike/index-og.html', 'www.onlinegames.io/media/posts/870/responsive/WarStrike-Online-xs'],
-        ['Guerrillas io', 'www.onlinegames.io/games/2023/unity2/guerrillas-io/index.html', 'www.onlinegames.io/media/posts/423/responsive/Guerillas-io-xs'],
-        ['Highway Cars', 'www.onlinegames.io/games/2023/construct/211/highway-cars/index.html', 'www.onlinegames.io/media/posts/598/responsive/Highway-Cars-xs'],
-        ['Wasteland Shooters', 'www.onlinegames.io/games/2021/unity2/wasteland-shooters/index.html', 'www.onlinegames.io/media/posts/218/responsive/Wasteland-Shooters-xs'],
-        ['FPS Strike', 'cloud.onlinegames.io/games/2024/unity2/fps-strike/index-og.html', 'www.onlinegames.io/media/posts/902/responsive/fps-strike-online-xs'],
-        ['Drift Rider', 'www.onlinegames.io/games/2023/unity3/drift-rider/index.html', 'www.onlinegames.io/media/posts/553/responsive/Drift-Rider-xs'],
-        ['Car Football', 'www.onlinegames.io/games/2023/construct/198/car-football/index.html', 'www.onlinegames.io/media/posts/405/responsive/Car-Football-xs'],
-        ['ArmedForces.io', 'www.onlinegames.io/games/2021/unity3/armedforces-io/index.html', 'www.onlinegames.io/media/posts/234/responsive/Armed-Forces-io-xs'],
-        ['CS Online', 'www.onlinegames.io/games/2023/unity2/cs-online/index.html', 'www.onlinegames.io/media/posts/434/responsive/CS-Online-xs'],
-        ['Stunt Simulator 2', 'www.onlinegames.io/games/2021/unity3/stunt-simulator-2/index.html', 'www.onlinegames.io/media/posts/765/responsive/Stunt-simulator-2-xs'],
-        ['Drift Fury', 'www.onlinegames.io/games/2023/unity/drift-fury/index.html', 'www.onlinegames.io/media/posts/650/responsive/Drift-Fury-xs'],
-        ['Legendary Sniper', 'www.onlinegames.io/games/2021/unity3/legendary-sniper/index.html', 'www.onlinegames.io/media/posts/596/responsive/Legendary-Sniper-xs'],
-        ['Crazy Drifter', 'www.onlinegames.io/games/2022/unity3/crazy-drifter/index.html', 'www.onlinegames.io/media/posts/314/responsive/Crazy-Drifter-xs'],
-        ['Basketball King', 'cloud.onlinegames.io/games/2024/construct/316/basketball-king/index-og.html', 'www.onlinegames.io/media/posts/907/responsive/basketball-king-xs'],
-        ['Evil Santa', 'www.onlinegames.io/games/2021/1/evil-santa/index.html', 'www.onlinegames.io/media/posts/539/responsive/Evil-Santa-Game-xs'],
-        ['Cat Simulator', 'www.onlinegames.io/games/2022/unity4/cat-simulator/index.html', 'www.onlinegames.io/media/posts/330/responsive/Cat-Simulator-Online-xs']
-    ];
+	<div>
+		<h1>Flash games</h1>
+		<div>
+			<category id="games-list">
+				<h2>From onlinegames.io</h2>
+			</category>
+		</div>
+	</div>
+	<script>
+		const [b,d,p,q,r,j,u,gamesList] = [
+			'https://',
+			'onlinegames.io',
+			'/games/202',
+			'/media/posts/',
+			'/responsive/',
+			'/index',
+			'/unity',
+			document.getElementById('games-list')
+		];
+		const [h,i] = [
+			`www.${d}`,
+			`cloud.${d}`,
+		];
+		const [ip,hp] = [
+			`${i}${p}`,
+			`${i}${p}`
+		];
+		const gamesArray = [
+			['Egg Car Racing', `${ip}4/construct/289/egg-car-racing${j}-og`, `${h}${q}910${r}egg-car-racing`],
+			['Stickman GTA City', `${ip}4${u}3/stickman-gta-city${j}-og`, `${h}${q}900${r}stickman-gta-city-free`],
+			['Stickman Parkour', `${ip}4/construct/219/stickman-parkour${j}-og`, `${h}${q}871${r}stickman-parkour-OG`],
+			['Block Blast', `${ip}4${u}3/block-blast${j}-og`, `${h}${q}876${r}block-blast`],
+			['Super Car Driving', `${ip}4${u}2/super-car-driving${j}-og`, `${h}${q}854${r}supercardriving-2`],
+			['Burnout City', `${ip}4${u}/burnout-city${j}-og`, `${h}${q}861${r}burnoutcity`],
+			['Basket Hoop', `${ip}4/construct/311/basket-hoop${j}-og`, `${h}${q}843${r}Basket-Hoop`],
+			['Survival Karts', `${ip}4${u}3/survival-karts${j}-og`, `${h}${q}887${r}survival-karts-play`],
+			['WarStrike', `${ip}4${u}3/warstrike${j}-og`, `${h}${q}870${r}WarStrike-Online`],
+			['FPS Strike', `${ip}4${u}2/fps-strike${j}-og`, `${h}${q}902${r}fps-strike-online`],
+			['Basketball King', `${ip}4/construct/316/basketball-king${j}-og`, `${h}${q}907${r}basketball-king`],
+			['Drift King', `${ip}4${u}/drift-king${j}`, `${h}${q}729${r}Drift-King`],
+			['Get On Top', `${ip}4/code/6/get-on-top${j}`, `${h}${q}697${r}Get-on-Top`],
+			['Highway Traffic', `${ip}2${u}/highway-traffic${j}`, `${h}${q}32${r}Highway-Traffic-2`],
+			['Masked Special Forces', `${ip}2${u}2/masked-special-forces${j}`, `${h}${q}310${r}Masked-Special-Forces-FPS`],
+			['Edys Car Simulator', `${ip}2${u}/edys-car-simulator${j}`, `${h}${q}238${r}Edys-Car-Simulator-Online`],
+			['Crazy Drifter', `${ip}2${u}3/crazy-drifter${j}`, `${h}${q}314${r}Crazy-Drifter`],
+			['Cat Simulator', `${ip}2${u}4/cat-simulator${j}`, `${h}${q}330${r}Cat-Simulator-Online`],
+			['GTA Simulator', `${ip}3${u}2/gta-simulator${j}`, `${h}${q}416${r}GTA-Simulator`],
+			['Real Flight Simulator', `${ip}3${u}/real-flight-simulator${j}`, `${h}${q}342${r}Real-Flight-Simulator-2`],
+			['Drift Hunters Pro', `${ip}3${u}/drift-hunters-pro${j}`, `${h}${q}397${r}Drift-Hunters-Pro`],
+			['Madalin Stunt Cars Pro', `${ip}3${u}/madalin-stunt-cars-pro${j}`, `${h}${q}401${r}Madalin-Stunt-Cars-Pro-Game`],
+			['Capybara Clicker Pro', `${ip}3/q2/capybara-clicker-pro${j}`, `${h}${q}554${r}Capybara-Clicker-Pro`],
+			['Guerrillas io', `${ip}3${u}2/guerrillas-io${j}`, `${h}${q}423${r}Guerillas-io`],
+			['Highway Cars', `${ip}3/construct/211/highway-cars${j}`, `${h}${q}598${r}Highway-Cars`],
+			['Drift Rider', `${ip}3${u}3/drift-rider${j}`, `${h}${q}553${r}Drift-Rider`],
+			['Drift Fury', `${ip}3${u}/drift-fury${j}`, `${h}${q}650${r}Drift-Fury`],
+			['CS Online', `${ip}3${u}2/cs-online${j}`, `${h}${q}434${r}CS-Online`],
+			['Love Tester', `${ip}1/3/love-tester${j}`, `${h}${q}152${r}love-tester`],
+			['Police Chase Drifter', `${ip}1/3/police-chase-drifter${j}`, `${h}${q}155${r}Police-Chase-Drifter-Online`],
+			['Stickman Destruction', `${ip}1${u}3/stickman-destruction${j}`, `${h}${q}233${r}Stickman-Destruction`],
+			['Wasteland Shooters', `${ip}1${u}2/wasteland-shooters${j}`, `${h}${q}218${r}Wasteland-Shooters`],
+			['ArmedForces.io', `${ip}1${u}3/armedforces-io${j}`, `${h}${q}234${r}Armed-Forces-io`],
+			['Legendary Sniper', `${ip}1${u}3/legendary-sniper${j}`, `${h}${q}596${r}Legendary-Sniper`],
+			['Stunt Simulator 2', `${ip}1${u}3/stunt-simulator-2${j}`, `${h}${q}765${r}Stunt-simulator-2`],
+			['Evil Santa', `${ip}1/1/evil-santa${j}`, `${h}${q}539${r}Evil-Santa-Game`],
+			['Stack Fire Ball', `${ip}1${u}/stack-fire-ball${j}`, `${h}${q}184${r}Stack-Fire-Ball-Game`]
+		];
 
-    const gamesList = document.getElementById('games-list');
-    gamesArray.forEach(game => {
-        const gameUrl = 'https://' + game[1];
-        const imageUrl ='https://' + game[2] + '.jpg';
-        let newGameHTML = `
-            <a href="${gameUrl}" class="has_hover">
-                <img loading="lazy" src="${imageUrl}" alt="">
-                ${game[0]}
-            </a>
-        `;
-        gamesList.innerHTML += newGameHTML;
-    });
-</script>
+		gamesArray.forEach(game => {
+			const [title, gamePath, imagePath] = game;
+			const gameUrl = `${b}${gamePath}.html`;
+			const imageUrl = `${b}${imagePath}-xs.jpg`;
+			gamesList.innerHTML += `
+				<a href="${gameUrl}" class="has_hover">
+					<img loading="lazy" src="${imageUrl}" alt="">
+					${title}
+				</a>
+			`;
+		});
+	</script>
 </body>
 </html>
