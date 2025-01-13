@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Online Games</title>
@@ -15,75 +16,7 @@
 		</div>
 	</div>
 	<script>
-		const [b,d,p,q,r,j,u,gamesList] = [
-			'https://',
-			'onlinegames.io',
-			'/games/202',
-			'/media/posts/',
-			'/responsive/',
-			'/index',
-			'/unity',
-			document.getElementById('games-list')
-		];
-		const [h,i] = [
-			`www.${d}`,
-			`cloud.${d}`,
-		];
-		const [ip,hp] = [
-			`${i}${p}`,
-			`${i}${p}`
-		];
-		const gamesArray = [
-			['Egg Car Racing', `${ip}4/construct/289/egg-car-racing${j}-og`, `${h}${q}910${r}egg-car-racing`],
-			['Stickman GTA City', `${ip}4${u}3/stickman-gta-city${j}-og`, `${h}${q}900${r}stickman-gta-city-free`],
-			['Stickman Parkour', `${ip}4/construct/219/stickman-parkour${j}-og`, `${h}${q}871${r}stickman-parkour-OG`],
-			['Block Blast', `${ip}4${u}3/block-blast${j}-og`, `${h}${q}876${r}block-blast`],
-			['Super Car Driving', `${ip}4${u}2/super-car-driving${j}-og`, `${h}${q}854${r}supercardriving-2`],
-			['Burnout City', `${ip}4${u}/burnout-city${j}-og`, `${h}${q}861${r}burnoutcity`],
-			['Basket Hoop', `${ip}4/construct/311/basket-hoop${j}-og`, `${h}${q}843${r}Basket-Hoop`],
-			['Survival Karts', `${ip}4${u}3/survival-karts${j}-og`, `${h}${q}887${r}survival-karts-play`],
-			['WarStrike', `${ip}4${u}3/warstrike${j}-og`, `${h}${q}870${r}WarStrike-Online`],
-			['FPS Strike', `${ip}4${u}2/fps-strike${j}-og`, `${h}${q}902${r}fps-strike-online`],
-			['Basketball King', `${ip}4/construct/316/basketball-king${j}-og`, `${h}${q}907${r}basketball-king`],
-			['Drift King', `${ip}4${u}/drift-king${j}`, `${h}${q}729${r}Drift-King`],
-			['Get On Top', `${ip}4/code/6/get-on-top${j}`, `${h}${q}697${r}Get-on-Top`],
-			['Highway Traffic', `${ip}2${u}/highway-traffic${j}`, `${h}${q}32${r}Highway-Traffic-2`],
-			['Masked Special Forces', `${ip}2${u}2/masked-special-forces${j}`, `${h}${q}310${r}Masked-Special-Forces-FPS`],
-			['Edys Car Simulator', `${ip}2${u}/edys-car-simulator${j}`, `${h}${q}238${r}Edys-Car-Simulator-Online`],
-			['Crazy Drifter', `${ip}2${u}3/crazy-drifter${j}`, `${h}${q}314${r}Crazy-Drifter`],
-			['Cat Simulator', `${ip}2${u}4/cat-simulator${j}`, `${h}${q}330${r}Cat-Simulator-Online`],
-			['GTA Simulator', `${ip}3${u}2/gta-simulator${j}`, `${h}${q}416${r}GTA-Simulator`],
-			['Real Flight Simulator', `${ip}3${u}/real-flight-simulator${j}`, `${h}${q}342${r}Real-Flight-Simulator-2`],
-			['Drift Hunters Pro', `${ip}3${u}/drift-hunters-pro${j}`, `${h}${q}397${r}Drift-Hunters-Pro`],
-			['Madalin Stunt Cars Pro', `${ip}3${u}/madalin-stunt-cars-pro${j}`, `${h}${q}401${r}Madalin-Stunt-Cars-Pro-Game`],
-			['Capybara Clicker Pro', `${ip}3/q2/capybara-clicker-pro${j}`, `${h}${q}554${r}Capybara-Clicker-Pro`],
-			['Guerrillas io', `${ip}3${u}2/guerrillas-io${j}`, `${h}${q}423${r}Guerillas-io`],
-			['Highway Cars', `${ip}3/construct/211/highway-cars${j}`, `${h}${q}598${r}Highway-Cars`],
-			['Drift Rider', `${ip}3${u}3/drift-rider${j}`, `${h}${q}553${r}Drift-Rider`],
-			['Drift Fury', `${ip}3${u}/drift-fury${j}`, `${h}${q}650${r}Drift-Fury`],
-			['CS Online', `${ip}3${u}2/cs-online${j}`, `${h}${q}434${r}CS-Online`],
-			['Love Tester', `${ip}1/3/love-tester${j}`, `${h}${q}152${r}love-tester`],
-			['Police Chase Drifter', `${ip}1/3/police-chase-drifter${j}`, `${h}${q}155${r}Police-Chase-Drifter-Online`],
-			['Stickman Destruction', `${ip}1${u}3/stickman-destruction${j}`, `${h}${q}233${r}Stickman-Destruction`],
-			['Wasteland Shooters', `${ip}1${u}2/wasteland-shooters${j}`, `${h}${q}218${r}Wasteland-Shooters`],
-			['ArmedForces.io', `${ip}1${u}3/armedforces-io${j}`, `${h}${q}234${r}Armed-Forces-io`],
-			['Legendary Sniper', `${ip}1${u}3/legendary-sniper${j}`, `${h}${q}596${r}Legendary-Sniper`],
-			['Stunt Simulator 2', `${ip}1${u}3/stunt-simulator-2${j}`, `${h}${q}765${r}Stunt-simulator-2`],
-			['Evil Santa', `${ip}1/1/evil-santa${j}`, `${h}${q}539${r}Evil-Santa-Game`],
-			['Stack Fire Ball', `${ip}1${u}/stack-fire-ball${j}`, `${h}${q}184${r}Stack-Fire-Ball-Game`]
-		];
-
-		gamesArray.forEach(game => {
-			const [title, gamePath, imagePath] = game;
-			const gameUrl = `${b}${gamePath}.html`;
-			const imageUrl = `${b}${imagePath}-xs.jpg`;
-			gamesList.innerHTML += `
-				<a href="${gameUrl}" class="has_hover">
-					<img loading="lazy" src="${imageUrl}" alt="">
-					${title}
-				</a>
-			`;
-		});
+		const[$,r,a,t,i,e,o,s]=["https://","onlinegames.io","/games/202","/media/posts/","/responsive/","/index","/unity",document.getElementById("games-list")],[l,n]=[`www.${r}`,`cloud.${r}`],[c,u]=[`${n}${a}`,`${n}${a}`],g=[["Egg Car Racing",`${c}4/construct/289/egg-car-racing${e}-og`,`${l}${t}910${i}egg-car-racing`],["Stickman GTA City",`${c}4${o}3/stickman-gta-city${e}-og`,`${l}${t}900${i}stickman-gta-city-free`],["Stickman Parkour",`${c}4/construct/219/stickman-parkour${e}-og`,`${l}${t}871${i}stickman-parkour-OG`],["Block Blast",`${c}4${o}3/block-blast${e}-og`,`${l}${t}876${i}block-blast`],["Super Car Driving",`${c}4${o}2/super-car-driving${e}-og`,`${l}${t}854${i}supercardriving-2`],["Burnout City",`${c}4${o}/burnout-city${e}-og`,`${l}${t}861${i}burnoutcity`],["Basket Hoop",`${c}4/construct/311/basket-hoop${e}-og`,`${l}${t}843${i}Basket-Hoop`],["Survival Karts",`${c}4${o}3/survival-karts${e}-og`,`${l}${t}887${i}survival-karts-play`],["WarStrike",`${c}4${o}3/warstrike${e}-og`,`${l}${t}870${i}WarStrike-Online`],["FPS Strike",`${c}4${o}2/fps-strike${e}-og`,`${l}${t}902${i}fps-strike-online`],["Basketball King",`${c}4/construct/316/basketball-king${e}-og`,`${l}${t}907${i}basketball-king`],["Drift King",`${c}4${o}/drift-king${e}`,`${l}${t}729${i}Drift-King`],["Get On Top",`${c}4/code/6/get-on-top${e}`,`${l}${t}697${i}Get-on-Top`],["Highway Traffic",`${c}2${o}/highway-traffic${e}`,`${l}${t}32${i}Highway-Traffic-2`],["Masked Special Forces",`${c}2${o}2/masked-special-forces${e}`,`${l}${t}310${i}Masked-Special-Forces-FPS`],["Edys Car Simulator",`${c}2${o}/edys-car-simulator${e}`,`${l}${t}238${i}Edys-Car-Simulator-Online`],["Crazy Drifter",`${c}2${o}3/crazy-drifter${e}`,`${l}${t}314${i}Crazy-Drifter`],["Cat Simulator",`${c}2${o}4/cat-simulator${e}`,`${l}${t}330${i}Cat-Simulator-Online`],["GTA Simulator",`${c}3${o}2/gta-simulator${e}`,`${l}${t}416${i}GTA-Simulator`],["Real Flight Simulator",`${c}3${o}/real-flight-simulator${e}`,`${l}${t}342${i}Real-Flight-Simulator-2`],["Drift Hunters Pro",`${c}3${o}/drift-hunters-pro${e}`,`${l}${t}397${i}Drift-Hunters-Pro`],["Madalin Stunt Cars Pro",`${c}3${o}/madalin-stunt-cars-pro${e}`,`${l}${t}401${i}Madalin-Stunt-Cars-Pro-Game`],["Capybara Clicker Pro",`${c}3/q2/capybara-clicker-pro${e}`,`${l}${t}554${i}Capybara-Clicker-Pro`],["Guerrillas io",`${c}3${o}2/guerrillas-io${e}`,`${l}${t}423${i}Guerillas-io`],["Highway Cars",`${c}3/construct/211/highway-cars${e}`,`${l}${t}598${i}Highway-Cars`],["Drift Rider",`${c}3${o}3/drift-rider${e}`,`${l}${t}553${i}Drift-Rider`],["Drift Fury",`${c}3${o}/drift-fury${e}`,`${l}${t}650${i}Drift-Fury`],["CS Online",`${c}3${o}2/cs-online${e}`,`${l}${t}434${i}CS-Online`],["Love Tester",`${c}1/3/love-tester${e}`,`${l}${t}152${i}love-tester`],["Police Chase Drifter",`${c}1/3/police-chase-drifter${e}`,`${l}${t}155${i}Police-Chase-Drifter-Online`],["Stickman Destruction",`${c}1${o}3/stickman-destruction${e}`,`${l}${t}233${i}Stickman-Destruction`],["Wasteland Shooters",`${c}1${o}2/wasteland-shooters${e}`,`${l}${t}218${i}Wasteland-Shooters`],["ArmedForces.io",`${c}1${o}3/armedforces-io${e}`,`${l}${t}234${i}Armed-Forces-io`],["Legendary Sniper",`${c}1${o}3/legendary-sniper${e}`,`${l}${t}596${i}Legendary-Sniper`],["Stunt Simulator 2",`${c}1${o}3/stunt-simulator-2${e}`,`${l}${t}765${i}Stunt-simulator-2`],["Evil Santa",`${c}1/1/evil-santa${e}`,`${l}${t}539${i}Evil-Santa-Game`],["Stack Fire Ball",`${c}1${o}/stack-fire-ball${e}`,`${l}${t}184${i}Stack-Fire-Ball-Game`]];g.forEach((r=>{const[a,t,i]=r,e=`${$}${t}.html`,o=`${$}${i}-xs.jpg`;s.innerHTML+=`<a href="${e}" class="has_hover"><img loading="lazy" src="${o}" alt="">${a}</a>`}));
 	</script>
 </body>
 </html>
