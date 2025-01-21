@@ -298,12 +298,18 @@ if(ismainos) {
 
 // Load late-src scripts
 // Useful if you need to access variables that are set by the system (like pWindow) right away.
-// TODO: Find a better way maybe?
+/**
+ * @deprecated
+    * Instead use this in your JS:
+    * window.addEventListener('message', function(event) {
+        if (event.data === 'pWindowReady') { ...
+ */
 
 document.addEventListener("DOMContentLoaded", function() {
-        var scriptTags = document.getElementsByTagName("script");
-        for (var currentTag of scriptTags) {
-            if(currentTag.getAttribute("late-src")) {
+    var scriptTags = document.getElementsByTagName("script");
+    for (var currentTag of scriptTags) {
+        if(currentTag.getAttribute("late-src")) {
+            console.warn("late-src is deprecated. Instead: Please wait for Message with event.data == 'pWindowReady' (See helper.js)");
             function loadScriptWhenHelperIsDone() {
                 var currentTag1 = currentTag;
                 var newLoop = window.setInterval(function() {
