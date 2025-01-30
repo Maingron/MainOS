@@ -22,5 +22,5 @@ var uploadedFile;
 function startImport() {
 	console.log(uploadedFile);
 	iofs.importImage(uploadedFile, true);
-	parent.window.location.reload();
+	system.runtime.systemFunctions.reboot();
 }

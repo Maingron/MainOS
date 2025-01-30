@@ -65,6 +65,9 @@ export const initBare = {
 						// TODO: Add check so it can't be run by every program
 						window.close();
 						self.close();
+					},
+					reboot: function() {
+						window.location.reload();
 					}
 				}
 			}
