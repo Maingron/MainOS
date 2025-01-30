@@ -14,11 +14,34 @@ body {
 	width: 100%;
 }
 
+body {
+	&.big_buttons { // Big Buttons
+		.headbar {
+			.max,
+			.close,
+			.devreload {
+				height: 2rem;
+				width: 2rem;
+			}
+
+			.max {
+				right:calc(2rem - 1px);
+			}
+		}
+	
+		.resizer2 {
+			height:20px;
+			width:20px;
+			bottom:-11px;
+			right:-11px;
+		}
+	}
+}
+
 * {
 	box-sizing: border-box;
 	font-family: var(--font);
 }
-
 
 .content {
 	position: absolute;
@@ -64,6 +87,272 @@ body {
 			}
 		}
 	}
+
+	#background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background-size: cover;
+		background-position: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+		pointer-events: none;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	#taskbar {
+		background-color: var(--glassyElementBackground);
+		position: relative;
+		order: 200;
+		display: flex;
+		justify-content: space-between;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: var(--taskbarheight);
+		max-height: 40vh;
+		overflow: visible;
+		z-index: 99999;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		flex-grow: 0;
+		flex-shrink: 0;
+		// box-shadow: 0 -1px 0 0px #00000088;
+		backdrop-filter: blur(var(--glassyElementBlur));
+	
+		#start {
+			background-color: transparent;
+			position: relative;
+			float: left;
+			height: 100%;
+			width: auto;
+			border: none;
+			display: flex;
+			top: 0;
+			left: 0;
+			z-index: 999;
+			font-size: 1.5em;
+			padding: 2px 5px;
+			justify-content: left;
+			min-width: 36px;
+	
+			img {
+				position: relative;
+				display: inline-block;
+				height: 100%;
+				width: 100%;
+				filter: drop-shadow(0 0 1px #000);
+				object-fit: contain;
+			}
+	
+			p {
+				position: absolute;
+				display: inline;
+				bottom: -2px;
+				margin: 0;
+				padding: 0;
+				right: 35px;
+				z-index: 999;
+				color: #fff;
+			}
+		}
+	
+		#tasklist {
+			height: 100%;
+			width: auto;
+			position: relative;
+			display: flex;
+			flex-grow: 99;
+			&.showprogramtitle {
+				span {
+					display: unset;
+				}
+			}
+	
+			button {
+				height: 100%;
+				border-radius: var(--border-radius);
+				display: inline-flex;
+				border: 0;
+				background: #77777711;
+				padding: 2px 5px;
+				margin: 0 2px;
+				box-sizing: border-box;
+				&.active {
+					background: #7777774f;
+					border: 2px solid var(--themecolor2);
+				}
+				img {
+					height: 100%;
+					margin-right: 0;
+					aspect-ratio: 1/1;
+					object-fit: scale-down;
+				}
+				span {
+					margin: auto;
+					line-height: 1;
+					display: none;
+				}
+			}
+		}
+	
+		#taskbarright {
+			position: relative;
+			display: flex;
+			flex-direction: row;
+			right: 0;
+			top: 0;
+			height: 100%;
+			width: auto;
+			// background-color: #00000033;
+			// border-left: 2px solid #420;
+			max-width: 60%;
+			color: #fff;
+			min-width: 50px;
+			// background-color: var(--glassyElementBackground);
+	
+			a {
+				display: inline-block;
+				position: relative;
+				padding: 5px;
+				border-radius: var(--border-radius);
+				margin: 0 2px;
+	
+			}
+	
+			#taskbarrighticons {
+				height: 100%;
+				width: auto;
+			}
+	
+			img {
+				height: 100%;
+				margin: 3px;
+				width: auto;
+				aspect-ratio: 1/1;
+			}
+	
+			#taskbartime,
+			.taskbarlanguage {
+				height: auto;
+				background: transparent;
+				display: table-cell;
+				padding: 5px;
+				vertical-align: middle;
+			}
+	
+			.show-desktop {
+				width: 6px;
+				padding: 0;
+				background: var(--themecolor);
+				opacity:.9;
+				height: 100%;
+				position: relative;
+				display: inline-block;
+				order: 9999;
+				right: 0;
+				top: 0;
+				border-radius: 0;
+				margin-right: 0;
+			}
+		}
+	}
+	
+	#icons {
+		padding: 15px;
+		position: absolute;
+		display: flex;
+		overflow: visible;
+		top: 0;
+		left: 0;
+		width: auto;
+		height: calc(100% - 65px);
+		justify-content: flex-start;
+		flex-direction: column;
+		flex-wrap: wrap;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	
+		button {
+			transition: .2s;
+			position: relative;
+			margin: 3px;
+			overflow: hidden;
+			width: 70px;
+			height: 100px;
+			display: flex;
+			justify-content: start;
+			background-color: transparent;
+			flex-flow:column;
+			border: 0;
+			padding: 0;
+			p {
+				color:#fff;
+				margin-bottom:0;
+				margin-top:3px;
+			}
+	
+			&:hover,
+			&:focus-visible {
+				background-color: var(--hovercolor);
+				overflow: visible;
+			}
+		}
+	
+		img {
+			position: relative;
+			left: 0;
+			top: 0;
+			margin: 0;
+			padding:4px;
+			box-sizing: border-box;
+			display: block;
+			height: auto;
+			width: inherit;
+			object-fit: contain;
+			min-height:70%;
+		}
+	
+		p {
+			left: 0;
+			top: 70px;
+			text-align: center;
+			font-size: 0.85em;
+			word-wrap: break-word;
+			position: absolute;
+			display: block;
+			width: 100%;
+		}
+	}
+
+	.aboutthisversion {
+		position: absolute;
+		bottom: 40px;
+		right: 20px;
+		text-align: right;
+		font-size: 1.05em;
+		line-height:1.4;
+		a {
+			color:#ffffffcc;
+		}
+	}
 }
 
 .speak {
@@ -78,67 +367,8 @@ body {
 	display: none !important;
 }
 
-.program.noborder {
-	border-radius: 0 !important;
-
-	iframe {
-		top: 0 !important;
-		border: 0 !important;
-		background-color: transparent !important;
-		border-radius: 0 !important;
-		height: 100%;
-	}
-
-	.headbar,
-	.resizers {
-		display: none;
-	}
-}
-
-
-#background {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	background-size: cover;
-	background-position: center;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	overflow: hidden;
-	pointer-events: none;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-
-
-body.big_buttons { // Big Buttons
-	.headbar .max,
-	.headbar .close,
-	.headbar .devreload {
-		height: 2rem;
-		width: 2rem;
-	}
-
-	.headbar .max {
-		right:calc(2rem - 1px);
-	}
-
-	.resizer2 {
-		height:20px;
-		width:20px;
-		bottom:-11px;
-		right:-11px;
-	}
-}
-
-#emergencytools, #emergencytoolsloading { // Emergency Tools
+#emergencytools,
+#emergencytoolsloading { // Emergency Tools
 	display: none;
 	height: 0;
 	z-index: 99999999 !important;
@@ -226,7 +456,6 @@ body.big_buttons { // Big Buttons
 	}
 }
 
-
 .program {
 	position: absolute;
 	display: none;
@@ -238,8 +467,26 @@ body.big_buttons { // Big Buttons
 	transform-origin: bottom left;
 	background-color: transparent;
 	border-radius: var(--border-radius);
+
 	&,* {
 		transition: opacity .2s, backdrop-filter .3s, transform .3s, margin .3s;
+	}
+
+	&.noborder {
+		border-radius: 0 !important;
+	
+		iframe {
+			top: 0 !important;
+			border: 0 !important;
+			background-color: transparent !important;
+			border-radius: 0 !important;
+			height: 100%;
+		}
+	
+		.headbar,
+		.resizers {
+			display: none;
+		}
 	}
 
 
@@ -267,20 +514,6 @@ body.big_buttons { // Big Buttons
 			border-radius: var(--border-radius);
 
 		}
-		// &.maximized {
-		// 	&,* {
-		// 		z-index:99999 !important;
-		// 	}
-		// 	transform: scale(.95);
-		// 	border-radius: var(--border-radius);
-		// 	outline: 40px solid rgba(0,0,0,.6);
-		// 	left:40px !important;
-		// 	top:unset;
-		// 	bottom:20px !important;
-
-		// }
-	// }
-
 
 	&:not(.active) {
 		.close {
@@ -349,11 +582,8 @@ body.big_buttons { // Big Buttons
 						position: absolute;
 						display: inline-block;
 					}
-
 				}
-				
 			}
-
 		}
 	}
 
@@ -569,30 +799,16 @@ body.big_buttons { // Big Buttons
 			z-index: 20;
 		}
 	}
-}
 
-.start_menu {
-	&, iframe {
-		background-color: transparent !important;
+	.progtitle {
+		position: relative;
+		left: 0;
+		top: 5px;
+		margin: 5px;
+		font-size: 16px;
+		height: 16px;
+		color:#fff;
 	}
-}
-
-.box2 {
-	position: absolute;
-	height: 200px;
-	width: 200px;
-	top: 400px;
-	left: 400px;
-}
-
-.progtitle {
-	position: relative;
-	left: 0;
-	top: 5px;
-	margin: 5px;
-	font-size: 16px;
-	height: 16px;
-	color:#fff;
 }
 
 .progicon {
@@ -604,260 +820,14 @@ body.big_buttons { // Big Buttons
 	pointer-events: none;
 }
 
-#taskbar {
-	background-color: var(--glassyElementBackground);
-	position: relative;
-	order: 200;
-	display: flex;
-	justify-content: space-between;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: var(--taskbarheight);
-	max-height: 40vh;
-	overflow: visible;
-	z-index: 99999;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	flex-grow: 0;
-	flex-shrink: 0;
-	// box-shadow: 0 -1px 0 0px #00000088;
-	backdrop-filter: blur(var(--glassyElementBlur));
-
-	#start {
-		background-color: transparent;
-		position: relative;
-		float: left;
-		height: 100%;
-		width: auto;
-		border: none;
-		display: flex;
-		top: 0;
-		left: 0;
-		z-index: 999;
-		font-size: 1.5em;
-		padding: 2px 5px;
-		justify-content: left;
-		min-width: 36px;
-
-		img {
-			position: relative;
-			display: inline-block;
-			height: 100%;
-			width: 100%;
-			filter: drop-shadow(0 0 1px #000);
-			object-fit: contain;
-		}
-
-		p {
-			position: absolute;
-			display: inline;
-			bottom: -2px;
-			margin: 0;
-			padding: 0;
-			right: 35px;
-			z-index: 999;
-			color: #fff;
-		}
-	}
-
-	#tasklist {
-		height: 100%;
-		width: auto;
-		position: relative;
-		display: flex;
-		flex-grow: 99;
-		&.showprogramtitle {
-			span {
-				display: unset;
-			}
-		}
-
-		button {
-			height: 100%;
-			border-radius: var(--border-radius);
-			display: inline-flex;
-			border: 0;
-			background: #77777711;
-			padding: 2px 5px;
-			margin: 0 2px;
-			box-sizing: border-box;
-			&.active {
-				background: #7777774f;
-				border: 2px solid var(--themecolor2);
-			}
-			img {
-				height: 100%;
-				margin-right: 0;
-				aspect-ratio: 1/1;
-				object-fit: scale-down;
-			}
-			span {
-				margin: auto;
-				line-height: 1;
-				display: none;
-			}
-		}
-	}
-
-	#taskbarright {
-		position: relative;
-		display: flex;
-		flex-direction: row;
-		right: 0;
-		top: 0;
-		height: 100%;
-		width: auto;
-		// background-color: #00000033;
-		// border-left: 2px solid #420;
-		max-width: 60%;
-		color: #fff;
-		min-width: 50px;
-		// background-color: var(--glassyElementBackground);
-
-		a {
-			display: inline-block;
-			position: relative;
-			padding: 5px;
-			border-radius: var(--border-radius);
-			margin: 0 2px;
-
-		}
-
-		#taskbarrighticons {
-			height: 100%;
-			width: auto;
-		}
-
-		img {
-			height: 100%;
-			margin: 3px;
-			width: auto;
-			aspect-ratio: 1/1;
-		}
-
-		#taskbartime,
-		.taskbarlanguage {
-			height: auto;
-			background: transparent;
-			display: table-cell;
-			padding: 5px;
-			vertical-align: middle;
-		}
-
-		.show-desktop {
-			width: 6px;
-			padding: 0;
-			background: var(--themecolor);
-			opacity:.9;
-			height: 100%;
-			position: relative;
-			display: inline-block;
-			order: 9999;
-			right: 0;
-			top: 0;
-			border-radius: 0;
-			margin-right: 0;
-		}
-	}
-}
-
-#startmenu {
-	display: none;
-	z-index: 99999;
-}
-
-#icons {
-	padding: 15px;
-	position: absolute;
-	display: flex;
-	overflow: visible;
-	top: 0;
-	left: 0;
-	width: auto;
-	height: calc(100% - 65px);
-	justify-content: flex-start;
-	flex-direction: column;
-	flex-wrap: wrap;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-
-	button {
-		transition: .2s;
-		position: relative;
-		margin: 3px;
-		overflow: hidden;
-		width: 70px;
-		height: 100px;
-		display: flex;
-		justify-content: start;
-		background-color: transparent;
-		flex-flow:column;
-		border: 0;
-		padding: 0;
-		p {
-			color:#fff;
-			margin-bottom:0;
-			margin-top:3px;
-		}
-
-		&:hover,
-		&:focus-visible {
-			background-color: var(--hovercolor);
-			overflow: visible;
-		}
-	}
-
-	img {
-		position: relative;
-		left: 0;
-		top: 0;
-		margin: 0;
-		padding:4px;
-		box-sizing: border-box;
-		display: block;
-		height: auto;
-		width: inherit;
-		object-fit: contain;
-		min-height:70%;
-	}
-
-	p {
-		left: 0;
-		top: 70px;
-		text-align: center;
-		font-size: 0.85em;
-		word-wrap: break-word;
-		position: absolute;
-		display: block;
-		width: 100%;
-	}
-}
-
-
-.aboutthisversion {
-	position: absolute;
-	bottom: 40px;
-	right: 20px;
-	text-align: right;
-	font-size: 1.05em;
-	line-height:1.4;
-	a {
-		color:#ffffffcc;
-	}
-}
 
 .start_menu {
 	overflow: visible !important;
 	z-index: 99999999 !important;
+
+	&, iframe {
+		background-color: transparent !important;
+	}
 
 	* {
 		border: none;
@@ -866,16 +836,16 @@ body.big_buttons { // Big Buttons
 		z-index: 999999999 !important;
 	}
 
-	.headbar {
-		display: none;
-	}
-
 	iframe {
 		top: auto;
 		position: absolute;
 		bottom: -35px;
 		height: calc(100% + 35px);
 		background-color: transparent;
+	}
+
+	.headbar {
+		display: none;
 	}
 }
 
