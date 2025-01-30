@@ -1,4 +1,5 @@
-var system = {};
+"use strict";
+var taskbar;
 
 if(iofs.load("/C:/system/system_variable.txt")) {
     system = JSON.parse(iofs.load("C:/system/system_variable.txt", true));
@@ -135,9 +136,6 @@ function getInitialSettings() {
         }
     }
 }
-
-var taskbar;
-
 
 
 function loginUser(name) {
