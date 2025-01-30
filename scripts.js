@@ -62,22 +62,6 @@ objects.progicons = document.querySelectorAll(".desktop__icons")[0];
 objects.programs = document.getElementsByClassName("programs")[0];
 
 
-function jsoncombine(which1, which2) {
-    try {
-        which1 = Object.assign(which1, which2);
-    } catch (e) {
-        objs = [which1, which2];
-        result = objs.reduce(function(r, o) {
-            Object.keys(o).forEach(function(k) {
-                r[k] = o[k];
-            });
-            which1 = r;
-        }, {});
-    }
-    return which1;
-}
-
-
 function setDocumentMeta() { // Overrides some things in the document head
     document.head.getElementsByTagName("meta").namedItem("theme-color").content = system.user.settings.themecolor;
     document.head.getElementsByTagName("meta").namedItem("msapplication-TileColor").content = system.user.settings.themecolor;
@@ -312,20 +296,6 @@ function gooff() { // Shutdown MainOS
     // TODO: Add check so it can't be run by every program
     window.close();
     self.close();
-}
-
-
-function wait(time) { //deprecated
-    // TODO: Remove function
-    if (time > 500) {
-        time = 0;
-        console.warn("function wait(): Waiting time may only be 500ms or less.");
-    }
-    var starttime = new Date().getTime();
-
-    while(new Date().getTime() < starttime + time) {}
-
-    console.warn("function wait() is depreciated. Please remove this function from your code.");
 }
 
 
