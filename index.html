@@ -85,18 +85,21 @@
     </div>
 
     <div class="content">
-        <div id="background" class="bgck">
-            <p class="aboutthisversion">
-                <b id="username"></b><br>
-                
-                <b class="speak">Welcome to </b><br>
-                <a>MainOS Version <span style="filter:blur(3px); font-weight: bold;">x.y.z</span><br>Maingron.com</a></p>
-        </div>
+        <div class="desktop">
+            <div class="desktop__background" class="bgck">
+                <p class="aboutthisversion">
+                    <b id="username"></b><br>
+                    
+                    <b class="speak">Welcome to </b><br>
+                    <a>MainOS Version <span style="filter:blur(3px); font-weight: bold;">x.y.z</span><br>Maingron.com</a></p>
+            </div>
 
-        <div id="icons" class="icons">
-            <button id="icon1" onclick="enterFullscreen()"><img src="#iofs:C:/system/icons/fullscreen.svg">
-                <p>Toggle Fullscreen</p>
-            </button>
+            <div class="desktop__icons">
+                <a id="icon1" onclick="enterFullscreen()" href="#" class="has_hover" title="Toggle Fullscreen">
+                    <img src="#iofs:C:/system/icons/fullscreen.svg" alt="">
+                    <span>Toggle Fullscreen</span>
+                </a>
+            </div>
         </div>
 
         <div class="programs"></div>
@@ -118,8 +121,6 @@
                 <a class="show-desktop has_hover" title="Show Desktop" onclick="showDesktop('toggle')" onmouseenter="showDesktop('peek')" onmouseout="showDesktop('unpeek')"></a>
             </div>
         </taskbar>
-
-
     </div>
 
     <!-- <script src="pwa1.js"></script> -->

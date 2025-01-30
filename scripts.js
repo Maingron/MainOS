@@ -60,7 +60,7 @@ if(!mainos) {
 
 
 objects.content = document.getElementsByClassName("content")[0];
-objects.progicons = document.getElementsByClassName("icons")[0];
+objects.progicons = document.querySelectorAll(".desktop__icons")[0];
 objects.programs = document.getElementsByClassName("programs")[0];
 
 
@@ -246,12 +246,14 @@ function addDesktopIcon(which) {
     }
 
     if(which.spawnicon != 0) {
-        var newProgIcon = document.createElement("button");
-        newProgIcon.className = "programicon";
+        var newProgIcon = document.createElement("a");
+        newProgIcon.className = "programicon has_hover";
         newProgIcon.id = which.id;
+        newProgIcon.title = which.title;
+        newProgIcon.href = "#";
         newProgIcon.innerHTML = `
             <img src="${which.icon}" loading="lazy" alt="">
-            <p>${which.title}</p>
+            <span>${which.title}</span>
         `;
         newProgIcon.addEventListener("click", function() {
             (async() => {
@@ -397,7 +399,7 @@ if (system.user.settings.default_fullscreen == 1) { // Enter fullscreen on start
 }
 
 
-document.getElementById("background").style.backgroundImage = "url(" + iofs.load(system.user.settings.backgroundImage, false) + ")"; // Load Desktop Background
+document.querySelector(".desktop .desktop__background").style.backgroundImage = "url(" + iofs.load(system.user.settings.backgroundImage, false) + ")"; // Load Desktop Background
 document.getElementById("username").innerText = system.user.name; // Display username on desktop
 
 // Check space on disk

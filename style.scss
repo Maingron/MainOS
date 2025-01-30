@@ -53,6 +53,115 @@ body {
 	overflow: clip;
 	width: 100%;
 
+	.desktop {
+		&__background {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			background-size: cover;
+			background-position: center;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			overflow: hidden;
+			pointer-events: none;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+
+			.aboutthisversion {
+				position: absolute;
+				bottom: 40px;
+				right: 20px;
+				text-align: right;
+				font-size: 1.05em;
+				line-height:1.4;
+				a {
+					color:#ffffffcc;
+				}
+			}
+		}
+
+		&__icons {
+			padding: 15px;
+			position: absolute;
+			display: flex;
+			overflow: visible;
+			top: 0;
+			left: 0;
+			width: auto;
+			height: calc(100% - 65px);
+			justify-content: flex-start;
+			flex-direction: column;
+			flex-wrap: wrap;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		
+			a {
+				transition: .2s;
+				position: relative;
+				display: inline-block !important;
+				overflow: hidden;
+				width: 70px;
+				height: calc(70px + 1.5rem);
+				margin: 3px;
+				background-color: transparent;
+				border: 0;
+				padding: 0;
+				text-align: center;
+				text-decoration: none;
+				font-size: .85em;
+				border-radius: var(--border-radius);
+				text-overflow: ellipsis;
+				backdrop-filter: blur(var(--glassyElementBlur));
+
+				&:hover,
+				&:focus-visible {
+					// background-color: var(--hovercolor);
+					overflow: visible;
+					z-index: 2;
+				}
+
+				img {
+					padding: .5rem;
+					width: 100%;
+					margin: 0 auto;
+					height: auto;
+					aspect-ratio: 1/1;
+					object-fit: contain;
+					top: 0;
+					display: inline-block;
+					position: relative;
+				}
+
+				span {
+					margin: 0;
+					line-height: 1.25;
+					width: 100%;
+					display: inline-block;
+					position: relative;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					min-height: 1.5em;
+					height: 1.25em;
+					padding: 2px;
+					word-wrap: break-word;
+					color: #fff;
+				}
+
+			}
+		}
+	}
+
 	.programs {
 		display: inline-block;
 		// allow click-through but still allow interaction with child elements, so we can interact with the desktop
@@ -86,27 +195,6 @@ body {
 				}
 			}
 		}
-	}
-
-	#background {
-		position: absolute;
-		top: 0;
-		left: 0;
-		height: 100%;
-		width: 100%;
-		background-size: cover;
-		background-position: center;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		overflow: hidden;
-		pointer-events: none;
-		-webkit-touch-callout: none;
-		-webkit-user-select: none;
-		-khtml-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
 	}
 
 	#taskbar {
@@ -270,87 +358,26 @@ body {
 			}
 		}
 	}
-	
-	#icons {
-		padding: 15px;
-		position: absolute;
-		display: flex;
-		overflow: visible;
-		top: 0;
-		left: 0;
-		width: auto;
-		height: calc(100% - 65px);
-		justify-content: flex-start;
-		flex-direction: column;
-		flex-wrap: wrap;
-		-webkit-touch-callout: none;
-		-webkit-user-select: none;
-		-khtml-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
-	
-		button {
-			transition: .2s;
-			position: relative;
-			margin: 3px;
-			overflow: hidden;
-			width: 70px;
-			height: 100px;
-			display: flex;
-			justify-content: start;
-			background-color: transparent;
-			flex-flow:column;
-			border: 0;
-			padding: 0;
-			p {
-				color:#fff;
-				margin-bottom:0;
-				margin-top:3px;
-			}
-	
-			&:hover,
-			&:focus-visible {
-				background-color: var(--hovercolor);
-				overflow: visible;
-			}
-		}
-	
-		img {
-			position: relative;
-			left: 0;
-			top: 0;
-			margin: 0;
-			padding:4px;
-			box-sizing: border-box;
-			display: block;
-			height: auto;
-			width: inherit;
-			object-fit: contain;
-			min-height:70%;
-		}
-	
-		p {
-			left: 0;
-			top: 70px;
-			text-align: center;
-			font-size: 0.85em;
-			word-wrap: break-word;
-			position: absolute;
-			display: block;
-			width: 100%;
-		}
-	}
 
-	.aboutthisversion {
-		position: absolute;
-		bottom: 40px;
-		right: 20px;
-		text-align: right;
-		font-size: 1.05em;
-		line-height:1.4;
-		a {
-			color:#ffffffcc;
+	@media (max-width:350px) {
+		.desktop {
+			&__background {
+			}
+
+			&__icons {
+		
+				button {
+					width: 50px;
+					font-size: .85em;
+					height: 70px;
+
+				}
+			}
+		}
+
+		.aboutthisversion {
+			font-size:.7em;
+			margin:0;
 		}
 	}
 }
@@ -820,7 +847,6 @@ body {
 	pointer-events: none;
 }
 
-
 .start_menu {
 	overflow: visible !important;
 	z-index: 99999999 !important;
@@ -846,125 +872,6 @@ body {
 
 	.headbar {
 		display: none;
-	}
-}
-
-@media (max-width:350px) {
-	#icons {
-		padding: 5px;
-		position: absolute;
-		display: flex;
-		overflow: visible;
-		top: 0;
-		left: 0;
-		width: 90%;
-		justify-content: flex-start;
-		flex-direction: column;
-		flex-wrap: wrap;
-
-		button {
-			position: relative;
-			margin: 2px;
-			overflow: hidden;
-			width: 30px;
-			height: 30px;
-			display: inline-block;
-		}
-
-		img {
-			height: 30px;
-			width: 30px;
-		}
-
-		p {
-			display: none;
-		}
-	}
-
-	.program {
-		position: absolute;
-		display: none;
-		min-width: 100px;
-		min-height: 40px;
-		background-color: transparent;
-		border-top-left-radius: 10px;
-		border-top-right-radius: 10px;
-
-		&.maximized {
-			height: calc(100% - 17.5px);
-			width: 100%;
-		}
-
-		iframe {
-			transform: scale(.5, .5) translate(-50%, -50%);
-			height: calc(200% - 30px);
-			width: calc(200%);
-			top: 15px;
-		}
-
-		.headbar {
-			position: relative;
-			top: 0;
-			background-color: var(--themecolor);
-			height: 15px;
-			width: 100%;
-			padding-right: 1px;
-			border: none;
-
-			.max,
-			.close {
-				height: 12px;
-				width: 12px;
-				padding: 0;
-				top: 0;
-				position: absolute;
-				font-size: 0;
-			}
-
-			.close {
-				right: 0;
-			}
-
-			.max {
-				right: 12px;
-			}
-		}
-	}
-
-	.start_menu {
-		iframe {
-			height: calc(200% + 36px);
-			background-color: transparent;
-		}
-	}
-
-	#taskbar {
-		transform: scale(.5, .5) translate(-50%, 50%);
-		width: calc(200%);
-	}
-
-	.progtitle {
-		top: -6px;
-		margin: 0;
-		font-size: 8px;
-		height: 8px;
-	}
-
-	.progicon {
-		height: 13px;
-		margin: 1px;
-	}
-
-	.aboutthisversion {
-		font-size:.7em;
-		margin:0;
-	}
-
-	#background img {
-		width:25px;
-		height:25px;
-		bottom:25px;
-		left:10px;
 	}
 }
 
