@@ -1,3 +1,5 @@
+"use strict";
+
 function getProcessList() {
     return(processList);
 }
@@ -228,7 +230,7 @@ function run(which, iattr, how) { // Run a program
         myWindow.frame.data = {};
         myWindow.frame.data.mypid = myPid;
         myWindow.frame.contentWindow.pid = myPid;
-        myWindow.frame.contentWindow.os = myWindow.frame.contentWindow.mainos = this.window;
+        myWindow.frame.contentWindow.os = myWindow.frame.contentWindow.mainos = window;
 
         myWindow.frame.contentWindow.document.documentElement.style.setProperty("--font", system.user.settings.font.fonts);
 
@@ -242,8 +244,6 @@ function run(which, iattr, how) { // Run a program
                 "opacity": 1
             }
         }
-
-
 
         var protectedData = {
             "pid": myPid,
@@ -261,8 +261,8 @@ function run(which, iattr, how) { // Run a program
         };
 
         myWindow.pWindow = myWindow.frame.pWindow = myWindow.frame.contentWindow.pWindow = {
-            "os": this.window,
-            "mainos": this.window,
+            "os": window,
+            "mainos": window,
             "getWindow": function() {
                 return myWindow;
             },
@@ -395,7 +395,7 @@ function focusWindow(which, state) {
 
     function unfocus() {
         // unfocus window
-        for(myWindow of document.getElementsByClassName("program")) {
+        for(let myWindow of document.getElementsByClassName("program")) {
             if(myWindow.classList.contains("active")) {
                 myWindow.classList.remove("active");
             }
