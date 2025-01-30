@@ -35,7 +35,7 @@ function returnNewSystemVariable() {
             name: "MainOS",
             version: 195,
             creator: "Maingron",
-            copyright: "Maingron 2018 - 2024",
+            copyright: "Maingron 2018 - 2025",
             license: "",
             serverpath: "https://mainos.maingron.com",
             serverroot: "https://mainos.maingron.com/repo",
