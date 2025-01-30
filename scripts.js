@@ -2,6 +2,8 @@ var objects = {};
 var register = [];
 var program = {};
 var processList = pid = [];
+var objs, result, iattr, attr;
+
 if(typeof(setting) != "object") {
     var setting = {};
 }
@@ -51,13 +53,9 @@ var systemRuntime = system.runtime = {
 loadsettings();
 
 
-var objs, result, iattr, attr;
-
-
 if(!mainos) {
     var mainos = {};
 }
-
 
 objects.content = document.getElementsByClassName("content")[0];
 objects.progicons = document.querySelectorAll(".desktop__icons")[0];
@@ -227,7 +225,6 @@ function loadProgramMetadata(which) { // Load program metadata from program file
         addDesktopIcon(which);
         addProgramIconToFolder(which);
 
-
         if(which.autostart) { // TODO: Make it work for external programs
             // Autostart
             if(!system.user.autorun) {
@@ -267,7 +264,9 @@ function addDesktopIcon(which) {
 }
 
 function addProgramIconToFolder(which) {
-    iofs.save(system.user.paths.programShortcuts + which.title.trim() + ".run", JSON.stringify(which), "run", 1);
+    setTimeout(() => {
+        iofs.save(system.user.paths.programShortcuts + which.title.trim() + ".run", JSON.stringify(which), "run", 1);
+    }, 0);
 }
 
 /**
@@ -328,9 +327,6 @@ function wait(time) { //deprecated
 
     console.warn("function wait() is depreciated. Please remove this function from your code.");
 }
-
-
-
 
 
 window.setInterval(function() {
