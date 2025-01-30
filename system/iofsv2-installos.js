@@ -1,10 +1,19 @@
-document.title = "MainOS: Updating...";
-document.write("<div id='iinfo' style='position:fixed; display:inline-block; top:0; left:0; height:100%; width:100%; background-color:var(--themecolor); z-index:123456789; transition:.4s;'><center><h1 style='display:inline-block;'>Updating...</h1><div id='waitingfor'></div></center></div>");
-
 var throughIOfs = false;
 var userFolderCopied = false;
 
 var openAsyncFiles = [];
+
+document.title = "MainOS: Updating...";
+document.body.innerHTML = `
+    <div id='iinfo' style='position:fixed; display:inline-block; top:0; left:0; height:100%; width:100%; background-color:var(--themecolor); z-index:123456789; transition:.4s;'>
+        <center>
+            <h1 style='display:inline-block;'>
+                Updating...
+            </h1>
+            <div id='waitingfor'></div>
+        </center>
+    </div>
+`;
 
 function reportOpenAsyncFiles() {
     // list all files

@@ -504,8 +504,11 @@ var iofs = {
 
 
 
+// Install OS if not installed
 if(!iofs.exists("C:/system/system_variable.txt")) {
-	document.write("<script src=\"system/iofsv2-installos.js\"></script>");
+	let newScript = document.createElement("script");
+	newScript.src = "system/iofsv2-installos.js";
+	document.head.appendChild(newScript);
 }
 // } else {
 	// var installedVersion = JSON.parse(iofs.load("C:/system/registry"))["system"]["installedVersion"];
