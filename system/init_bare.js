@@ -76,5 +76,6 @@ export const initBare = {
 		window.systemRuntime = window.system.runtime;
 
 		window.mainos = {};
+		window.ismainos = 1;
 	}
 }

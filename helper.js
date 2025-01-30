@@ -1,14 +1,12 @@
+"use strict";
+
 var data = {
     system: {
         mouse: {}
     }
 };
 
-if(ismainos) {
-    var system = window.system;
-} else {
-    var system = window.parent.system;
-}
+var system = window.system || window.parent.system;
 
 
 if(ismainos != 1 && parent.ismainos == 1) {
@@ -61,7 +59,7 @@ window.addEventListener("load", function() {
 async function loadIOfsLinks() {
     var allElements = document.querySelectorAll("[src*=iofs\\:], [href*=iofs\\:],  [src*=\\#\\:], [href*=\\#\\:],  [src*=\\#iofs\\:], [href*=\\#iofs\\:]");
     
-    for(item of allElements) {
+    for(let item of allElements) {
         loadIOfsLink(item);
     }
 }
@@ -70,8 +68,10 @@ async function loadIOfsLink(element) {
     const validPrefixes = ["iofs:", "#:", "#iofs:"];
     let usedSrcAttribute;
     let link;
+    let linkNoPrefix;
+    let base64Prefix = "";
 
-    for(validSrcAttribute of ["src", "href"]) {
+    for(let validSrcAttribute of ["src", "href"]) {
         if(element.getAttribute(validSrcAttribute) !== null) {
             usedSrcAttribute = validSrcAttribute;
             link = element.getAttribute(usedSrcAttribute);
@@ -79,7 +79,7 @@ async function loadIOfsLink(element) {
         }
     }
 
-    for(validPrefix of validPrefixes) {
+    for(let validPrefix of validPrefixes) {
         if(link.indexOf(validPrefix) === 0) {
             linkNoPrefix = link.split(validPrefix)[1];
             break;
@@ -91,7 +91,6 @@ async function loadIOfsLink(element) {
     }
 
     let getRaw = iofs.getInfos(linkNoPrefix).probablyWantRaw;
-    let base64Prefix = "";
     if(!getRaw) {
         base64Prefix = iofs.getInfos(linkNoPrefix).mime.base64prefix;
     }
@@ -101,7 +100,7 @@ async function loadIOfsLink(element) {
 
 
 // observe document and run when changes detected
-IOfsObserver = new MutationObserver(function(mutations) {
+const IOfsObserver = new MutationObserver(function(mutations) {
     if(mutations[0].type == "childList") {
         loadIOfsLinks();
     } else {
