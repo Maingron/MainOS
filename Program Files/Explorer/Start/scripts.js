@@ -1,3 +1,5 @@
+"use strict";
+
 function run(which) {
     os.run(which);
     close_startmenu();
@@ -7,20 +9,12 @@ function close_startmenu() {
     pWindow.close();
 }
 
-window.addEventListener('message', function(event) {
-    if (event.data === 'pWindowReady') {
-        // if is already running, close both instances
-        if(parent.processList.includes("start_menu") && pWindow.getPid() != parent.processList.indexOf("start_menu")) {
-            // hide this window
-            pWindow.setMinimized(1);
-            // get index number
-            let index = parent.processList.indexOf("start_menu");
-            parent.unrun(parent.getWindowById(index));
-            close_startmenu();
-        } else {
-            pWindow.setMaximized(1);
-        }
+var startMenu = {
+    init: function() {
+        this.populatePrograms();
 
+    },
+    populatePrograms: function() {
         // Spawn icons in all-programs list
         const programsinfolder = iofs.listdir(system.user.paths.programShortcuts);
         const allProgramsContainer = document.getElementById("allprograms");
@@ -54,6 +48,23 @@ window.addEventListener('message', function(event) {
 
             allProgramsContainer.appendChild(myNewChildNode1);
         })
+    }
+}
+
+window.addEventListener('message', function(event) {
+    if (event.data === 'pWindowReady') {
+        startMenu.init();
+        // if is already running, close both instances
+        if(system.runtime.processList.includes("start_menu") && pWindow.getPid() != system.runtime.processList.indexOf("start_menu")) {
+            // hide this window
+            pWindow.setMinimized(1);
+            // get index number
+            let index = system.runtime.processList.indexOf("start_menu");
+            parent.unrun(parent.getWindowById(index));
+            close_startmenu();
+        } else {
+            pWindow.setMaximized(1);
+        }
 
         // Set username- and icon
         document.getElementById("usericon").src = "#iofs:" + system.paths.icons.system + "usericons/guest.svg";
