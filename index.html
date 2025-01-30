@@ -11,7 +11,6 @@
     <meta name="author" content="Maingron">
     <title>MainOS</title>
     <link rel="stylesheet" href="style.min.css">
-    <script src="system/iofsv2.js"></script>
     <link rel="shortcut icon" href="img/logo.svg">
     <link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="img/apple-icon-114x114.png">
@@ -19,6 +18,17 @@
 </head>
 
 <body>
+    <script type="module">
+        import {initBare} from './system/init_bare.js';
+        initBare.initBare();
+
+        // load script afterwards, to make sure all variables are defined
+
+        let newScript = document.createElement('script');
+        newScript.src = 'system/iofsv2.js';
+        document.head.appendChild(newScript);
+    </script>
+
     <div id="emergencytools" class="emergencytools">
         <a id="targetemergencytools" href="#emergencytools"></a>
         <a id="untargetemergencytools" href="#"></a>

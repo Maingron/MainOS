@@ -1,61 +1,6 @@
-var objects = {};
-var register = [];
-var program = {};
-var processList = pid = [];
-var objs, result, iattr, attr;
-
-if(typeof(setting) != "object") {
-    var setting = {};
-}
-
-var systemRuntime = system.runtime = {
-    "pidmax": 0,
-    "zindex": 10,
-    "pos": {
-        "mouseX": 0,
-        "mouseY": 0
-    },
-    "clicking": 0,
-    "clicked": 0,
-    "timeOfBoot": new Date().getTime(), // Log time of boot
-    "processList": pid,
-    "pid": pid,
-    "documentRoot": location.pathname,
-    "documentHost": document.getElementById("documentRoot").href,
-
-    "time": function() {
-        // TODO: Add potential offset
-        var result = new Date();
-
-        var toDoubleDigit = function(which) {
-            while (which.toString().length <= 1) {
-                which = "0" + which;
-            }
-            return which;
-        }
-
-        result.whatTime = function() {
-            return toDoubleDigit(this.getHours()) + ":" + toDoubleDigit(this.getMinutes());
-        }
-
-        result.whatTimeAndSeconds = function() {
-            return this.whatTime() + ":" + toDoubleDigit(this.getSeconds());
-        }
-
-        result.whatDate = function() {
-            return this.getFullYear() + "-" + toDoubleDigit(this.getMonth() + 1) + "-" + toDoubleDigit(this.getDate());
-        }
-
-        return result;
-    }
-};
+"use strict";
 
 loadsettings();
-
-
-if(!mainos) {
-    var mainos = {};
-}
 
 objects.content = document.getElementsByClassName("content")[0];
 objects.progicons = document.querySelectorAll(".desktop__icons")[0];
@@ -191,7 +136,7 @@ function loadProgramMetadata(which) { // Load program metadata from program file
                 }
             }
 
-            for(myMeta of metaString) {
+            for(let myMeta of metaString) {
                 if(myMeta.includes("title>")) {
                     // Title
                     which.title = myMeta.split("title>")[1];
@@ -292,11 +237,7 @@ window.addEventListener("touchend", function() {
 
 
 
-function gooff() { // Shutdown MainOS
-    // TODO: Add check so it can't be run by every program
-    window.close();
-    self.close();
-}
+
 
 
 window.setInterval(function() {
