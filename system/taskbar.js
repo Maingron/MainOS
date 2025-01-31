@@ -1,5 +1,5 @@
 // Task List
-var tasklist = {
+export const tasklist = {
     "htmlElement": document.getElementById("tasklist"),
 
     "addItem": function(myWindow, myProgram) {
@@ -73,10 +73,9 @@ var tasklist = {
 
 // new taskbar taskbar
 
-function Taskbar() {
+export const Taskbar = function() {
 	this.htmlElement = document.getElementById("taskbar");
 	this.tasklist = document.getElementById("tasklist");
-	
 
 	this.lang = {
 		htmlElement: document.getElementsByClassName("taskbarlanguage")[0],

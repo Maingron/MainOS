@@ -149,14 +149,9 @@ function loginUser(name) {
     system.user = system.users.find(user => user.name == name);
     // create new javascript html element
 
-
-    var taskbarScript;
-
-    taskbarScript = document.createElement("script");
-    taskbarScript.src = "system/taskbar.js";
-    taskbarScript.onload = function() {
-
-        taskbar = new Taskbar();
+    import("./taskbar.js").then(module => {
+        taskbar = new module.Taskbar();
+        window.tasklist = module.tasklist;
 
         // load script files / load scripts (system/)
         let newScript = document.createElement("script");
@@ -189,8 +184,7 @@ function loginUser(name) {
             document.body.appendChild(newScriptFunctionsPrograms);
         }
         document.body.appendChild(newScript);
-    }
-    document.body.appendChild(taskbarScript);
+    });
 }
 
 function getUser(name) {
