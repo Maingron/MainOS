@@ -312,7 +312,17 @@ function run(which, iattr, how) { // Run a program
             "setStyleProperty": function(property, value) {
                 protectedData.styles[property] = value;
             },
-            "settings": protectedData.programObject["settings"] || {},
+            "settings": {
+                ...(protectedData.programObject["settings"] || {}),
+                ...system.user.settings.programs[protectedData.programObject.id]
+            },
+            pushSettings: function() {
+                system.user.settings.programs[protectedData.programObject.id] = this.settings;
+                this.os.saveSystemVariable();
+            },
+            pullSettings: function() {
+                this.settings = system.user.settings.programs[protectedData.programObject.id] || {};
+            }
         }
 
         // send message to program when pWindow is ready

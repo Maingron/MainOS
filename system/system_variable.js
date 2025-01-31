@@ -133,7 +133,8 @@ function getInitialSettings() {
             height: 45, // px
             // wip
             position: "bottom"
-        }
+        },
+        programs: {}
     }
 }
 

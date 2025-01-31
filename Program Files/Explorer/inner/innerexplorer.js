@@ -185,4 +185,8 @@ function runModules(event) {
     }
 }
 
-explorerdo("/"); // Initial load of all vHDDs
+addEventListener("message", () => {
+    if(event.data == "pWindowReady") {
+        explorerdo(pWindow.settings.startDir); // Initial load of all vHDDs
+    }
+});

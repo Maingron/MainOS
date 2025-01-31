@@ -11,7 +11,10 @@
         "id": "explorer",
         "title": "Explorer",
         "icon": "#iofs:C:/system/icons/folder_search.svg",
-        "src": "Program%20Files/Explorer/inner/exec.html"
+        "src": "Program%20Files/Explorer/inner/exec.html",
+        "settings": {
+            "startDir": "/"
+        }
     },
     "notepad": {
         "id": "notepad",
