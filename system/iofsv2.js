@@ -1,4 +1,6 @@
-var iofs = {
+"use strict";
+
+export const iofs = {
 	forbiddenCharsInPath: ['*', '?', '#', '$', '\'', '"', '`', '\\', '§', ','],
 
 	save: function(path, content, attributes = false, override = false, recursive = false, isRaw = true) {
@@ -306,7 +308,7 @@ var iofs = {
 	getName: function(path) {
 		path = this.sanitizePath(path);
 
-		pathArray = path.split("/");
+		let pathArray = path.split("/");
 
 		return pathArray[pathArray.length - 1];
 	},
@@ -448,7 +450,7 @@ var iofs = {
 		this.save(destination, file, fileInfos.attributes, override);
 
 		if(fileInfos.type == "dir") {
-			for(item of this.listdir(source, 0)) {
+			for(let item of this.listdir(source, 0)) {
 				let newDestination = destination;
 				newDestination = destination + "/" + this.getName(item);
 				this.copy(item, newDestination, override);
@@ -500,14 +502,6 @@ var iofs = {
 	}
 }
 
-
-
-// Install OS if not installed
-if(!iofs.exists("C:/system/system_variable.txt")) {
-	let newScript = document.createElement("script");
-	newScript.src = "system/iofsv2-installos.js";
-	document.head.appendChild(newScript);
-}
 // } else {
 	// var installedVersion = JSON.parse(iofs.load("C:/system/registry"))["system"]["installedVersion"];
 

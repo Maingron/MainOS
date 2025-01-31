@@ -21,12 +21,19 @@
     <script type="module">
         import {initBare} from './system/init_bare.js';
         initBare.initBare();
+    </script>
 
-        // load script afterwards, to make sure all variables are defined
+    <script type="module">
+        import {iofs} from './system/iofsv2.js';
+        window.iofs = iofs;
+    </script>
 
-        let newScript = document.createElement('script');
-        newScript.src = 'system/iofsv2.js';
-        document.head.appendChild(newScript);
+    <script type="module">
+        import {updater} from './system/updater.js';
+
+        if(!updater.checkIfIsInstalled()) {
+            updater.runFreshInstall();
+        }
     </script>
 
     <div id="emergencytools" class="emergencytools">
