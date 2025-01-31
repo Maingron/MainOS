@@ -159,7 +159,7 @@ function loginUser(name) {
         taskbar = new Taskbar();
 
         // load script files / load scripts (system/)
-        newScript = document.createElement("script");
+        let newScript = document.createElement("script");
         newScript.src = "scripts.js";
         newScript.onload = function() {
             system.runtime = systemRuntime;
