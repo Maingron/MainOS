@@ -113,6 +113,24 @@ function newFile(fileName = "New File.txt") {
     }
 }
 
+function explorer_copy(source) {
+    let sourceInfos = iofs.getInfos(source);
+    let targetName = "";
+    if(sourceInfos.type == "file") {
+        targetName = iofs.getPath(source) + "/" + sourceInfos.name.split("." + sourceInfos.ending)[0] + " - Copy." + sourceInfos.ending;
+    } else {
+        targetName = iofs.getPath(source) + "/" + sourceInfos.name.split(sourceInfos.ending)[0] + " - Copy" + sourceInfos.ending;
+    }
+
+    targetName = iofs.sanitizePath(targetName);
+    
+    if(!iofs.exists(targetName)) {
+        iofs.copy(source, targetName, false);
+        explorerrefresh();
+        explorer_rename(targetName);
+    }
+}
+
 function explorer_rename(source, target) {
     let item = document.querySelector("[path='" + source + "']");
 
@@ -182,6 +200,7 @@ function contextMenu(event) {
                 ["Toggle Dot E", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'E')"],
                 ["Toggle Dot F", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'F')"],
                 ["<hr>"],
+                ["Copy","explorer_copy('" + event.target.attributes.path.value + "')"],
                 ["Rename","explorer_rename('" + event.target.attributes.path.value + "')"],
                 ["Delete File","explorer_deletefile('" + event.target.attributes.path.value + "')"],
                 ["<hr>"],
@@ -197,6 +216,7 @@ function contextMenu(event) {
                 ["Toggle Dot E", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'E')"],
                 ["Toggle Dot F", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'F')"],
                 ["<hr>"],
+                ["Copy","explorer_copy('" + event.target.attributes.path.value + "')"],
                 ["Rename","explorer_rename('" + event.target.attributes.path.value + "')"],
                 ["Delete Folder","explorer_deletefile('" + event.target.attributes.path.value + "',1)"],
                 ["<hr>"],
