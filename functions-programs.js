@@ -327,6 +327,13 @@ function run(which, iattr, how) { // Run a program
 
         // send message to program when pWindow is ready
         myWindow.frame.contentWindow.postMessage('pWindowReady', '*');
+
+        // Sorry pals, but it's important to know which program is used how often.
+        setTimeout(() => {
+            if(_paq) {
+                _paq.push(['trackEvent', "Program", myProgram.title, "open", system.runtime.pidmax]);
+            }
+        }, 0);
     }
 
     // once the frame's src is fully loaded, we hand infos to the window

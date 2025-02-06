@@ -41,6 +41,7 @@ function returnNewSystemVariable() {
             serverpath: "https://mainos.maingron.com",
             serverroot: "https://mainos.maingron.com/repo",
             serverrepository: "https://mainos.maingron.com/repo/repository.json",
+            uid: ("OS-"+(Math.random().toString(36) + Math.random().toString(36)).replaceAll("0.","").toUpperCase()).substring(0, 20)
         },
         hostOS: {
             languages: navigator.languages,
@@ -83,11 +84,12 @@ function returnIconPaths() {
 function returnNewDefaultacc() {
     return {
         name: "default",
+        uid: (Math.random().toString(36)).replaceAll("0.","UD-").toUpperCase(),
         person: {
             fullName: undefined,
             dateOfBirth: undefined,
             gender: undefined
-        },
+            },
         programs: JSON.parse(iofs.load("C:/system/initial_program_list.json")),
         programsUntouched: JSON.parse(iofs.load("C:/system/initial_program_list.json")),
         settings: getInitialSettings()
@@ -199,6 +201,7 @@ function selectUser(name) {
 function createNewUser(name) {
     let newUser = JSON.parse(JSON.stringify(system.users[0]));
     newUser.name = name;
+    newUser.uid = (Math.random().toString(36)).replaceAll("0.","UC-").toUpperCase().substring(0, 12);
     newUser.paths = {
         userPath: system.paths.userRoot + newUser.name + "/",
         programShortcuts: system.paths.userRoot + newUser.name + "/programs/",
