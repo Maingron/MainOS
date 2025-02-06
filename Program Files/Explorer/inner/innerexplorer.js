@@ -42,7 +42,11 @@ function explorerdo(path, action = "default") { // Shows directory or does stuff
             newChild.setAttribute("tabindex", "6");
         }
 
-        newChild.innerText = iofs.getName(file); // Add text while removing full path and trailing slash
+        newChild.innerHTML = `
+        <span>
+            ${iofs.getName(file)}
+        </span>
+        `; // Add text while removing full path and trailing slash
 
         document.getElementById("content_files").appendChild(newChild);
         filesListed.push(file); // Add to filesListed
@@ -109,11 +113,37 @@ function newFile(fileName = "New File.txt") {
     }
 }
 
-function renameFile(source, target) {
-    // TODO: Add input field so we can actually rename
-    if(iofs.exists(source)) {
-        iofs.move(source, target, false);
-        explorerrefresh();
+function explorer_rename(source, target) {
+    let item = document.querySelector("[path='" + source + "']");
+
+    if(!target) {
+        let pathElement = item.getElementsByTagName("span")[0];
+        let inputElement = document.createElement("input");
+        inputElement.type = "text";
+        inputElement.value = pathElement.innerText;
+        pathElement.remove();
+        item.appendChild(inputElement);
+        item.removeAttribute("href");
+        inputElement.focus();
+        inputElement.setSelectionRange(0, inputElement.value.lastIndexOf(iofs.getInfos(source).ending) - 1 || inputElement.value.length); // Select filename without extension
+        inputElement.addEventListener("change", whenChanged);
+        inputElement.addEventListener("blur", whenChanged);
+
+        function whenChanged() {
+            let targetName = iofs.getPath(item.getAttribute("path")) + "/" + inputElement.value;
+            if(iofs.isAllowedPath(targetName)) {
+                targetName = iofs.sanitizePath(targetName);
+                explorer_rename(source, targetName);
+            }
+            explorerrefresh();
+        }
+
+    } else {
+
+        if(iofs.exists(source) && source != target) {
+            iofs.move(source, target, false);
+            explorerrefresh();
+        }
     }
 }
 
@@ -152,7 +182,7 @@ function contextMenu(event) {
                 ["Toggle Dot E", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'E')"],
                 ["Toggle Dot F", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'F')"],
                 ["<hr>"],
-                ["Rename File", "renameFile('"+event.target.attributes.path.value+"','"+currentPath + "renamed File - something.txt"+"')","disabled"],
+                ["Rename","explorer_rename('" + event.target.attributes.path.value + "')"],
                 ["Delete File","explorer_deletefile('" + event.target.attributes.path.value + "')"],
                 ["<hr>"],
                 ["Properties","","disabled"]]
@@ -167,6 +197,7 @@ function contextMenu(event) {
                 ["Toggle Dot E", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'E')"],
                 ["Toggle Dot F", "toggleFileAttribute('"+event.target.attributes.path.value+"', 'F')"],
                 ["<hr>"],
+                ["Rename","explorer_rename('" + event.target.attributes.path.value + "')"],
                 ["Delete Folder","explorer_deletefile('" + event.target.attributes.path.value + "',1)"],
                 ["<hr>"],
                 ["Properties","","disabled"]

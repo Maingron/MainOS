@@ -223,6 +223,11 @@ body {
             pointer-events: none;
             margin: 0;
         }
+
+        input {
+            width: calc(100% - 8px);
+            text-align: inherit;
+        }
     }
 }
 
