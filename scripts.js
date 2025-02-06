@@ -316,4 +316,20 @@ iofs.save("C:/.diskinfo/size_remaining.txt", iofs.load("C:/.diskinfo/size.txt") 
 // Re-Create program shortcuts; Delete them beforehand
 iofs.listdir(system.user.paths.programShortcuts).forEach((item) => {
     iofs.delete(item, 1);
-})
+});
+
+window.setTimeout(() => {
+    if(_paq) {
+        _paq.push(['setUserId', system.osDetails.uid ?? 0]);
+        _paq.push(['setCustomVariable', 1, 'version', system.osDetails.version, 'visit']);
+        _paq.push(["setDocumentTitle", document.title]);
+        _paq.push(['trackPageView']);
+        _paq.push(['trackEvent', "System State", "Boot successful"]);
+    // _paq.push(['enableHeartBeatTimer']);
+    }
+    window.addEventListener("beforeunload", function (e) {
+        if(_paq) {
+            _paq.push(['trackEvent', "System State", "Shutdown", "beforeunload"]);
+        }
+    });
+}, 0);
