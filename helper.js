@@ -164,7 +164,7 @@ function spawnContextMenu(content) { // TODO: Make async
     }
 
     newelement.parentElement.addEventListener("click", function () {
-        newelement.outerHTML = "";
+        newelement.remove();
     })
 }
 
