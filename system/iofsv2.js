@@ -1,7 +1,7 @@
 "use strict";
 
 export const iofs = {
-	forbiddenCharsInPath: ['*', '?', '#', '$', '\'', '"', '`', '\\', '§', ','],
+	forbiddenCharsInPath: ['*', '?', '#', '$', '\'', '"', '`', '\\', '§', ',', '\r', '\n'],
 
 	save: function(path, content, attributes = false, override = false, recursive = false, isRaw = true) {
 		path = this.sanitizePath(path);
