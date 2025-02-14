@@ -119,7 +119,8 @@ const iofsv2_installos = {
             ["C:/Program Files/info.txt", "Not all files of programs are listed here / within iofs. This directory probably won't behave as you'd expect.", "t=txt"],
             ["C:/mainos/customprograms.txt", "{}", "t=txt"],
             ["C:/mainos/system32/ExpectedVersion.txt", "###### mainos.version", "t=txt"],
-            ["C:/mainos/system32/ExpectedVersionnr.txt", "###### mainos.versionnr", "t=txt"]
+            ["C:/mainos/system32/ExpectedVersionnr.txt", "###### mainos.versionnr", "t=txt"],
+            ["C:/system/installed_programs.json", "{}", "t=txt"],
         ];
         
         for(let file of bulkFiles) {
