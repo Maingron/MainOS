@@ -1,0 +1,12 @@
+{
+	"meta": {
+		"id": "backup_utility",
+		"src": "Program%20Files/Backup Utility/exec.html",
+		"icon": "#iofs:C:/Program Files/Backup Utility/icon.png",
+		"version": "undefined",
+		"devonly": true
+	},
+	"copyFiles": {
+		"programs": ["icon.png"]
+	}
+}
