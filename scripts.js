@@ -83,11 +83,30 @@ if (system.user.settings.enableRepository) { // Load programs from repository if
         xhr.send();
 
     } catch (e) {}
-
 }
 
 
 // Add / handle programs
+// TODO: Finish this function and this stuff
+function loadInstalledPrograms() {
+    let allProgramJson = iofs.load("C:/system/installed_programs.json");
+    try {
+        allProgramJson = JSON.parse(allProgramJson);
+    } catch(e) {
+        throw new Error("Installed programs JSON is invalid. Abourting.");
+    }
+
+    for (let myProgram of Object.keys(allProgramJson)) {
+        myProgram = allProgramJson[myProgram];
+        if (myProgram.disabled) {
+            continue;
+        }
+        system.user.programs[myProgram.id] = myProgram;
+    }
+}
+
+loadInstalledPrograms();
+
 for(var i = 0; i < Object.keys(system.user.programs).length; i++) {
     var myProgram = system.user.programs[Object.keys(system.user.programs).sort()[i]];
     if(myProgram.disabled) {
