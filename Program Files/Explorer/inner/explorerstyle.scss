@@ -76,7 +76,6 @@ body {
 }
 
 #content_files {
-    padding: 15px;
     position: relative;
     overflow: scroll;
     overflow-x: hidden;
@@ -84,49 +83,99 @@ body {
     left: 0;
     height: 100%;
     box-sizing: border-box;
-    display: flex;
-    justify-content: start;
-    align-content: start;
-    flex-wrap: wrap;
+
+    &.details {
+        a {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: stretch;
+            position: relative;
+
+            img {
+                width: 30px;
+                height: 30px;
+                margin-right: 10px;
+            }
+
+            span,
+            div {
+                display: inline-block;
+                width: 100%;
+                position: relative;
+            }
+
+            .color_dot_div {
+                position: relative;
+                top: 0;
+                left: unset;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+
+    &:not(&.details) {
+        padding: 15px;
+        display: flex;
+        justify-content: start;
+        align-content: start;
+        flex-wrap: wrap;
+    
+        a {
+            margin: 4px;
+            overflow: hidden;
+            width: 64px;
+            height: auto;
+            max-height: 100px;
+            z-index: 10;
+            top: 0;
+            left: 0;
+            float: left;
+            text-align: center;
+            align-content: start;
+            user-select: none;
+            font-size: .85em;
+            text-decoration: none;
+            border-radius: var(--border-radius) !important;
+    
+            &:hover,
+            &:focus-visible {
+                overflow: visible;
+                z-index: 20;
+            }
+    
+            img {
+                position: relative;
+                display: block;
+                top: 0;
+                margin-top: 2px;
+                height: 64px;
+                max-height: 150px;
+                pointer-events: none;
+                width: 100%;
+                overflow: hidden;
+                object-fit: contain;
+                pointer-events: none;
+                margin: 0;
+            }
+        }
+    }
+
+    input {
+        width: calc(100% - 8px);
+        text-align: inherit;
+    }
 
     a {
         background-color: transparent;
         border: 0;
-        margin: 4px;
-        overflow: hidden;
-        width: 64px;
-        height: auto;
-        max-height: 100px;
-        z-index: 10;
-        top: 0;
-        left: 0;
-        float: left;
-        text-align: center;
-        align-content: start;
-        user-select: none;
         word-break: break-word;
         display: inline-block;
         position: relative;
-        font-size: .85em;
-        text-decoration: none;
-        border-radius: var(--border-radius) !important;
-
-        &:hover,
-        &:focus-visible {
-            overflow: visible;
-            z-index: 20;
-        }
 
         &.fattr-hidden {
             opacity: .7;
-        }
-
-        &.fattr-system_file {
-
-        }
-
-        &.fattr-outdated_file {
-            
         }
 
         .color_dot_div {
@@ -139,6 +188,7 @@ body {
             width: 80%;
             user-select: none;
             pointer-events: none;
+
             .color_dot {
                 width: 12px;
                 height: 12px;
@@ -207,26 +257,6 @@ body {
                     }
                 }
             }
-        }
-
-        img {
-            position: relative;
-            display: block;
-            top: 0;
-            margin-top: 2px;
-            height: 64px;
-            max-height: 150px;
-            pointer-events: none;
-            width: 100%;
-            overflow: hidden;
-            object-fit: contain;
-            pointer-events: none;
-            margin: 0;
-        }
-
-        input {
-            width: calc(100% - 8px);
-            text-align: inherit;
         }
     }
 }
