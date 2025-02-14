@@ -3,7 +3,7 @@ export function version(versionString = 0) {
 
 	if(typeof versionString === 'number') {
 		versionString = "" + versionString;
-} else if(typeof versionString == 'object' && versionString.toString) {
+	} else if(typeof versionString == 'object' && versionString.toString) {
 		versionString = versionString.toString();
 	} else if(typeof versionString !== 'string') {
 		throw new Error("Got incompatible version format");
@@ -50,10 +50,56 @@ export function version(versionString = 0) {
 		minor: +minor,
 		patch: +patch,
 		build: +build || build,
-		toString: toString
+		toString: toString,
+		isNewerThan: function(right, verbose = false) {
+			if(!right) {
+				throw new Error("Expected a version to compare to.");
+			}
+			return isNewerThan(this, right, verbose);
+		}
 	};
 
 	Object.freeze(returnObj);
 
 	return returnObj;
+}
+
+export function isNewerThan(left, right, verbose = false) {
+	let reason;
+	let isNewer = false;
+
+	if(!left || !right) {
+		throw new Error("Expected two versions.");
+	}
+
+	left = version(left);
+	right = version(right);
+
+	for(let key of ["major", "minor", "patch", "build"]) {
+		if(left[key] == right[key]) {
+			continue;
+		} else if(left[key] > right[key]) {
+			isNewer = true;
+			reason = key;
+			break;
+		} else if(left[key] < right[key]) {
+			isNewer = false;
+			reason = key;
+			break;
+		}
+	}
+
+	if(left.toString() == right.toString()) {
+		isNewer = false;
+		reason = "equal";
+	}
+
+	if(verbose) {
+		return {
+			isNewer: isNewer,
+			reason: reason
+		}
+	}
+
+	return isNewer;
 }
