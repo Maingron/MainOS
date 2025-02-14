@@ -13,11 +13,18 @@ export function version(versionString = 0) {
 
 	const returnObj = {
 		toString: toString,
-		isNewerThan: function(right, verbose = false) {
-			if(!right) {
+		isNewerThan: function(otherVersion, verbose = false) {
+			if(!otherVersion) {
 				throw new Error("Expected a version to compare to.");
 			}
-			return isNewerThan(this, right, verbose);
+			return isNewerThan(this, otherVersion, verbose);
+		},
+		equals: function(otherVersion) {
+			if (!otherVersion) {
+				throw new Error("Expected a version to compare to.");
+			}
+
+			return this.version == version(otherVersion).version;
 		},
 		get major() {
 			return major;
