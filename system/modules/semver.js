@@ -1,10 +1,13 @@
 export function version(versionString = 0) {
 	// https://semver.org/
 
-	let major, minor, patch;
+	let major, minor, patch, build;
 
 	let toString = function() {
 		let outputString = `${major}.${minor}.${patch}`;
+		if(build) {
+			outputString += `-${build}`;
+		}
 		return outputString;
 	}
 
@@ -34,6 +37,12 @@ export function version(versionString = 0) {
 		set patch(value) {
 			patch = (("" + value).replace(/\D/g, '') || 0);
 		},
+		get build() {
+			return build;
+		},
+		set build(value) {
+			build = value || undefined;
+		},
 		get version() {
 			return toString();
 		},
@@ -47,9 +56,11 @@ export function version(versionString = 0) {
 			}
 
 			value = ("" + value).split('.');
-			this.major = value[0] || 0;
-			this.minor = value[1] || 0;
-			this.patch = value[2] || 0;
+			this.major = value.shift() || 0;
+			this.minor = value.shift() || 0;
+			value = value.join('.').split('-');
+			this.patch = value.shift() || 0;
+			this.build = value.join('-') || undefined;
 		}
 	};
 
