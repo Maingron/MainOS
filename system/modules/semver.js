@@ -3,6 +3,10 @@ export function version(versionString = 0) {
 
 	if(typeof versionString === 'number') {
 		versionString = "" + versionString;
+} else if(typeof versionString == 'object' && versionString.toString) {
+		versionString = versionString.toString();
+	} else if(typeof versionString !== 'string') {
+		throw new Error("Got incompatible version format");
 	}
 
 	let version = versionString?.split('.');
