@@ -1,7 +1,8 @@
 body {
     height: 100vh;
     box-sizing: border-box;
-        #content {
+
+    #content {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
@@ -16,11 +17,14 @@ body {
         background: var(--themecolor);
         left: 0;
         font-size: 1em;
+        overflow: auto;
+
         .sidebaritem {
             display: block;
             width: 100%;
             height: auto;
             text-decoration: none;
+
             a {
                 display: block;
                 width: 100%;
@@ -43,6 +47,7 @@ body {
 
     .category {
         display: none;
+
         &:target {
             display: block;
             position: relative;
@@ -51,10 +56,10 @@ body {
             height: 100%;
             overflow: auto;
             border-left: 1px solid #666;
+            box-sizing: border-box;
         }
     }
 }
-
 
 
 body {
