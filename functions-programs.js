@@ -314,6 +314,11 @@ function run(which, iattr, how) { // Run a program
 			"getStyles": function() {
 				return JSON.parse(JSON.stringify(protectedData.styles));
 			},
+			
+			"getStyleProperty": function(property) {
+				return protectedData.styles[property.toLowerCase().trim()] || undefined;
+			},
+
 			"setStyleProperty": function(property, value) {
 				protectedData.styles[property] = value;
 			},
