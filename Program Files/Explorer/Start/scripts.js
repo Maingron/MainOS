@@ -64,6 +64,7 @@ window.addEventListener('message', function(event) {
             close_startmenu();
         } else {
             pWindow.setMaximized(1);
+            pWindow.focus();
         }
 
         // Set username- and icon
