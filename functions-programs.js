@@ -226,104 +226,113 @@ function run(which, iattr, how) { // Run a program
      * If you want to interact with the program's window, just use pWindow!
      */
 
-    function handInfosToWindow() {
-        myWindow.frame.data = {};
-        myWindow.frame.data.mypid = myPid;
-        myWindow.frame.contentWindow.pid = myPid;
-        myWindow.frame.contentWindow.os = myWindow.frame.contentWindow.mainos = window;
+	function handInfosToWindow() {
+		let frameIsAccessible = false;
+		myWindow.frame.data = {
+			'mypid': myPid,
+		};
 
-        myWindow.frame.contentWindow.document.documentElement.style.setProperty("--font", system.user.settings.font.fonts);
+		try {
+			myWindow.frame.contentWindow.pid = myPid;
+			myWindow.frame.contentWindow.os = myWindow.frame.contentWindow.mainos = window;
+			myWindow.frame.contentWindow.document.documentElement.style.setProperty("--font", system.user.settings.font.fonts);
+			myWindow.frame.contentWindow.isAccessibleFromParentFrame = true;
+			frameIsAccessible = true;
+		} catch(e) {}
 
+		function stylesConstructor() {
+			return {
+				"left": 0,
+				"top": 0,
+				"width": 0,
+				"height": 0,
+				"opacity": 1
+			}
+		}
 
-        function stylesConstructor() {
-            return {
-                "left": 0,
-                "top": 0,
-                "width": 0,
-                "height": 0,
-                "opacity": 1
-            }
-        }
+		var protectedData = {
+			"pid": myPid,
+			"attributes": iattr,
+			"programObject": myProgram,
+			"path": {
+				"folderOfExecutable": myProgram.src.split("/").slice(0, -1).join("/"),
+				"executable": myProgram.src,
+				"folder": system.paths.programs + myProgram.id + "/",
+				"data": system.user.paths.appdata + myProgram.id + "/",
+				"logs": system.user.paths.logs + myProgram.id + "/",
+				"temp": system.user.paths.temp + myProgram.id + "/"
+			},
+			"styles": stylesConstructor()
+		};
 
-        var protectedData = {
-            "pid": myPid,
-            "attributes": iattr,
-            "programObject": myProgram,
-            "path": {
-                "folderOfExecutable": myProgram.src.split("/").slice(0, -1).join("/"),
-                "executable": myProgram.src,
-                "folder": system.paths.programs + myProgram.id + "/",
-                "data": system.user.paths.appdata + myProgram.id + "/",
-                "logs": system.user.paths.logs + myProgram.id + "/",
-                "temp": system.user.paths.temp + myProgram.id + "/"
-            },
-            "styles": stylesConstructor()
-        };
+		myWindow.pWindow = {
+			"os": window,
+			"mainos": window,
+			"getWindow": function() {
+				return myWindow;
+			},
+			"close": function() {
+				unrun(myWindow);
+			},
+			"setMinimized": function(state) {
+				// state = true or false, else it will toggle
+				setWindowMinimized(myWindow, state);
+			},
+			"setMaximized": function(state) {
+				// state = true or false, else it will toggle
+				setWindowMaximized(myWindow, state);
+			},
+			"setFullscreen": function(state) {
+				// state = true or false, else it will toggle
+				setWindowFullscreen(myWindow, state);
+			},
+			"setAlwaysOnTop": function(state) {
+				// state = true or false, else it will toggle
+				setWindowAlwaysOnTop(myWindow, state);
+			},
+			"focus": function() {
+				focusWindow(myWindow);
+			},
+			"setOpacity": function(opacity) {
+				setWindowOpacity(myWindow, opacity);
+			},
+			"getPid": function() {
+				return protectedData.pid;
+			},
+			"getAttributes": function() {
+				return protectedData.attributes;
+			},
+			"getProgramObject": function() {
+				return protectedData.programObject;
+			},
+			"getPath": function(which) {
+				return protectedData.path[which];
+			},
+			"getPathList": function() {
+				return JSON.parse(JSON.stringify(protectedData.path));
+			},
+			"getStyles": function() {
+				return JSON.parse(JSON.stringify(protectedData.styles));
+			},
+			"setStyleProperty": function(property, value) {
+				protectedData.styles[property] = value;
+			},
+			"settings": {
+				...(protectedData.programObject["settings"] || {}),
+				...system.user.settings.programs[protectedData.programObject.id]
+			},
+			pushSettings: function() {
+				system.user.settings.programs[protectedData.programObject.id] = this.settings;
+				this.os.saveSystemVariable();
+			},
+			pullSettings: function() {
+				this.settings = system.user.settings.programs[protectedData.programObject.id] || {};
+			}
+		}
 
-        myWindow.pWindow = myWindow.frame.pWindow = myWindow.frame.contentWindow.pWindow = {
-            "os": window,
-            "mainos": window,
-            "getWindow": function() {
-                return myWindow;
-            },
-            "close": function() {
-                unrun(myWindow);
-            },
-            "setMinimized": function(state) {
-                // state = true or false, else it will toggle
-                setWindowMinimized(myWindow, state);
-            },
-            "setMaximized": function(state) {
-                // state = true or false, else it will toggle
-                setWindowMaximized(myWindow, state);
-            },
-            "setFullscreen": function(state) {
-                // state = true or false, else it will toggle
-                setWindowFullscreen(myWindow, state);
-            },
-            "setAlwaysOnTop": function(state) {
-                // state = true or false, else it will toggle
-                setWindowAlwaysOnTop(myWindow, state);
-            },
-            "focus": function() {
-                focusWindow(myWindow);
-            },
-            "setOpacity": function(opacity) {
-                setWindowOpacity(myWindow, opacity);
-            },
-            "getPid": function() {
-                return protectedData.pid;
-            },
-            "getAttributes": function() {
-                return protectedData.attributes;
-            },
-            "getProgramObject": function() {
-                return protectedData.programObject;
-            },
-            "getPath": function(which) {
-                return protectedData.path[which];
-            },
-            "getPathList": function() {
-                return JSON.parse(JSON.stringify(protectedData.path));
-            },
-            "getStyles": function() {
-                return JSON.parse(JSON.stringify(protectedData.styles));
-            },
-            "setStyleProperty": function(property, value) {
-                protectedData.styles[property] = value;
-            },
-            "settings": {
-                ...(protectedData.programObject["settings"] || {}),
-                ...system.user.settings.programs[protectedData.programObject.id]
-            },
-            pushSettings: function() {
-                system.user.settings.programs[protectedData.programObject.id] = this.settings;
-                this.os.saveSystemVariable();
-            },
-            pullSettings: function() {
-                this.settings = system.user.settings.programs[protectedData.programObject.id] || {};
-            }
-        }
+		if(frameIsAccessible) {
+			myWindow.frame.pWindow = myWindow.frame.contentWindow.pWindow = myWindow.pWindow;
+		}
 
         // send message to program when pWindow is ready
         myWindow.frame.contentWindow.postMessage('pWindowReady', '*');
