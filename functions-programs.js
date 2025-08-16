@@ -334,46 +334,46 @@ function run(which, iattr, how) { // Run a program
 			myWindow.frame.pWindow = myWindow.frame.contentWindow.pWindow = myWindow.pWindow;
 		}
 
-        // send message to program when pWindow is ready
-        myWindow.frame.contentWindow.postMessage('pWindowReady', '*');
+		// send message to program when pWindow is ready
+		myWindow.frame.contentWindow.postMessage('pWindowReady', (new URL(myWindow.frame.src).origin));
 
-        // Sorry pals, but it's important to know which program is used how often.
-        setTimeout(() => {
-            if(_paq) {
-                _paq.push(['trackEvent', "Program", myProgram.title, "open", system.runtime.pidmax]);
-            }
-        }, 0);
-    }
+		// Sorry pals, but it's important to know which program is used how often.
+		setTimeout(() => {
+			if(_paq) {
+				_paq.push(['trackEvent', "Program", myProgram.title, "open", system.runtime.pidmax]);
+			}
+		}, 0);
+	}
 
-    // once the frame's src is fully loaded, we hand infos to the window
-    myWindow.frame.addEventListener("load", function() {
-        handInfosToWindow();
-    }, {"once": true});
+	// once the frame's src is fully loaded, we hand infos to the window
+	myWindow.frame.addEventListener("load", function() {
+		handInfosToWindow();
+	}, {"once": true});
 
-    if(!myWindow?.classList?.contains("minimized")) {
-        focusWindow(getWindowById(myWindow.id));
-    }
+	if(!myWindow?.classList?.contains("minimized")) {
+		focusWindow(getWindowById(myWindow.id));
+	}
 
 
-    function checkMayStillOpen(programIdentifier) {
-        let myProgram = system.user.programs[programIdentifier];
-        if(!myProgram.maxopen) {
-            return true; // No limit
-        }
-        let stillOpenable = myProgram.maxopen + 1;
-    
-        for(let processListEntry of getProcessList()) {
-            if(processListEntry == programIdentifier) {
-                stillOpenable--;
-            }
-        }
-    
-        if(stillOpenable > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+	function checkMayStillOpen(programIdentifier) {
+		let myProgram = system.user.programs[programIdentifier];
+		if(!myProgram.maxopen) {
+			return true; // No limit
+		}
+		let stillOpenable = myProgram.maxopen + 1;
+	
+		for(let processListEntry of getProcessList()) {
+			if(processListEntry == programIdentifier) {
+				stillOpenable--;
+			}
+		}
+	
+		if(stillOpenable > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
 
 /**
