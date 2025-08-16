@@ -275,3 +275,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 });
+
+window.addEventListener('message', function(event) {
+	if (event.data === 'pWindowReady') {
+		window.addEventListener('click', function() {
+			pWindow.focus();
+		});
+		window.removeEventListener('message', this);
+	}
+});
