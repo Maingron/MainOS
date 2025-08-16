@@ -26,8 +26,8 @@ function submit(inputcontent = document.querySelector("#input").value) {
 window.addEventListener('message', function(event) {
 	if (event.data === 'pWindowReady') {
 		pWindow.setMaximized(false);
-		parent.resizeWindow(pWindow.getWindow(), 360, 220);
-		pWindow.focus();
+		pWindow.setStyleProperty("height", 220);
+		pWindow.setStyleProperty("width", 360);
 
 		window.setTimeout(function() {
 			document.querySelector("#input").focus();
