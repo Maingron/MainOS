@@ -510,8 +510,32 @@ function dragWindow(which, x, y, offsetX = 0, offsetY = 0) {
  * @param {number} height 
  */
 function resizeWindow(which, width, height) {
-    which.style.width = width + "px";
-    which.style.height = height + "px";
+	// If is number without unit, assume px
+	if(width && isFinite(width)) {
+		width = width + "px";
+	}
+	// If is number without unit, assume px
+	if(height && isFinite(height)) {
+		height = height + "px";
+	}
+
+	// Only set if is defined
+	if(height) {
+		which.style.height = height;
+	}
+
+	// Only set if is defined
+	if(width) {
+		which.style.width = width;
+	}
+
+	if((which.pWindow.getStyleProperty("width") && width) && which.pWindow.getStyleProperty("width") != width) {
+		which.pWindow.setStyleProperty("width", width);
+	}
+
+	if((which.pWindow.getStyleProperty("height") && height) && which.pWindow.getStyleProperty("height") != height) {
+		which.pWindow.setStyleProperty("height", height);
+	}
 }
 
 function overlayDragBar(which, onoff) {
