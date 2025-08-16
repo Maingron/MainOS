@@ -139,7 +139,7 @@ function loadProgramMetadata(which) { // Load program metadata from program file
     xhr.onload = function() {
         let rawMetaString = xhr.responseText.substring(0, 1200); // Get first 1200 characters of program - Everything relevant must be within this range
         if(rawMetaString.includes("<head") && rawMetaString.includes("</head>")) { // Only continue if <head> and </head> are present in range
-            let metaString = rawMetaString.replaceAll(/\<\!\-\-(.*?)\-\-\>/g, ""); // Remove comments
+            let metaString = rawMetaString.replaceAll(/\<\!\-\-([\s\S]*?)\-\-\>/g, ""); // Remove comments
             metaString = metaString.split("</head>")[0] // Extract everything before </head>
             metaString = metaString.replace(/\n|\r|\t/g, ''); // Remove empty lines and tabs
             metaString = metaString.replaceAll(/\<\/(.*?)\>/g, ""); // Remove all </...> tags
