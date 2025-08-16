@@ -573,18 +573,29 @@ function overlayResizer(which, onoff) {
  * @param which program
  */
 function unrun(which) { // Unrun / close a program
-    setTimeout(function() {
-        which.classList.add("closing");
-        tasklist.removeItem(which);
-    },0);
+	which.classList.add("closing");
+	which.addEventListener("transitionend", function handleTransitionEnd(e) {
+		if (e.target.classList.contains("program") && e.propertyName == "transform") {
+			window.setTimeout(function() {
+				unrun_killProgram();
+			}, (system?.user?.settings?.processManagement?.windowCloseTimeout ?? 10000) / 100);
 
-    setTimeout(function() {
-        which.style.zIndex = "0";
-        which.style.display = "none";
-        which.children[2].src = "about:blank";
-        which.outerHTML = "";
-        processList[+which.id] = null;
-    }, 250);
+			which.removeEventListener("transitionend", handleTransitionEnd);
+		}
+	});
+
+	window.setTimeout(function() {
+		if(system.runtime.processList[+which.id]) {
+			unrun_killProgram();
+		}
+	}, system?.user?.settings?.processManagement?.windowCloseTimeout ?? 2000);
+
+	function unrun_killProgram() {
+		which.children[2].src = "about:blank";
+		which.outerHTML = "";
+		system.runtime.processList[+which.id] = null;
+		tasklist.removeItem(which);
+	}
 }
 
 /**
@@ -657,19 +668,26 @@ function setWindowFullscreen(which, state) {
  * @param {boolean} state minimize / unminimize (default: auto)
  */
 function setWindowMinimized(which, state) {
+	which.classList.add("minimizing");
 
-    if(state == true) {
-        which.classList.add("minimized");
-        which.getElementsByTagName("iframe")[0].setAttribute("disabled", true);
-        focusWindow(false);
-    } else if(state == false) {
-        which.getElementsByTagName("iframe")[0].removeAttribute("disabled");
-        which.classList.remove("minimized");
+	if(state == true) {
+		which.classList.add("minimized");
+		which.getElementsByTagName("iframe")[0].setAttribute("disabled", true);
+		focusWindow(false);
+	} else if(state == false) {
+		which.getElementsByTagName("iframe")[0].removeAttribute("disabled");
+		which.classList.remove("minimized");
+	} else {
+		setWindowMinimized(which, !which.classList.contains("minimized"));
+		return;
+	}
 
-    } else {
-        setWindowMinimized(which, !which.classList.contains("minimized"));
-        return;
-    }
+	which.addEventListener("transitionend", function handleTransitionEnd(e) {
+		if (e.target.classList.contains("program")) {
+			which.classList.remove("minimizing");
+			which.removeEventListener("transitionend", handleTransitionEnd);
+		}
+	});
 }
 
 /**
@@ -745,12 +763,11 @@ function getProgramByMagic(which) {
 }
 
 function peekProgram(which, state) {
-    console.log(which);
-    if(state == true) {
-        which.classList.add("peeking");
-    } else if(state == false) {
-        which.classList.remove("peeking");
-    } else {
-        peekProgram(which, !which.classList.contains("peek"));
-    }
+	if(state == true) {
+		which.classList.add("peeking");
+	} else if(state == false) {
+		which.classList.remove("peeking");
+	} else {
+		peekProgram(which, !which.classList.contains("peek"));
+	}
 }
