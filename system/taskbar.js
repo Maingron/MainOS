@@ -16,15 +16,25 @@ export const tasklist = {
         newItemElement.title = myProgram.title;
         newItemElement.setAttribute("pid", myWindow.getAttribute("pid"));
 
-        newItemElement.addEventListener("click", function() {
-                
-            if(this.classList.contains("active")) {
-                setWindowMinimized(getWindowByMagic(this.getAttribute("pid")));
-            } else {
-                setWindowMinimized(getWindowByMagic(this.getAttribute("pid")), false);
-                focusWindow(getWindowByMagic(this.getAttribute("pid")));
-            }
-        });
+		newItemElement.addEventListener("click", function() {
+			let which = this;
+			let myProgramWindow = getWindowByMagic(which.getAttribute("pid"));
+
+			myProgramWindow.style.transition = "0s";
+
+			peekProgram(myProgramWindow, false);
+			window.setTimeout(function() {
+				myProgramWindow.style.removeProperty("transition");
+
+				if(which.classList.contains("active")) {
+					setWindowMinimized(getWindowByMagic(which.getAttribute("pid")));
+				} else {
+					setWindowMinimized(getWindowByMagic(which.getAttribute("pid")), false);
+					focusWindow(getWindowByMagic(which.getAttribute("pid")));
+				}
+			}, 10);
+
+		});
 
         newItemElement.addEventListener("mouseover", function() {
             // peek
@@ -33,7 +43,13 @@ export const tasklist = {
 
         newItemElement.addEventListener("mouseout", function() {
             // unpeek
-            peekProgram(getWindowByMagic(this.getAttribute("pid")), false);
+			let which = this;
+			let myProgramWindow = getWindowByMagic(which.getAttribute("pid"));
+			myProgramWindow.style.transition = "0s";
+			peekProgram(myProgramWindow, false);
+			window.setTimeout(function() {
+				myProgramWindow.style.removeProperty("transition");
+			}, 10);
         });
 
         // clone process with middle click

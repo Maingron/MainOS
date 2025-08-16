@@ -668,6 +668,9 @@ function setWindowFullscreen(which, state) {
  * @param {boolean} state minimize / unminimize (default: auto)
  */
 function setWindowMinimized(which, state) {
+	which.style.transition = "0s";
+	which.classList.remove("peeking");
+	which.style.removeProperty("transition");
 	which.classList.add("minimizing");
 
 	if(state == true) {
@@ -682,12 +685,16 @@ function setWindowMinimized(which, state) {
 		return;
 	}
 
-	which.addEventListener("transitionend", function handleTransitionEnd(e) {
-		if (e.target.classList.contains("program")) {
-			which.classList.remove("minimizing");
-			which.removeEventListener("transitionend", handleTransitionEnd);
-		}
-	});
+	if(which.getAnimations().length > 0) {
+		which.addEventListener("transitionend", function handleTransitionEnd(e) {
+			if (e.target.classList.contains("program")) {
+				which.classList.remove("minimizing");
+				which.removeEventListener("transitionend", handleTransitionEnd);
+			}
+		});
+	} else {
+		which.classList.remove("minimizing");
+	}
 }
 
 /**
