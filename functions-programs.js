@@ -314,14 +314,10 @@ function run(which, iattr, how) { // Run a program
 			"getStyles": function() {
 				return JSON.parse(JSON.stringify(protectedData.styles));
 			},
-			
 			"getStyleProperty": function(property) {
 				return protectedData.styles[property.toLowerCase().trim()] || undefined;
 			},
-
-			"setStyleProperty": function(property, value) {
-				protectedData.styles[property] = value;
-			},
+			"setStyleProperty": function(property, value) {}, // Will be defined later since we rely on our object's functions
 			"settings": {
 				...(protectedData.programObject["settings"] || {}),
 				...system.user.settings.programs[protectedData.programObject.id]
@@ -332,6 +328,27 @@ function run(which, iattr, how) { // Run a program
 			},
 			pullSettings: function() {
 				this.settings = system.user.settings.programs[protectedData.programObject.id] || {};
+			}
+		}
+
+		myWindow.pWindow.setStyleProperty = function(property, value) {
+			protectedData.styles[property] = value;
+			let propertySanitized = property.toLowerCase().trim();
+			let myStyles = this.getStyles();
+			switch(propertySanitized) {
+				case "opacity":
+					this.setOpacity(value);
+					break;
+				case "left":
+				case "right":
+				case "top":
+				case "bottom":
+				case "width":
+				case "height":
+				default:
+					parent.resizeWindow(myWindow, myStyles.width, myStyles.height);
+					parent.dragWindow(myWindow, myStyles.left, myStyles.top, myWindow.offsetLeft, myWindow.offsetTop);
+					break;
 			}
 		}
 
