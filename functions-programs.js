@@ -474,8 +474,33 @@ function setWindowAlwaysOnTop(which, state) {
  * @param {number} [offsetY] offset
  */
 function dragWindow(which, x, y, offsetX = 0, offsetY = 0) {
-    which.style.left = offsetX - x + "px";
-    which.style.top = offsetY - y + "px";
+	// If is number without unit, assume px
+	if(x && isFinite(x)) {
+		x = offsetX - x + "px";
+	}
+
+	// If is number without unit, assume px
+	if(y && isFinite(y)) {
+		y = offsetY - y + "px";
+	}
+
+	// Only set if is defined
+	if(x) {
+		which.style.left = x;
+	}
+
+	// Only set if is defined
+	if(y) {
+		which.style.top = y;
+	}
+
+	if((which.pWindow.getStyleProperty("left") && x) && which.pWindow.getStyleProperty("left") != x) {
+		which.pWindow.setStyleProperty("left", x);
+	}
+
+	if((which.pWindow.getStyleProperty("top") && y) && which.pWindow.getStyleProperty("top") != y) {
+		which.pWindow.setStyleProperty("top", y);
+	}
 }
 
 /**
