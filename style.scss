@@ -672,6 +672,9 @@ body {
 		.headbar {
 			.drag {
 				cursor: grab;
+				&:active {
+					cursor: grabbing;
+				}
 			}
 		}
 	}
