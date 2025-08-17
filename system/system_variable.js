@@ -135,6 +135,7 @@ function getInitialSettings() {
             showClock: true,
             showShowDesktop: true,
             showProgramTitle: false,
+            showOnlineStatus: true,
             height: 45, // px
             // wip
             position: "bottom"
