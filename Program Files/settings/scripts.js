@@ -144,6 +144,18 @@ function applySettingsToCategory(categoryName) {
         settingInput.title = setting.id;
         settingInput.id = setting.id;
         settingInput.name = setting.id;
+        
+        if(setting.min) {
+            settingInput.min = setting.min;
+        }
+
+        if(setting.max) {
+            settingInput.max = setting.max;
+        }
+
+        if(setting.step) {
+            settingInput.step = setting.step;
+        }
 
         if(setting.disabled && system.user.settings.developer.enableAllSettings != true) {
             settingInput.disabled = "disabled";
