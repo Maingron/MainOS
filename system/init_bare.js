@@ -33,6 +33,9 @@ export const initBare = {
 				"pid": pid,
 				"documentRoot": location.pathname,
 				"documentHost": document.getElementById("documentRoot").href,
+				get isOnline() {
+					return navigator.onLine;
+				},
 
 				"time": function() {
 					// TODO: Add potential offset

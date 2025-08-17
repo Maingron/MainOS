@@ -109,13 +109,50 @@ export const Taskbar = function() {
 		htmlElement: this.htmlElement.getElementsByClassName("show-desktop")[0],
 	}
 
+	this.onlineStatus = {
+		wasOnline: system?.runtime?.isOnline ?? false,
+		htmlElement: this.htmlElement.getElementsByClassName("taskbaronlinestatus")[0],
+		htmlElementImg: (() => {
+			let img = this.htmlElement.querySelector(".taskbaronlinestatus img");
+			if (!img) {
+				img = document.createElement("img");
+				img.className = "icon";
+				img.title = "Online Status";
+				img.src = "img/transparent.png";
+				this.htmlElement.querySelector(".taskbaronlinestatus").appendChild(img);
+			}
+			return img;
+		})(),
+		update: function() {
+			if(this.wasOnline == system?.runtime?.isOnline) {
+				return; // no change
+			}
+			this.wasOnline = system?.runtime?.isOnline;
+			if(system?.runtime?.isOnline) {
+				this.htmlElementImg.title = "Online";
+				if(system.user.settings.prefersDarkMode) {
+					this.htmlElementImg.src = iofs.load(system.paths.icons.system + "wifi-dark.svg", false);
+				} else {
+					this.htmlElementImg.src = iofs.load(system.paths.icons.system + "wifi.svg", false);
+				}
+			} else {
+				this.htmlElementImg.title = "Offline";
+				if(system.user.settings.prefersDarkMode) {
+					this.htmlElementImg.src = iofs.load(system.paths.icons.system + "wifi strike-dark.svg", false);
+				} else {
+					this.htmlElementImg.src = iofs.load(system.paths.icons.system + "wifi strike.svg", false);
+				}
+			}
+		},
+		interval: null
+	}
+
 	this.tasklist = tasklist;
 
 	this.updateSettings = function(self) {
+		deinit(self);
+
 		// showClock
-			if(self.clock.interval) {
-				clearInterval(self.clock.interval);
-			}
 			if(system.user.settings.taskbar.showClock) {
 				self.clock.interval = setInterval(function() {
 					self.clock.htmlElement.innerHTML = systemRuntime.time().whatTime();
@@ -146,6 +183,17 @@ export const Taskbar = function() {
 				self.tasklist.htmlElement.classList.remove("showprogramtitle");
 			}
 
+		// showOnlineStatus
+			if(system.user.settings.taskbar.showOnlineStatus) {
+				self.onlineStatus.update();
+				self.onlineStatus.interval = setInterval(function() {
+					self.onlineStatus.update();
+				}, 2000);
+				self.onlineStatus.htmlElement.classList.remove("hidden");
+			} else {
+				self.onlineStatus.htmlElement.classList.add("hidden");
+			}
+
 		// position
 			self.htmlElement.setAttribute("position", system.user.settings.taskbar.position);
 	}
@@ -158,6 +206,7 @@ export const Taskbar = function() {
 
 	var deinit = function(self) {
 		clearInterval(self.clock.interval);
+		clearInterval(self.onlineStatus.interval);
 	}
 
 	init(this);

@@ -162,7 +162,11 @@ const iofsv2_installos = {
             ["C:/system/icons/folder_up.svg", "system/icons/folder_up.svg", "t=svg"],
             ["C:/system/icons/folder_search.svg", "system/icons/folder_search.svg", "t=svg"],
             ["C:/system/icons/mainos_folder.svg", "system/icons/mainos_folder.svg", "t=svg"],
-            ["C:/system/icons/fullscreen.svg", "system/icons/fullscreen.svg", "t=svg"]
+            ["C:/system/icons/fullscreen.svg", "system/icons/fullscreen.svg", "t=svg"],
+            ["C:/system/icons/wifi.svg", "system/icons/wifi.svg", "t=svg"],
+            ["C:/system/icons/wifi strike.svg", "system/icons/wifi strike.svg", "t=svg"],
+            ["C:/system/icons/wifi-dark.svg", "system/icons/wifi-dark.svg", "t=svg"],
+            ["C:/system/icons/wifi strike-dark.svg", "system/icons/wifi strike-dark.svg", "t=svg"]
         
         ];
         

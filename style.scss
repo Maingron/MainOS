@@ -318,7 +318,10 @@ body {
 				padding: 5px;
 				border-radius: var(--border-radius);
 				margin: 0 2px;
-	
+			
+				&.taskbaronlinestatus {
+					height: 100%;
+				}
 			}
 	
 			#taskbarrighticons {
@@ -328,7 +331,7 @@ body {
 	
 			img {
 				height: 100%;
-				margin: 3px;
+				margin: 0;
 				width: auto;
 				aspect-ratio: 1/1;
 			}

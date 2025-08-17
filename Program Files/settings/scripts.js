@@ -27,6 +27,7 @@ var settings = [
         {name: "Show Clock", type: "input>checkbox", id: "system.user.settings.taskbar.showClock"},
         {name: "Show Show Desktop Button", type: "input>checkbox", id: "system.user.settings.taskbar.showShowDesktop"},
         {name: "Show Program Titles", type: "input>checkbox", id: "system.user.settings.taskbar.showProgramTitle"},
+        {name: "Show Online Status", type: "input>checkbox", id: "system.user.settings.taskbar.showOnlineStatus"},
         {name: "Height in pixels", type: "input>number", id: "system.user.settings.taskbar.height", min: "0", max: "500", step: "1"},
     ]},
     {category: "Ease of access", id: "accessibility", settings: [
