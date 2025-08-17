@@ -26,6 +26,7 @@ var settings = [
         {name: "Show Language", type: "input>checkbox", id: "system.user.settings.taskbar.showLang"},
         {name: "Show Clock", type: "input>checkbox", id: "system.user.settings.taskbar.showClock"},
         {name: "Show Show Desktop Button", type: "input>checkbox", id: "system.user.settings.taskbar.showShowDesktop"},
+        {name: "Show Desktop Button Width in pixels", type: "input>number", id: "system.user.settings.taskbar.showShowDesktopWidth", min: "1", max: "100", step: "1"},
         {name: "Show Program Titles", type: "input>checkbox", id: "system.user.settings.taskbar.showProgramTitle"},
         {name: "Show Online Status", type: "input>checkbox", id: "system.user.settings.taskbar.showOnlineStatus"},
         {name: "Height in pixels", type: "input>number", id: "system.user.settings.taskbar.height", min: "10", max: "500", step: "1"},

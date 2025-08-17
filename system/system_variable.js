@@ -134,6 +134,7 @@ function getInitialSettings() {
             showLang: true,
             showClock: true,
             showShowDesktop: true,
+            showShowDesktopWidth: 8, // px
             showProgramTitle: false,
             showOnlineStatus: true,
             height: 45, // px

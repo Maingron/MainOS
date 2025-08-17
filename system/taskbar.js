@@ -107,6 +107,9 @@ export const Taskbar = function() {
 
 	this.showDesktopButton = {
 		htmlElement: this.htmlElement.getElementsByClassName("show-desktop")[0],
+		update: function() {
+			this.htmlElement.style.width = system.user.settings.taskbar.showShowDesktopWidth + "px";
+		}
 	}
 
 	this.onlineStatus = {
@@ -170,6 +173,7 @@ export const Taskbar = function() {
 			}
 
 		// showShowDesktop
+			self.showDesktopButton.update();
 			if(system.user.settings.taskbar.showShowDesktop) {
 				self.showDesktopButton.htmlElement.classList.remove("hidden");
 			} else {
