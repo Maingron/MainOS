@@ -92,8 +92,20 @@ async function doThisOnMouseMove(e) {
 }
 
 
-canvas.onmousedown = function() {
+canvas.onmousedown = function(e) {
     canvas.mousedown = true;
+    
+    // Get initial mouse position and set up for drawing
+    let boundingClientRect = canvas.getBoundingClientRect();
+    let mouseX = +((e.clientX - boundingClientRect.left) * (canvas.width / boundingClientRect.width)).toFixed(0);
+    let mouseY = +((e.clientY - boundingClientRect.top) * (canvas.height / boundingClientRect.height)).toFixed(0);
+    
+    // Set mouse coordinates for immediate use
+    ctx.mouseX = mouseX;
+    ctx.mouseY = mouseY;
+    
+    // Reset lastPosition to start a new drawing session
+    lastPosition = [mouseX, mouseY, false];
 }
 
 canvas.onmouseup = function() {
@@ -105,16 +117,22 @@ canvas.onmouseup = function() {
 canvas.addEventListener("touchstart", function(e) {
     e.preventDefault(); // Prevent scrolling/zooming
     canvas.mousedown = true;
-    // Reset lastPosition to start a new drawing session, preventing continuation from previous touch
-    lastPosition[2] = false;
     
-    // Set initial touch position to prevent unwanted lines from (0,0) or previous position
+    // Get initial touch position
     let touch = e.touches[0];
     let boundingClientRect = canvas.getBoundingClientRect();
     let touchX = +((touch.clientX - boundingClientRect.left) * (canvas.width / boundingClientRect.width)).toFixed(0);
     let touchY = +((touch.clientY - boundingClientRect.top) * (canvas.height / boundingClientRect.height)).toFixed(0);
-    lastPosition[0] = touchX;
-    lastPosition[1] = touchY;
+    
+    // Set mouse coordinates for immediate use
+    ctx.mouseX = touchX;
+    ctx.mouseY = touchY;
+    
+    // Reset lastPosition to start a new drawing session
+    lastPosition = [touchX, touchY, false];
+    
+    // Add the initial touch point to steps
+    steps.push([true, touchX, touchY, props.getColor(), +document.getElementById("width").value, props.getTool()]);
 })
 
 canvas.addEventListener("touchend", function(e) {
