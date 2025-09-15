@@ -87,6 +87,50 @@ canvas.onmouseup = function() {
     render();
 }
 
+// Touch event handlers for touchscreen support
+canvas.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    canvas.mousedown = true;
+    
+    // Check if we have touch points
+    if (e.touches && e.touches.length > 0) {
+        // Get the first touch point
+        let touch = e.touches[0];
+        let boundingClientRect = canvas.getBoundingClientRect();
+        ctx.mouseX = +((touch.clientX - boundingClientRect.left) * (canvas.width / boundingClientRect.width)).toFixed(0);
+        ctx.mouseY = +((touch.clientY - boundingClientRect.top) * (canvas.height / boundingClientRect.height)).toFixed(0);
+        
+        // Reset lastPosition to current touch position to prevent connecting to previous stroke
+        lastPosition = [ctx.mouseX, ctx.mouseY, false];
+        
+        // Add initial touch position to steps
+        steps.push([true, ctx.mouseX, ctx.mouseY, props.getColor(), +document.getElementById("width").value, props.getTool()]);
+    }
+});
+
+canvas.addEventListener("touchmove", function(e) {
+    e.preventDefault();
+    
+    if (canvas.mousedown && e.touches && e.touches.length > 0) {
+        let touch = e.touches[0];
+        let boundingClientRect = canvas.getBoundingClientRect();
+        ctx.mouseX = +((touch.clientX - boundingClientRect.left) * (canvas.width / boundingClientRect.width)).toFixed(0);
+        ctx.mouseY = +((touch.clientY - boundingClientRect.top) * (canvas.height / boundingClientRect.height)).toFixed(0);
+        
+        // Trigger the same drawing logic as mouse move
+        doThisOnMouseMove({
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        });
+    }
+});
+
+canvas.addEventListener("touchend", function(e) {
+    e.preventDefault();
+    canvas.mousedown = false;
+    render();
+});
+
 
 
 
