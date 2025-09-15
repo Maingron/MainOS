@@ -21,7 +21,10 @@ function initCamera() {
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
     
-    updateStatus('Camera app initialized. Click "Start Camera" to begin.');
+    updateStatus('Camera app initialized. Starting camera...');
+    
+    // Auto-start camera when app loads
+    startCamera();
 }
 
 // Start the camera
@@ -43,14 +46,18 @@ async function startCamera() {
         
         video.onloadedmetadata = () => {
             updateStatus('Camera started successfully. Ready to capture photos.');
-            setDisabled('start-camera-btn', true);
             setDisabled('stop-camera-btn', false);
             setDisabled('capture-btn', false);
         };
         
     } catch (error) {
         console.error('Error accessing camera:', error);
-        updateStatus('Error: Could not access camera. Please check permissions.', 'error');
+        updateStatus('Tap anywhere to start camera. Camera access required.', 'error');
+        
+        // Add click handler to retry camera start
+        document.getElementById('camera-container').addEventListener('click', () => {
+            startCamera();
+        }, { once: true });
     }
 }
 
@@ -62,7 +69,6 @@ function stopCamera() {
         video.srcObject = null;
     }
     
-    setDisabled('start-camera-btn', false);
     setDisabled('stop-camera-btn', true);
     setDisabled('capture-btn', true);
     
@@ -190,10 +196,10 @@ async function savePhoto() {
         
         // Get username, fallback to default if not available
         const username = (system?.user?.username) || 'default';
-        const filepath = `C:/users/${username}/Pictures/${filename}`;
+        const filepath = `C:/users/${username}/photos/${filename}`;
         
-        // Ensure the Pictures directory exists
-        await ensureDirectoryExists(`C:/users/${username}/Pictures`);
+        // Ensure the photos directory exists
+        await ensureDirectoryExists(`C:/users/${username}/photos`);
         
         // Convert base64 to blob and save
         const base64Data = capturedImageData.split(',')[1];
@@ -232,10 +238,10 @@ function generateNextFilename() {
 
 // View saved photos
 function viewPhotos() {
-    // Open Explorer to Pictures folder
+    // Open Explorer to photos folder
     const username = (system?.user?.username) || 'default';
     if (window.parent && window.parent.run) {
-        window.parent.run('explorer', {startDir: `C:/users/${username}/Pictures`});
+        window.parent.run('explorer', {startDir: `C:/users/${username}/photos`});
     }
 }
 
@@ -258,11 +264,28 @@ function updateStatus(message, type = 'info') {
 function checkCameraSupport() {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         updateStatus('Error: Camera not supported in this browser.', 'error');
-        setDisabled('start-camera-btn', true);
         return false;
     }
     return true;
 }
+
+// Handle keyboard shortcuts
+document.addEventListener('keydown', (event) => {
+    if (event.code === 'Space') {
+        event.preventDefault();
+        capturePhoto();
+    } else if (event.code === 'Enter') {
+        event.preventDefault();
+        if (!document.getElementById('save-btn').hasAttribute('disabled')) {
+            savePhoto();
+        }
+    } else if (event.code === 'Escape') {
+        event.preventDefault();
+        if (document.getElementById('preview-container').style.display !== 'none') {
+            hidePreview();
+        }
+    }
+});
 
 // Handle window unload
 window.addEventListener('beforeunload', () => {

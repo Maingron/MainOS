@@ -12,19 +12,44 @@
     gap: 10px;
     padding: 4px;
     flex-wrap: wrap;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
 }
 
 #header a {
     padding: 4px 8px;
     text-decoration: none;
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius, 3px);
+}
+
+#header a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+#header a[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 #filename {
     padding: 4px 8px;
-    border: 1px solid #ccc;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: var(--border-radius, 3px);
     font-size: 1em;
     width: 120px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+#filename::placeholder {
+    color: rgba(255, 255, 255, 0.7);
 }
 
 #camera-container {
@@ -35,13 +60,14 @@
     background: #000;
     position: relative;
     overflow: hidden;
+    width: 100vw;
+    height: 100vh;
 }
 
 #video {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    border-radius: 4px;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
 }
 
 #canvas {
@@ -50,37 +76,50 @@
 }
 
 #preview-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     padding: 20px;
-    background: var(--bg-1);
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
 }
 
 #preview-image {
-    max-width: 100%;
-    max-height: 400px;
-    border: 2px solid var(--bg-3);
+    max-width: 90%;
+    max-height: 70%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 4px;
 }
 
 #photo-info {
-    font-size: 12px;
-    color: var(--black3);
+    font-size: 14px;
+    color: white;
     text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 4px;
 }
 
 #controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: center;
     gap: 20px;
     padding: 12px;
-    background: var(--bg-2);
-    border-top: 1px solid var(--bg-3);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
     flex-wrap: wrap;
+    z-index: 100;
 }
 
 .control-group {
@@ -93,13 +132,21 @@
     font-size: 1em;
     font-weight: bold;
     min-width: 80px;
+    color: white;
 }
 
 .control-group select {
     padding: 4px 8px;
-    border: 1px solid var(--bg-3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: var(--border-radius, 3px);
     font-size: 1em;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.control-group select option {
+    background: #333;
+    color: white;
 }
 
 .control-group a {
@@ -107,41 +154,74 @@
     text-decoration: none;
     border-radius: var(--border-radius, 3px);
     font-size: 1em;
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.control-group a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.control-group a[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 #status {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     padding: 8px 16px;
-    background: var(--bg-2);
-    border-top: 1px solid var(--bg-3);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
     font-size: 1em;
     min-height: 20px;
+    z-index: 99;
 }
 
 #status.error {
-    background: #ffe8e8;
-    border-top-color: #ffb3b3;
-    color: #d00;
+    background: rgba(220, 0, 0, 0.9);
+    color: white;
 }
 
 #status.success {
-    background: #e8ffe8;
-    border-top-color: #b3ffb3;
-    color: #060;
+    background: rgba(0, 150, 0, 0.9);
+    color: white;
+}
+
+/* Hide controls when not needed for cleaner fullscreen experience */
+#controls.hidden {
+    display: none;
 }
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
     #header {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 2px;
+    }
+    
+    #header a, #filename {
+        font-size: 0.9em;
+        padding: 2px 6px;
     }
     
     #controls {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
+        padding: 8px;
     }
     
     .control-group {
         justify-content: center;
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .control-group label {
+        font-size: 0.8em;
+        min-width: auto;
     }
 }
