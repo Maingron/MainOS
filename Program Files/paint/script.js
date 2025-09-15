@@ -105,6 +105,16 @@ canvas.onmouseup = function() {
 canvas.addEventListener("touchstart", function(e) {
     e.preventDefault(); // Prevent scrolling/zooming
     canvas.mousedown = true;
+    // Reset lastPosition to start a new drawing session, preventing continuation from previous touch
+    lastPosition[2] = false;
+    
+    // Set initial touch position to prevent unwanted lines from (0,0) or previous position
+    let touch = e.touches[0];
+    let boundingClientRect = canvas.getBoundingClientRect();
+    let touchX = +((touch.clientX - boundingClientRect.left) * (canvas.width / boundingClientRect.width)).toFixed(0);
+    let touchY = +((touch.clientY - boundingClientRect.top) * (canvas.height / boundingClientRect.height)).toFixed(0);
+    lastPosition[0] = touchX;
+    lastPosition[1] = touchY;
 })
 
 canvas.addEventListener("touchend", function(e) {
