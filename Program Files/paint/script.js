@@ -39,6 +39,20 @@ canvas.addEventListener("mousemove", function(e) {
     },0)
 })
 
+// Touch event handlers
+canvas.addEventListener("touchmove", function(e) {
+    e.preventDefault(); // Prevent scrolling/zooming
+    setTimeout(function() {
+        // Create a touch event adapter that mimics mouse event structure
+        let touch = e.touches[0];
+        let touchEvent = {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        };
+        doThisOnMouseMove(touchEvent);
+    },0)
+})
+
 async function doThisOnMouseMove(e) {
     let boundingClientRect = canvas.getBoundingClientRect()
     ctx.mouseX = +((e.clientX - boundingClientRect.left) * (canvas.width / boundingClientRect.width)).toFixed(0);
@@ -86,6 +100,18 @@ canvas.onmouseup = function() {
     canvas.mousedown = false;
     render();
 }
+
+// Touch event handlers for start and end
+canvas.addEventListener("touchstart", function(e) {
+    e.preventDefault(); // Prevent scrolling/zooming
+    canvas.mousedown = true;
+})
+
+canvas.addEventListener("touchend", function(e) {
+    e.preventDefault(); // Prevent scrolling/zooming
+    canvas.mousedown = false;
+    render();
+})
 
 
 
