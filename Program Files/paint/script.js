@@ -163,25 +163,28 @@ async function render(event) {
 
     ctx.moveTo(steps[0][1],steps[0][2]);
 
+    // Use a local variable for rendering to avoid affecting the global lastPosition
+    let renderPosition = [0, 0, 0];
+
     for(let step of steps) {
         if(step[0]) { // If mousedown
             if(step[5] == "pen") {
-                paintDraw.line(lastPosition[0], lastPosition[1], step[1], step[2], step[3], step[4], lastPosition[2]);
+                paintDraw.line(renderPosition[0], renderPosition[1], step[1], step[2], step[3], step[4], renderPosition[2]);
             } else if(step[5] == "rect") {
-                paintDraw.rectangle(lastPosition[0], lastPosition[1], step[1], step[2], step[3]);
+                paintDraw.rectangle(renderPosition[0], renderPosition[1], step[1], step[2], step[3]);
             }else if(step[5] == "spherebrush") {
-                paintDraw.spherebrush(lastPosition[0], lastPosition[1], step[1], step[2], step[3], step[4]);
+                paintDraw.spherebrush(renderPosition[0], renderPosition[1], step[1], step[2], step[3], step[4]);
             } else if(step[5] == "spherebrush-o") {
-                paintDraw.spherebrush(lastPosition[0], lastPosition[1], step[1], step[2], step[3], step[4], true);
+                paintDraw.spherebrush(renderPosition[0], renderPosition[1], step[1], step[2], step[3], step[4], true);
             } else if(step[5] == "circle") {
-                paintDraw.circle(lastPosition[0], lastPosition[1], step[1], step[2], step[3], step[4], false);
+                paintDraw.circle(renderPosition[0], renderPosition[1], step[1], step[2], step[3], step[4], false);
             }else if(step[5] == "circle-o") {
-                paintDraw.circle(lastPosition[0], lastPosition[1], step[1], step[2], step[3], step[4], true);
+                paintDraw.circle(renderPosition[0], renderPosition[1], step[1], step[2], step[3], step[4], true);
             }
         }
 
         // ctx.moveTo(step[1], step[2]);
-        lastPosition = [step[1], step[2], step[0]];
+        renderPosition = [step[1], step[2], step[0]];
     }
 
     lastRenderComplete = true;
