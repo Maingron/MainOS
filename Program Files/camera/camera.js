@@ -5,6 +5,16 @@ let video, canvas, ctx;
 let stream = null;
 let capturedImageData = null;
 
+// Helper functions for managing disabled state of anchor elements
+function setDisabled(elementId, disabled) {
+    const element = document.getElementById(elementId);
+    if (disabled) {
+        element.setAttribute('disabled', 'disabled');
+    } else {
+        element.removeAttribute('disabled');
+    }
+}
+
 // Initialize the camera application
 function initCamera() {
     video = document.getElementById('video');
@@ -33,9 +43,9 @@ async function startCamera() {
         
         video.onloadedmetadata = () => {
             updateStatus('Camera started successfully. Ready to capture photos.');
-            document.getElementById('start-camera-btn').disabled = true;
-            document.getElementById('stop-camera-btn').disabled = false;
-            document.getElementById('capture-btn').disabled = false;
+            setDisabled('start-camera-btn', true);
+            setDisabled('stop-camera-btn', false);
+            setDisabled('capture-btn', false);
         };
         
     } catch (error) {
@@ -52,9 +62,9 @@ function stopCamera() {
         video.srcObject = null;
     }
     
-    document.getElementById('start-camera-btn').disabled = false;
-    document.getElementById('stop-camera-btn').disabled = true;
-    document.getElementById('capture-btn').disabled = true;
+    setDisabled('start-camera-btn', false);
+    setDisabled('stop-camera-btn', true);
+    setDisabled('capture-btn', true);
     
     updateStatus('Camera stopped.');
 }
@@ -103,7 +113,7 @@ function captureDemo() {
         showPreview(capturedImageData, width, height, quality);
         
         updateStatus(`Demo photo captured! Resolution: ${width}x${height}, Quality: ${quality}`, 'success');
-        document.getElementById('save-btn').disabled = false;
+        setDisabled('save-btn', false);
         
     } catch (error) {
         console.error('Error capturing demo photo:', error);
@@ -137,7 +147,7 @@ function capturePhoto() {
         showPreview(capturedImageData, width, height, quality);
         
         updateStatus('Photo captured successfully!', 'success');
-        document.getElementById('save-btn').disabled = false;
+        setDisabled('save-btn', false);
         
     } catch (error) {
         console.error('Error capturing photo:', error);
@@ -233,7 +243,7 @@ function viewPhotos() {
 function hidePreview() {
     document.getElementById('preview-container').style.display = 'none';
     video.style.display = 'block';
-    document.getElementById('save-btn').disabled = true;
+    setDisabled('save-btn', true);
     capturedImageData = null;
 }
 
@@ -248,7 +258,7 @@ function updateStatus(message, type = 'info') {
 function checkCameraSupport() {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         updateStatus('Error: Camera not supported in this browser.', 'error');
-        document.getElementById('start-camera-btn').disabled = true;
+        setDisabled('start-camera-btn', true);
         return false;
     }
     return true;

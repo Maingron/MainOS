@@ -11,10 +11,10 @@
 <body>
     <div id="camera-app">
         <div id="header" class="altbar">
-            <button id="capture-btn" onclick="capturePhoto()">📷 Capture Photo</button>
-            <button id="save-btn" onclick="savePhoto()" disabled>💾 Save Photo</button>
+            <a id="capture-btn" onclick="capturePhoto()">Capture Photo</a>
+            <a id="save-btn" onclick="savePhoto()" disabled>Save as</a>
             <input type="text" id="filename" placeholder="photo.jpg" value="photo.jpg">
-            <button id="view-photos-btn" onclick="viewPhotos()">📁 View Photos</button>
+            <a id="view-photos-btn" onclick="viewPhotos()">View Photos</a>
         </div>
         
         <div id="camera-container">
@@ -45,12 +45,9 @@
             </div>
             
             <div class="control-group">
-                <button id="start-camera-btn" onclick="startCamera()">📹 Start Camera</button>
-                <button id="stop-camera-btn" onclick="stopCamera()" disabled>⏹️ Stop Camera</button>
-            </div>
-            
-            <div class="control-group">
-                <button id="demo-capture-btn" onclick="captureDemo()">🎨 Demo Capture</button>
+                <a id="start-camera-btn" onclick="startCamera()">Start Camera</a>
+                <a id="stop-camera-btn" onclick="stopCamera()" disabled>Stop Camera</a>
+                <a id="demo-capture-btn" onclick="captureDemo()">Demo Capture</a>
             </div>
         </div>
         

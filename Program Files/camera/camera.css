@@ -3,7 +3,6 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background: #f0f0f0;
     font-family: var(--font, Arial, sans-serif);
 }
 
@@ -11,36 +10,20 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 8px;
-    background: #e0e0e0;
-    border-bottom: 1px solid #ccc;
+    padding: 4px;
     flex-wrap: wrap;
 }
 
-#header button {
-    padding: 6px 12px;
-    background: var(--themecolor, #007acc);
-    color: white;
-    border: none;
-    border-radius: var(--border-radius, 3px);
-    cursor: pointer;
-    font-size: 12px;
-}
-
-#header button:disabled {
-    background: #999;
-    cursor: not-allowed;
-}
-
-#header button:hover:not(:disabled) {
-    background: var(--hovercolor, #005a9e);
+#header a {
+    padding: 4px 8px;
+    text-decoration: none;
 }
 
 #filename {
     padding: 4px 8px;
     border: 1px solid #ccc;
     border-radius: var(--border-radius, 3px);
-    font-size: 12px;
+    font-size: 1em;
     width: 120px;
 }
 
@@ -72,7 +55,7 @@
     align-items: center;
     gap: 10px;
     padding: 20px;
-    background: #fff;
+    background: var(--bg-1);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
@@ -80,13 +63,13 @@
 #preview-image {
     max-width: 100%;
     max-height: 400px;
-    border: 2px solid #ddd;
+    border: 2px solid var(--bg-3);
     border-radius: 4px;
 }
 
 #photo-info {
     font-size: 12px;
-    color: #666;
+    color: var(--black3);
     text-align: center;
 }
 
@@ -95,8 +78,8 @@
     justify-content: center;
     gap: 20px;
     padding: 12px;
-    background: #f8f8f8;
-    border-top: 1px solid #ddd;
+    background: var(--bg-2);
+    border-top: 1px solid var(--bg-3);
     flex-wrap: wrap;
 }
 
@@ -107,46 +90,31 @@
 }
 
 .control-group label {
-    font-size: 12px;
+    font-size: 1em;
     font-weight: bold;
-    color: #333;
     min-width: 80px;
 }
 
 .control-group select {
     padding: 4px 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--bg-3);
     border-radius: var(--border-radius, 3px);
-    font-size: 12px;
-    background: white;
+    font-size: 1em;
 }
 
-.control-group button {
-    padding: 6px 12px;
-    background: var(--themecolor, #007acc);
-    color: white;
-    border: none;
+.control-group a {
+    padding: 4px 8px;
+    text-decoration: none;
     border-radius: var(--border-radius, 3px);
-    cursor: pointer;
-    font-size: 12px;
-}
-
-.control-group button:disabled {
-    background: #999;
-    cursor: not-allowed;
-}
-
-.control-group button:hover:not(:disabled) {
-    background: var(--hovercolor, #005a9e);
+    font-size: 1em;
 }
 
 #status {
     padding: 8px 16px;
-    background: #e8f4fd;
-    border-top: 1px solid #b3d9ff;
-    font-size: 12px;
+    background: var(--bg-2);
+    border-top: 1px solid var(--bg-3);
+    font-size: 1em;
     min-height: 20px;
-    color: #333;
 }
 
 #status.error {
