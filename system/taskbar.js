@@ -150,6 +150,46 @@ export const Taskbar = function() {
 		interval: null
 	}
 
+	this.batteryStatus = {
+		instance: null,
+		init: async function() {
+			console.log('Initializing battery status from taskbar...');
+			try {
+				// Import battery status module
+				const module = await import('./modules/battery-status.js');
+				console.log('Battery module imported successfully');
+				
+				this.instance = new module.BatteryStatus();
+				console.log('Battery instance created');
+				
+				// Initialize battery status
+				const success = await this.instance.init();
+				if (!success) {
+					console.log('Battery status not available or not supported');
+					this.instance = null;
+				} else {
+					console.log('Battery status initialized successfully from taskbar');
+				}
+			} catch (error) {
+				console.error('Failed to load battery status module:', error);
+				this.instance = null;
+			}
+		},
+		update: function() {
+			// Battery updates are handled by the battery module itself
+			// This is here for consistency with other taskbar components
+			if (this.instance) {
+				this.instance.updateBatteryIcon();
+			}
+		},
+		destroy: function() {
+			if (this.instance) {
+				this.instance.destroy();
+				this.instance = null;
+			}
+		}
+	}
+
 	this.tasklist = tasklist;
 
 	this.updateSettings = function(self) {
@@ -198,6 +238,20 @@ export const Taskbar = function() {
 				self.onlineStatus.htmlElement.classList.add("hidden");
 			}
 
+		// showBatteryStatus
+			if(system.user.settings.taskbar.showBatteryStatus) {
+				// Battery status is handled by its own module
+				// We just ensure it's visible if the setting is enabled
+				if(self.batteryStatus.instance) {
+					self.batteryStatus.instance.show();
+				}
+			} else {
+				// Hide battery status if setting is disabled
+				if(self.batteryStatus.instance) {
+					self.batteryStatus.instance.hide();
+				}
+			}
+
 		// position
 			self.htmlElement.setAttribute("position", system.user.settings.taskbar.position);
 	}
@@ -206,11 +260,17 @@ export const Taskbar = function() {
 	var init = function(self) {
 		self.lang.update();
 		self.updateSettings(self);
+		
+		// Initialize battery status
+		self.batteryStatus.init();
 	}
 
 	var deinit = function(self) {
 		clearInterval(self.clock.interval);
 		clearInterval(self.onlineStatus.interval);
+		
+		// Cleanup battery status
+		self.batteryStatus.destroy();
 	}
 
 	init(this);
