@@ -59,7 +59,57 @@ function stopCamera() {
     updateStatus('Camera stopped.');
 }
 
-// Capture a photo
+// Capture a demo photo (for testing without camera)
+function captureDemo() {
+    try {
+        const resolution = document.getElementById('resolution').value;
+        const [width, height] = resolution.split('x').map(Number);
+        
+        // Set canvas dimensions
+        canvas.width = width;
+        canvas.height = height;
+        
+        // Create a colorful demo image
+        ctx.fillStyle = '#4a90e2';
+        ctx.fillRect(0, 0, width, height);
+        
+        // Add some patterns to make it more realistic
+        ctx.fillStyle = '#ff6b6b';
+        ctx.fillRect(width * 0.1, height * 0.1, width * 0.3, height * 0.3);
+        
+        ctx.fillStyle = '#4ecdc4';
+        ctx.fillRect(width * 0.6, height * 0.2, width * 0.3, height * 0.3);
+        
+        ctx.fillStyle = '#45b7d1';
+        ctx.fillRect(width * 0.2, height * 0.6, width * 0.6, height * 0.3);
+        
+        // Add text
+        ctx.fillStyle = '#ffffff';
+        ctx.font = Math.floor(width / 20) + 'px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('MainOS Camera Demo', width / 2, height / 2);
+        ctx.fillText(`${width}x${height}`, width / 2, height / 2 + Math.floor(width / 15));
+        
+        const now = new Date();
+        ctx.fillText(now.toLocaleString(), width / 2, height / 2 + Math.floor(width / 10));
+        
+        // Get the quality setting
+        const quality = parseFloat(document.getElementById('quality').value);
+        
+        // Convert canvas to compressed JPEG
+        capturedImageData = canvas.toDataURL('image/jpeg', quality);
+        
+        // Show preview
+        showPreview(capturedImageData, width, height, quality);
+        
+        updateStatus(`Demo photo captured! Resolution: ${width}x${height}, Quality: ${quality}`, 'success');
+        document.getElementById('save-btn').disabled = false;
+        
+    } catch (error) {
+        console.error('Error capturing demo photo:', error);
+        updateStatus('Error: Failed to capture demo photo.', 'error');
+    }
+}
 function capturePhoto() {
     if (!stream) {
         updateStatus('Error: Camera not started.', 'error');
@@ -127,16 +177,19 @@ async function savePhoto() {
     
     try {
         const filename = document.getElementById('filename').value || 'photo.jpg';
-        const filepath = `C:/Users/${system.user.username}/Pictures/${filename}`;
+        
+        // Get username, fallback to default if not available
+        const username = (system?.user?.username) || 'default';
+        const filepath = `C:/users/${username}/Pictures/${filename}`;
         
         // Ensure the Pictures directory exists
-        await ensureDirectoryExists(`C:/Users/${system.user.username}/Pictures`);
+        await ensureDirectoryExists(`C:/users/${username}/Pictures`);
         
         // Convert base64 to blob and save
         const base64Data = capturedImageData.split(',')[1];
         
-        // Save using MainOS filesystem
-        iofs.write(filepath, base64Data);
+        // Save using MainOS filesystem (use save method instead of write)
+        iofs.save(filepath, base64Data, "t=jpg", true);
         
         updateStatus(`Photo saved as ${filename}`, 'success');
         
@@ -153,10 +206,10 @@ async function savePhoto() {
 async function ensureDirectoryExists(dirPath) {
     try {
         if (!iofs.exists(dirPath)) {
-            iofs.mkdir(dirPath);
+            iofs.save(dirPath, "", "t=d", true);
         }
     } catch (error) {
-        console.warn('Could not create directory:', dirPath);
+        console.warn('Could not create directory:', dirPath, error);
     }
 }
 
@@ -170,8 +223,9 @@ function generateNextFilename() {
 // View saved photos
 function viewPhotos() {
     // Open Explorer to Pictures folder
+    const username = (system?.user?.username) || 'default';
     if (window.parent && window.parent.run) {
-        window.parent.run('explorer', {startDir: `C:/Users/${system.user.username}/Pictures`});
+        window.parent.run('explorer', {startDir: `C:/users/${username}/Pictures`});
     }
 }
 
