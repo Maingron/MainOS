@@ -240,8 +240,10 @@ function generateNextFilename() {
 function viewPhotos() {
     // Open Explorer to photos folder
     const username = (system?.user?.username) || 'default';
+    const photosPath = `C:/users/${username}/photos`;
+    
     if (window.parent && window.parent.run) {
-        window.parent.run('explorer', {startDir: `C:/users/${username}/photos`});
+        window.parent.run('explorer', {startDir: photosPath});
     }
 }
 
