@@ -13,6 +13,31 @@ function loadIcons() {
 	}
 }
 
+function findFolderIcon(dirPath) {
+	// Arrays of possible icon names and extensions to search for
+	const iconNames = ["folder", "cover", "logo", "icon", "favicon"];
+	const iconExtensions = ["jpg", "jpeg", "png", "svg", "bmp"];
+	
+	// Get all files in the directory
+	const filesInDir = iofs.listdir(dirPath, 0);
+	
+	// Search for icon files by combining names and extensions
+	for (let name of iconNames) {
+		for (let ext of iconExtensions) {
+			const iconFilename = name + "." + ext;
+			const iconPath = dirPath + "/" + iconFilename;
+			
+			// Check if this icon file exists in the directory
+			if (filesInDir.includes(iconPath)) {
+				return "#iofs:" + iconPath;
+			}
+		}
+	}
+	
+	// No custom icon found
+	return null;
+}
+
 function returnPathForFileIcon(path) {
 	let filename = iofs.getName(path);
 	var fileending = filename.slice(filename.lastIndexOf("."));
@@ -21,6 +46,11 @@ function returnPathForFileIcon(path) {
 		if(path.slice(-2) == ":/") {
 			return "#iofs:C:/system/icons/mainos_folder.svg";
 		} else {
+			// Check for custom folder icon
+			const customIcon = findFolderIcon(path);
+			if (customIcon) {
+				return customIcon;
+			}
 			return "#iofs:C:/system/icons/folder.svg";
 		}
 	}
