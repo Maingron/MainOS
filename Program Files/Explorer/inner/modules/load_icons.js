@@ -6,10 +6,23 @@ function initLoadIcons() {
 
 function loadIcons() {
 	for(fileElement of document.getElementById("content_files").children) {
+		var path = fileElement.attributes.path.value;
 		var newIconElement = document.createElement("img");
 		newIconElement.classList.add("icon");
-		newIconElement.setAttribute("src", returnPathForFileIcon(fileElement.attributes.path.value));
+		newIconElement.setAttribute("src", returnPathForFileIcon(path));
 		fileElement.insertBefore(newIconElement, fileElement.firstChild);
+		
+		// Add folder overlay icon if this is a directory with a custom icon
+		if(iofs.typeof(path) == "dir" && path.slice(-2) != ":/") {
+			const customIcon = findFolderIcon(path);
+			if (customIcon) {
+				// Create overlay folder icon
+				var overlayIconElement = document.createElement("img");
+				overlayIconElement.classList.add("folder-overlay-icon");
+				overlayIconElement.setAttribute("src", "#iofs:C:/system/icons/folder.svg");
+				fileElement.insertBefore(overlayIconElement, fileElement.firstChild);
+			}
+		}
 	}
 }
 

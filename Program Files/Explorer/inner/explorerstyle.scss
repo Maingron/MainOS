@@ -158,6 +158,18 @@ body {
                 object-fit: contain;
                 pointer-events: none;
                 margin: 0;
+                
+                &.folder-overlay-icon {
+                    position: absolute;
+                    bottom: 2px;
+                    right: 2px;
+                    height: 24px;
+                    width: 24px;
+                    background-color: rgba(255, 255, 255, 0.9);
+                    border-radius: 3px;
+                    padding: 2px;
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+                }
             }
         }
     }
