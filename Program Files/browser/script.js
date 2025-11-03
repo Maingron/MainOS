@@ -19,19 +19,33 @@ function initializeBrowser() {
 		sendRequest(config.homepage);
 
 		webframe.addEventListener('load', function(e) {
-			if(checkFunctionalityAndReturnUrl() != currentURL) {
-				sendRequest(checkFunctionalityAndReturnUrl());
+			// Update URL bar to show the actual loaded URL when accessible
+			var actualUrl = checkFunctionalityAndReturnUrl();
+			if(actualUrl && actualUrl !== 'about:blank' && actualUrl !== currentURL) {
+				// Only update URL bar if we can access the iframe location
+				try {
+					var iframeUrl = webframe.contentWindow.location.href;
+					if (iframeUrl && iframeUrl !== 'about:blank') {
+						urlbar.value = iframeUrl;
+					}
+				} catch(e) {
+					// Can't access iframe location (CORS), keep current URL bar value
+				}
 			}
 		});
 
 		webframe.addEventListener('load', function(e) {
-			var links = webframe.contentWindow.document.getElementsByTagName('a');
-			for(var i = 0; i < links.length; i++) {
-				links[i].addEventListener('click', function(e) {
-					e.preventDefault();
-					const href = e.target.closest('a').href;
-					sendRequest(href);
-				}, true); // Use capturing instead of bubbling
+			try {
+				var links = webframe.contentWindow.document.getElementsByTagName('a');
+				for(var i = 0; i < links.length; i++) {
+					links[i].addEventListener('click', function(e) {
+						e.preventDefault();
+						const href = e.target.closest('a').href;
+						sendRequest(href);
+					}, true); // Use capturing instead of bubbling
+				}
+			} catch(e) {
+				// Can't access iframe content (CORS), link handling won't work
 			}
 		});
 
@@ -173,9 +187,9 @@ function sendRequest(url) {
 		currentURL = finalUrl;
 		loadSite();
 		loadFavicon();
-		// Show original URL with indicator when redirected, so users know what site they're viewing
-		// The actual archive.org URL is in currentURL and loaded in the iframe
-		urlbar.value = isAllowed ? currentURL : parsedUrl + ' (via Archive)';
+		// Show the actual URL that will be loaded
+		// If redirected to archive, show the archive URL
+		urlbar.value = finalUrl;
 		setTimeout(checkFunctionalityAndReturnUrl, 300);
 		checkFunctionalityAndReturnUrl();
 	});
