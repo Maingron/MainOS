@@ -243,7 +243,7 @@ const iofsv2_installos = {
             } catch (e) {
                 localStorage.removeItem('test');
 
-                iofs.save("C:/.diskinfo/size.txt", i - 1000, 0, "t=txt");
+                iofs.save("C:/.diskinfo/size.txt", String(i - 1000), "t=txt", true);
             }
         }
     }
