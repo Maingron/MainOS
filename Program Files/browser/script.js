@@ -113,11 +113,20 @@ function checkIframeAllowed(url, callback) {
 				}
 				
 				// Check Content-Security-Policy frame-ancestors directive
-				if (csp && csp.toLowerCase().includes('frame-ancestors')) {
-					// frame-ancestors 'none' or 'self' blocks framing
-					if (csp.toLowerCase().includes("frame-ancestors 'none'") || 
-					    csp.toLowerCase().includes("frame-ancestors 'self'")) {
-						isBlocked = true;
+				if (csp) {
+					var cspLower = csp.toLowerCase();
+					if (cspLower.includes('frame-ancestors')) {
+						// frame-ancestors 'none' blocks all framing
+						// frame-ancestors 'self' blocks cross-origin framing
+						// More robust parsing: check for these as complete tokens
+						var frameAncestorsMatch = cspLower.match(/frame-ancestors\s+([^;]+)/);
+						if (frameAncestorsMatch) {
+							var directive = frameAncestorsMatch[1].trim();
+							// Check if directive starts with 'none' or 'self' (as complete tokens)
+							if (directive.startsWith("'none'") || directive.startsWith("'self'")) {
+								isBlocked = true;
+							}
+						}
 					}
 				}
 				
@@ -164,6 +173,8 @@ function sendRequest(url) {
 		currentURL = finalUrl;
 		loadSite();
 		loadFavicon();
+		// Show original URL with indicator when redirected, so users know what site they're viewing
+		// The actual archive.org URL is in currentURL and loaded in the iframe
 		urlbar.value = isAllowed ? currentURL : parsedUrl + ' (via Archive)';
 		setTimeout(checkFunctionalityAndReturnUrl, 300);
 		checkFunctionalityAndReturnUrl();
