@@ -38,7 +38,7 @@ function findFolderIcon(dirPath) {
 	return null;
 }
 
-function returnPathForFileIcon(path) {
+function returnPathForFileIcon(path, useCustomIcon = true) {
 	let filename = iofs.getName(path);
 	var fileending = filename.slice(filename.lastIndexOf("."));
 
@@ -46,10 +46,12 @@ function returnPathForFileIcon(path) {
 		if(path.slice(-2) == ":/") {
 			return "#iofs:C:/system/icons/mainos_folder.svg";
 		} else {
-			// Check for custom folder icon
-			const customIcon = findFolderIcon(path);
-			if (customIcon) {
-				return customIcon;
+			// Check for custom folder icon (only if useCustomIcon is true)
+			if (useCustomIcon) {
+				const customIcon = findFolderIcon(path);
+				if (customIcon) {
+					return customIcon;
+				}
 			}
 			return "#iofs:C:/system/icons/folder.svg";
 		}
