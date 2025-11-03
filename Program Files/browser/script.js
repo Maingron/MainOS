@@ -48,17 +48,21 @@ function initializeBrowser() {
 }
 
 function loadSite() {
-	navigator.serviceWorker.controller.postMessage({
-		type: 'loadSite',
-		url: currentURL
-	});
+	if (navigator.serviceWorker.controller) {
+		navigator.serviceWorker.controller.postMessage({
+			type: 'loadSite',
+			url: currentURL
+		});
+	}
 }
 
 function loadFavicon() {
-	navigator.serviceWorker.controller.postMessage({
-		type: 'loadFavicon',
-		url: currentURL
-	});
+	if (navigator.serviceWorker.controller) {
+		navigator.serviceWorker.controller.postMessage({
+			type: 'loadFavicon',
+			url: currentURL
+		});
+	}
 }
 
 function parseURL(url) {

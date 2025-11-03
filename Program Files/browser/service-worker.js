@@ -1,3 +1,7 @@
+self.addEventListener('activate', function(event) {
+	event.waitUntil(self.clients.claim());
+});
+
 self.addEventListener('message', function(event) {
 	if (event.data.type === 'loadSite') {
 		self.clients.get(event.source.id).then(function(client) {
