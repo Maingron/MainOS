@@ -29,7 +29,7 @@ function loadIcons() {
 function findFolderIcon(dirPath) {
 	// Arrays of possible icon names and extensions to search for
 	const iconNames = ["folder", "cover", "logo", "icon", "favicon"];
-	const iconExtensions = ["jpg", "jpeg", "png", "svg", "bmp"];
+	const iconExtensions = ["jpg", "jpeg", "png", "svg", "bmp", "gif", "ico", "webp", "avif", "heic"];
 	
 	// Get all files in the directory
 	const filesInDir = iofs.listdir(dirPath, 0);
