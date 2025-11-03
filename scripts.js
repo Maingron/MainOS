@@ -329,8 +329,8 @@ document.querySelector(".desktop .desktop__background").style.backgroundImage = 
 document.getElementById("username").innerText = system.user.name; // Display username on desktop
 
 // Check space on disk
-iofs.save("C:/.diskinfo/size_used.txt", JSON.stringify(localStorage).length / 1000, "t=txt");
-iofs.save("C:/.diskinfo/size_remaining.txt", iofs.load("C:/.diskinfo/size.txt") - iofs.load("C:/.diskinfo/size_used.txt"), "t=txt");
+iofs.save("C:/.diskinfo/size_used.txt", String(JSON.stringify(localStorage).length / 1000), "t=txt", true);
+iofs.save("C:/.diskinfo/size_remaining.txt", String(iofs.load("C:/.diskinfo/size.txt") - iofs.load("C:/.diskinfo/size_used.txt")), "t=txt", true);
 
 // Re-Create program shortcuts; Delete them beforehand
 iofs.listdir(system.user.paths.programShortcuts).forEach((item) => {
