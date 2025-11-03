@@ -164,7 +164,7 @@ function sendRequest(url) {
 		currentURL = finalUrl;
 		loadSite();
 		loadFavicon();
-		urlbar.value = isAllowed ? currentURL : url + ' (via Archive)';
+		urlbar.value = isAllowed ? currentURL : parsedUrl + ' (via Archive)';
 		setTimeout(checkFunctionalityAndReturnUrl, 300);
 		checkFunctionalityAndReturnUrl();
 	});
