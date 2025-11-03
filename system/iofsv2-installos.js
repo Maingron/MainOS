@@ -236,7 +236,7 @@ const iofsv2_installos = {
     },
 
     checkStorageSize: function() {
-        if (localStorage && !localStorage.getItem('size')) {
+        if (localStorage && (!iofs.exists("C:/.diskinfo/size.txt") || !iofs.load("C:/.diskinfo/size.txt"))) {
             let i = 0;
             try {
                 // Test up to 10 MB
@@ -247,7 +247,6 @@ const iofsv2_installos = {
                 localStorage.removeItem('test');
 
                 iofs.save("C:/.diskinfo/size.txt", String(i - 1000), "t=txt", true);
-                localStorage.setItem('size', 'checked');
             }
         }
     }
