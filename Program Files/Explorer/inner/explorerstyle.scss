@@ -158,6 +158,17 @@ body {
                 object-fit: contain;
                 pointer-events: none;
                 margin: 0;
+                
+                &.folder-overlay-icon {
+					position: absolute;
+					bottom: 2px;
+					right: 2px;
+					height: 20px;
+					width: 20px;
+					padding: 2px;
+					z-index: 1;
+					filter: drop-shadow(1px 1px .5px #000) drop-shadow(-1px -1px .5px #000) drop-shadow(-1px 1px .5px #000) drop-shadow(1px -1px .5px #000);
+                }
             }
         }
     }

@@ -6,14 +6,52 @@ function initLoadIcons() {
 
 function loadIcons() {
 	for(fileElement of document.getElementById("content_files").children) {
+		var path = fileElement.attributes.path.value;
 		var newIconElement = document.createElement("img");
 		newIconElement.classList.add("icon");
-		newIconElement.setAttribute("src", returnPathForFileIcon(fileElement.attributes.path.value));
+		newIconElement.setAttribute("src", returnPathForFileIcon(path));
 		fileElement.insertBefore(newIconElement, fileElement.firstChild);
+		
+		// Add folder overlay icon if this is a directory with a custom icon
+		if(iofs.typeof(path) == "dir" && path.slice(-2) != ":/") {
+			const customIcon = findFolderIcon(path);
+			if (customIcon) {
+				// Create overlay folder icon
+				var overlayIconElement = document.createElement("img");
+				overlayIconElement.classList.add("folder-overlay-icon");
+				overlayIconElement.setAttribute("src", "#iofs:C:/system/icons/folder.svg");
+				fileElement.insertBefore(overlayIconElement, fileElement.firstChild);
+			}
+		}
 	}
 }
 
-function returnPathForFileIcon(path) {
+function findFolderIcon(dirPath) {
+	// Arrays of possible icon names and extensions to search for
+	const iconNames = ["folder", "cover", "logo", "icon", "favicon"];
+	const iconExtensions = ["jpg", "jpeg", "png", "svg", "bmp", "gif", "ico", "webp", "avif", "heic"];
+	
+	// Get all files in the directory
+	const filesInDir = iofs.listdir(dirPath, 0);
+	
+	// Search for icon files by combining names and extensions
+	for (let name of iconNames) {
+		for (let ext of iconExtensions) {
+			const iconFilename = name + "." + ext;
+			const iconPath = dirPath + "/" + iconFilename;
+			
+			// Check if this icon file exists in the directory
+			if (filesInDir.includes(iconPath)) {
+				return "#iofs:" + iconPath;
+			}
+		}
+	}
+	
+	// No custom icon found
+	return null;
+}
+
+function returnPathForFileIcon(path, useCustomIcon = true) {
 	let filename = iofs.getName(path);
 	var fileending = filename.slice(filename.lastIndexOf("."));
 
@@ -21,6 +59,13 @@ function returnPathForFileIcon(path) {
 		if(path.slice(-2) == ":/") {
 			return "#iofs:C:/system/icons/mainos_folder.svg";
 		} else {
+			// Check for custom folder icon (only if useCustomIcon is true)
+			if (useCustomIcon) {
+				const customIcon = findFolderIcon(path);
+				if (customIcon) {
+					return customIcon;
+				}
+			}
 			return "#iofs:C:/system/icons/folder.svg";
 		}
 	}

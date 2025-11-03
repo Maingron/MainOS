@@ -39,7 +39,7 @@ function updateBottomInfo() {
 	} else {
 		bottomInfoElement.innerHTML = `
 		<div class="icon">
-			<img src="${returnPathForFileIcon(currentPath)}" class="icon">
+			<img src="${returnPathForFileIcon(currentPath, false)}" class="icon">
 		</div>
 		<path>${currentPath}</path>
 		<br>
