@@ -107,6 +107,9 @@ const iofsv2_installos = {
             }
         }
         
+        // Check and save storage size
+        this.checkStorageSize();
+        
         const bulkFiles = [
             ["C:/test.txt", "test", "t=txt,A=ABCDEF0!", 1],
             ["C:/mainos/system32/FirstVersion.txt", "###### mainos.version", "t=txt,A=0a!"],
@@ -244,6 +247,7 @@ const iofsv2_installos = {
                 localStorage.removeItem('test');
 
                 iofs.save("C:/.diskinfo/size.txt", String(i - 1000), "t=txt", true);
+                localStorage.setItem('size', 'checked');
             }
         }
     }
