@@ -124,5 +124,11 @@
         "src": "Program%20Files/Backup Utility/exec.html",
         "icon": "#iofs:C:/Program Files/Backup Utility/icon.png",
         "devonly": true
+    },
+    "camera": {
+        "id": "camera",
+        "title": "Camera",
+        "src": "Program%20Files/camera/exec.html",
+        "icon": "#iofs:C:/Program Files/camera/icon.svg"
     }
 }

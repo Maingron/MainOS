@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Camera</title>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="#iofs:C:/Program Files/camera/icon.svg">
+    <link rel="stylesheet" href="camera.css">
+    <link rel="stylesheet" href="../../helper.min.css">
+    <script src="../../helper.js"></script>
+</head>
+<body>
+    <div id="camera-app">
+        <div id="header" class="altbar">
+            <a id="capture-btn" onclick="capturePhoto()">Capture Photo</a>
+            <a id="save-btn" onclick="savePhoto()" disabled>Save as</a>
+            <input type="text" id="filename" placeholder="photo.jpg" value="photo.jpg">
+            <a id="view-photos-btn" onclick="viewPhotos()">View Photos</a>
+        </div>
+        
+        <div id="camera-container">
+            <video id="video" autoplay playsinline></video>
+            <canvas id="canvas" style="display: none;"></canvas>
+            <div id="preview-container" style="display: none;">
+                <img id="preview-image" alt="Captured photo">
+                <div id="photo-info"></div>
+            </div>
+        </div>
+        
+        <div id="controls" style="display: none;">
+            <div class="control-group">
+                <label for="resolution">Resolution:</label>
+                <select id="resolution">
+                    <option value="320x240">320x240 (Very Small)</option>
+                    <option value="640x480" selected>640x480 (Small)</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="quality">JPEG Quality:</label>
+                <select id="quality">
+                    <option value="0.2">0.2 (Lowest)</option>
+                    <option value="0.3" selected>0.3 (Low)</option>
+                    <option value="0.4">0.4 (Medium-Low)</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <a id="stop-camera-btn" onclick="stopCamera()">Stop Camera</a>
+                <a id="demo-capture-btn" onclick="captureDemo()">Demo Capture</a>
+            </div>
+        </div>
+        
+        <div id="status"></div>
+    </div>
+    
+    <script src="camera.js"></script>
+</body>
+</html>
