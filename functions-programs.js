@@ -51,6 +51,8 @@ function run(which, iattr, how) { // Run a program
         <div class="controls">
             <button class="reload has_hover" onclick="this.parentElement.parentElement.parentElement.getElementsByClassName('proframe')[0].contentWindow.location.reload()" href="#" title="Reload program" disabled="disabled">↻</button>
             <button class="pin has_hover" onclick="setWindowAlwaysOnTop(getWindowByMagic(this))" href="#" title="Pin window always to top">📌</button>
+            <button class="opacity-down has_hover" onclick="decreaseWindowOpacity(getWindowByMagic(this))" href="#" title="Decrease opacity">🔅</button>
+            <button class="opacity-up has_hover" onclick="increaseWindowOpacity(getWindowByMagic(this))" href="#" title="Increase opacity">🔆</button>
             <button class="max has_hover" onclick="focusWindow(getWindowByMagic(this)); setWindowMaximized(getWindowByMagic(this))" href="#" title="(Un-)Maximize">⎚</button>
             <button class="close has_hover" onclick="unrun(getWindowByMagic(this))" href="#" title="Close"><b>x</b></button>
             <button class="minimize has_hover" onclick="setWindowMinimized(getWindowByMagic(this))">-</button>
@@ -85,6 +87,10 @@ function run(which, iattr, how) { // Run a program
     }
     if(myProgram?.controls?.pin == false) {
         myWindow.getElementsByClassName("pin")[0].setAttribute("disabled", true);
+    }
+    if(myProgram?.controls?.opacity == false) {
+        myWindow.getElementsByClassName("opacity-up")[0].setAttribute("disabled", true);
+        myWindow.getElementsByClassName("opacity-down")[0].setAttribute("disabled", true);
     }
 
     if(system?.user?.settings?.developer?.enable == true) {
@@ -409,6 +415,28 @@ function setWindowOpacity(which, opacity) {
     }
     which.pWindow.opacity = opacity;
     which.style.opacity = opacity;
+}
+
+/**
+ * Increases the opacity of a window
+ * @param {HTMLElement} which the window to increase opacity of
+ * @param {number} step the amount to increase opacity by (default: 0.1)
+ */
+function increaseWindowOpacity(which, step = 0.1) {
+    let currentOpacity = parseFloat(which.style.opacity) || 1;
+    let newOpacity = Math.min(1, currentOpacity + step);
+    setWindowOpacity(which, newOpacity);
+}
+
+/**
+ * Decreases the opacity of a window
+ * @param {HTMLElement} which the window to decrease opacity of
+ * @param {number} step the amount to decrease opacity by (default: 0.1)
+ */
+function decreaseWindowOpacity(which, step = 0.1) {
+    let currentOpacity = parseFloat(which.style.opacity) || 1;
+    let newOpacity = Math.max(0.1, currentOpacity - step);
+    setWindowOpacity(which, newOpacity);
 }
 
 /**
