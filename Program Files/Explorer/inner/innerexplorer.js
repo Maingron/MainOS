@@ -2,22 +2,28 @@ var currentPath;
 var filesListed = [];
 
 function explorerdo(path, action = "default") { // Shows directory or does stuff asigned to files / file types
-    if(path == "..") { // If want to go up a directory
-        path = iofs.getPath(currentPath);
+	if(path == "..") { // If want to go up a directory
+		path = iofs.getPath(currentPath);
 
-        if(currentPath.slice(-2) == ":/") { // Make sure to be able to display rootdir again
-            path = "/";
-        }
-    }
+		if(currentPath.slice(-2) == ":/") { // Make sure to be able to display rootdir again
+			path = "/";
+		}
+	}
+	
+	if(path == "") {
+		path = "/";
+		explorerdo(path, action);
+		return;
+	}
 
-    if(!iofs.exists(path) && path != "/") {
-        explorerdo(currentPath, action);
-    }
+	if(!iofs.exists(path) && path != "/") {
+		explorerdo(currentPath, action);
+	}
 
-    if(iofs.exists(path) && iofs.typeof(path) == "file" && path != "/") { // explorerdofile() instead if is file but only if not requesting rootdir (/)
-        explorerdofile(path, action);
-        return;
-    }
+	if(iofs.exists(path) && iofs.typeof(path) == "file" && path != "/") { // explorerdofile() instead if is file but only if not requesting rootdir (/)
+		explorerdofile(path, action);
+		return;
+	}
 
 
     var filesInPath = iofs.listdir(path, 0); // List files
@@ -43,7 +49,7 @@ function explorerdo(path, action = "default") { // Shows directory or does stuff
                     newChild.style.order = 6;
                     newChild.setAttribute("tabindex", "6");
                 }
-        
+
                 newChild.innerHTML = `
                 <span>
                     ${iofs.getName(file)}
