@@ -221,7 +221,10 @@ export const iofs = {
 			probablyWantRaw: true,
 			attributes: {},
 			attributesRaw: localStorage.getItem(path).split("*")[0].split(","),
-			type: this.typeof(path)
+			type: this.typeof(path),
+			get size() {
+				return localStorage.getItem(path).length;
+			}
 		}
 
 		for(let attribute of result.attributesRaw) {
