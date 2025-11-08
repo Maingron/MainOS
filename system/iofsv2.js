@@ -130,10 +130,10 @@ export const iofs = {
 					desc: "Plain Text File"
 				},
 				javascript: {
-					end: ["js"]
+					end: ["js", "mjs"]
 				},
 				html: {
-					end: ["html", "htm", "shtml"]
+					end: ["html", "htm", "shtml", "xhtml"]
 				},
 				xml: {
 					end: ["xml"]
@@ -143,6 +143,12 @@ export const iofs = {
 				},
 				css: {
 					end: ["css"]
+				},
+				scss: {
+					end: ["scss", "sass"]
+				},
+				json: {
+					end: ["json"]
 				},
 				markdown: {
 					end: ["md", "markdown"]
@@ -154,14 +160,20 @@ export const iofs = {
 					prb64: true,
 					end: []
 				},
+				avif: {
+					end: ["avif"]
+				},
 				bmp: {
 					end: ["bmp"]
 				},
+				heic: {
+					end: ["heic", "heif", "hif"]
+				},
 				jpg: {
-					end: ["jpg", "jpeg", "jpe"]
+					end: ["jpg", "jpeg", "jpe", "jxl"]
 				},
 				png: {
-					end: ["png"]
+					end: ["png", "apng"]
 				},
 				webp: {
 					end: ["webp"]
@@ -176,9 +188,22 @@ export const iofs = {
 				svg: {
 					mime: "svg+xml",
 					end: ["svg"]
+				},
+				tiff: {
+					end: ["tiff", "tif"]
 				}
 			},
 			video: {
+				__: {
+					desc: "Video",
+					end: []
+				},
+				mp4: {
+					end: ["mp4", "m4v"]
+				},
+				webm: {
+					end: ["webm"]
+				}
 			},
 			audio: {
 				__: {
@@ -197,6 +222,14 @@ export const iofs = {
 					desc: "",
 					end: []
 				},
+				"7z": {
+					desc: "7-Zip Archive",
+					end: ["7z"]
+				},
+				rar: {
+					desc: "RAR Archive",
+					end: ["rar"]
+				},
 				zip: {
 					desc: "Zip Archive",
 					end: ["zip"]
@@ -204,6 +237,10 @@ export const iofs = {
 				pdf: {
 					desc: "PDF Document",
 					end: ["pdf"]
+				},
+				epub: {
+					desc: "ePub Document",
+					end: ["epub"]
 				}
 			}
 		};
