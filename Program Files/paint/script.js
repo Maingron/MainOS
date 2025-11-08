@@ -94,6 +94,10 @@ canvas.onmousedown = function() {
 canvas.ontouchstart = function(e) {
     e.preventDefault(); // Prevent scrolling while drawing
     canvas.mousedown = true;
+    if (e.touches.length > 0) {
+        // Update position to touch location to prevent drawing from last position
+        doThisOnMouseMove(e.touches[0]);
+    }
 }
 
 canvas.onmouseup = function() {
