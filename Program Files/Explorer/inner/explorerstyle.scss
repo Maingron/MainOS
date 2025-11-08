@@ -4,7 +4,9 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    &.big_buttons {
+	position: relative;
+
+	&.big_buttons {
         #headbar2 {
             height: 2.4rem;
         }
@@ -76,13 +78,18 @@ body {
 }
 
 #content_files {
-    position: relative;
-    overflow: scroll;
-    overflow-x: hidden;
-    width: 100%;
-    left: 0;
-    height: 100%;
-    box-sizing: border-box;
+	position: relative;
+	overflow: scroll;
+	overflow-x: hidden;
+	width: 100%;
+	left: 0;
+	height: 100%;
+	box-sizing: border-box;
+
+	&:empty {
+		display: inline-block;
+		height: 100vh;
+	}
 
     &.details {
         a {
