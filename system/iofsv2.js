@@ -206,10 +206,12 @@ export const iofs = {
 					end: ["pdf"]
 				}
 			}
-		}
+		};
 
 		var result = {
-			name: this.getName(path),
+			get name() {
+				return iofs.getName(path);
+			},
 			ending: undefined,
 			mime: {
 				category: undefined,
@@ -220,8 +222,12 @@ export const iofs = {
 			},
 			probablyWantRaw: true,
 			attributes: {},
-			attributesRaw: localStorage.getItem(path).split("*")[0].split(","),
-			type: this.typeof(path),
+			get attributesRaw() {
+				return localStorage.getItem(path).split("*")[0].split(",")
+			},
+			get type() {
+				return iofs.typeof(path);
+			},
 			get size() {
 				return localStorage.getItem(path).length;
 			}
