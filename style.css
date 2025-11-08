@@ -265,6 +265,73 @@ body.big_buttons .resizer2 {
   background-color: var(--themecolor2);
   right: 6rem;
 }
+
+/* Opacity control popup */
+.program .headbar .opacity-popup {
+  position: absolute;
+  top: 100%;
+  right: 8rem;
+  background-color: var(--themecolor);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: var(--border-radius);
+  padding: 8px;
+  gap: 8px;
+  z-index: 1000;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 2px;
+}
+
+.program .headbar .opacity-popup button {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.program .headbar .opacity-popup button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.program .headbar .opacity-slider {
+  width: 100px;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  outline: none;
+}
+
+.program .headbar .opacity-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: white;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.program .headbar .opacity-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: white;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
 .program .resizers * {
   height: 10px;
   width: 10px;

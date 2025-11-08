@@ -51,8 +51,12 @@ function run(which, iattr, how) { // Run a program
         <div class="controls">
             <button class="reload has_hover" onclick="this.parentElement.parentElement.parentElement.getElementsByClassName('proframe')[0].contentWindow.location.reload()" href="#" title="Reload program" disabled="disabled">↻</button>
             <button class="pin has_hover" onclick="setWindowAlwaysOnTop(getWindowByMagic(this))" href="#" title="Pin window always to top">📌</button>
-            <button class="opacity-down has_hover" onclick="decreaseWindowOpacity(getWindowByMagic(this))" href="#" title="Decrease opacity">🔅</button>
-            <button class="opacity-up has_hover" onclick="increaseWindowOpacity(getWindowByMagic(this))" href="#" title="Increase opacity">🔆</button>
+            <button class="opacity-control has_hover" onclick="toggleOpacityPopup(getWindowByMagic(this))" href="#" title="Adjust opacity">🔆</button>
+            <div class="opacity-popup" style="display: none;">
+                <button class="opacity-decrease" onclick="setWindowOpacity(getWindowByMagic(this), '-0.1')">-</button>
+                <input type="range" class="opacity-slider" min="0.1" max="1" step="0.1" value="1" oninput="setWindowOpacity(getWindowByMagic(this), parseFloat(this.value))">
+                <button class="opacity-increase" onclick="setWindowOpacity(getWindowByMagic(this), '+0.1')">+</button>
+            </div>
             <button class="max has_hover" onclick="focusWindow(getWindowByMagic(this)); setWindowMaximized(getWindowByMagic(this))" href="#" title="(Un-)Maximize">⎚</button>
             <button class="close has_hover" onclick="unrun(getWindowByMagic(this))" href="#" title="Close"><b>x</b></button>
             <button class="minimize has_hover" onclick="setWindowMinimized(getWindowByMagic(this))">-</button>
@@ -89,8 +93,7 @@ function run(which, iattr, how) { // Run a program
         myWindow.getElementsByClassName("pin")[0].setAttribute("disabled", true);
     }
     if(myProgram?.controls?.opacity == false) {
-        myWindow.getElementsByClassName("opacity-up")[0].setAttribute("disabled", true);
-        myWindow.getElementsByClassName("opacity-down")[0].setAttribute("disabled", true);
+        myWindow.getElementsByClassName("opacity-control")[0].setAttribute("disabled", true);
     }
 
     if(system?.user?.settings?.developer?.enable == true) {
@@ -407,36 +410,66 @@ function run(which, iattr, how) { // Run a program
 /**
  * changes the opacity of the window
  * @param {HTMLElement} which the window to change the opacity of
- * @param {number} opacity the opacity to set
+ * @param {number|string} opacity the opacity to set (0-1) or relative change ('+0.1' or '-0.1')
  */
 function setWindowOpacity(which, opacity) {
-    if(!opacity) {
-        opacity = "";
+    // Get current opacity from pWindow or default to 1
+    let currentOpacity = which.pWindow?.opacity || parseFloat(which.style.opacity) || 1;
+    
+    // Handle relative changes (string starting with + or -)
+    if(typeof opacity === 'string' && (opacity.startsWith('+') || opacity.startsWith('-'))) {
+        let delta = parseFloat(opacity);
+        opacity = currentOpacity + delta;
     }
+    
+    // Convert to number if needed
+    if(typeof opacity === 'string') {
+        opacity = parseFloat(opacity);
+    }
+    
+    // Handle empty/invalid values
+    if(!opacity || isNaN(opacity)) {
+        opacity = 1;
+    }
+    
+    // Clamp between 0.1 and 1
+    opacity = Math.max(0.1, Math.min(1, opacity));
+    
+    // Update pWindow and DOM
     which.pWindow.opacity = opacity;
     which.style.opacity = opacity;
+    
+    // Update slider if it exists
+    let slider = which.getElementsByClassName("opacity-slider")[0];
+    if(slider) {
+        slider.value = opacity;
+    }
 }
 
 /**
- * Increases the opacity of a window
- * @param {HTMLElement} which the window to increase opacity of
- * @param {number} step the amount to increase opacity by (default: 0.1)
+ * Toggles the opacity popup for a window
+ * @param {HTMLElement} which the window to toggle popup for
  */
-function increaseWindowOpacity(which, step = 0.1) {
-    let currentOpacity = parseFloat(which.style.opacity) || 1;
-    let newOpacity = Math.min(1, currentOpacity + step);
-    setWindowOpacity(which, newOpacity);
-}
-
-/**
- * Decreases the opacity of a window
- * @param {HTMLElement} which the window to decrease opacity of
- * @param {number} step the amount to decrease opacity by (default: 0.1)
- */
-function decreaseWindowOpacity(which, step = 0.1) {
-    let currentOpacity = parseFloat(which.style.opacity) || 1;
-    let newOpacity = Math.max(0.1, currentOpacity - step);
-    setWindowOpacity(which, newOpacity);
+function toggleOpacityPopup(which) {
+    let popup = which.getElementsByClassName("opacity-popup")[0];
+    if(!popup) return;
+    
+    // Close all other popups first
+    document.querySelectorAll(".opacity-popup").forEach(p => {
+        if(p !== popup) p.style.display = "none";
+    });
+    
+    // Toggle this popup
+    if(popup.style.display === "none" || !popup.style.display) {
+        popup.style.display = "flex";
+        // Update slider to current opacity
+        let slider = popup.getElementsByClassName("opacity-slider")[0];
+        if(slider) {
+            slider.value = which.pWindow?.opacity || parseFloat(which.style.opacity) || 1;
+        }
+    } else {
+        popup.style.display = "none";
+    }
 }
 
 /**
