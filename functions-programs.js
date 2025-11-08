@@ -327,7 +327,7 @@ function run(which, iattr, how) { // Run a program
 				this.os.saveSystemVariable();
 			},
 			pullSettings: function() {
-				this.settings = system.user.settings.programs[protectedData.programObject.id] || {};
+				this.settings = system.user.settings.programs[protectedData.programObject.id] || protectedData.programObject["settings"] || {};
 			}
 		}
 
