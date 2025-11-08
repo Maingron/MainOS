@@ -7,6 +7,9 @@ function applyFileAttributesToAll() {
 		// if file name starts with ., add class hidden
 		if(fileElement.innerText.startsWith(".")) {
 			fileElement.classList.add("fattr-hidden");
+			if(!pWindow?.settings?.showHiddenFiles) {
+				fileElement.setAttribute("hidden", "hidden");
+			}
 		}
 		var fileAttributes = iofs.getInfos(fileElement.getAttribute("path")).attributes;
 
@@ -21,6 +24,9 @@ function applyFileAttributesToAll() {
 					addColorDot(newColorDotDiv, a_attribute);
 					if(a_attribute == "0") {
 						fileElement.classList.add("system_file");
+						if(!pWindow?.settings?.showSystemFiles) {
+							fileElement.setAttribute("hidden", "hidden");
+						}
 					}
 					if(a_attribute == "f") {
 						fileElement.classList.add("fattr-favorite_file");
@@ -28,6 +34,10 @@ function applyFileAttributesToAll() {
 					}
 				} else if(["a"].includes(a_attribute)) {
 					fileElement.classList.add("fattr-hidden");
+					if(!pWindow?.settings?.showHiddenFiles) {
+						fileElement.setAttribute("hidden", "hidden");
+					}
+
 				} else if(["!"].includes(a_attribute)) {
 					fileElement.classList.add("fattr-system_file");
 					fileElement.classList.add("fattr-outdated_file");

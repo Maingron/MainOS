@@ -1,5 +1,8 @@
 var currentPath;
 var filesListed = [];
+var explorer = {
+	modules: {}
+};
 
 function explorerdo(path, action = "default") { // Shows directory or does stuff asigned to files / file types
 	if(path == "..") { // If want to go up a directory
@@ -50,9 +53,14 @@ function explorerdo(path, action = "default") { // Shows directory or does stuff
                     newChild.setAttribute("tabindex", "6");
                 }
 
+				let spanFilename = iofs.getName(file);
+				if(!pWindow?.settings?.showFilenameExtensions) {
+					spanFilename = spanFilename.split("." + iofs.getInfos(file).ending)[0];
+				}
+
                 newChild.innerHTML = `
                 <span>
-                    ${iofs.getName(file)}
+                    ${spanFilename}
                 </span>
                 `; // Add text while removing full path and trailing slash
         

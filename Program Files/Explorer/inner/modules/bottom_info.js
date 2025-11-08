@@ -16,6 +16,10 @@ function initBottomInfo() {
 }
 
 function updateBottomInfo() {
+	if(!pWindow.settings.showBottomInfoBar) {
+		return;
+	}
+	
 	let amountFiles = 0;
 	let amountDirs = 0;
 

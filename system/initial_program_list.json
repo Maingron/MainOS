@@ -7,15 +7,21 @@
         "id": "excel",
         "src": "Program%20Files/excel/exec.html"
     },
-    "explorer": {
-        "id": "explorer",
-        "title": "Explorer",
-        "icon": "#iofs:C:/system/icons/folder_search.svg",
-        "src": "Program%20Files/Explorer/inner/exec.html",
-        "settings": {
-            "startDir": "/"
-        }
-    },
+	"explorer": {
+		"id": "explorer",
+		"title": "Explorer",
+		"icon": "#iofs:C:/system/icons/folder_search.svg",
+		"src": "Program%20Files/Explorer/inner/exec.html",
+		"settings": {
+			"startDir": "/",
+			"showHiddenFiles": true,
+			"showFilenameExtensions": true,
+			"showAttributeIndicators": true,
+			"showSystemFiles": false,
+			"showBottomInfoBar": true,
+			"showFolderCovers": true
+		}
+	},
     "notepad": {
         "id": "notepad",
         "title": "Notepad",

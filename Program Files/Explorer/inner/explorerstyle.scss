@@ -17,6 +17,18 @@ body {
             }
         }
     }
+
+	&:has(input[value-key="pWindow.settings.showAttributeIndicators"]:is(:not(:checked))) {
+		.color_dot_div {
+			display: none;
+		}
+	}
+	&:has(input[value-key="pWindow.settings.showBottomInfoBar"]:is(:not(:checked))) {
+		#bottom_info {
+			display: none;
+		}
+	}
+
 }
 
 * {
@@ -195,6 +207,10 @@ body {
         &.fattr-hidden {
             opacity: .7;
         }
+
+		&[hidden] {
+			display: none !important;
+		}
 
         .color_dot_div {
             position: absolute;

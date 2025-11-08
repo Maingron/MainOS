@@ -12,6 +12,58 @@
 </head>
 
 <body>
+	<nav id="topbar" class="altbar" role="toolbar" onclick="explorer.modules.settingsStuff.handler(event, true)">
+		<ul>
+			<li>
+				<details>
+					<summary>View</summary>
+					<div>
+						<ul>
+							<li>
+								<label>
+									<input type="checkbox" value-key="pWindow.settings.showFilenameExtensions" onchange="explorer.modules.settingsStuff.altbar.handleSettingChange(event)" />
+									<span>Show File Name extensions</span>
+								</label>
+							</li>
+							<li>
+								<label>
+									<input type="checkbox" value-key="pWindow.settings.showHiddenFiles" onchange="explorer.modules.settingsStuff.altbar.handleSettingChange(event)" />
+									<span>Show hidden files</span>
+								</label>
+							</li>
+							<li>
+								<label>
+									<input type="checkbox" value-key="pWindow.settings.showSystemFiles" onchange="explorer.modules.settingsStuff.altbar.handleSettingChange(event)" />
+									<span>Show System Files</span>
+								</label>
+							</li>
+							<li>
+								<label>
+									<input type="checkbox" value-key="pWindow.settings.showAttributeIndicators" onchange="explorer.modules.settingsStuff.altbar.handleSettingChange(event)" />
+									<span title="Show colored dots and other attributes on files">Show Attribute indicators</span>
+								</label>
+							</li>
+							<li>
+								<label>
+									<input type="checkbox" value-key="pWindow.settings.showFolderCovers" onchange="explorer.modules.settingsStuff.altbar.handleSettingChange(event)" />
+									<span>Show Folder Covers</span>
+								</label>
+							</li>
+							<li>
+								<hr>
+							</li>
+							<li>
+								<label>
+									<input type="checkbox" value-key="pWindow.settings.showBottomInfoBar" onchange="explorer.modules.settingsStuff.altbar.handleSettingChange(event)" />
+									<span>Show Bottom Info Bar</span>
+								</label>
+							</li>
+						</ul>
+					</div>
+				</details>
+			</li>
+		</ul>
+	</nav>
     <div id="headbar2">
         <a onclick="explorerdo('..')" title="Up" href="#" class="has_hover">
             <img src="#iofs:C:/system/icons/folder_up.svg" alt="Go up a directory">
@@ -31,6 +83,7 @@
     <script src="modules/bottom_info.js"></script>
     <script src="modules/load_icons.js"></script>
     <script src="modules/file_attributes.js"></script>
+    <script src="modules/settings_stuff.js"></script>
 </body>
 
 </html>
