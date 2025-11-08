@@ -330,7 +330,7 @@ document.getElementById("username").innerText = system.user.name; // Display use
 
 // Check space on disk
 iofs.save("C:/.diskinfo/size_used.txt", String(JSON.stringify(localStorage).length / 1000), "t=txt", true);
-iofs.save("C:/.diskinfo/size_remaining.txt", String(iofs.load("C:/.diskinfo/size.txt") - iofs.load("C:/.diskinfo/size_used.txt")), "t=txt", true);
+iofs.save("C:/.diskinfo/size_remaining.txt", String(parseFloat(iofs.load("C:/.diskinfo/size.txt")) - parseFloat(iofs.load("C:/.diskinfo/size_used.txt"))), "t=txt", true);
 
 // Re-Create program shortcuts; Delete them beforehand
 iofs.listdir(system.user.paths.programShortcuts).forEach((item) => {

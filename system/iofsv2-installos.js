@@ -243,9 +243,11 @@ const iofsv2_installos = {
                 for (i = 1000; i <= 10000; i += 1000) {
                     localStorage.setItem('test', new Array((i * 1024) + 1).join('a'));
                 }
+                // If we reached here without exception, storage is at least 10MB
+                localStorage.removeItem('test');
+                iofs.save("C:/.diskinfo/size.txt", String(i - 1000), "t=txt", true);
             } catch (e) {
                 localStorage.removeItem('test');
-
                 iofs.save("C:/.diskinfo/size.txt", String(i - 1000), "t=txt", true);
             }
         }
