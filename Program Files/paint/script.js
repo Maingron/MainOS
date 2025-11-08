@@ -39,6 +39,15 @@ canvas.addEventListener("mousemove", function(e) {
     },0)
 })
 
+canvas.addEventListener("touchmove", function(e) {
+    e.preventDefault(); // Prevent scrolling while drawing
+    if (e.touches.length > 0) {
+        setTimeout(function() {
+            doThisOnMouseMove(e.touches[0]);
+        },0)
+    }
+})
+
 async function doThisOnMouseMove(e) {
     let boundingClientRect = canvas.getBoundingClientRect()
     ctx.mouseX = +((e.clientX - boundingClientRect.left) * (canvas.width / boundingClientRect.width)).toFixed(0);
@@ -82,7 +91,18 @@ canvas.onmousedown = function() {
     canvas.mousedown = true;
 }
 
+canvas.ontouchstart = function(e) {
+    e.preventDefault(); // Prevent scrolling while drawing
+    canvas.mousedown = true;
+}
+
 canvas.onmouseup = function() {
+    canvas.mousedown = false;
+    render();
+}
+
+canvas.ontouchend = function(e) {
+    e.preventDefault(); // Prevent scrolling while drawing
     canvas.mousedown = false;
     render();
 }
