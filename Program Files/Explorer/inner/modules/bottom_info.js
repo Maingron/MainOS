@@ -30,11 +30,13 @@ function updateBottomInfo() {
 	}
 
 	if(currentPath == "/") {
+		const diskUsed = parseFloat(iofs.load("C:/.diskinfo/size_used.txt")) || 0;
+		const diskSize = parseFloat(iofs.load("C:/.diskinfo/size.txt")) || 5000;
 		bottomInfoElement.innerHTML = `
 		Space used:
-		~ ${iofs.load("C:/.diskinfo/size_used.txt")} KB / ~ ${iofs.load("C:/.diskinfo/size.txt")} KB
+		~ ${diskUsed.toFixed(2)} KB / ~ ${diskSize.toFixed(2)} KB
 		<br>
-		<meter value='${iofs.load("C:/.diskinfo/size_used.txt")}' min='0' max='${iofs.load("C:/.diskinfo/size.txt")}'> </meter>
+		<meter value='${diskUsed}' min='0' max='${diskSize}'> </meter>
 		`;
 	} else {
 		bottomInfoElement.innerHTML = `
