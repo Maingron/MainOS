@@ -94,6 +94,19 @@ function runcmd(which) {
 		return "";
 	}
 
+	if (which.indexOf("ls") == 4 || which.indexOf("dir") == 4) {
+		if(which.indexOf("dir") == 4) {
+			which = which.replace("cmd:dir ", "cmd:ls ");
+		}
+		var path = which.split("cmd:ls ")[1] || system.user.paths.userPath;
+		var files = iofs.listdir(path);
+		var result = "";
+		for (var i = 0; i < files.length; i++) {
+			result = result + files[i] + "<br>";
+		}
+		return result;
+	}
+
 	if (which.indexOf("setting") == 4) {
 		which = which.split("cmd:setting ")[1];
 		which = which.toLowerCase();
@@ -110,6 +123,10 @@ function runcmd(which) {
 		} else {
 			return "'(Ancient variable, use settings menu) <br>' + Error: Setting not found";
 		}
+	}
+
+	if( which.indexOf("pwd") == 4) {
+		return "Sometimes " + system.user.paths.userPath + ", other times /";
 	}
 
 	if (which.indexOf("restart") == 4) {
@@ -134,6 +151,8 @@ function runcmd(which) {
 		<b>setting <b> [Name of setting] [value]</b></b> changes a setting | <b style="color:#f55">deprecated, use settings app</b><br>
 		<b>restart</b> restarts ${system.osDetails.name}<br>
 		<b>mkdir <a>[Path]</a></b> Create a directory<br>
+		<b>ls <a>[Path]</a></b> List directory contents<br>
+		<b>pwd</b> Show working directory<br>
 		<b>version</b> Shows ${system.osDetails.name} Version<br>
 		</b>
 		<p style='display:block;line-height:18px'>&nbsp;</p>
