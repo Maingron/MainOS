@@ -284,5 +284,7 @@ window.addEventListener('message', function(event) {
 			}
 		});
 		window.removeEventListener('message', this);
+	} else if(event.data === 'systemSettingsChanged') {
+		refreshCSSVars();
 	}
 });

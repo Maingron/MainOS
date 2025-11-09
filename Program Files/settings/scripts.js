@@ -197,4 +197,11 @@ function settingChanged() {
 
 
 
-createCategories();
+
+window.addEventListener('message', function (event) {
+	if (event.data === 'pWindowReady') {
+		os.loadsettings();
+		os.refreshCSSVars();
+		createCategories();
+	}
+});

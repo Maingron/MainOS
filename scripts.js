@@ -20,7 +20,7 @@ function loadsettings() {
     setting.time = new Date();
 
     // setting.backgroundimage = loadsetting("backgroundimage");
-    setting.temp = {};
+    setting.temp = {}; 
 
     // document.documentElement.style.setProperty("--themecolor", setting.themecolor);
     // document.documentElement.style.setProperty("--themecolor2", setting.themecolor2);
@@ -29,14 +29,19 @@ function loadsettings() {
     // document.documentElement.style.setProperty("--hovercolor",setting.hovercolor);
     // document.documentElement.style.setProperty("--hovercolornontransparent",setting.hovercolornontransparent);
 
-    if(taskbar) {
-        taskbar.updateSettings(taskbar);
-    }
+	if(taskbar) {
+		taskbar.updateSettings(taskbar);
+	}
 
-    document.documentElement.style.setProperty("--taskbarheight", system.user.settings.taskbar.height + "px");
+	document.documentElement.style.setProperty("--taskbarheight", system.user.settings.taskbar.height + "px");
 
 
-    setDocumentMeta();
+	setDocumentMeta();
+
+	for(let i = 0; i < system?.runtime?.pid?.length; i++) {
+		getWindowByPid(i)?.frame?.contentWindow?.postMessage("systemSettingsChanged");
+	}
+
 }
 
 
