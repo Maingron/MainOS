@@ -21,6 +21,38 @@
 						<ul>
 							<li>
 								<label>
+									<input type="radio" value-key="pWindow.settings.view" value="default" onchange="explorer.modules.settingsStuff.altbar.handleSettingChange(event)" />
+									<span>Icon View</span>
+								</label>
+							</li>
+
+							<li>
+								<label>
+									<input type="radio" value-key="pWindow.settings.view" value="details" onchange="explorer.modules.settingsStuff.altbar.handleSettingChange(event)" />
+									<span>Detail View</span>
+								</label>
+							</li>
+
+							<li>
+								<hr>
+							</li>
+
+							<!-- <li>
+								<label>
+									<input type="radio" value-key="pWindow.settings.sortBy" value="name" onchange="explorer.modules.settingsStuff.altbar.handleSettingChange(event)" />
+									<span>Sort by Name</span>
+								</label>
+							</li>
+
+							<li>
+								<label>
+									<input type="radio" value-key="pWindow.settings.sortBy" value="size" onchange="explorer.modules.settingsStuff.altbar.handleSettingChange(event)" />
+									<span>Sort by Size</span>
+								</label>
+							</li> -->
+
+							<li>
+								<label>
 									<input type="checkbox" value-key="pWindow.settings.showFilenameExtensions" onchange="explorer.modules.settingsStuff.altbar.handleSettingChange(event)" />
 									<span>Show File Name extensions</span>
 								</label>

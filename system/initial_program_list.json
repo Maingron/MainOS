@@ -19,7 +19,9 @@
 			"showAttributeIndicators": true,
 			"showSystemFiles": false,
 			"showBottomInfoBar": true,
-			"showFolderCovers": true
+			"showFolderCovers": true,
+			"view": "default",
+			"sortBy": "name"
 		}
 	},
     "notepad": {

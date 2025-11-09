@@ -36,7 +36,7 @@ function explorerdo(path, action = "default") { // Shows directory or does stuff
     filesListed = []; // Clear filesListed
 
     let newChild;
-    switch(pWindow.settings?.pres?.view || "default") {
+    switch(pWindow.settings?.view || "default") {
         default:
         case "default":
             for(let file of filesInPath) {
@@ -69,50 +69,50 @@ function explorerdo(path, action = "default") { // Shows directory or does stuff
             }
             break;
 
-        // case "details":
-        //     for(let file of filesInPath) {
-        //         newChild = document.createElement("a");
-        //         newChild.setAttribute("path", file);
-        //         newChild.classList.add("has_hover");
-        //         newChild.href = "javascript:explorerdo('" + file + "')";
-        
-        //         if(iofs.typeof(file) == "dir") {
-        //             newChild.style.order = 5;
-        //             newChild.setAttribute("tabindex", "5");
-        //         } else {
-        //             newChild.style.order = 6;
-        //             newChild.setAttribute("tabindex", "6");
-        //         }
-        
-        //         newChild.innerHTML = `
-        //         <span>
-        //             ${iofs.getName(file)}
-        //         </span>
-        //         <span>
-        //             ${iofs.getInfos(file).size}
-        //         </span>
-        //         <span>
-        //             ${iofs.getInfos(file).ending}
-        //         </span>
-        //         <span>
-        //             ${iofs.getInfos(file).mime.category}
-        //         </span>
-        //         `; // Add text while removing full path and trailing slash
-        
-        //         document.getElementById("content_files").appendChild(newChild);
-        //         filesListed.push(file); // Add to filesListed
-        // }
-        
-    }
+		case "details":
+			for(let file of filesInPath) {
+				newChild = document.createElement("a");
+				newChild.setAttribute("path", file);
+				newChild.classList.add("has_hover");
+				newChild.href = "javascript:explorerdo('" + file + "')";
+		
+				if(iofs.typeof(file) == "dir") {
+					newChild.style.order = 5;
+					newChild.setAttribute("tabindex", "5");
+				} else {
+					newChild.style.order = 6;
+					newChild.setAttribute("tabindex", "6");
+				}
+		
+				newChild.innerHTML = `
+				<span class="filename">
+					${iofs.getName(file)}
+				</span>
+				<span class="filetime">
+					${iofs.getInfos(file).timeModified.toLocaleString() ?? ""}
+				</span>
+				<span class="filemime">
+					${iofs.getInfos(file).mime.category ?? ""}
+				</span>
+				<span class="filesize">
+					${(iofs.getInfos(file).size / 1024).toFixed(4)} KB
+				</span>
+				`;
+		
+				document.getElementById("content_files").appendChild(newChild);
+				filesListed.push(file); // Add to filesListed
+		}
+		
+	}
 
 
-    document.getElementById("path").value = path;
+	document.getElementById("path").value = path;
 
-    currentPath = path;
+	currentPath = path;
 
-    document.getElementById("content_files").classList = pWindow.settings?.pres?.view || "default";
+	document.getElementById("content_files").classList = pWindow.settings?.view || "default";
 
-    runModules(); // Run modules
+	runModules(); // Run modules
 
 }
 

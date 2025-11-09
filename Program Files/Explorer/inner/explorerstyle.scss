@@ -19,10 +19,13 @@ body {
     }
 
 	&:has(input[value-key="pWindow.settings.showAttributeIndicators"]:is(:not(:checked))) {
-		.color_dot_div {
-			display: none;
+		#content_files {
+			.color_dot_div {
+				display: none;
+			}
 		}
 	}
+
 	&:has(input[value-key="pWindow.settings.showBottomInfoBar"]:is(:not(:checked))) {
 		#bottom_info {
 			display: none;
@@ -103,82 +106,118 @@ body {
 		height: 100vh;
 	}
 
-    &.details {
-        a {
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            justify-content: stretch;
-            position: relative;
+	&.details {
+		a {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: stretch;
+			position: relative;
 
-            img {
-                width: 30px;
-                height: 30px;
-                margin-right: 10px;
-            }
+			img {
+				width: 30px;
+				height: 30px;
+				margin-right: 10px;
 
-            span,
-            div {
-                display: inline-block;
-                width: 100%;
-                position: relative;
-            }
+				&.folder-overlay-icon {
+					position: absolute;
+					height: 20px;
+					width: 20px;
+					padding: 0;
+					margin-left: 10px;
+					z-index: 10;
+				}
+			}
 
-            .color_dot_div {
-                position: relative;
-                top: 0;
-                left: unset;
-                margin: 0;
-                padding: 0;
-            }
-        }
-    }
+			span,
+			div {
+				display: inline-block;
+				width: 100%;
+				position: relative;
+				pointer-events: none;
+			}
 
-    &:not(&.details) {
-        padding: 15px;
-        display: flex;
-        justify-content: start;
-        align-content: start;
-        flex-wrap: wrap;
+			.filename,
+			input[type="text"] {
+				width: 40%;
+			}
+
+			.filesize {
+				width: 15%;
+			}
+
+			.filemime {
+				width: 15%;
+			}
+
+			.filetime {
+				width: 30%;
+			}
+
+			.color_dot_div {
+				width: 20%;
+				bottom: 0;
+				position: absolute;
+				padding: 0;
+				margin: 0;
+				right: 60%;
+				left: unset;
+				top: unset;
+				bottom: 7px;
+				transform: none !important;
+				z-index: -1;
+				text-align: right;
+				width: auto;
+				opacity: .75;
+			}
+		}
+	}
+
+	&:not(&.details) {
+		padding: 15px;
+		display: flex;
+		justify-content: start;
+		align-content: start;
+		flex-wrap: wrap;
+	
+		a {
+			margin: 4px;
+			overflow: hidden;
+			width: 64px;
+			height: auto;
+			max-height: 100px;
+			z-index: 10;
+			top: 0;
+			left: 0;
+			float: left;
+			text-align: center;
+			align-content: start;
+			user-select: none;
+			font-size: .85em;
+			text-decoration: none;
+			border-radius: var(--border-radius) !important;
     
-        a {
-            margin: 4px;
-            overflow: hidden;
-            width: 64px;
-            height: auto;
-            max-height: 100px;
-            z-index: 10;
-            top: 0;
-            left: 0;
-            float: left;
-            text-align: center;
-            align-content: start;
-            user-select: none;
-            font-size: .85em;
-            text-decoration: none;
-            border-radius: var(--border-radius) !important;
-    
-            &:hover,
-            &:focus-visible {
-                overflow: visible;
-                z-index: 20;
-            }
-    
-            img {
-                position: relative;
-                display: block;
-                top: 0;
-                margin-top: 2px;
-                height: 64px;
-                max-height: 150px;
-                pointer-events: none;
-                width: 100%;
-                overflow: hidden;
-                object-fit: contain;
-                pointer-events: none;
-                margin: 0;
-                
-                &.folder-overlay-icon {
+			&:hover,
+			&:focus-visible {
+				overflow: visible;
+				z-index: 20;
+			}
+
+			img {
+				position: relative;
+				display: block;
+				top: 0;
+				margin-top: 2px;
+				height: 64px;
+				max-height: 150px;
+				pointer-events: none;
+				width: 100%;
+				overflow: hidden;
+				object-fit: contain;
+				pointer-events: none;
+				margin: 0;
+				
+				&.folder-overlay-icon {
 					position: absolute;
 					bottom: 2px;
 					right: 2px;
@@ -187,10 +226,10 @@ body {
 					padding: 2px;
 					z-index: 1;
 					filter: drop-shadow(1px 1px .5px #000) drop-shadow(-1px -1px .5px #000) drop-shadow(-1px 1px .5px #000) drop-shadow(1px -1px .5px #000);
-                }
-            }
-        }
-    }
+				}
+			}
+		}
+	}
 
     input {
         width: calc(100% - 8px);
