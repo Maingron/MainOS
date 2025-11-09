@@ -193,8 +193,7 @@ function explorer_rename(source, target) {
         let inputElement = document.createElement("input");
         inputElement.type = "text";
         inputElement.value = pathElement.innerText;
-        pathElement.remove();
-        item.appendChild(inputElement);
+		item.replaceChild(inputElement, pathElement);
         item.removeAttribute("href");
         inputElement.focus();
         inputElement.setSelectionRange(0, inputElement.value.lastIndexOf(iofs.getInfos(source).ending) - 1 || inputElement.value.length); // Select filename without extension
