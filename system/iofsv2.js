@@ -4,6 +4,7 @@ export const iofs = {
 	forbiddenCharsInPath: ['*', '?', '#', '$', '\'', '"', '`', '\\', '§', ',', '\r', '\n'],
 
 	save: function(path, content, attributes = false, override = false, recursive = false, isRaw = true) {
+		var attributesFromFileInFS = this.getInfos(path)?.attributes || {};
 		path = this.sanitizePath(path);
 
 		if(!this.isAllowedPath(path)) {
@@ -15,7 +16,7 @@ export const iofs = {
 		}
 
 		if(attributes == false && this.exists(path)) {
-			attributes = this.getInfos(path).attributes || "";
+			attributes = attributesFromFileInFS || "";
 		}
 
 		if(typeof(attributes) == "object") {
@@ -27,6 +28,14 @@ export const iofs = {
 		}
 
 		attributes = "" + attributes;
+
+		if(attributesFromFileInFS["c"] == undefined) {
+			attributes += ",c=" + ((system?.runtime?.time()?.getTime()) ?? 0);
+		} else {
+			attributes += ",c=" + attributesFromFileInFS["c"];
+		}
+
+		attributes += ",d=" + ((system?.runtime?.time()?.getTime() ?? 0));
 
 		if(attributes.indexOf("t=d") >= 0) {
 			var isFolder = true;
@@ -245,6 +254,17 @@ export const iofs = {
 			}
 		};
 
+		var preResult = {
+			attributesRaw: localStorage.getItem(path).split("*")[0].split(","),
+			attributes: {}
+		};
+
+		for(let attribute of preResult.attributesRaw) {
+			if(attribute?.split("=")[1]) {
+				preResult.attributes[attribute.split("=")[0]] = attribute.split("=")[1];
+			}
+		}
+
 		var result = {
 			get name() {
 				return iofs.getName(path);
@@ -258,21 +278,23 @@ export const iofs = {
 				description: undefined
 			},
 			probablyWantRaw: true,
-			attributes: {},
+			get attributes() {
+				return preResult.attributes;
+			},
 			get attributesRaw() {
-				return localStorage.getItem(path).split("*")[0].split(",")
+				return preResult.attributesRaw;
 			},
 			get type() {
 				return iofs.typeof(path);
 			},
 			get size() {
 				return localStorage.getItem(path).length;
-			}
-		}
-
-		for(let attribute of result.attributesRaw) {
-			if(attribute && attribute.split("=")[0] && attribute.split("=")[1]) {
-				result.attributes[attribute.split("=")[0]] = attribute.split("=")[1];
+			},
+			get timeCreated() {
+				return new Date(+(this.attributes["c"] ?? 0));
+			},
+			get timeModified() {
+				return new Date(+(this.attributes["d"] ?? this.attributes["c"] ?? 0));
 			}
 		}
 
