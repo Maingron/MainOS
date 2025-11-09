@@ -14,12 +14,28 @@ explorer.modules.settingsStuff = {
 				let mySetting = mySettingAttr.split(".").reduce((o,i)=>o[i], window);
 				checkboxItem.checked = mySetting;
 			}
+
+			for(let radioItem of document.querySelectorAll(".altbar input[type='radio']")) {
+				let mySettingAttr = radioItem.getAttribute("value-key");
+				let mySetting = mySettingAttr.split(".").reduce((o,i)=>o[i], window);
+
+				if(radioItem.value == mySetting) {
+					radioItem.checked = "checked";
+				} else {
+					radioItem.checked = false;
+				}
+			}
 		},
 
 		handleSettingChange: function(event) {
 			let targetElement = event.target;
 			let mySettingAttr = targetElement.getAttribute("value-key");
-			let mySettingValue = targetElement.checked;
+			let mySettingValue;
+			if(targetElement.type == "checkbox") {
+				mySettingValue = targetElement.checked;
+			} else {
+				mySettingValue = targetElement.value;
+			}
 			
 			let settingParts = mySettingAttr.split(".");
 			let settingObj = window;
