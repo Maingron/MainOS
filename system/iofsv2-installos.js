@@ -78,6 +78,7 @@ const iofsv2_installos = {
             "C:/users/default/books",
             "C:/users/default/music",
             "C:/users/default/photos",
+            "C:/users/default/Pictures",
             "C:/Program Files/cmd",
             "C:/Program Files/colors",
             "C:/Program Files/excel",
@@ -94,6 +95,7 @@ const iofsv2_installos = {
             "C:/Program Files/evalculator",
             "C:/Program Files/browser",
             "C:/Program Files/run",
+            "C:/Program Files/camera",
             "C:/users/default/programs",
             "C:/system/icons",
             "C:/system/icons/usericons"
@@ -151,6 +153,7 @@ const iofsv2_installos = {
             ["C:/Program Files/run/icon.png", "Program Files/run/icon.png", "t=png"],
             ["C:/Program Files/photo-viewer/icon.svg", "Program Files/photo-viewer/icon.svg", "t=svg"],
             ["C:/Program Files/Backup Utility/icon.png", "Program Files/Backup Utility/icon.png", "t=png"],
+            ["C:/Program Files/camera/icon.svg", "Program Files/camera/icon.svg", "t=svg"],
             ["C:/system/initial_program_list.json", "system/initial_program_list.json", "t=txt"],
             ["C:/system/icons/usericons/guest.svg", "system/icons/usericons/guest.svg", "t=svg"],
             ["C:/system/icons/logo.svg", "img/logo.svg", "t=svg,A=0", 1],

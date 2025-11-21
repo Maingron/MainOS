@@ -291,6 +291,9 @@ function runModules(event) {
 
 addEventListener("message", () => {
     if(event.data == "pWindowReady") {
-        explorerdo(pWindow.settings.startDir); // Initial load of all vHDDs
+        // Check for startDir in attributes first, then fall back to settings
+        const attributes = pWindow.getAttributes();
+        const startDir = (attributes && attributes.startDir) || pWindow.settings.startDir;
+        explorerdo(startDir); // Initial load of all vHDDs
     }
 });
