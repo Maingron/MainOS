@@ -1,0 +1,11 @@
+/* PROJECT */
+    GitHub: https://github.com/Maingron/MainOS
+    Itch: https://maingron.itch.io/mainos
+    Website: https://maingron.github.io/MainOS
+
+/* TEAM */
+    Developer: Maingron (Robin)
+    GitHub: https://github.com/Maingron
+    Website: https://maingron.com
+
+/* CONTRIBUTORS */
