@@ -95,6 +95,15 @@ function run(which, iattr, how) { // Run a program
     myWindow.drag = myWindow.children[0].getElementsByClassName("drag")[0];
     myWindow.resizer2 = myWindow.getElementsByClassName("resizer2")[0];
 
+	if(myProgram?.controls?.resize === false) {
+		myWindow.resizer2.setAttribute("disabled", "disabled");
+		myWindow.resizer2.setAttribute("inert", "inert");
+	}
+
+	if(myProgram?.controls?.["bar-move"] === false) {
+		myWindow.drag.setAttribute("inert", "inert");
+	}
+
     if(myProgram.sandbox) {
         myWindow.classList.add("sandbox");
         if(myProgram.sandbox == 1) {
@@ -107,87 +116,92 @@ function run(which, iattr, how) { // Run a program
         }
     }
 
+	if(myProgram?.controls?.["bar-move"] !== false) {
+		myWindow.drag.addEventListener("mousemove", function(event) {
+			if(systemRuntime.clicking == 1 && !myWindow.classList.contains("maximized")) {
+				overlayDragBar(this, true);
+				dragWindow(getWindowByMagic(myWindow), systemRuntime.pos.mouseX , systemRuntime.pos.mouseY, (myWindow.offsetLeft + event.clientX), (myWindow.offsetTop + event.clientY));
+			} else {
+				overlayDragBar(this, false);
+			}
+		});
 
-    myWindow.drag.addEventListener("mousemove", function(event) {
-        if(systemRuntime.clicking == 1 && !myWindow.classList.contains("maximized")) {
-            overlayDragBar(this, true);
-            dragWindow(getWindowByMagic(myWindow), systemRuntime.pos.mouseX , systemRuntime.pos.mouseY, (myWindow.offsetLeft + event.clientX), (myWindow.offsetTop + event.clientY));
-        } else {
-            overlayDragBar(this, false);
-        }
-    });
+		myWindow.drag.addEventListener("mousedown", function() {
+			systemRuntime.clicking = 1;
+			focusWindow(getWindowByMagic(myWindow));
+			overlayDragBar(this, true);
+			this.addEventListener("mouseup", function() {
+				systemRuntime.clicking = 0;
+				overlayDragBar(this, false);
+			}, {"once": true})
+		});
 
-    myWindow.resizer2.addEventListener("mousemove", function(event) {
-        if(systemRuntime.clicking == 1) {
-            overlayResizer(this, true);
-            resizeWindow(getWindowByMagic(myWindow), event.clientX - myWindow.offsetLeft, event.clientY - myWindow.offsetTop);
-        } else {
-            overlayResizer(this, false);
-        }
-    });
+		myWindow.drag.addEventListener("touchmove", function(event) {
+			if(systemRuntime.clicking == 1 && !myWindow.classList.contains("maximized")) {
+				overlayDragBar(this, true);
+				dragWindow(getWindowByMagic(myWindow), systemRuntime.pos.mouseX , systemRuntime.pos.mouseY, (myWindow.offsetLeft + event.targetTouches[0].clientX), (myWindow.offsetTop + event.targetTouches[0].clientY));
+			} else {
+				overlayDragBar(this, false);
+			}
+		});
 
-    myWindow.drag.addEventListener("mousedown", function() {
-        systemRuntime.clicking = 1;
-        focusWindow(getWindowByMagic(myWindow));
-        overlayDragBar(this, true);
-        this.addEventListener("mouseup", function() {
-            systemRuntime.clicking = 0;
-            overlayDragBar(this, false);
-        }, {"once": true})
-    });
+		myWindow.drag.addEventListener("touchstart", function() {
+			systemRuntime.clicking = 1;
+			focusWindow(getWindowByMagic(myWindow));
+			overlayDragBar(this, true);
+			this.addEventListener("touchend", function() {
+				systemRuntime.clicking = 0;
+				overlayDragBar(this, false);
+			}, {"once": true})
+		});
+	}
 
-    myWindow.resizer2.addEventListener("mousedown", function() {
-        systemRuntime.clicking = 1;
-        focusWindow(getWindowByMagic(myWindow));
-        overlayResizer(this, true);
-        this.addEventListener("mouseup", function() {
-            systemRuntime.clicking = 0;
-            overlayResizer(this, false);
-        }, {"once": true})
-    });
+	if(myProgram?.controls?.["bar-dblclicktomax"] !== false) {
+		myWindow.drag.addEventListener("dblclick", function() {
+			focusWindow(getWindowByMagic(myWindow));
+			setWindowMaximized(getWindowByMagic(this));
+		});
+	}
 
-    myWindow.drag.addEventListener("touchmove", function(event) {
-        if(systemRuntime.clicking == 1 && !myWindow.classList.contains("maximized")) {
-            overlayDragBar(this, true);
-            dragWindow(getWindowByMagic(myWindow), systemRuntime.pos.mouseX , systemRuntime.pos.mouseY, (myWindow.offsetLeft + event.targetTouches[0].clientX), (myWindow.offsetTop + event.targetTouches[0].clientY));
-        } else {
-            overlayDragBar(this, false);
-        }
-    });
+	if(myProgram?.controls?.resize !== false) {
+		myWindow.resizer2.addEventListener("mousemove", function(event) {
+			if(systemRuntime.clicking == 1) {
+				overlayResizer(this, true);
+				resizeWindow(getWindowByMagic(myWindow), event.clientX - myWindow.offsetLeft, event.clientY - myWindow.offsetTop);
+			} else {
+				overlayResizer(this, false);
+			}
+		});
 
-    myWindow.resizer2.addEventListener("touchmove", function(event) {
-        if(systemRuntime.clicking == 1) {
-            overlayResizer(this, true);
-            resizeWindow(getWindowByMagic(myWindow), event.targetTouches[0].clientX - myWindow.offsetLeft, event.targetTouches[0].clientY - myWindow.offsetTop);
-        } else {
-            overlayResizer(this, false);
-        }
-    });
-
-    myWindow.drag.addEventListener("touchstart", function() {
-        systemRuntime.clicking = 1;
-        focusWindow(getWindowByMagic(myWindow));
-        overlayDragBar(this, true);
-        this.addEventListener("touchend", function() {
-            systemRuntime.clicking = 0;
-            overlayDragBar(this, false);
-        }, {"once": true})
-    });
-
-    myWindow.resizer2.addEventListener("touchstart", function() {
-        systemRuntime.clicking = 1;
-        focusWindow(getWindowByMagic(myWindow));
-        this.addEventListener("touchend", function() {
-            systemRuntime.clicking = 0;
-            overlayResizer(this, false);
-        }, {"once": true})
-    });
+		myWindow.resizer2.addEventListener("mousedown", function() {
+			systemRuntime.clicking = 1;
+			focusWindow(getWindowByMagic(myWindow));
+			overlayResizer(this, true);
+			this.addEventListener("mouseup", function() {
+				systemRuntime.clicking = 0;
+				overlayResizer(this, false);
+			}, {"once": true})
+		});
 
 
-    myWindow.drag.addEventListener("dblclick", function() {
-        focusWindow(getWindowByMagic(myWindow));
-        setWindowMaximized(getWindowByMagic(this));
-    });
+		myWindow.resizer2.addEventListener("touchmove", function(event) {
+			if(systemRuntime.clicking == 1) {
+				overlayResizer(this, true);
+				resizeWindow(getWindowByMagic(myWindow), event.targetTouches[0].clientX - myWindow.offsetLeft, event.targetTouches[0].clientY - myWindow.offsetTop);
+			} else {
+				overlayResizer(this, false);
+			}
+		});
+
+		myWindow.resizer2.addEventListener("touchstart", function() {
+			systemRuntime.clicking = 1;
+			focusWindow(getWindowByMagic(myWindow));
+			this.addEventListener("touchend", function() {
+				systemRuntime.clicking = 0;
+				overlayResizer(this, false);
+			}, {"once": true})
+		});
+	}
 
 
     // Display once we're done
