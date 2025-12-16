@@ -301,6 +301,25 @@ function run(which, iattr, how) { // Run a program
 			"interactionLock": false
 		};
 
+		if(iattr && typeof iattr == "object") {
+			if(iattr?.top) {
+				protectedData.styles.top = iattr.top;
+				myWindow.style.top = iattr.top;
+			}
+			if(iattr?.left) {
+				protectedData.styles.left = iattr.left;
+				myWindow.style.left = iattr.left;
+			}
+			if(iattr?.width) {
+				protectedData.styles.width = iattr.width;
+				myWindow.style.width = iattr.width;
+			}
+			if(iattr?.height) {
+				protectedData.styles.height = iattr.height;
+				myWindow.style.height = iattr.height;
+			}
+		}
+
 		myWindow.pWindow = {
 			"os": window,
 			"mainos": window,
