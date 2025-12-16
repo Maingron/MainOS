@@ -307,8 +307,8 @@ function run(which, iattr, how) { // Run a program
 			"getWindow": function() {
 				return myWindow;
 			},
-			"close": function() {
-				unrun(myWindow);
+			"close": function(force = false) {
+				unrun(myWindow, force);
 			},
 			"setMinimized": function(state) {
 				// state = true or false, else it will toggle
@@ -640,7 +640,12 @@ function overlayResizer(which, onoff) {
  * Closes a program
  * @param which program
  */
-function unrun(which) { // Unrun / close a program
+function unrun(which, force = false) { // Unrun / close a program
+	if(which?.pWindow?.onBeforeUnrun && !force) {
+		if(which.pWindow.onBeforeUnrun() === false) {
+			return false;
+		}
+	}
 	which.classList.add("closing");
 	which.addEventListener("transitionend", function handleTransitionEnd(e) {
 		if (e.target.classList.contains("program") && e.propertyName == "transform") {
