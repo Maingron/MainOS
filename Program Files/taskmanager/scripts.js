@@ -34,6 +34,7 @@ function refreshTaskList() {
                     </td>
                     <td>${i}</td>
                     <td>
+                        <button onclick="closeTask(${i})">Close</button>
                         <button onclick="killTask(${i})">Kill</button>
                         <button onclick="focusTask(${i})">Focus</button>
                     </td>
@@ -43,12 +44,16 @@ function refreshTaskList() {
     }
 }
 
+function closeTask(which) {
+    pWindow.os.unrun(parent.getWindowById(which), false);
+}
+
 function killTask(which) {
-    parent.unrun(parent.getWindowById(which));
+    pWindow.os.unrun(parent.getWindowById(which), true	);
 }
 
 function focusTask(which) {
-    parent.focusWindow(parent.getWindowById(which));
+    pWindow.os.focusWindow(parent.getWindowById(which));
 }
 
 
