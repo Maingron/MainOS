@@ -328,6 +328,13 @@ function run(which, iattr, how) { // Run a program
 			},
 			pullSettings: function() {
 				this.settings = system.user.settings.programs[protectedData.programObject.id] || protectedData.programObject["settings"] || {};
+			},
+			get title() {
+				return myWindow.getElementsByClassName("progtitle")[0].innerText;
+			},
+			set title(value) {
+				myWindow.getElementsByClassName("progtitle")[0].innerText = value;
+				document.title = value;
 			}
 		}
 

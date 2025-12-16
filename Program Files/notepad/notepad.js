@@ -9,6 +9,13 @@ if (path) {
     object.textcontent.value = iofs.load(path);
     object.savebutton.innerHTML = "Save as " + path;
     object.filename1.style.display = "none";
+
+	addEventListener("message", () => {
+		if(event.data == "pWindowReady") {
+			pWindow.title = path.split("/").pop() + " - Notepad";
+		}
+	});
+
 } else {
     object.filename1.style.display = "inline";
 }
