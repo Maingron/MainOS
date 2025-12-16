@@ -118,6 +118,9 @@ function run(which, iattr, how) { // Run a program
 
 	if(myProgram?.controls?.["bar-move"] !== false) {
 		myWindow.drag.addEventListener("mousemove", function(event) {
+			if(myWindow.getAttribute("interactionlocked")) {
+				return false;
+			}
 			if(systemRuntime.clicking == 1 && !myWindow.classList.contains("maximized")) {
 				overlayDragBar(this, true);
 				dragWindow(getWindowByMagic(myWindow), systemRuntime.pos.mouseX , systemRuntime.pos.mouseY, (myWindow.offsetLeft + event.clientX), (myWindow.offsetTop + event.clientY));
@@ -127,6 +130,9 @@ function run(which, iattr, how) { // Run a program
 		});
 
 		myWindow.drag.addEventListener("mousedown", function() {
+			if(myWindow.getAttribute("interactionlocked")) {
+				return false;
+			}
 			systemRuntime.clicking = 1;
 			focusWindow(getWindowByMagic(myWindow));
 			overlayDragBar(this, true);
@@ -146,6 +152,9 @@ function run(which, iattr, how) { // Run a program
 		});
 
 		myWindow.drag.addEventListener("touchstart", function() {
+			if(myWindow.getAttribute("interactionlocked")) {
+				return false;
+			}
 			systemRuntime.clicking = 1;
 			focusWindow(getWindowByMagic(myWindow));
 			overlayDragBar(this, true);
@@ -158,6 +167,9 @@ function run(which, iattr, how) { // Run a program
 
 	if(myProgram?.controls?.["bar-dblclicktomax"] !== false) {
 		myWindow.drag.addEventListener("dblclick", function() {
+			if(myWindow.getAttribute("interactionlocked")) {
+				return false;
+			}
 			focusWindow(getWindowByMagic(myWindow));
 			setWindowMaximized(getWindowByMagic(this));
 		});
@@ -165,6 +177,9 @@ function run(which, iattr, how) { // Run a program
 
 	if(myProgram?.controls?.resize !== false) {
 		myWindow.resizer2.addEventListener("mousemove", function(event) {
+			if(myWindow.getAttribute("interactionlocked")) {
+				return false;
+			}
 			if(systemRuntime.clicking == 1) {
 				overlayResizer(this, true);
 				resizeWindow(getWindowByMagic(myWindow), event.clientX - myWindow.offsetLeft, event.clientY - myWindow.offsetTop);
@@ -174,6 +189,9 @@ function run(which, iattr, how) { // Run a program
 		});
 
 		myWindow.resizer2.addEventListener("mousedown", function() {
+			if(myWindow.getAttribute("interactionlocked")) {
+				return false;
+			}
 			systemRuntime.clicking = 1;
 			focusWindow(getWindowByMagic(myWindow));
 			overlayResizer(this, true);
@@ -194,6 +212,9 @@ function run(which, iattr, how) { // Run a program
 		});
 
 		myWindow.resizer2.addEventListener("touchstart", function() {
+			if(myWindow.getAttribute("interactionlocked")) {
+				return false;
+			}
 			systemRuntime.clicking = 1;
 			focusWindow(getWindowByMagic(myWindow));
 			this.addEventListener("touchend", function() {
@@ -276,7 +297,8 @@ function run(which, iattr, how) { // Run a program
 				"logs": system.user.paths.logs + myProgram.id + "/",
 				"temp": system.user.paths.temp + myProgram.id + "/"
 			},
-			"styles": stylesConstructor()
+			"styles": stylesConstructor(),
+			"interactionLock": false
 		};
 
 		myWindow.pWindow = {
@@ -348,7 +370,25 @@ function run(which, iattr, how) { // Run a program
 			},
 			set title(value) {
 				myWindow.getElementsByClassName("progtitle")[0].innerText = value;
-				document.title = value;
+			},
+			get interactionLock() {
+				return protectedData.interactionLock;
+			},
+			set interactionLock(value) {
+				if(value == false) {
+					protectedData.interactionLock = false;
+					myWindow.removeAttribute("interactionlocked");
+					myWindow.frame.removeAttribute("inert");
+					myWindow.querySelector(".controls").removeAttribute("inert");
+				} else {
+					protectedData.interactionLock = value;
+					myWindow.frame.setAttribute("inert", "inert");
+					if(getWindowByMagic(value)) {
+						myWindow.setAttribute("interactionlocked", getWindowByMagic(value).id);
+						myWindow.querySelector(".controls").setAttribute("inert", "inert");
+						getWindowByMagic(value).frame.focus();
+					}
+				}
 			}
 		}
 
@@ -457,6 +497,11 @@ function focusWindow(which, state) {
     unfocus();
 
     which.classList.add("active");
+
+
+	if(which.getAttribute("interactionlocked")) {
+		getWindowById(which.getAttribute("interactionlocked"))?.pWindow?.focus();
+	}
 
     tasklist.focusItem(which);
 

@@ -517,6 +517,18 @@ body {
 		transition: $programTransition;
 	}
 
+	&[interactionlocked] {
+		&, * {
+			cursor: not-allowed !important;
+		}
+		.headbar {
+			pointer-events: none;
+		}
+		button {
+			pointer-events: none !important;
+		}
+	}
+
 	&.noborder {
 		border-radius: 0 !important;
 	

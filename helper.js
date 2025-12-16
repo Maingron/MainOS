@@ -278,9 +278,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
 window.addEventListener('message', function(event) {
 	if (event.data === 'pWindowReady') {
-		window.addEventListener('focus', function() {
+		window.addEventListener('focus', function(focusevent) {
 			if(document.hasFocus()) {
 				pWindow.focus();
+			}
+			if(pWindow.interactionLock) {
+				focusevent.preventDefault();
+				focusevent.stopImmediatePropagation();
+				focusevent.stopPropagation();
+				os.getWindowByMagic(pWindow.interactionLock).pWindow.focus();
+				return false;
 			}
 		});
 		window.removeEventListener('message', this);
