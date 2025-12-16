@@ -132,5 +132,21 @@
         "src": "Program%20Files/Backup Utility/exec.html",
         "icon": "#iofs:C:/Program Files/Backup Utility/icon.png",
         "devonly": true
-    }
+    },
+	"popup_window": {
+		"id": "popup_window",
+		"src": "Program%20Files/popup_window/exec.html",
+		"autostart": "minimized",
+		"spawnicon": 0,
+		"controls": {
+			"fullscreen": false,
+			"minimize": false,
+			"maximize": false,
+			"close": false,
+			"resize": false,
+			"pin": false,
+			"bar-move": true,
+			"bar-dblclicktomax": false
+		}
+	}
 }

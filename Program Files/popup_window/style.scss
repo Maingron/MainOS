@@ -1,0 +1,31 @@
+html, body {
+	background: transparent;
+	height: 100%;
+}
+
+main {
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: var(--glassyElementSpacing);
+	justify-content: space-between;
+	background: var(--glassyElementBackground);
+	backdrop-filter: blur(var(--glassyElementBlur));
+	height: 100%;
+	width: 100%;
+	box-sizing: border-box;
+
+	p,
+	.actionbuttons {
+		padding: var(--glassyElementSpacing);
+		margin: 0;
+	}
+
+	.actionbuttons {
+		background: #00000033;
+		gap: calc(var(--glassyElementSpacing) / 2);
+		display: flex;
+		justify-content: flex-end;
+		border-radius: var(--border-radius);
+	}
+}
