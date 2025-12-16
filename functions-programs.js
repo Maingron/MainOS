@@ -403,6 +403,8 @@ function run(which, iattr, how) { // Run a program
 			return false;
 		}
 	}
+
+	return myWindow;
 }
 
 /**
