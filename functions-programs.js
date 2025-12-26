@@ -298,7 +298,77 @@ function run(which, iattr, how) { // Run a program
 				"temp": system.user.paths.temp + myProgram.id + "/"
 			},
 			"styles": stylesConstructor(),
-			"interactionLock": false
+			"interactionLock": false,
+			"utils": {
+				createAutoSavingStore(iofsRef, path, initial = {}) {
+					let store = initial;
+
+					const deepClone = (obj) => JSON.parse(JSON.stringify(obj));
+
+					const save = () => {
+						try {
+							iofsRef.save(path, JSON.stringify(store), "", 1);
+						} catch (e) {
+							console.error("AutoSavingStore save failed", e);
+						}
+					};
+
+					const proxyCache = new WeakMap();
+
+					const handler = {
+						get(target, prop, receiver) {
+							if (prop === 'toJSON') {
+								return () => deepClone(store);
+							}
+							if (prop === 'getAll') {
+								return () => deepClone(store);
+							}
+							if (prop === 'valueOf') {
+								return () => store;
+							}
+							if (prop === Symbol.toPrimitive) {
+								return (hint) => hint === 'string' ? JSON.stringify(store) : store;
+							}
+
+							const value = Reflect.get(target, prop, receiver);
+							if (typeof value === "object" && value !== null) {
+								const existing = proxyCache.get(value);
+								if (existing) return existing;
+								const nestedProxy = new Proxy(value, handler);
+								proxyCache.set(value, nestedProxy);
+								return nestedProxy;
+							}
+							return value;
+						},
+						set(target, prop, value, receiver) {
+							const ok = Reflect.set(target, prop, value, receiver);
+							save();
+							return ok;
+						},
+						deleteProperty(target, prop) {
+							const ok = Reflect.deleteProperty(target, prop);
+							save();
+							return ok;
+						},
+						ownKeys(target) {
+							return Reflect.ownKeys(target);
+						},
+						getOwnPropertyDescriptor(target, prop) {
+							return Reflect.getOwnPropertyDescriptor(target, prop);
+						},
+						has(target, prop) {
+							return Reflect.has(target, prop);
+						},
+						defineProperty(target, prop, descriptor) {
+							const ok = Reflect.defineProperty(target, prop, descriptor);
+							save();
+							return ok;
+						}
+					};
+
+					return new Proxy(store, handler);
+				}
+			}
 		};
 
 		if(iattr && typeof iattr == "object") {
@@ -376,6 +446,28 @@ function run(which, iattr, how) { // Run a program
 			"settings": {
 				...(protectedData.programObject["settings"] || {}),
 				...system.user.settings.programs[protectedData.programObject.id]
+			},
+			get variableStore() {
+				if (!this.__variableStoreProxy) {
+					const variableStorePath = myWindow.pWindow.getPathList().data + "variableStore.json";
+					let initial = {};
+					if (iofs.exists(variableStorePath)) {
+						try {
+							initial = JSON.parse(iofs.load(variableStorePath, true) || "{}");
+						} catch (e) {
+							initial = {};
+						}
+					} else {
+						iofs.save(variableStorePath, JSON.stringify(initial), "", 1);
+					}
+					this.__variableStoreProxy = protectedData.utils.createAutoSavingStore(iofs, variableStorePath, initial);
+				}
+				return this.__variableStoreProxy;
+			},
+			set variableStore(value) {
+				const variableStorePath = myWindow.pWindow.getPathList().data + "variableStore.json";
+				this.__variableStoreProxy = protectedData.utils.createAutoSavingStore(iofs, variableStorePath, value || {});
+				iofs.save(variableStorePath, JSON.stringify(value || {}), "", 1);
 			},
 			pushSettings: function() {
 				system.user.settings.programs[protectedData.programObject.id] = this.settings;
