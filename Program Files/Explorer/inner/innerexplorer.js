@@ -167,6 +167,13 @@ function newFile(fileName = "New File.txt") {
     }
 }
 
+function newFolder(folderName = "New Folder") {
+	if(iofs.exists(currentPath) && iofs.typeof(currentPath) == "dir") {
+		iofs.save(currentPath + "/" + folderName, "", "t=dir");
+		explorerrefresh();
+	}
+}
+
 function explorer_copy(source) {
     let sourceInfos = iofs.getInfos(source);
     let targetName = "";
@@ -277,7 +284,14 @@ function contextMenu(event) {
             ]);
         }
     } else {
-        spawnContextMenu([["Refresh","explorerrefresh()"],["<hr>"],["New File","newFile()"],["<hr>"],["Properties","","disabled"]])
+        spawnContextMenu([
+			["Refresh","explorerrefresh()"],
+			["<hr>"],
+			["New File","newFile()"],
+			["New Folder","newFolder()"],
+			["<hr>"],
+			["Properties","","disabled"]
+		])
     }
 }
 
