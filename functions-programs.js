@@ -523,6 +523,8 @@ function run(which, iattr, how) { // Run a program
 				try {
 					myWindow.frame.contentWindow.document.title = value;
 				} catch(e) {}
+
+				tasklist.refreshItem(myWindow.id);
 			},
 
 			get icon() {
@@ -536,6 +538,8 @@ function run(which, iattr, how) { // Run a program
 				try {
 					myWindow.frame.contentWindow.document.querySelectorAll("link[rel~='icon']").forEach(el => el.setAttribute("href", value));
 				} catch(e) {}
+
+				tasklist.refreshItem(myWindow.id);
 			},
 
 			get interactionLock() {
@@ -556,6 +560,7 @@ function run(which, iattr, how) { // Run a program
 						getWindowByMagic(value).frame.focus();
 					}
 				}
+				tasklist.refreshItem(myWindow.id);
 			}
 		}
 
