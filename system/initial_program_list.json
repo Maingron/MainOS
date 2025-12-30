@@ -98,7 +98,8 @@
     },
     "taskmanager": {
         "id": "taskmanager",
-        "src": "Program%20Files/taskmanager/exec.html"
+        "src": "Program%20Files/taskmanager/exec.html",
+		"getNotifiedByEvents": ["processListChanged"]
     },
     "run": {
         "id": "run",

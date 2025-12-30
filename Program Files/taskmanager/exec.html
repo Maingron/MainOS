@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <script src="../../helper.js"></script>
-    <link rel="shortcut icon" href="#iofs:C:/Program Files/taskmanager/icon.svg" >
-    <link rel="stylesheet" href="../../helper.min.css">
-    <link rel="stylesheet" href="style.min.css">
-    <title>Task Manager</title>
+	<meta charset="utf-8">
+	<script src="../../helper.js"></script>
+	<link rel="shortcut icon" href="#iofs:C:/Program Files/taskmanager/icon.svg" >
+	<link rel="stylesheet" href="../../helper.min.css">
+	<link rel="stylesheet" href="style.min.css">
+	<title>Task Manager</title>
 </head>
 <body>
-    <div class="altbar">
-        <button onclick="parent.run('run', [], 'min')">Run</button>
-        <!-- Refresh Rate -->
-    </div>
-    <table>
-        <tbody class="tasklist">
+	<div class="altbar">
+		<button onclick="parent.run('run', [], 'min')">Run</button>
+		<!-- <button onclick="loadTaskList()">Hard-Refresh</button> -->
+		<!-- Refresh Rate -->
+	</div>
+	<table>
+		<tbody class="tasklist">
+			<tr class="header">
+				<th title="icon" class="task-icon"></th>
+				<th class="task-title">Title</th>
+				<th class="task-id">ID</th>
+				<th title="Process ID" class="task-pid">Pid</th>
+				<th>Actions</th>
+			</tr>
 
-        </tbody>
-    </table>
-    <div class="bottombar">
+		</tbody>
+	</table>
+	<div class="bottombar">
 
-    </div>
-
-    <script src="scripts.js"></script>
+	</div>
+	<script src="scripts.js"></script>
 </body>
 </html>
