@@ -148,5 +148,11 @@
 			"bar-move": true,
 			"bar-dblclicktomax": false
 		}
+	},
+	"clock": {
+		"id": "clock",
+		"src": "Program%20Files/clock/exec.html",
+		"title": "Clock",
+		"icon": "#iofs:C:/Program Files/clock/clock.svg"
 	}
 }

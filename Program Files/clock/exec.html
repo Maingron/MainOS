@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="../../helper.js"></script>
+	<script src="clock.js"></script>
+	<link rel="shortcut icon" href="#iofs:C:/Program Files/clock/clock.svg" type="image/svg+xml">
+	<link rel="stylesheet" href="clock.min.css">
+	<link rel="stylesheet" href="../../helper.min.css">
+	<title>Clock</title>
+</head>
+<body>
+	<div class="content">
+		<div class="tabs">
+			<div class="tab clock">
+				<center>
+					<h1 class="ce-time">xx:xx:xx</h1>
+					<hr class="faint">
+					<h2 class="ce-date">dd.mm.yyyy</h2>
+				</center>
+			</div>
+			<div class="tab stopwatch">
+				<center>
+					<span class="stopwatch-state" data-state="default"></span>
+					<h2 class="sw-time"></h2>
+					<button id="stopwatch-start" onclick="tabFunctions.stopwatch.start()">Start</button>
+					<button id="stopwatch-stop" onclick="tabFunctions.stopwatch.stop()">Pause / Stop</button>
+					<button id="stopwatch-reset" onclick="tabFunctions.stopwatch.reset()">Reset</button>
+				</center>
+			</div>
+		</div>
+		<nav class="tabnav">
+			<button class="tablink clock" onclick="selectTab('clock')">Clock</button>
+			<button class="tablink stopwatch" onclick="selectTab('stopwatch')">Stopwatch</button>
+		</nav>
+	</div>
+</body>
+</html>
