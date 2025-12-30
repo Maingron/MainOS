@@ -56,6 +56,7 @@ function initializeBrowser() {
 
 			if (event.data.type === 'faviconLoaded') {
 				favicon.src = event.data.url;
+				pWindow.icon = event.data.url;
 			}
 		});
 	});
