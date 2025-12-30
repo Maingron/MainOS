@@ -821,40 +821,46 @@ function unrun(which, force = false) { // Unrun / close a program
 			return false;
 		}
 	}
+
 	which.classList.add("closing");
-	which.addEventListener("transitionend", function handleTransitionEnd(e) {
-		if (e.target.classList.contains("program") && e.propertyName == "transform") {
-			window.setTimeout(function() {
+
+	if(which.classList.contains("minimized")) {
+		unrun_killProgram();
+	} else {
+		which.addEventListener("transitionend", function handleTransitionEnd(e) {
+			if (e.target.classList.contains("program") && e.propertyName == "transform") {
+				window.setTimeout(function() {
+					unrun_killProgram();
+				}, (system?.user?.settings?.processManagement?.windowCloseTimeout ?? 1000) / 100);
+
+				which.removeEventListener("transitionend", handleTransitionEnd);
+			}
+		});
+
+		window.setTimeout(function() {
+			if(system.runtime.processList[+which.id]) {
 				unrun_killProgram();
-			}, (system?.user?.settings?.processManagement?.windowCloseTimeout ?? 10000) / 100);
-
-			which.removeEventListener("transitionend", handleTransitionEnd);
-		}
-	});
-
-	window.setTimeout(function() {
-		if(system.runtime.processList[+which.id]) {
-			unrun_killProgram();
-		}
-	}, system?.user?.settings?.processManagement?.windowCloseTimeout ?? 2000);
+			}
+		}, system?.user?.settings?.processManagement?.windowCloseTimeout ?? 2000);
+	}
 
 	function unrun_killProgram() {
 		which.children[2].src = "about:blank";
 		which.outerHTML = "";
 		system.runtime.processList[+which.id] = null;
 		tasklist.removeItem(which);
-	}
 
-	requestIdleCallback(() => {
-		getProcessList(true).forEach(proc => {
-			if(proc?.programObject?.getNotifiedByEvents?.includes("processListChanged")) {
-				proc.window?.frame?.contentWindow?.postMessage({
-					...processListChangedMessage,
-					"eventSub": "programClosed"
-				});
-			}
+		requestIdleCallback(() => {
+			getProcessList(true).forEach(proc => {
+				if(proc?.programObject?.getNotifiedByEvents?.includes("processListChanged")) {
+					proc.window?.frame?.contentWindow?.postMessage({
+						...processListChangedMessage,
+						"eventSub": "programClosed"
+					});
+				}
+			});
 		});
-	});
+	}
 }
 
 /**
