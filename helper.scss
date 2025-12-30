@@ -16,6 +16,9 @@
 	--altbarcolor: var(--themecolor);
 	--border-radius: 2px;
 	--font-size-base: 1em;
+	--font-color-1: #000; // main font color
+	--font-color-2: #333; // secondary font color
+	--font-color-3: #555; // tertiary font color
 
 	--taskbarheight: 45px; // maybe deprecated in this file
 	--glassyElementSpacing: 15px; // deprecated in this file
@@ -83,7 +86,7 @@ body {
 
 
 * {
-	color: #000;
+	color: var(--font-color-1);
 	font-family: var(--font);
 	&::selection {
 		background-color: var(--hovercolor);
@@ -118,6 +121,15 @@ meter {
 
 	&::-moz-meter-bar {
 		background: var(--themecolor);
+	}
+}
+
+hr {
+	border: 0 solid transparent;
+	border-bottom: 2px solid var(--font-color-2);
+
+	&.faint {
+		opacity: .45;
 	}
 }
 
@@ -280,6 +292,12 @@ meter {
 
 
 @media (prefers-color-scheme: dark) {
+	:root {
+		--font-color-1: #fff; // main font color
+		--font-color-2: #ccc; // secondary font color
+		--font-color-3: #aaa; // tertiary font color
+	}
+	
 	body {
 		background: transparent;
 		color: #fff;
@@ -288,7 +306,7 @@ meter {
 	}
 
 	* {
-		color: #fff;
+		color: var(--font-color-1);
 	}
 
 	.altbar {
