@@ -81,11 +81,12 @@ if(window.parent.attr && window.parent.attr?.caller?.generatePopupWindow) {
 				pWindow.setStyleProperty("top", attributes.top);
 			}
 
-			if(attributes.left	) {
+			if(attributes.left) {
 				pWindow.setStyleProperty("left", attributes.left);
 			}
 
 			pWindow.title = attributes.title || "Popup";
+			pWindow.icon = attributes.icon || attributes?.sender?.icon || "#iofs:" + system.icons.transparent;
 
 			if(attributes.html) {
 				document.querySelector("main").innerHTML = attributes.html;
