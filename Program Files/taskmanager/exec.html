@@ -14,20 +14,22 @@
 		<!-- <button onclick="loadTaskList()">Hard-Refresh</button> -->
 		<!-- Refresh Rate -->
 	</div>
-	<table>
-		<tbody class="tasklist">
-			<tr class="header">
-				<th title="icon" class="task-icon"></th>
-				<th class="task-title">Title</th>
-				<th class="task-id">ID</th>
-				<th title="Process ID" class="task-pid">Pid</th>
-				<th>Actions</th>
-			</tr>
+	<div class="table-wrapper">
+		<table>
+			<tbody class="tasklist">
+				<tr class="header">
+					<th title="icon" class="task-icon"></th>
+					<th class="task-title">Title</th>
+					<th class="task-id">ID</th>
+					<th title="Process ID" class="task-pid">Pid</th>
+					<th>Actions</th>
+				</tr>
 
-		</tbody>
-	</table>
-	<div class="bottombar">
-
+			</tbody>
+		</table>
+	</div>
+	<div class="statusbar">
+		<span class="process-count"></span>
 	</div>
 	<script src="scripts.js"></script>
 </body>

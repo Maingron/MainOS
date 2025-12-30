@@ -47,6 +47,7 @@ function pushToProcessList(processObject) {
 		</td>
 	`;
 	tasklist.appendChild(newLine);
+	afterChange();
 }
 
 function removeFromProcessList(pid) {
@@ -55,6 +56,7 @@ function removeFromProcessList(pid) {
 			tasklist.children[i].remove();
 		}
 	}
+	afterChange();
 }
 
 function refreshListEntry(entryHTMLObject, processObject) {
@@ -115,8 +117,8 @@ function updateTaskList() {
 			line.remove();
 		}
 	});
-		
-
+	
+	afterChange();
 }
 
 function closeTask(which) {
@@ -129,6 +131,10 @@ function killTask(which) {
 
 function focusTask(which) {
 	pWindow.os.focusWindow(parent.getWindowById(which));
+}
+
+function afterChange() {
+	document.querySelector(".process-count").innerText = osProcessList.length + " Processes";
 }
 
 

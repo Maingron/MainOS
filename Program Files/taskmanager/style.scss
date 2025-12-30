@@ -1,32 +1,57 @@
-table {
-    border-collapse: collapse;
-    width: 100%;
-    font-size: 1rem;
-    line-height: 1.75;
-    text-overflow:ellipsis;
-    overflow: hidden;
-    tr {
-        &:nth-of-type(even) {
-            background: #77777722;
-        }
+body {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	justify-content: stretch;
+}
 
-        &:hover {
-            background: var(--hovercolor);
-        }
-    }
+* {
+	box-sizing: border-box;
+}
 
-    .icon {
-        width: 1em;
-        vertical-align: middle;
-        padding-right: .1em;
-        img {
-            height: 1.25em;
-            padding: 0;
-            margin: 0;
-            position: relative;
-            width: auto;
-            vertical-align: text-bottom;
+.table-wrapper {
+	height: 100%;
+	overflow: auto;
+	display: block;
 
-        }
-    }
+	table {
+		border-collapse: collapse;
+		width: 100%;
+		font-size: 1rem;
+		line-height: 1.75;
+		text-overflow:ellipsis;
+		overflow: auto;
+		height: auto;
+
+		tr {
+			&:nth-of-type(even) {
+				background: #77777722;
+			}
+
+			&:hover {
+				background: var(--hovercolor);
+			}
+
+			&.header {
+				position: sticky;
+				top: 0;
+				background: var(--altbarcolor);
+				z-index: 99;
+			}
+		}
+
+		.icon {
+			width: 1em;
+			vertical-align: middle;
+			padding-right: .1em;
+			img {
+				height: 1.25em;
+				padding: 0;
+				margin: 0;
+				position: relative;
+				width: auto;
+				vertical-align: text-bottom;
+			}
+		}
+	}
 }
