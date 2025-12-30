@@ -514,6 +514,10 @@ function run(which, iattr, how) { // Run a program
 				return myWindow.getElementsByClassName("progtitle")[0].innerText;
 			},
 			set title(value) {
+				if(!value) {
+					value = protectedData.programObject.title;
+				}
+
 				myWindow.getElementsByClassName("progtitle")[0].innerText = value;
 
 				try {
