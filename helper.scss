@@ -246,6 +246,14 @@ hr {
 	background:var(--bg-4);
 }
 
+.statusbar {
+	border-top:1px solid #555;
+	background:var(--bg-3);
+	width:100%;
+	padding: 1px;
+	z-index: 100;
+}
+
 .contextMenu {
 	width:auto;
 	background:#ffffff77;
@@ -354,5 +362,6 @@ hr {
 		--bg-3: var(--beige2);
 		--bg-4: var(--beige3);
 		--bg-5: var(--beige4);
+		--altbarcolor: var(--beige);
 	}
 }
