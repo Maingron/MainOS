@@ -515,7 +515,25 @@ function run(which, iattr, how) { // Run a program
 			},
 			set title(value) {
 				myWindow.getElementsByClassName("progtitle")[0].innerText = value;
+
+				try {
+					myWindow.frame.contentWindow.document.title = value;
+				} catch(e) {}
 			},
+
+			get icon() {
+				return myWindow.getElementsByClassName("progicon")[0].src;
+			},
+			set icon(value) {
+				if(!value) {
+					value = protectedData.programObject.icon;
+				}
+				myWindow.getElementsByClassName("progicon")[0].src = value;
+				try {
+					myWindow.frame.contentWindow.document.querySelectorAll("link[rel~='icon']").forEach(el => el.setAttribute("href", value));
+				} catch(e) {}
+			},
+
 			get interactionLock() {
 				return protectedData.interactionLock;
 			},
