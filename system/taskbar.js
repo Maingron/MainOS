@@ -10,10 +10,10 @@ export const tasklist = {
         var newItemElement = document.createElement("button");
         newItemElement.innerHTML = `
             <img src="${myProgram.icon}" alt="">
-            <span>${myProgram.title}</span>
+            <span>${myProgram.title?.trim()}</span>
         `;
         newItemElement.classList.add("has_hover");
-        newItemElement.title = myProgram.title;
+        newItemElement.title = myProgram.title?.trim();
         newItemElement.setAttribute("pid", myWindow.getAttribute("pid"));
 
 		newItemElement.addEventListener("click", function() {
@@ -70,6 +70,18 @@ export const tasklist = {
         }
         tasklist.htmlElement.removeChild(itemElement);
     },
+
+	"refreshItem": function(pid) {
+		let itemElement = tasklist.htmlElement.querySelector(`[pid="${pid}"]`);
+		let process = getProcessList(true).find(p => p.pid == pid);
+		if(!itemElement) {
+			return;
+		}
+		itemElement.querySelector("img").src = process?.icon;
+		itemElement.querySelector("span").innerText = process?.title?.trim();
+		itemElement.title = process?.title?.trim();
+	},
+
 
     "focusItem": function(which) {
         let itemElement = tasklist.htmlElement.querySelector(`[pid="${which.id}"]`);
