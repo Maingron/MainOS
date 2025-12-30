@@ -1,9 +1,40 @@
 "use strict";
 
-function getProcessList() {
-    return(processList);
+function getProcessList(detailed = true) {
+	if(detailed) {
+		let detailedList = [];
+		for(let i = 0; i < processList.length; i++) {
+			if(processList[i] == null) {
+				continue;
+			}
+			detailedList.push({
+				"pid": i,
+				"programIdentifier": processList[i],
+				get window() {
+					return getWindowByPid(i);
+				},
+				get title() {
+					let win = this.window;
+					if(win) {
+						return win.getElementsByClassName("progtitle")[0].innerText;
+					}
+				},
+				get icon() {
+					let win = this.window;
+					if(win) {
+						return win.getElementsByClassName("progicon")[0].src;
+					}
+				},
+				get programObject() {
+					return system.user.programs[this.programIdentifier];
+				}
+			});
+		}
+		return detailedList;
+	} else {
+		return processList;
+	}
 }
-
 function newProcessListEntry(programIdentifier) {
     if(!processList.length>0) {
         processList.push(null);
@@ -31,6 +62,9 @@ function run(which, iattr, how) { // Run a program
     let newWindow = document.createElement("div");
     newWindow.classList.add("program");
     newWindow.id = myPid;
+	if(myProgram.getNotifiedByEvents) {
+		newWindow.setAttribute("notificationEvents", (myProgram.getNotifiedByEvents).join(" "));
+	}
     newWindow.setAttribute("pid", myPid);
     if(myProgram.noborder) {
         newWindow.classList.add("noborder");
@@ -556,7 +590,7 @@ function run(which, iattr, how) { // Run a program
 		}
 		let stillOpenable = myProgram.maxopen + 1;
 	
-		for(let processListEntry of getProcessList()) {
+		for(let processListEntry of getProcessList(false)) {
 			if(processListEntry == programIdentifier) {
 				stillOpenable--;
 			}
@@ -568,6 +602,19 @@ function run(which, iattr, how) { // Run a program
 			return false;
 		}
 	}
+
+	requestIdleCallback(() => {
+		getProcessList(true).forEach(proc => {
+			if(proc?.programObject?.getNotifiedByEvents?.includes("processListChanged")) {
+				proc.window?.frame?.contentWindow?.postMessage({
+					"type": "eventNotification",
+					"event": "processListChanged",
+					"eventSub": "programStarted",
+					"pid": myPid
+				});
+			}
+		});
+	});
 
 	return myWindow;
 }
@@ -752,6 +799,23 @@ function overlayResizer(which, onoff) {
  * @param which program
  */
 function unrun(which, force = false) { // Unrun / close a program
+	const myPid = +which?.id;
+	const processListChangedMessage = {
+		"type": "eventNotification",
+		"event": "processListChanged",
+		"eventSub": "programStopRequested",
+		"forced": force,
+		"pid": myPid
+	};
+
+	requestIdleCallback(() => {
+		getProcessList(true).forEach(proc => {
+			if(proc?.programObject?.getNotifiedByEvents?.includes("processListChanged")) {
+				proc.window?.frame?.contentWindow?.postMessage(processListChangedMessage);
+			}
+		});
+	});
+
 	if(which?.pWindow?.onBeforeUnrun && !force) {
 		if(which.pWindow.onBeforeUnrun() === false) {
 			return false;
@@ -780,6 +844,17 @@ function unrun(which, force = false) { // Unrun / close a program
 		system.runtime.processList[+which.id] = null;
 		tasklist.removeItem(which);
 	}
+
+	requestIdleCallback(() => {
+		getProcessList(true).forEach(proc => {
+			if(proc?.programObject?.getNotifiedByEvents?.includes("processListChanged")) {
+				proc.window?.frame?.contentWindow?.postMessage({
+					...processListChangedMessage,
+					"eventSub": "programClosed"
+				});
+			}
+		});
+	});
 }
 
 /**
