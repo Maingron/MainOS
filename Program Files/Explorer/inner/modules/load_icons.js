@@ -55,6 +55,9 @@ function findFolderIcon(dirPath) {
 }
 
 function returnPathForFileIcon(path, useCustomIcon = true) {
+	if(!iofs.exists(path)) {
+		return "#iofs:C:/system/icons/broken_file.svg";
+	}
 	let filename = iofs.getName(path);
 	var fileending = filename.slice(filename.lastIndexOf("."));
 
