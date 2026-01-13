@@ -133,6 +133,44 @@ hr {
 	}
 }
 
+.loading {
+	&,
+	* {
+		user-select: none !important;
+		touch-action: none;
+		pointer-events: none;
+	}
+	* {
+		opacity: 0;
+		background-image: none !important;
+	}
+	background-image: linear-gradient(90deg,var(--bg-2) 0,var(--bg-2) 35%,var(--bg-4) 35%) !important;
+	animation: loading 3s ease infinite;
+	background-size: 200%;
+	background-position: 0 0;
+	forced-color-adjust: none;
+	background-repeat: no-repeat;
+
+	&::after {
+		content: "Loading...";
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		display: inline-block;
+		font-size: 2em;
+	}
+}
+
+@keyframes loading {
+	from {
+		background-position: 200% 0;
+	}
+	to {
+		background-position: -200% 0;
+	}
+}
+
 .altbar {
 	height: var(--altbarheight);
 	width:100%;
