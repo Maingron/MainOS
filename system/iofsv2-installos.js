@@ -97,7 +97,8 @@ const iofsv2_installos = {
             "C:/Program Files/run",
             "C:/users/default/programs",
             "C:/system/icons",
-            "C:/system/icons/usericons"
+            "C:/system/icons/usericons",
+			"C:/system/repositories"
         ];
 
         for(let dir of bulkDirs) {
@@ -125,6 +126,8 @@ const iofsv2_installos = {
             ["C:/mainos/system32/ExpectedVersion.txt", "###### mainos.version", "t=txt"],
             ["C:/mainos/system32/ExpectedVersionnr.txt", "###### mainos.versionnr", "t=txt"],
             ["C:/system/installed_programs.json", "{}", "t=txt"],
+			["C:/system/repositories/mainos.maingron.com-repo.json", null, "l=https://mainos.maingron.com/repo/repository.json,l$=2a", true],
+			["C:/system/repositories/mainos.maingron.com-test-repo.json.bak", null, "l=https://mainos.maingron.com/repo/repository-test.json,l$=2A", true]
         ];
         
         for(let file of bulkFiles) {

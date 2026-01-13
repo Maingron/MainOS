@@ -40,7 +40,6 @@ function returnNewSystemVariable() {
             license: "",
             serverpath: "https://mainos.maingron.com",
             serverroot: "https://mainos.maingron.com/repo",
-            serverrepository: "https://mainos.maingron.com/repo/repository.json",
             uid: ("OS-"+(Math.random().toString(36) + Math.random().toString(36)).replaceAll("0.","").toUpperCase()).substring(0, 20)
         },
         hostOS: {

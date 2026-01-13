@@ -63,31 +63,28 @@ if (iofs.exists("C:/mainos/customprograms.txt")) {
 
 
 if (system.user.settings.enableRepository) { // Load programs from repository if repository is enabled
-    try {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", system.osDetails.serverrepository, true); // TODO: Make async
-        xhr.onload = function() {
-            // program = Object.assign(program, ifjsonparse((xhr.responseText)));
-            const repoList = ifjsonparse(xhr.responseText);
-            setTimeout(function() {
-                for (let i in repoList) {
-                    system.user.programs[i] = repoList[i];
-                    if(repoList[i].disabled) {
-                        system.user.programs[i] = [];
-                        system.user.programs[i].maxopen = "0";
-                        system.user.programs[i].disabled = true;
-                        system.user.programs[i].spawnicon = false;
-                        system.user.programs[i].src = "about:blank";
-                        continue;
-                    }
-                    loadProgramMetadata(repoList[i]);
-                }
-            }, 100)
+	for(let repoFile of iofs.listdir("C:/system/repositories/")) {
+		if(!repoFile.endsWith(".json")) {
+			continue;
+		}
+		let repoFileData = iofs.load(repoFile);
+		try {
+			const repoFileJson = JSON.parse(repoFileData);
+			for(let entry of Object.keys(repoFileJson)) {
+				if(repoFileJson[entry].disabled) {
+					repoFileJson[entry] = [];
+					repoFileJson[entry].maxopen = "0";
+					repoFileJson[entry].disabled = true;
+					repoFileJson[entry].spawnicon = false;
+					repoFileJson[entry].src = "about:blank";
+					continue;
+				}
+				console.log(entry);
+				system.user.programs[entry] = repoFileJson[entry];
+			}
 
-        }
-        xhr.send();
-
-    } catch (e) {}
+		} catch(e) {}
+	}
 }
 
 
