@@ -414,6 +414,19 @@ export const iofs = {
 		xhr.send();
 	},
 
+	loadExternalSync: function(path) {
+		var xhr = new XMLHttpRequest();
+		try {
+			xhr.open("GET", path, false);
+			xhr.send();
+			if(xhr.status == 200) {
+				return xhr.responseText;
+			}
+		} catch (e) {
+			return null;
+		}
+	},
+
 	exists: function(path) {
 		path = this.sanitizePath(path);
 
