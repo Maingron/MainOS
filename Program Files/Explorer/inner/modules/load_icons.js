@@ -22,6 +22,12 @@ function loadIcons() {
 				overlayIconElement.setAttribute("src", "#iofs:C:/system/icons/folder.svg");
 				fileElement.insertBefore(overlayIconElement, fileElement.firstChild);
 			}
+		} else if(fileElement.getAttribute("linkedFile")) {
+			// Create overlay link icon
+			let overlayIconElement = document.createElement("img");
+			overlayIconElement.classList.add("link-overlay-icon");
+			overlayIconElement.setAttribute("src", "#iofs:C:/system/icons/shortcut.svg");
+			fileElement.insertBefore(overlayIconElement, fileElement.firstChild);
 		}
 	}
 }
@@ -74,18 +80,19 @@ function returnPathForFileIcon(path, useCustomIcon = true) {
 			}
 			return "#iofs:C:/system/icons/folder.svg";
 		}
-	}
-
-	if ([".txt", ".log"].includes(fileending)) {
-		return "#iofs:C:/Program Files/notepad/icon.png";
-	} else if ([".png", ".jpg", ".jpeg", ".svg"].includes(fileending)) {
+	} else if(iofs.getInfos(path).mime.category == "image") {
 		return "#iofs:" + path;
-	} else if (fileending == ".run") {
+	} else if(fileending == ".run") {
 		return JSON.parse(iofs.load(path)).icon;
+	} else if(iofs.typeof(path) == "link") {
+		if(iofs.getInfos(path).attributes["l$"]?.includes("0")) {
+			return returnPathForFileIcon(iofs.getInfos(path).attributes["l"]);
+		} else {
+			return "#iofs:" + iofs.getInfos(path)?.icon;
+		}
 	}
 
-	// Default icon
-	return "#iofs:C:/system/icons/unknown_file.svg";
+	return "#iofs:" + iofs.getInfos(path)?.icon;
 }
 
 document.addEventListener("DOMContentLoaded", function() {

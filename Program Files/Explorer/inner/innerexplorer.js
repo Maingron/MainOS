@@ -23,11 +23,52 @@ function explorerdo(path, action = "default") { // Shows directory or does stuff
 		explorerdo(currentPath, action);
 	}
 
-	if(iofs.exists(path) && iofs.typeof(path) == "file" && path != "/") { // explorerdofile() instead if is file but only if not requesting rootdir (/)
-		explorerdofile(path, action);
-		return;
+	if(iofs.exists(path) && path != "/") { // explorerdofile() instead if is file but only if not requesting rootdir (/)
+		if(iofs.typeof(path) == "file") {
+			explorerdofile(path, action);
+			return;
+		} else if(iofs.typeof(path) == "link") {
+			if(iofs.getInfos(path).attributes["l$"]?.includes("0") && iofs.exists(iofs.getInfos(path).attributes["l"])) {
+				return explorerdo(iofs.getInfos(path).attributes["l"], action);
+			} else if(iofs.getInfos(path).attributes["l$"]?.includes("1") || iofs.getInfos(path).attributes["l$"]?.includes("2")) {
+				return explorerdofile(path, action);
+			} else {
+				pWindow.interactionLock = os.popupWindow.generatePopupWindow({
+					"preset": "errorAlert",
+					"title": "Broken Link",
+					"text": `You are trying to open a link to a file that doesn't exist anymore.\n
+						Accessing: ${path}
+						Leading to missing file: ${lAttribute}`,
+					"sender": this,
+					"icon": iofs.load(system.icons.broken_file, false),
+					"actionButtons": [
+						{
+							"label": "Dismiss",
+							"action": "cancel",
+							"closePopup": true,
+							"autofocus": true
+						},
+						{
+							"label": "Delete Link",
+							"action": "deleteLink",
+							"closePopup": true
+						}
+					],
+					"actions": {
+						"cancel": function() {
+							pWindow.interactionLock = false;
+						},
+						"deleteLink": function() {
+							iofs.delete(path, true);
+							explorerdo(currentPath);
+							pWindow.interactionLock = false;
+						}
+					}
+				});
+				return;
+			}
+		}
 	}
-
 
     var filesInPath = iofs.listdir(path, 0); // List files
     filesInPath.sort();

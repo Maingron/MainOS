@@ -13,6 +13,11 @@ function applyFileAttributesToAll() {
 		}
 		var fileAttributes = iofs.getInfos(fileElement.getAttribute("path")).attributes;
 
+		if(fileAttributes["l"]) {
+			fileElement.classList.add("fattr-link_file");
+			fileElement.setAttribute("linkedFile", fileAttributes["l"]);
+		}
+
 		if(fileAttributes["A"]) {
 			let attribute = fileAttributes["A"].split("");
 			let newColorDotDiv = document.createElement("div");
