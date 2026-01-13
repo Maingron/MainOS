@@ -76,7 +76,13 @@ function returnIconPaths() {
         restart: ipath + "restart.svg",
         shutdown: ipath + "shutdown.svg",
         transparent: ipath + "transparent.png",
-        unknown_file: ipath + "unknown_file.svg"
+        broken_file: ipath + "broken_file.svg",
+        unknown_file: ipath + "unknown_file.svg",
+		filetypes: {
+			txt: system.paths.programs + "notepad/icon.png",
+			text: system.paths.programs + "notepad/icon.png",
+			image: system.paths.programs + "Photo Viewer/icon.svg"
+		}
     }
 }
 

@@ -156,6 +156,7 @@ const iofsv2_installos = {
             ["C:/system/initial_program_list.json", "system/initial_program_list.json", "t=txt"],
             ["C:/system/icons/usericons/guest.svg", "system/icons/usericons/guest.svg", "t=svg"],
             ["C:/system/icons/logo.svg", "img/logo.svg", "t=svg,A=0", 1],
+            ["C:/system/icons/broken_file.svg", "system/icons/broken_file.svg", "t=svg"],
             ["C:/system/icons/unknown_file.svg", "system/icons/unknown_file.svg", "t=svg"],
             ["C:/system/icons/transparent.png", "img/transparent.png", "t=png"],
             ["C:/system/icons/shutdown.svg", "system/icons/shutdown.svg", "t=svg"],

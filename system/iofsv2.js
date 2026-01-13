@@ -132,10 +132,11 @@ export const iofs = {
 				__: {
 					desc: "Text File",
 					prb64: false,
-					end: []
+					end: [],
+					icon: system?.icons?.filetypes?.text
 				},
 				plain: {
-					end: ["txt"],
+					end: ["txt", "log", "ini", "cfg", "conf", "inf"],
 					desc: "Plain Text File"
 				},
 				javascript: {
@@ -163,11 +164,30 @@ export const iofs = {
 					end: ["md", "markdown"]
 				}
 			},
+			font: {
+				__: {
+					desc: "Font File",
+					end: []
+				},
+				truetype: {
+					end: ["ttf", "ttc"]
+				},
+				opentype: {
+					end: ["otf"]
+				},
+				woff: {
+					end: ["woff"]
+				},
+				woff2: {
+					end: ["woff2"]
+				}
+			},
 			image: {
 				__: {
 					desc: "Image",
 					prb64: true,
-					end: []
+					end: [],
+					icon: system?.icons?.filetypes?.image
 				},
 				avif: {
 					end: ["avif"]
@@ -192,11 +212,11 @@ export const iofs = {
 				},
 				ico: {
 					mime: "x-icon",
-					end: ["ico"]
+					end: ["ico", "cur"]
 				},
 				svg: {
 					mime: "svg+xml",
-					end: ["svg"]
+					end: ["svg", "svgz"]
 				},
 				tiff: {
 					end: ["tiff", "tif"]
@@ -209,6 +229,18 @@ export const iofs = {
 				},
 				mp4: {
 					end: ["mp4", "m4v"]
+				},
+				avi: {
+					end: ["avi"]
+				},
+				mov: {
+					end: ["mov"]
+				},
+				mkv: {
+					end: ["mkv"]
+				},
+				flv: {
+					end: ["flv"]
 				},
 				webm: {
 					end: ["webm"]
@@ -224,6 +256,21 @@ export const iofs = {
 				},
 				mpeg: {
 					end: ["mp3"]
+				},
+				ogg: {
+					end: ["ogg", "oga"]
+				},
+				flac: {
+					end: ["flac"]
+				},
+				aac: {
+					end: ["aac"]
+				},
+				midi: {
+					end: ["mid", "midi"]
+				},
+				wma: {
+					end: ["wma"]
 				}
 			},
 			application: {
@@ -234,6 +281,11 @@ export const iofs = {
 				"7z": {
 					desc: "7-Zip Archive",
 					end: ["7z"]
+				},
+				"octet-stream": {
+					desc: "Binary File",
+					prb64: true,
+					end: ["bin", "exe", "dll", "dat"]
 				},
 				rar: {
 					desc: "RAR Archive",
@@ -250,6 +302,10 @@ export const iofs = {
 				epub: {
 					desc: "ePub Document",
 					end: ["epub"]
+				},
+				run: {
+					desc: "MainOS Executable",
+					end: ["run"]
 				}
 			}
 		};
@@ -320,6 +376,15 @@ export const iofs = {
 						result.probablyWantRaw = !mime[category].__.prb64;
 					} else {
 						result.probablyWantRaw = true;
+					}
+
+					if(mime[category][fileType].icon || mime[category].__.icon) {
+						result.icon = mime[category].__.icon;
+						if(mime[category][fileType].icon) {
+							result.icon = mime[category][fileType].icon;
+						}
+					} else {
+						result.icon = system?.icons?.unknown_file;
 					}
 
 					return result;
