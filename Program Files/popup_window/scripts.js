@@ -33,6 +33,23 @@ const popup_window_presets = {
 				console.log("More Info clicked");
 			}
 		}
+	},
+	errorAlert: {
+		"title": "Error",
+		"text": "An error has occurred.",
+		"height": "250px",
+		"width": "400px",
+		"actionButtons": [
+			{
+				"label": "Close",
+				"action": "close",
+				"closePopup": true,
+				"autofocus": true
+			}
+		],
+		"actions": {
+			"close": function() {}
+		}
 	}
 }
 
