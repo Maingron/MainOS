@@ -1,4 +1,5 @@
 var path = window.parent.attr;
+var fileIsReadonly = false;
 var object = {}
 object.savebutton = document.getElementById("savebutton");
 object.filename1 = document.getElementById("filename1");
@@ -6,14 +7,22 @@ object.textcontent = document.getElementById("textcontent");
 var objects = object;
 
 if (path) {
-    object.textcontent.value = iofs.load(path);
-    object.savebutton.innerHTML = "Save as " + path;
-    object.filename1.style.display = "none";
-	object.filename1.value = path;
-
 	addEventListener("message", () => {
 		if(event.data == "pWindowReady") {
-			pWindow.title = path.split("/").pop() + " - Notepad";
+			object.textcontent.value = iofs.load(path);
+
+			if(iofs.getInfos(path).attributes["l$"]?.includes("1") || iofs.getInfos(path).attributes["l$"]?.includes("2")) {
+				fileIsReadonly = true;
+				document.body.classList.add("readonly_file");
+				object.textcontent.setAttribute("readonly", "readonly");
+				pWindow.title = iofs.getInfos(path).attributes["l"] + " (Read-only) - Notepad";
+
+			} else {
+				object.savebutton.innerHTML = "Save as " + path;
+				object.filename1.style.display = "none";
+				object.filename1.value = path;
+				pWindow.title = path.split("/").pop() + " - Notepad";
+			}
 		}
 	});
 
@@ -22,12 +31,29 @@ if (path) {
 }
 
 function savetextfile() {
-    if (object.filename1.style.display == "none") {
-        iofs.save(path, object.textcontent.value, "t=txt", 1);
-    } else {
-        iofs.save(filename1.value, object.textcontent.value, "t=txt", 1);
-    }
-	textcontent.removeAttribute("changed");
+	let saveSuccess = false;
+	if (object.filename1.style.display == "none") {
+		if(iofs.save(path, object.textcontent.value, "t=txt", 1)) {
+			saveSuccess = true;
+		}
+	} else {
+		if(iofs.save(filename1.value, object.textcontent.value, "t=txt", 1)) {
+			saveSuccess = true;
+		}
+	}
+	if(saveSuccess) {
+		textcontent.removeAttribute("changed");
+		if(fileIsReadonly) {
+			os.run("notepad", filename1.value);
+			pWindow.close();
+		}
+	} else {
+		os.popupWindow.generatePopupWindow({
+			"preset": "errorAlert",
+			"title": "Error while saving file",
+			"text": "An error occurred while saving the file. \nMaybe try a different filename or location."
+		});
+	}
 }
 
 setInterval(function () {
@@ -53,7 +79,7 @@ textcontent.addEventListener("change", () => {
 addEventListener("message", () => {
 	if(event.data == "pWindowReady") {
 		pWindow.onBeforeUnrun = function() {
-			if(!textcontent.getAttribute("changed")) {
+			if(!textcontent.getAttribute("changed") || fileIsReadonly) {
 				return;
 			}
 
