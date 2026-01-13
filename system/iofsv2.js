@@ -15,6 +15,11 @@ export const iofs = {
 			return false;
 		}
 
+		if(attributesFromFileInFS["l"] != undefined) {
+			// Prevent writing content into links
+			return false;
+		}
+
 		if(attributes == false && this.exists(path)) {
 			attributes = attributesFromFileInFS || "";
 		}
@@ -61,6 +66,32 @@ export const iofs = {
 		return true;
 	},
 
+	saveLink: function(path, targetPath, linkAttributes = "0a", override = false) {
+		path = this.sanitizePath(path);
+		let attributes = "l$=" + linkAttributes;
+		// link types / attributes
+		// 0 = iofs
+		// 1 = external mainos resource
+		// 2 = generic http / https link
+		//
+		// a = cachable
+		// A = non-cachable
+
+		if(linkAttributes.indexOf("0") >= 0) {
+			targetPath = this.sanitizePath(targetPath);
+			if(!this.isAllowedPath(targetPath) || !this.exists(targetPath)) {
+				return false;
+			}
+		}
+
+		if(!this.isAllowedPath(path)) {
+			return false;
+		}
+
+
+		return this.save(path, "", attributes + ",l=" + targetPath, override, false, true);
+	},
+
 	load: function(path, raw = 1) {
 		if(!this.isAllowedPath(path)) {
 			return null;
@@ -70,6 +101,20 @@ export const iofs = {
 
 		if(!this.exists(path)) {
 			return null;
+		}
+
+		// If is link, load target file instead
+		if(this.getInfos(path).attributes["l"] != undefined) {
+			if(this.getInfos(path).attributes["l$"] != undefined) {
+				let l$ = this.getInfos(path).attributes["l$"].split("");
+				if(l$.includes("0")) { // iofs link
+					return this.load(this.getInfos(path).attributes["l"], raw);
+				} else if(l$.includes("1") || l$.includes("2")) { // external resource+
+					return iofs.loadExternalSync(this.getInfos(path).attributes["l"]);
+				}
+			} else {
+				return this.load(this.getInfos(path).attributes["l"], raw);
+			}
 		}
 
 		var fullFileContent;
@@ -83,9 +128,11 @@ export const iofs = {
 		var requestedContent = "";
 		requestedContent = fullFileContent.split("*")[1];
 
-			if(this.typeof(path) == "dir") {
-				requestedContent = JSON.parse(requestedContent);
-			}
+		if(this.typeof(path) == "dir") {
+			requestedContent = JSON.parse(requestedContent);
+		} else if(this.typeof(path) == "link") {
+			return this.load(this.getInfos(path).attributes["l"], raw);
+		}
 
 		if(this.typeof(path) == "dir") {
 			if(raw && typeof(requestedContent) == "object") {
@@ -443,8 +490,12 @@ export const iofs = {
 			return null;
 		}
 
-		if(localStorage.getItem(path).split("*")[0].indexOf("t=d") >= 0) {
+		let myType = localStorage.getItem(path).split("*")[0];
+
+		if(myType.indexOf("t=d") >= 0) {
 			return "dir";
+		} else if(myType.indexOf("l=") >= 0) {
+			return "link";
 		} else {
 			return "file";
 		}
