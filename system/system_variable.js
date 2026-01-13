@@ -105,7 +105,7 @@ function returnNewDefaultacc() {
 function getInitialSettings() {
     return {
         processManagement: {
-            windowCloseTimeout: 10000 // ms
+            windowCloseTimeout: 1000 // ms
         },
         big_buttons: false,
         borderradius: "4px",
