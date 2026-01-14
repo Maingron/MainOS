@@ -146,16 +146,24 @@ export const Taskbar = function() {
 			if(system?.runtime?.isOnline) {
 				this.htmlElementImg.title = "Online";
 				if(system.user.settings.prefersDarkMode) {
-					this.htmlElementImg.src = iofs.load(system.paths.icons.system + "wifi-dark.svg", false);
+					iofs.loadPromise(system.paths.icons.system + "wifi-dark.svg", false).then((result) => {
+						this.htmlElementImg.src = result;
+					});
 				} else {
-					this.htmlElementImg.src = iofs.load(system.paths.icons.system + "wifi.svg", false);
+					iofs.loadPromise(system.paths.icons.system + "wifi.svg", false).then((result) => {
+						this.htmlElementImg.src = result;
+					});
 				}
 			} else {
 				this.htmlElementImg.title = "Offline";
 				if(system.user.settings.prefersDarkMode) {
-					this.htmlElementImg.src = iofs.load(system.paths.icons.system + "wifi strike-dark.svg", false);
+					iofs.loadPromise(system.paths.icons.system + "wifi strike-dark.svg", false).then((result) => {
+						this.htmlElementImg.src = result;
+					});
 				} else {
-					this.htmlElementImg.src = iofs.load(system.paths.icons.system + "wifi strike.svg", false);
+					iofs.loadPromise(system.paths.icons.system + "wifi strike.svg", false).then((result) => {
+						this.htmlElementImg.src = result;
+					});
 				}
 			}
 		},
