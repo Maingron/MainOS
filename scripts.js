@@ -327,7 +327,6 @@ if (system.user.settings.default_fullscreen == 1) { // Enter fullscreen on start
 }
 
 
-document.querySelector(".desktop .desktop__background").style.backgroundImage = "url(" + iofs.load(system.user.settings.backgroundImage, false) + ")"; // Load Desktop Background
 document.getElementById("username").innerText = system.user.name; // Display username on desktop
 
 // Check space on disk
@@ -340,7 +339,10 @@ iofs.listdir(system.user.paths.programShortcuts).forEach((item) => {
 });
 
 window.setTimeout(() => {
-    if(_paq) {
+	iofs.loadPromise(system.user.settings.backgroundImage, false).then((resultImage) => {
+		document.querySelector(".desktop .desktop__background").style.backgroundImage = "url(" + resultImage + ")"; // Load Desktop Background
+	});
+	if(_paq) {
         _paq.push(['setUserId', system.osDetails.uid ?? 0]);
         _paq.push(['setCustomVariable', 1, 'version', system.osDetails.version, 'visit']);
         _paq.push(["setDocumentTitle", document.title]);
