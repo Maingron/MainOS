@@ -645,9 +645,13 @@ export const iofs = {
 			return false;
 		}
 
-		let file = this.load(source);
 		let fileInfos = this.getInfos(source);
-
+		let file = null;
+		if(fileInfos.attributes["l"] != undefined) {
+		} else {
+			file = this.load(source);
+		}
+		
 		this.save(destination, file, fileInfos.attributes, override);
 
 		if(fileInfos.type == "dir") {
