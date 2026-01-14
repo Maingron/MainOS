@@ -7,9 +7,13 @@ function initLoadIcons() {
 function loadIcons() {
 	for(fileElement of document.getElementById("content_files").children) {
 		var path = fileElement.attributes.path.value;
-		var newIconElement = document.createElement("img");
+		let newIconElement = document.createElement("img");
 		newIconElement.classList.add("icon");
-		newIconElement.setAttribute("src", returnPathForFileIcon(path));
+
+		returnFileIconAsync(path).then((fileIconPath) => {
+			newIconElement.setAttribute("src", fileIconPath);
+		});
+
 		fileElement.insertBefore(newIconElement, fileElement.firstChild);
 		
 		// Add folder overlay icon if this is a directory with a custom icon
@@ -58,6 +62,20 @@ function findFolderIcon(dirPath) {
 	
 	// No custom icon found
 	return null;
+}
+
+function returnFileIconAsync(path) {
+	return new Promise((resolve) => {
+		let fileIconPath = returnPathForFileIcon(path);
+		if(fileIconPath.startsWith("#iofs:")) {
+			let fileIconPathSplit = fileIconPath.split("#iofs:")[1];
+			iofs.loadPromise(fileIconPathSplit, false).then((resultImage) => {
+				resolve(resultImage);
+			});
+		} else {
+			resolve(fileIconPath);
+		}
+	});
 }
 
 function returnPathForFileIcon(path, useCustomIcon = true) {
