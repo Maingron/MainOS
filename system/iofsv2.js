@@ -483,22 +483,33 @@ export const iofs = {
 	},
 
 	loadExternal: function(path, callback) {
-		var xhr = new XMLHttpRequest();
-		xhr.open("GET", path, true);
-		xhr.responseType = "blob";
-		xhr.onload = function(e) {
-			if(this.status == 200) {
-				var fileReader = new FileReader();
-				fileReader.onload = function(event) {
-					// The result is now a Data URL
-					var result = event.target.result;
-					callback(atob(result.split("base64,")[1]));
+		caches.open('iofs-external-cache').then(function(cache) {
+			cache.match(path).then(function(response) {
+				if (response) {
+					response.text().then(function(text) {
+						callback(atob(text.split("base64,")[1]));
+					});
+				} else {
+					var xhr = new XMLHttpRequest();
+					xhr.open("GET", path, true);
+					xhr.responseType = "blob";
+					xhr.onload = function(e) {
+						if(this.status == 200) {
+							var fileReader = new FileReader();
+							fileReader.onload = function(event) {
+								// The result is now a Data URL
+								cache.put(path, new Response(event.target.result));
+								var result = event.target.result;
+								callback(atob(result.split("base64,")[1]));
+							}
+							// Correctly use readAsDataURL on the blob response
+							fileReader.readAsDataURL(this.response);
+						}
+					}
+					xhr.send();
 				}
-				// Correctly use readAsDataURL on the blob response
-				fileReader.readAsDataURL(this.response);
-			}
-		}
-		xhr.send();
+			});
+		});
 	},
 
 	loadExternalSync: function(path) {
