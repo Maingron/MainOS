@@ -12,19 +12,24 @@ var fileformat = "png";
 canvas.mousedown = false;
 
 
-
 if (path) {
+	document.querySelector("#imagep").classList.add("loading");
     var canvasbgimage = new Image();
-    canvasbgimage.src = iofs.load(path, false);
-    document.getElementById("filename1").value = path;
-    document.getElementById("loadcanvas").src = iofs.load(path, false);
-    window.setTimeout(function() {
-        setCanvasSize(document.getElementById("loadcanvas").offsetWidth, document.getElementById("loadcanvas").offsetHeight);
-        document.getElementById("imgwidth").value = canvas.width;
-        document.getElementById("imgheight").value = canvas.height;
+	document.getElementById("filename1").value = path;
+	iofs.loadPromise(path, false).then((resultImage) => {
+		canvasbgimage.src = resultImage;
+		document.getElementById("loadcanvas").src = resultImage;
+		
+		window.setTimeout(function() {
+			setCanvasSize(document.getElementById("loadcanvas").offsetWidth, document.getElementById("loadcanvas").offsetHeight);
+			document.getElementById("imgwidth").value = canvas.width;
+			document.getElementById("imgheight").value = canvas.height;
 
-        render();
-    },50);
+			render();
+		},50);
+
+		document.querySelector("#imagep").classList.remove("loading");
+	});
 } else {
     setCanvasSize(512, 512);
 }
