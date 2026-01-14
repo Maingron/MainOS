@@ -67,9 +67,10 @@ if (system.user.settings.enableRepository) { // Load programs from repository if
 		if(!repoFile.endsWith(".json")) {
 			continue;
 		}
-		let repoFileData = iofs.load(repoFile);
+		let repoFileData = iofs.load(repoFile, true);
 		try {
 			const repoFileJson = JSON.parse(repoFileData);
+
 			for(let entry of Object.keys(repoFileJson)) {
 				if(repoFileJson[entry].disabled) {
 					repoFileJson[entry] = [];
@@ -79,8 +80,8 @@ if (system.user.settings.enableRepository) { // Load programs from repository if
 					repoFileJson[entry].src = "about:blank";
 					continue;
 				}
-				console.log(entry);
 				system.user.programs[entry] = repoFileJson[entry];
+				
 			}
 
 		} catch(e) {}
