@@ -193,24 +193,34 @@ function addDesktopIcon(which) {
     }
 
     if(which.spawnicon != 0) {
-        var newProgIcon = document.createElement("a");
-        newProgIcon.className = "programicon has_hover";
-        newProgIcon.id = which.id;
-        newProgIcon.title = which.title;
-        newProgIcon.href = "#";
-        newProgIcon.innerHTML = `
-            <img src="${which.icon}" loading="lazy" alt="">
-            <span>${which.title}</span>
-        `;
-        newProgIcon.addEventListener("click", function() {
-            (async() => {
-                run(this.id);
-            })();
+		let newProgIcon = document.createElement("a");
+		newProgIcon.className = "programicon has_hover";
+		newProgIcon.id = which.id;
+		newProgIcon.title = which.title;
+		newProgIcon.href = "#";
 
-        });
+		newProgIcon.addEventListener("click", function() {
+			(async() => {
+				run(this.id);
+			})();
+		});
 
-        objects.progicons.appendChild(newProgIcon);
-    }
+		iofs.loadPromise(which.icon, false).then((resultImage) => {
+			newProgIcon.innerHTML = `
+				<img src="${resultImage}" loading="lazy" alt="">
+				<span>${which.title}</span>
+			`;
+
+
+			objects.progicons.appendChild(newProgIcon);
+		}).catch((e) => {
+			newProgIcon.innerHTML = `
+				<img src="${which.icon}" loading="lazy" alt="">
+				<span>${which.title}</span>
+			`;
+			objects.progicons.appendChild(newProgIcon);
+		});
+	}
 }
 
 function addProgramIconToFolder(which) {
