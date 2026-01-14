@@ -90,12 +90,13 @@ async function loadIOfsLink(element) {
         return false;
     }
 
-    let getRaw = iofs.getInfos(linkNoPrefix).probablyWantRaw;
-    if(!getRaw) {
-        base64Prefix = iofs.getInfos(linkNoPrefix).mime.base64prefix;
-    }
+    let getRaw = iofs.getInfos(linkNoPrefix)?.probablyWantRaw || false;
 
-    element[usedSrcAttribute] = iofs.load(linkNoPrefix, getRaw);
+	iofs.loadPromise(linkNoPrefix, getRaw).then((result) => {
+		element[usedSrcAttribute] = result;
+	});
+
+    element[usedSrcAttribute] = ""; // prevent double loading
 }
 
 
