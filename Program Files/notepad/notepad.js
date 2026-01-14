@@ -9,7 +9,11 @@ var objects = object;
 if (path) {
 	addEventListener("message", () => {
 		if(event.data == "pWindowReady") {
-			object.textcontent.value = iofs.load(path);
+			document.querySelector("#thediv").classList.add("loading");
+			iofs.loadPromise(path, true).then((fileContent) => {
+				object.textcontent.value = fileContent;
+				document.querySelector("#thediv").classList.remove("loading");
+			});
 
 			if(iofs.getInfos(path).attributes["l$"]?.includes("1") || iofs.getInfos(path).attributes["l$"]?.includes("2")) {
 				fileIsReadonly = true;
