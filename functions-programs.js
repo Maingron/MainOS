@@ -80,7 +80,7 @@ function run(which, iattr, how) { // Run a program
 
     myWindow.innerHTML = `
     <div class="headbar">
-        <img class="progicon" src="${myProgram.icon}" alt="${myProgram.title}">
+        <img loading="lazy" class="progicon" src="${myProgram.icon}" alt="${myProgram.title}">
         <p class="progtitle">${myProgram.title}</p>
         <div class="controls">
             <button class="reload has_hover" onclick="this.parentElement.parentElement.parentElement.getElementsByClassName('proframe')[0].contentWindow.location.reload()" href="#" title="Reload program" disabled="disabled">↻</button>
