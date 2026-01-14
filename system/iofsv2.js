@@ -538,6 +538,10 @@ export const iofs = {
 
 	sanitizePath: function(path = "") {
 		path = path.replaceAll("//", "/");
+		path = path.replaceAll("#iofs:", "");
+		path = path.replaceAll("iofs:", "");
+		path = path.replaceAll("#:", "");
+
 		if(path.indexOf("//") >= 0) {
 			path = this.sanitizePath(path);
 		}
