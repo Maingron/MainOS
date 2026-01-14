@@ -163,6 +163,46 @@ export const iofs = {
 		return requestedContent;
 	},
 
+	loadPromise: function(path, raw) {
+		return new Promise((resolve, reject) => {
+			if(!this.isAllowedPath(path)) {
+				reject(null);
+				return;
+			}
+			path = this.sanitizePath(path);
+			if(!this.exists(path)) {
+				reject(null);
+				return;
+			}
+
+			if(this.getInfos(path).attributes["l"] != undefined) {
+				if(this.getInfos(path).attributes["l$"] != undefined) {
+					let l$ = this.getInfos(path).attributes["l$"].split("");
+					if(l$.includes("0")) { // iofs link
+						this.loadPromise(this.getInfos(path).attributes["l"], raw).then((result) => {
+							resolve(result);
+						});
+						return;
+					} else if(l$.includes("1") || l$.includes("2")) { // external resource
+						this.loadExternal(this.getInfos(path).attributes["l"], function(result) {
+							if(!raw ?? !this.getInfos(path).probablyWantRaw) {
+								result = iofs.getInfos(path).mime.base64prefix + btoa(result);
+							}
+							return resolve(result);
+						});
+					}
+				} else {
+					this.loadPromise(this.getInfos(path).attributes["l"], raw).then((result) => {
+						resolve(result);
+					});
+					return;
+				}
+			} else {
+				return resolve(this.load(path, raw));
+			}
+		});
+	},
+
 	getInfos(path) {
 		if(!this.isAllowedPath(path)) {
 			return null;
