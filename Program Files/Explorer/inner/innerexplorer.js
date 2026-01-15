@@ -38,7 +38,7 @@ function explorerdo(path, action = "default") { // Shows directory or does stuff
 					"title": "Broken Link",
 					"text": `You are trying to open a link to a file that doesn't exist anymore.\n
 						Accessing: ${path}
-						Leading to missing file: ${lAttribute}`,
+						Leading to missing file: ${iofs.getInfos(path).attributes["l"]}`,
 					"sender": this,
 					"icon": iofs.load(system.icons.broken_file, false),
 					"actionButtons": [
