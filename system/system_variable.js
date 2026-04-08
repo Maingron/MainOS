@@ -77,6 +77,7 @@ function returnIconPaths() {
         transparent: ipath + "transparent.png",
         broken_file: ipath + "broken_file.svg",
         unknown_file: ipath + "unknown_file.svg",
+        save: ipath + "save.svg",
 		filetypes: {
 			txt: system.paths.programs + "notepad/icon.png",
 			text: system.paths.programs + "notepad/icon.png",

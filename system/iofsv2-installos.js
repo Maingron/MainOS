@@ -168,6 +168,7 @@ const iofsv2_installos = {
 			["C:/system/icons/wifi strike.svg", "system/icons/wifi strike.svg", "t=svg"],
 			["C:/system/icons/wifi-dark.svg", "system/icons/wifi-dark.svg", "t=svg"],
 			["C:/system/icons/wifi strike-dark.svg", "system/icons/wifi strike-dark.svg", "t=svg"],
+			["C:/system/icons/save.svg", "system/icons/save.svg", "t=svg"],
 			["C:/users/default/photos/fluent.svg", "users/default/photos/fluent.svg","t=svg"],
 			["C:/users/default/photos/Maingron 1024x.png", "users/default/photos/Maingron 1024x.png", "t=png"]
 		]
