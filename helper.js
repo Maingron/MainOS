@@ -104,6 +104,16 @@ async function loadIOfsLink(element) {
 const IOfsObserver = new MutationObserver(function(mutations) {
     if(mutations[0].type == "childList") {
         loadIOfsLinks();
+		document.querySelectorAll("*[icon]").forEach((element) => {
+			let wantedIcon = system.icons;
+			element.getAttribute("icon").split(".").forEach((part) => {
+				wantedIcon = wantedIcon[part];
+			});
+
+			iofs.loadPromise(wantedIcon).then((result) => {
+				element.style.setProperty("--icon", "url(" + result + ")");
+			});
+		});
     } else {
         return;
     }

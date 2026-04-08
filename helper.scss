@@ -105,6 +105,20 @@ textarea {
 
 button {
 	line-height: 2;
+	&[icon] {
+		position: relative;
+
+		&::before {
+			content: "";
+			display: inline-block;
+			mask: var(--icon) center / contain no-repeat;
+			background-color: currentColor;
+			width: 1em;
+			height: 1em;
+			padding-right: 1.25ch;
+			vertical-align: center;
+		}
+	}
 }
 
 meter {

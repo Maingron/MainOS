@@ -137,6 +137,10 @@ if(window.parent.attr && window.parent.attr?.caller?.generatePopupWindow) {
 						buttonHTML.setAttribute("autofocus", "autofocus");
 						buttonHTML.focus();
 					}
+
+					if(actionButton.icon) {
+						buttonHTML.setAttribute("icon", actionButton.icon);
+					}
 				}
 
 				document.querySelector("main").appendChild(actionButtonsContainer);
