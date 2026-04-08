@@ -299,11 +299,24 @@ hr {
 }
 
 .statusbar {
-	border-top:1px solid #555;
-	background:var(--bg-3);
-	width:100%;
+	border-top: 1px solid #555;
+	background: var(--bg-3);
+	width: 100%;
 	padding: 1px;
 	z-index: 100;
+	box-sizing: border-box;
+
+	&-buttonized {
+		display: flex;
+		flex-direction: row;
+		gap: 4px;
+		padding: 3px 4px 4px 4px;
+		justify-content: flex-end;
+
+		button {
+			padding: 4px 1.5ch;
+		}
+	}
 }
 
 .contextMenu {
