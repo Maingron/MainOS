@@ -105,13 +105,21 @@ const IOfsObserver = new MutationObserver(function(mutations) {
     if(mutations[0].type == "childList") {
         loadIOfsLinks();
 		document.querySelectorAll("*[icon]").forEach((element) => {
+			let iconIn = element.getAttribute("icon");
+			if(iconIn.includes(":")) {
+				iconIn = iconIn.split(":")[0];
+			}
+
 			let wantedIcon = system.icons;
-			element.getAttribute("icon").split(".").forEach((part) => {
+			iconIn.split(".").forEach((part) => {
 				wantedIcon = wantedIcon[part];
 			});
 
 			iofs.loadPromise(wantedIcon).then((result) => {
 				element.style.setProperty("--icon", "url(" + result + ")");
+				if(element.getAttribute("icon").includes(":mono")) {
+					element.classList.add("icon:mono")
+				}
 			});
 		});
     } else {

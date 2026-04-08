@@ -116,19 +116,32 @@ textarea {
 
 button {
 	line-height: 2;
-	&[icon] {
-		position: relative;
+}
 
+[icon] {
+	position: relative;
+	&::before {
+		content: "";
+		display: inline-block;
+		background-color: currentColor;
+		width: 1em;
+		height: 1em;
+		vertical-align: center;
+		mask: var(--icon) center / contain no-repeat;
+		background-image: var(--icon);
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	&.icon\:mono {
 		&::before {
-			content: "";
-			display: inline-block;
-			mask: var(--icon) center / contain no-repeat;
-			background-color: currentColor;
-			width: 1em;
-			height: 1em;
-			padding-right: 1.25ch;
-			vertical-align: center;
+			background-image: none;
 		}
+	}
+
+	&:not(:empty)::before {
+		padding-right: 1.25ch;
 	}
 }
 
