@@ -138,6 +138,7 @@ function getInitialSettings() {
         taskbar: {
             showLang: true,
             showClock: true,
+			clockShowSeconds: false,
             showShowDesktop: true,
             showShowDesktopWidth: 8, // px
             showProgramTitle: false,

@@ -177,9 +177,15 @@ export const Taskbar = function() {
 
 		// showClock
 			if(system.user.settings.taskbar.showClock) {
-				self.clock.interval = setInterval(function() {
-					self.clock.htmlElement.innerHTML = systemRuntime.time().whatTime();
-				}, 500);
+				if(system?.user?.settings?.taskbar?.clockShowSeconds) {
+					self.clock.interval = setInterval(function() {
+						self.clock.htmlElement.innerHTML = systemRuntime.time().whatTimeAndSeconds();
+					}, 90);
+				} else {
+					self.clock.interval = setInterval(function() {
+						self.clock.htmlElement.innerHTML = systemRuntime.time().whatTime();
+					}, 500);
+				}
 				self.clock.htmlElement.classList.remove("hidden");
 			} else {
 				self.clock.htmlElement.classList.add("hidden");
