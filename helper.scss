@@ -30,6 +30,12 @@
 	--bg-3: var(--black3);
 	--bg-4: var(--black4);
 	--bg-5: var(--black5);
+
+	--breakpoint-xs: 320px;
+	--breakpoint-sm: 420px;
+	--breakpoint-md: 576px;
+	--breakpoint-lg: 1000px;
+	--breakpoint-xl: 1200px;
 }
 
 html,
