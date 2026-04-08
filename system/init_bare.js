@@ -49,11 +49,19 @@ export const initBare = {
 					}
 			
 					result.whatTime = function() {
-						return toDoubleDigit(this.getHours()) + ":" + toDoubleDigit(this.getMinutes());
+						if(system?.user?.settings?.locale?.time24h) {
+							return toDoubleDigit(this.getHours()) + ":" + toDoubleDigit(this.getMinutes());
+						} else {
+							return ((this.getHours() % 12) || 12) + ":" + toDoubleDigit(this.getMinutes()) + (this.getHours() >= 12 ? " PM" : " AM");
+						}
 					}
 			
 					result.whatTimeAndSeconds = function() {
-						return this.whatTime() + ":" + toDoubleDigit(this.getSeconds());
+						if(system?.user?.settings?.locale?.time24h) {
+							return this.whatTime() + ":" + toDoubleDigit(this.getSeconds());
+						} else {
+							return ((this.getHours() % 12) || 12) + ":" + toDoubleDigit(this.getMinutes()) + ":" + toDoubleDigit(this.getSeconds()) + (this.getHours() >= 12 ? " PM" : " AM");
+						}
 					}
 			
 					result.whatDate = function() {
