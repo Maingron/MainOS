@@ -153,6 +153,7 @@ function getInitialSettings() {
             showShowDesktopWidth: 8, // px
             showProgramTitle: false,
             showOnlineStatus: true,
+            showBatteryStatus: true,
             height: 45, // px
             // wip
             position: "bottom"
