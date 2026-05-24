@@ -4,6 +4,8 @@
 ![CodeQL](https://github.com/Maingron/MainOS/actions/workflows/codeql-analysis.yml/badge.svg)
 ![OSSAR](https://github.com/Maingron/MainOS/actions/workflows/ossar.yml/badge.svg)
 
+Links: [Latest Development Version](https://mainos.github.maingron.com/), [Itch.io](https://maingron.itch.io/mainos), [Website / Project site](https://maingron.com/about_mainos)
+
 ## About MainOS
 
 MainOS (short for **Maingron OS**) is a browser based Operating System, originally trying to look like Windows XP. It started as a fun little project. Nowadays it's more and more taking it's own, serious path and tries to be a productivity tool.
@@ -12,26 +14,28 @@ I started MainOS at work a few years ago, because my boss told me to learn CSS. 
 
 If you want to contribute, that would be nice. It's hard to keep up as a single person.
 
-**Website / Project site: [maingron.com/about_mainos](https://maingron.com/about_mainos)**
-
 
 ## Screenshots
 Latest screenshot on top
 
-MainOS Version 180
+### MainOS Version 180
 ![image](https://maingron.com/img/mainos/version_00180.png)
 
-MainOS Version 175
+### MainOS Version 175
 ![image](https://maingron.com/img/mainos/version_00175.png)
 
-MainOS Version 160
+### MainOS Version 160
 ![image](https://maingron.com/img/mainos/version_00160.png)
 
-MainOS Version 90
+### MainOS Version 90
 ![image](https://maingron.com/img/mainos/version_00090.png)
 
-MainOS Version 0BH
+### MainOS Version 0BH
 ![image](https://maingron.com/img/mainos/version_0BH.png)
 
-MainOS Version 0AT
+### MainOS Version 0AT
 ![image](https://maingron.com/img/mainos/version_0AT.png)
+
+### Logo
+#### SVG
+![MainOS Logo SVG](img/logo.svg)
