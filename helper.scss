@@ -1,5 +1,5 @@
 :root {
-	--themecolor: #940;
+	--themecolor: #241f31;
 	--font: sans-serif;
 	--black: #000;
 	--black2: #151515;
@@ -118,6 +118,10 @@ textarea {
 	color: #000;
 	font-size: 1em;
 	border-radius: var(--border-radius);
+
+	[readonly] {
+		cursor: not-allowed;
+	}
 }
 
 button {

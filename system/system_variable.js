@@ -135,8 +135,8 @@ function getInitialSettings() {
         notsodarkmode: false,
         enableRepository: true,
         theme: "default",
-        themecolor: "#994400",
-        themecolor2: "#dd6600",
+        themecolor: "#241f31",
+        themecolor2: "#453b5e",
         prefersDarkMode: system.hostOS.prefersDarkMode,
         backgroundImage: "C:/users/public/photos/fluent.svg",
         accessibility: {
@@ -153,7 +153,7 @@ function getInitialSettings() {
             showShowDesktopWidth: 8, // px
             showProgramTitle: false,
             showOnlineStatus: true,
-            height: 45, // px
+            height: 44, // px
             // wip
             position: "bottom"
         },

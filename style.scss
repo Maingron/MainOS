@@ -4,7 +4,7 @@ html,
 body {
 	margin: 0;
 	padding: 0;
-	background-color: #853;
+	background-color: var(--themecolor);
 	overflow: clip;
 	overscroll-behavior: none;
 	position: relative;
@@ -765,6 +765,7 @@ body {
 		overflow: hidden;
 		border-top-left-radius: var(--border-radius);
 		border-top-right-radius: var(--border-radius);
+		
 		* {
 			display: inline;
 			transition: .5s;
@@ -801,19 +802,19 @@ body {
 				// border-left: 1px solid #fff;
 				// border-bottom: 1px solid #fff;
 				z-index: 1;
-				font-size: 1.2rem;
+				font-size: 1rem;
 				line-height: 0;
 				text-align: center;
 				justify-content: center;
 				object-fit: contain;
-				border-radius: 0;
+				border-radius: 2px;
 				background:transparent;
 
 				img {
 					height: 100%;
 					// width: 100%;
 					max-width: 100%;
-					padding: 15%;
+					padding: 20%;
 					font-size: 0;
 					aspect-ratio: 1/1;
 				}
@@ -826,6 +827,7 @@ body {
 
 				&.close {
 					order: 10000;
+					background:var(--themecolor2);
 					&:hover {
 						background-color: #f00 !important;
 					}
@@ -833,10 +835,12 @@ body {
 
 				&.max {
 					order: 9500;
+					background:var(--themecolor2);
 					// background-color: var(--themecolor2);
 				}
 
 				&.minimize {
+					background:var(--themecolor2);
 					order: 9000;
 					// background-color: var(--themecolor2);
 				}
