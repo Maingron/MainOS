@@ -140,6 +140,17 @@ h1, h2, h3, h4, h5, h6 {
 	gap: 2rem;
 	pointer-events: none;
 
+	&:has([modified]) {
+		.settingname::before {
+			content: " ";
+			border-radius: 99px;
+			height: .5em;
+			width: .5em;
+			display: inline-block;
+			background: var(--themecolor2);
+		}
+	}
+
 	.settingname {
 		flex: 1;
 		text-align: right;

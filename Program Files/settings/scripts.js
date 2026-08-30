@@ -1,9 +1,11 @@
 var settingtabs = document.getElementsByClassName("settingtab");
 var objects = {};
 var settingsChanged = [];
+var systemCached;
+var initialized = false;
 
 var settings = [
-    {category: "Customisation", id: "customisation", settings: [
+	{category: "Customisation", id: "customisation", settings: [
 		{category: "Appearance", settings: [
 			{name: "Theme Color", type: "input>color", id: "system.user.settings.themecolor"},
 			{name: "Accent Color", type: "input>color", id: "system.user.settings.themecolor2"},
@@ -76,6 +78,7 @@ var settings = [
 	{category: "User settings", id: "user", settings: [
 		{name: "Your Username", type: "input>text", id: "system.user.name", disabled: true},
 		{name: "Your Password", type: "input>password", id: "dummy.system.user.password", disabled: true},
+		{name: "User UID", type: "input>text", id: "system.user.uid", readonly: true},
 		{name: "Autologin", type: "input>text", id: "system.autologin"}
 	]},
 	{category: "Developer Settings", id: "developer", scope: "developer", settings: [
@@ -100,54 +103,66 @@ var settings = [
 
 
 function createCategories() {
-    for(category of settings) {
-        var categoryElement = document.createElement("div");
-        categoryElement.className = "category";
-        categoryElement.id = category.id;
-        categoryElement.innerHTML = `
-            <header>
-				<a class="category-go-back has_hover" icon="folder_up" href="#sidebar"></a>
-				${category.category}</header>
-            <div class="settings">
-            </div>
-        `;
+	for (category of settings) {
+		var categoryElement;
+		var sidebarElement;
 
+		if (document.querySelector(".category#" + category.id)) {
+			categoryElement = document.querySelector(".category#" + category.id);
+		} else {
+			categoryElement = document.createElement("div");
+			categoryElement.className = "category";
+			categoryElement.id = category.id;
+			categoryElement.innerHTML = `
+				<header>
+					<a class="category-go-back has_hover" icon="folder_up" href="#sidebar"></a>
+					${category.category}
+				</header>
+				<div class="settings">
+				</div>
+			`;
 
-        document.getElementById("categorycontainer").appendChild(categoryElement);
-
-        var sidebarElement = document.createElement("a");
-		sidebarElement.classList.add("has_hover");
-		sidebarElement.href = `#${category.id}`;
-		sidebarElement.innerText = category.category;
-		sidebarElement.onclick = function() {
-			document.querySelectorAll("#sidebar a.active").forEach((element) => {
-				element.classList.remove("active");
-			});
-			this.classList.add("active");
+			document.getElementById("categorycontainer").appendChild(categoryElement);
 		}
 
-        if(category.scope == "developer" && !system.user.settings.developer.enable) {
-            category.setAttribute("disabled", "disabled");
-        }
+		if (document.querySelector("#sidebar a[href='#" + category.id + "']")) {
+			sidebarElement = document.querySelector("#sidebar a[href='#" + category.id + "']");
+		} else {
+			sidebarElement = document.createElement("a");
+			sidebarElement.classList.add("has_hover");
+			sidebarElement.href = `#${category.id}`;
+			sidebarElement.innerText = category.category;
+			sidebarElement.onclick = function() {
+				document.querySelectorAll("#sidebar a.active").forEach((element) => {
+					element.classList.remove("active");
+				});
+				this.classList.add("active");
+			}
 
+			document.getElementById("sidebar").appendChild(sidebarElement);
+		}
 
-        document.getElementById("sidebar").appendChild(sidebarElement);
+		if (category.scope == "developer" && !system.user.settings.developer.enable) {
+			category.disabled = true;
+			// categoryElement.setAttribute("disabled", "disabled");
+		}
 
-        if(category.disabled && !system.user.settings?.developer?.enableAllSettings) {
-            categoryElement.setAttribute("disabled", "disabled");
-            sidebarElement.setAttribute("disabled", "disabled");
-        }
+		if (category.disabled && !system.user.settings?.developer?.enableAllSettings) {
+			categoryElement.setAttribute("disabled", "disabled");
+			sidebarElement.setAttribute("disabled", "disabled");
+		}
 
-
-        applySettingsToCategory(category.id);
-    }
+		applySettingsToCategory(category.id);
+	}
 }
 
 function buildSingleSetting(settingObj) {
 	if(settingObj.category) {
 		let subcategoryElement = document.createElement("details");
 		subcategoryElement.className = "subcategory";
-		subcategoryElement.id = settingObj.id;
+		if (subcategoryElement.id) {
+			subcategoryElement.id = settingObj.id;
+		}
 		subcategoryElement.open = "open";
 		subcategoryElement.innerHTML = `
 			<summary inert>${settingObj.category}</summary>
@@ -170,6 +185,10 @@ function buildSingleSetting(settingObj) {
 			</span>
 		`;
 
+		if (setting.id) {
+			settingElement.setAttribute("for", setting.id);
+		}
+
 		let settingElementInner = document.createElement("span");
 		settingElementInner.className = "settinginput";
 
@@ -190,9 +209,11 @@ function buildSingleSetting(settingObj) {
 			if(setting.type.split(">")[1] == "checkbox") {
 				if(parseSystemVariableSettingsPath(setting.id) == true) {
 					settingInput.checked = "checked";
+					settingInput.setAttribute("checked", "checked");
 				}
 			} else {
 				settingInput.value = parseSystemVariableSettingsPath(setting.id);
+				// settingInput.setAttribute("value", parseSystemVariableSettingsPath(setting.id));
 			}
 		} else if(setting.type == "select" || setting.type == "select>multiselect") {
 			settingInput = document.createElement("select");
@@ -200,14 +221,19 @@ function buildSingleSetting(settingObj) {
 				var optionElement = document.createElement("option");
 				optionElement.value = option.value;
 				optionElement.innerHTML = option.name;
+				if (parseSystemVariableSettingsPath(setting.id) == option.value) {
+					optionElement.selected = "selected";
+				}
 				settingInput.appendChild(optionElement);
 			}
 			if(setting.type == "select>multiselect") {
 				settingInput.setAttribute("multiple", "multiple");
+				settingInput.removeAttribute("value");
+				settingInput.value = "";
 				let currentValues = parseSystemVariableSettingsPath(setting.id);
-				for(optionElement of settingInput.options) {
+				for (optionElement of settingInput.options) {
 					if(currentValues?.includes(optionElement.value)) {
-						optionElement.selected = "selected";
+						optionElement.setAttribute("selected", "selected");
 					}
 				}
 			}
@@ -231,21 +257,11 @@ function buildSingleSetting(settingObj) {
 		settingInput.title = setting.id;
 		settingInput.id = setting.id;
 		settingInput.name = setting.id;
-		
-		if(setting.min) {
-			settingInput.min = setting.min;
-		}
 
-		if(setting.max) {
-			settingInput.max = setting.max;
-		}
-
-		if(setting.step) {
-			settingInput.step = setting.step;
-		}
-
-		if(setting.size) {
-			settingInput.size = setting.size;
+		for (const prop of ["min", "max", "step", "size"]) {
+			if (setting[prop] !== undefined && setting[prop] !== null) {
+				settingInput[prop] = setting[prop];
+			}
 		}
 
 
@@ -253,11 +269,23 @@ function buildSingleSetting(settingObj) {
 			settingInput.setAttribute("disabled", "disabled");
 		}
 
-		settingInput.setAttribute("onchange", setting.id + " = this.value; settingChanged(this);");
-
-		if(setting.type?.split(">")[1] == "checkbox") {
-			settingInput.setAttribute("onchange", setting.id + " = this.checked; settingChanged(this);");
+		if (setting.readonly && !system.user.settings.developer.enableAllSettings) {
+			settingInput.setAttribute("readonly", "readonly");
 		}
+
+		switch (setting.type?.split(">")[1]) {
+			case "checkbox":
+				settingInput.setAttribute("onchange", "settingChanged(this, this.checked);");
+				break;
+
+			case "multiselect":
+				settingInput.setAttribute("onchange", "settingChanged(this, this);");
+				
+
+			default:
+				settingInput.setAttribute("onchange", "settingChanged(this, this.value);");
+		}
+
 
 		return settingInput;
 	}
@@ -265,33 +293,64 @@ function buildSingleSetting(settingObj) {
 
 function applySettingsToCategory(categoryName) {
 	var category = settings.find(category => category.id == categoryName);
-	for(setting of category.settings) {
-		document.getElementById(category.id).getElementsByClassName("settings")[0].appendChild(buildSingleSetting(setting));
-    }
+	
+	for (setting of category.settings) {
+		let builtSetting = buildSingleSetting(setting);
+		if (document.getElementById(builtSetting.getAttribute("for"))) {
+			builtSetting.querySelectorAll("*").forEach((e) => {
+				if (e.id == builtSetting.getAttribute("for")) {
+					document.getElementById(builtSetting.getAttribute("for")).parentElement.replaceWith(e.parentElement);
+				}
+			});
+		} else {
+			if (builtSetting.classList.contains("subcategory") && initialized) {
+				builtSetting.querySelectorAll("*:not(span)").forEach((e) => {
+					if (e.classList.contains("settinginput")) {
+						document.getElementById(e.id).parentElement.replaceWith(e.parentElement);
+					}
+				})
+			} else {
+				document.getElementById(category.id).getElementsByClassName("settings")[0].appendChild(builtSetting);
+			}
+		}
+	}
 }
 
 function parseSystemVariableSettingsPath(path) {
-    var splitPath = path.split(".");
-    if(splitPath[0] == "dummy") {
-        return "";
-    }
-    splitPath.shift();
-    let sysvar = system;
-
-    for(let i = 0; i < splitPath.length; i++) {
+	let splitPath = path.split(".");
+	if(splitPath[0] == "dummy") {
+		return "";
+	}
+	splitPath.shift();
+	let sysvar = systemCached;
+	
+	for(let i = 0; i < splitPath.length; i++) {
 		if(sysvar[splitPath[i]] === undefined) {
 			return "";
 		}
-        sysvar = sysvar[splitPath[i]];
-    }
-
-    
-    return sysvar;
+		sysvar = sysvar[splitPath[i]];
+	}
+	
+	
+	return sysvar;
 }
 
 
-function settingChanged(which) {
-	settingsChanged.push(which.id);
+function settingChanged(which, value) {
+	let valueR;
+	switch (which.tagName.toLowerCase()) {
+		case "select":
+			if (which.multiple) { // Multiselect
+				valueR = Array.from(which.selectedOptions).map(({ value }) => value);
+			}
+	}
+	if (!valueR) {
+		valueR = value;
+	}
+	let whichWithoutPrefix = which.id.split("system.")[1];
+	settingsChanged.push([whichWithoutPrefix, valueR]);
+
+	which.setAttribute("modified", "modified");
 
 	document.querySelectorAll("#button-save").forEach(button => {
 		button.disabled = false;
@@ -299,6 +358,19 @@ function settingChanged(which) {
 }
 
 function saveChangedSettings() {
+	fetchSystemSettings();
+	settingsChanged.forEach((a, b) => {
+		let resVar = system;
+		const parts = a[0].split(".");
+
+		parts.forEach((c, i) => {
+			if (i === parts.length - 1) {
+				resVar[c] = a[1];
+			} else {
+				resVar = resVar[c];
+			}
+		});
+	});
 	os.saveSystemVariable();
 	os.refreshCSSVars();
 	refreshCSSVars();
@@ -310,14 +382,25 @@ function saveChangedSettings() {
 	settingsChanged = [];
 }
 
+function fetchSystemSettings() {
+	systemCached = system;
+}
+
+
+function init() {
+	os.refreshCSSVars();
+	fetchSystemSettings();
+	createCategories();
+	initialized = true;
+}
+
 window.addEventListener('message', function (event) {
 	if (event.data === 'pWindowReady') {
 		if(!window.location.hash) {
 			window.location.hash = "#sidebar";
 		}
-		os.loadsettings();
-		os.refreshCSSVars();
-		createCategories();
+
+		init();
 
 		pWindow.onBeforeUnrun = function() {
 			if(!settingsChanged.length) {
@@ -368,5 +451,8 @@ window.addEventListener('message', function (event) {
 
 			return false;
 		}
+	} else if (event.data === 'systemSettingsChanged') {
+		fetchSystemSettings();
+		createCategories();
 	}
 });
