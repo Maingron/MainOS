@@ -93,6 +93,7 @@ function run(which, iattr, how) { // Run a program
             </button>
         </div>
         <div class="drag"></div>
+        <div class="snap-overlay" inert></div>
     </div>
     <div class="resizers">
         <div class="resizer2"></div>
@@ -157,8 +158,14 @@ function run(which, iattr, how) { // Run a program
 			}
 			if(systemRuntime.clicking == 1 && !myWindow.classList.contains("maximized")) {
 				overlayDragBar(this, true);
-				dragWindow(getWindowByMagic(myWindow), systemRuntime.pos.mouseX , systemRuntime.pos.mouseY, (myWindow.offsetLeft + event.clientX), (myWindow.offsetTop + event.clientY));
+				dragWindow(getWindowByMagic(myWindow), systemRuntime.pos.mouseX, systemRuntime.pos.mouseY, (myWindow.offsetLeft + event.clientX), (myWindow.offsetTop + event.clientY));
+				snapWindow(getWindowByMagic(myWindow), systemRuntime.pos.mouseX, systemRuntime.pos.mouseY, true);
+				this.addEventListener("mouseup", function() {
+					snapWindow(getWindowByMagic(myWindow), systemRuntime.pos.mouseX, systemRuntime.pos.mouseY, true);
+					snapWindow(getWindowByMagic(myWindow), systemRuntime.pos.mouseX, systemRuntime.pos.mouseY, false);
+				}, {"once": true})
 			} else {
+				snapWindow(getWindowByMagic(myWindow), 0, 0, true, true);
 				overlayDragBar(this, false);
 			}
 		});
@@ -564,7 +571,7 @@ function run(which, iattr, how) { // Run a program
 			}
 		}
 
-		myWindow.pWindow.setStyleProperty = function(property, value) {
+		myWindow.pWindow.setStyleProperty = function (property, value) {
 			protectedData.styles[property] = value;
 			let propertySanitized = property.toLowerCase().trim();
 			let myStyles = this.getStyles();
@@ -718,6 +725,71 @@ function setWindowAlwaysOnTop(which, state) {
     }
 }
 
+function snapWindow(which, x, y, dryRun = false, clearOnly = false) {
+	let overlay = which.getElementsByClassName("snap-overlay")[0];
+	const s = 20;
+	let hit = false;
+	let hitMaximize = false;
+	let w, h;
+	overlay.style.display = "none";
+	if (clearOnly) {
+		return;
+	}
+
+	function snapIt(which, x, y, w, h) {
+		if (!hit) {
+			return;
+		}
+
+		if (dryRun) {
+			overlay.style.display = "inline-block";
+			overlay.style.height = h;
+			overlay.style.width = w;
+			overlay.style.left = x + "px";
+			overlay.style.top = y + "px";
+		} else {
+			overlay.style.display = "none";
+			if (hitMaximize) {
+				setWindowMaximized(which, true);
+			} else {
+			dragWindow(which, 0, 0, x, y);
+			resizeWindow(which, w, h);
+			}
+		}
+	}
+	if (x <= s || x >= document.body.offsetWidth - s) {
+		hit = true;
+		h = "100%";
+		w = "50%";
+
+		if (x <= s) {
+			x = 0;
+		} else {
+			x = document.body.offsetWidth / 2;
+		}
+
+		if (y <= s || y >= document.body.offsetHeight - s - system.user.settings.taskbar.height) {
+			h = "50%";
+			if (y <= s) {
+				y = 0;
+			} else {
+				y = document.body.offsetHeight / 2 - system.user.settings.taskbar.height / 2;
+			}
+		} else {
+			y = 0;
+		}
+	} else if (y <= s) {
+		hit = true;
+		hitMaximize = true;
+		x = 0;
+		y = 0;
+		h = "100%";
+		w = "100%";
+	}
+
+	snapIt(which, x, y, w, h);	
+}
+
 /**
  * Positions a window at a specific position
  * @param which which window
@@ -728,12 +800,12 @@ function setWindowAlwaysOnTop(which, state) {
  */
 function dragWindow(which, x, y, offsetX = 0, offsetY = 0) {
 	// If is number without unit, assume px
-	if(x && isFinite(x)) {
+	if(x != undefined && isFinite(x)) {
 		x = offsetX - x + "px";
 	}
 
 	// If is number without unit, assume px
-	if(y && isFinite(y)) {
+	if(y != undefined && isFinite(y)) {
 		y = offsetY - y + "px";
 	}
 
@@ -795,10 +867,12 @@ function overlayDragBar(which, onoff) {
     if(which.classList.contains("drag")) {
         if(onoff == false) { // Turn off
             which.style.position = "";
-            which.style.zIndex = "";
+			which.style.zIndex = "";
+			document.getElementById("taskbar").removeAttribute("inert");
         } else if(onoff == true) { // Turn on
             which.style.position = "fixed";
-            which.style.zIndex = "99999";
+			which.style.zIndex = "99999";
+			document.getElementById("taskbar").setAttribute("inert", "inert");
         }
     }
 }
